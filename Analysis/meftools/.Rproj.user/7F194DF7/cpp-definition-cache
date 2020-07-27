@@ -94,15 +94,6 @@
                 "column": 26
             },
             {
-                "usr": "c:@SA@INDEX_DATA",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include/meftools_types.h",
-                "line": 149,
-                "column": 11
-            },
-            {
                 "usr": "c:@T@INDEX_DATA",
                 "kind": 8,
                 "parent_name": "",
@@ -110,15 +101,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include/meftools_types.h",
                 "line": 153,
                 "column": 5
-            },
-            {
-                "usr": "c:@N@Rcpp@SA@MEF_HEADER_INFO",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include/meftools_types.h",
-                "line": 159,
-                "column": 11
             },
             {
                 "usr": "c:@N@Rcpp@T@MEF_HEADER_INFO",
@@ -130,15 +112,6 @@
                 "column": 5
             },
             {
-                "usr": "c:@SA@RED_BLOCK_HDR_INFO",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include/meftools_types.h",
-                "line": 217,
-                "column": 11
-            },
-            {
                 "usr": "c:@T@RED_BLOCK_HDR_INFO",
                 "kind": 8,
                 "parent_name": "",
@@ -146,15 +119,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include/meftools_types.h",
                 "line": 227,
                 "column": 5
-            },
-            {
-                "usr": "c:@SA@RANGE_STATS",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include/meftools_types.h",
-                "line": 230,
-                "column": 11
             },
             {
                 "usr": "c:@T@RANGE_STATS",
@@ -760,15 +724,6 @@
                 "column": 22
             },
             {
-                "usr": "c:@SA@INDEX_DATA",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 234,
-                "column": 9
-            },
-            {
                 "usr": "c:@T@INDEX_DATA",
                 "kind": 8,
                 "parent_name": "",
@@ -776,15 +731,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
                 "line": 238,
                 "column": 3
-            },
-            {
-                "usr": "c:@SA@MEF_HEADER_INFO",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 241,
-                "column": 9
             },
             {
                 "usr": "c:@T@MEF_HEADER_INFO",
@@ -796,15 +742,6 @@
                 "column": 3
             },
             {
-                "usr": "c:@SA@RED_BLOCK_HDR_INFO",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 323,
-                "column": 9
-            },
-            {
                 "usr": "c:@T@RED_BLOCK_HDR_INFO",
                 "kind": 8,
                 "parent_name": "",
@@ -814,15 +751,6 @@
                 "column": 3
             },
             {
-                "usr": "c:@SA@RANGE_STATS",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 344,
-                "column": 9
-            },
-            {
                 "usr": "c:@T@RANGE_STATS",
                 "kind": 8,
                 "parent_name": "",
@@ -830,15 +758,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
                 "line": 350,
                 "column": 3
-            },
-            {
-                "usr": "c:@SA@PACKET_TIME",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 435,
-                "column": 9
             },
             {
                 "usr": "c:@T@PACKET_TIME",
@@ -884,15 +803,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
                 "line": 454,
                 "column": 8
-            },
-            {
-                "usr": "c:@SA@CHANNEL_STATE",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 459,
-                "column": 9
             },
             {
                 "usr": "c:@T@CHANNEL_STATE",
