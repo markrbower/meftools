@@ -622,7 +622,7 @@
     },
     {
         "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-        "file_last_write": 1595109734.0,
+        "file_last_write": 1595911612.0,
         "definitions": [
             {
                 "usr": "c:ncs2mef.cpp@T@si1",
@@ -630,7 +630,7 @@
                 "parent_name": "",
                 "name": "si1",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 81,
+                "line": 84,
                 "column": 16
             },
             {
@@ -639,7 +639,7 @@
                 "parent_name": "",
                 "name": "ui1",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 82,
+                "line": 85,
                 "column": 24
             },
             {
@@ -648,7 +648,7 @@
                 "parent_name": "",
                 "name": "si2",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 83,
+                "line": 86,
                 "column": 17
             },
             {
@@ -657,7 +657,7 @@
                 "parent_name": "",
                 "name": "ui2",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 84,
+                "line": 87,
                 "column": 25
             },
             {
@@ -666,7 +666,7 @@
                 "parent_name": "",
                 "name": "si4",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 85,
+                "line": 88,
                 "column": 15
             },
             {
@@ -675,7 +675,7 @@
                 "parent_name": "",
                 "name": "ui4",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 86,
+                "line": 89,
                 "column": 23
             },
             {
@@ -684,7 +684,7 @@
                 "parent_name": "",
                 "name": "si8",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 87,
+                "line": 90,
                 "column": 19
             },
             {
@@ -693,7 +693,7 @@
                 "parent_name": "",
                 "name": "ui8",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 88,
+                "line": 91,
                 "column": 27
             },
             {
@@ -702,7 +702,7 @@
                 "parent_name": "",
                 "name": "sf4",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 89,
+                "line": 92,
                 "column": 17
             },
             {
@@ -711,7 +711,7 @@
                 "parent_name": "",
                 "name": "sf8",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 90,
+                "line": 93,
                 "column": 18
             },
             {
@@ -720,8 +720,17 @@
                 "parent_name": "",
                 "name": "sf16",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 91,
+                "line": 94,
                 "column": 22
+            },
+            {
+                "usr": "c:@SA@INDEX_DATA",
+                "kind": 3,
+                "parent_name": "",
+                "name": "",
+                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
+                "line": 237,
+                "column": 9
             },
             {
                 "usr": "c:@T@INDEX_DATA",
@@ -729,8 +738,17 @@
                 "parent_name": "",
                 "name": "INDEX_DATA",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 238,
+                "line": 241,
                 "column": 3
+            },
+            {
+                "usr": "c:@SA@MEF_HEADER_INFO",
+                "kind": 3,
+                "parent_name": "",
+                "name": "",
+                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
+                "line": 244,
+                "column": 9
             },
             {
                 "usr": "c:@T@MEF_HEADER_INFO",
@@ -738,8 +756,17 @@
                 "parent_name": "",
                 "name": "MEF_HEADER_INFO",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 291,
+                "line": 294,
                 "column": 3
+            },
+            {
+                "usr": "c:@SA@RED_BLOCK_HDR_INFO",
+                "kind": 3,
+                "parent_name": "",
+                "name": "",
+                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
+                "line": 326,
+                "column": 9
             },
             {
                 "usr": "c:@T@RED_BLOCK_HDR_INFO",
@@ -747,8 +774,17 @@
                 "parent_name": "",
                 "name": "RED_BLOCK_HDR_INFO",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 333,
+                "line": 336,
                 "column": 3
+            },
+            {
+                "usr": "c:@SA@RANGE_STATS",
+                "kind": 3,
+                "parent_name": "",
+                "name": "",
+                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
+                "line": 347,
+                "column": 9
             },
             {
                 "usr": "c:@T@RANGE_STATS",
@@ -756,8 +792,17 @@
                 "parent_name": "",
                 "name": "RANGE_STATS",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 350,
+                "line": 353,
                 "column": 3
+            },
+            {
+                "usr": "c:@SA@PACKET_TIME",
+                "kind": 3,
+                "parent_name": "",
+                "name": "",
+                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
+                "line": 438,
+                "column": 9
             },
             {
                 "usr": "c:@T@PACKET_TIME",
@@ -765,7 +810,7 @@
                 "parent_name": "",
                 "name": "PACKET_TIME",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 439,
+                "line": 442,
                 "column": 3
             },
             {
@@ -774,7 +819,7 @@
                 "parent_name": "",
                 "name": "BLOCK_INDEX_ELEMENT",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 443,
+                "line": 446,
                 "column": 36
             },
             {
@@ -783,7 +828,7 @@
                 "parent_name": "",
                 "name": "BLOCK_INDEX_ELEMENT",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 445,
+                "line": 448,
                 "column": 8
             },
             {
@@ -792,7 +837,7 @@
                 "parent_name": "",
                 "name": "DISCONTINUITY_INDEX_ELEMENT",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 452,
+                "line": 455,
                 "column": 44
             },
             {
@@ -801,8 +846,17 @@
                 "parent_name": "",
                 "name": "DISCONTINUITY_INDEX_ELEMENT",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 454,
+                "line": 457,
                 "column": 8
+            },
+            {
+                "usr": "c:@SA@CHANNEL_STATE",
+                "kind": 3,
+                "parent_name": "",
+                "name": "",
+                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
+                "line": 462,
+                "column": 9
             },
             {
                 "usr": "c:@T@CHANNEL_STATE",
@@ -810,7 +864,7 @@
                 "parent_name": "",
                 "name": "CHANNEL_STATE",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 491,
+                "line": 494,
                 "column": 3
             },
             {
@@ -819,7 +873,7 @@
                 "parent_name": "",
                 "name": "BLOCK_INDEX_ELEMENT",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 609,
+                "line": 612,
                 "column": 36
             },
             {
@@ -828,7 +882,7 @@
                 "parent_name": "",
                 "name": "DISCONTINUITY_INDEX_ELEMENT",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 611,
+                "line": 614,
                 "column": 44
             },
             {
@@ -837,7 +891,7 @@
                 "parent_name": "",
                 "name": "GetDataBlockBuffer(ui8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 652,
+                "line": 655,
                 "column": 6
             },
             {
@@ -846,7 +900,7 @@
                 "parent_name": "",
                 "name": "add_block_index_to_channel_list(CHANNEL_STATE *, ui8, ui8, ui8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 662,
+                "line": 665,
                 "column": 5
             },
             {
@@ -855,7 +909,7 @@
                 "parent_name": "",
                 "name": "add_discontinuity_index_to_channel_list(CHANNEL_STATE *, ui8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 736,
+                "line": 739,
                 "column": 5
             },
             {
@@ -864,7 +918,7 @@
                 "parent_name": "",
                 "name": "initialize_mef_channel_data(CHANNEL_STATE *, MEF_HEADER_INFO *, sf8, si1 *, si1 *, si4, si1 *, si4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 773,
+                "line": 776,
                 "column": 5
             },
             {
@@ -873,7 +927,7 @@
                 "parent_name": "",
                 "name": "RED_compress_block(si4 *, ui1 *, ui4, ui8, ui1, ui1 *, ui1, RED_BLOCK_HDR_INFO *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 919,
+                "line": 922,
                 "column": 5
             },
             {
@@ -882,7 +936,7 @@
                 "parent_name": "",
                 "name": "process_filled_block(CHANNEL_STATE *, si4 *, ui4, ui8, si4, ui8, sf8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 1060,
+                "line": 1063,
                 "column": 5
             },
             {
@@ -891,7 +945,7 @@
                 "parent_name": "",
                 "name": "write_mef_channel_data(CHANNEL_STATE *, MEF_HEADER_INFO *, PACKET_TIME *, si4 *, ui8, sf8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 1198,
+                "line": 1201,
                 "column": 5
             },
             {
@@ -900,7 +954,7 @@
                 "parent_name": "",
                 "name": "close_mef_channel_file(CHANNEL_STATE *, MEF_HEADER_INFO *, si1 *, si1 *, sf8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 1285,
+                "line": 1288,
                 "column": 5
             },
             {
@@ -909,7 +963,7 @@
                 "parent_name": "",
                 "name": "build_mef_header_block(ui1 *, MEF_HEADER_INFO *, si1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 1644,
+                "line": 1647,
                 "column": 7
             },
             {
@@ -918,7 +972,7 @@
                 "parent_name": "",
                 "name": "read_mef_header_block(ui1 *, MEF_HEADER_INFO *, si1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 1812,
+                "line": 1815,
                 "column": 7
             },
             {
@@ -927,7 +981,7 @@
                 "parent_name": "",
                 "name": "calculate_header_CRC(ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2034,
+                "line": 2037,
                 "column": 5
             },
             {
@@ -936,7 +990,7 @@
                 "parent_name": "",
                 "name": "validate_password(ui1 *, si1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2061,
+                "line": 2064,
                 "column": 7
             },
             {
@@ -945,7 +999,7 @@
                 "parent_name": "",
                 "name": "showHeader(MEF_HEADER_INFO *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2140,
+                "line": 2143,
                 "column": 8
             },
             {
@@ -954,7 +1008,7 @@
                 "parent_name": "",
                 "name": "generate_unique_ID(ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2314,
+                "line": 2317,
                 "column": 7
             },
             {
@@ -963,7 +1017,7 @@
                 "parent_name": "",
                 "name": "set_hdr_unique_ID(MEF_HEADER_INFO *, ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2342,
+                "line": 2345,
                 "column": 8
             },
             {
@@ -972,7 +1026,7 @@
                 "parent_name": "",
                 "name": "set_block_hdr_unique_ID(ui1 *, ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2363,
+                "line": 2366,
                 "column": 8
             },
             {
@@ -981,7 +1035,7 @@
                 "parent_name": "",
                 "name": "set_session_unique_ID(char *, ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2378,
+                "line": 2381,
                 "column": 7
             },
             {
@@ -990,7 +1044,7 @@
                 "parent_name": "",
                 "name": "check_header_block_alignment(ui1 *, si4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2410,
+                "line": 2413,
                 "column": 7
             },
             {
@@ -999,7 +1053,7 @@
                 "parent_name": "",
                 "name": "strncpy2(si1 *, si1 *, si4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2423,
+                "line": 2426,
                 "column": 8
             },
             {
@@ -1008,7 +1062,7 @@
                 "parent_name": "",
                 "name": "init_hdr_struct(MEF_HEADER_INFO *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2438,
+                "line": 2441,
                 "column": 6
             },
             {
@@ -1017,7 +1071,7 @@
                 "parent_name": "",
                 "name": "write_mef(si4 *, MEF_HEADER_INFO *, ui8, si1 *, si1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2460,
+                "line": 2463,
                 "column": 7
             },
             {
@@ -1026,7 +1080,7 @@
                 "parent_name": "",
                 "name": "write_mef_ind(si4 *, MEF_HEADER_INFO *, ui8, si1 *, si1 *, INDEX_DATA *, si4, ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2612,
+                "line": 2615,
                 "column": 7
             },
             {
@@ -1035,7 +1089,7 @@
                 "parent_name": "",
                 "name": "build_RED_block_header(ui1 *, RED_BLOCK_HDR_INFO *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2796,
+                "line": 2799,
                 "column": 7
             },
             {
@@ -1044,7 +1098,7 @@
                 "parent_name": "",
                 "name": "read_RED_block_header(ui1 *, RED_BLOCK_HDR_INFO *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2862,
+                "line": 2865,
                 "column": 7
             },
             {
@@ -1053,7 +1107,7 @@
                 "parent_name": "",
                 "name": "calculate_compressed_block_CRC(ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2919,
+                "line": 2922,
                 "column": 5
             },
             {
@@ -1062,7 +1116,7 @@
                 "parent_name": "",
                 "name": "validate_mef(char *, char *, char *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 2947,
+                "line": 2950,
                 "column": 5
             },
             {
@@ -1071,7 +1125,7 @@
                 "parent_name": "",
                 "name": "update_crc_32(ui4, si1)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3158,
+                "line": 3161,
                 "column": 5
             },
             {
@@ -1080,7 +1134,7 @@
                 "parent_name": "",
                 "name": "dec_normalize(ui4 *, ui4 *, ui1 *, ui1 **)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3170,
+                "line": 3173,
                 "column": 6
             },
             {
@@ -1089,7 +1143,7 @@
                 "parent_name": "",
                 "name": "RED_decompress_block(ui1 *, si4 *, si1 *, ui1 *, ui1, ui1, RED_BLOCK_HDR_INFO *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3195,
+                "line": 3198,
                 "column": 5
             },
             {
@@ -1098,7 +1152,7 @@
                 "parent_name": "",
                 "name": "enc_normalize(RANGE_STATS *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3308,
+                "line": 3311,
                 "column": 6
             },
             {
@@ -1107,7 +1161,7 @@
                 "parent_name": "",
                 "name": "encode_symbol(ui1, ui4, ui4, ui4, RANGE_STATS *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3331,
+                "line": 3334,
                 "column": 6
             },
             {
@@ -1116,7 +1170,7 @@
                 "parent_name": "",
                 "name": "done_encoding(RANGE_STATS *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3346,
+                "line": 3349,
                 "column": 6
             },
             {
@@ -1125,7 +1179,7 @@
                 "parent_name": "",
                 "name": "cpu_endianness",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3369,
+                "line": 3372,
                 "column": 5
             },
             {
@@ -1134,7 +1188,7 @@
                 "parent_name": "",
                 "name": "reverse_in_place(void *, si4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3377,
+                "line": 3380,
                 "column": 6
             },
             {
@@ -1143,7 +1197,7 @@
                 "parent_name": "",
                 "name": "rev_si2(si2)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3392,
+                "line": 3395,
                 "column": 5
             },
             {
@@ -1152,7 +1206,7 @@
                 "parent_name": "",
                 "name": "rev_ui2(ui2)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3406,
+                "line": 3409,
                 "column": 5
             },
             {
@@ -1161,7 +1215,7 @@
                 "parent_name": "",
                 "name": "rev_si4(si4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3420,
+                "line": 3423,
                 "column": 5
             },
             {
@@ -1170,7 +1224,7 @@
                 "parent_name": "",
                 "name": "rev_ui4(ui4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3436,
+                "line": 3439,
                 "column": 5
             },
             {
@@ -1179,7 +1233,7 @@
                 "parent_name": "",
                 "name": "rev_sf4(sf4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3452,
+                "line": 3455,
                 "column": 5
             },
             {
@@ -1188,7 +1242,7 @@
                 "parent_name": "",
                 "name": "rev_si8(si8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3468,
+                "line": 3471,
                 "column": 5
             },
             {
@@ -1197,7 +1251,7 @@
                 "parent_name": "",
                 "name": "rev_ui8(ui8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3489,
+                "line": 3492,
                 "column": 5
             },
             {
@@ -1206,7 +1260,7 @@
                 "parent_name": "",
                 "name": "rev_sf8(sf8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3516,
+                "line": 3519,
                 "column": 5
             },
             {
@@ -1215,7 +1269,7 @@
                 "parent_name": "",
                 "name": "getSBoxValue(si4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3572,
+                "line": 3575,
                 "column": 5
             },
             {
@@ -1224,7 +1278,7 @@
                 "parent_name": "",
                 "name": "getSBoxInvert(si4)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3597,
+                "line": 3600,
                 "column": 5
             },
             {
@@ -1233,7 +1287,7 @@
                 "parent_name": "",
                 "name": "AES_KeyExpansion(si4, si4, ui1 *, si1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3623,
+                "line": 3626,
                 "column": 6
             },
             {
@@ -1242,7 +1296,7 @@
                 "parent_name": "",
                 "name": "AddRoundKey(si4, ui1 (*)[4], ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3703,
+                "line": 3706,
                 "column": 6
             },
             {
@@ -1251,7 +1305,7 @@
                 "parent_name": "",
                 "name": "SubBytes(ui1 (*)[4])",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3719,
+                "line": 3722,
                 "column": 6
             },
             {
@@ -1260,7 +1314,7 @@
                 "parent_name": "",
                 "name": "InvSubBytes(ui1 (*)[4])",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3733,
+                "line": 3736,
                 "column": 6
             },
             {
@@ -1269,7 +1323,7 @@
                 "parent_name": "",
                 "name": "ShiftRows(ui1 (*)[4])",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3750,
+                "line": 3753,
                 "column": 6
             },
             {
@@ -1278,7 +1332,7 @@
                 "parent_name": "",
                 "name": "InvShiftRows(ui1 (*)[4])",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3781,
+                "line": 3784,
                 "column": 6
             },
             {
@@ -1287,7 +1341,7 @@
                 "parent_name": "",
                 "name": "MixColumns(ui1 (*)[4])",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3815,
+                "line": 3818,
                 "column": 6
             },
             {
@@ -1296,7 +1350,7 @@
                 "parent_name": "",
                 "name": "InvMixColumns(ui1 (*)[4])",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3843,
+                "line": 3846,
                 "column": 6
             },
             {
@@ -1305,7 +1359,7 @@
                 "parent_name": "",
                 "name": "Cipher(si4, ui1 *, ui1 *, ui1 (*)[4], ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3864,
+                "line": 3867,
                 "column": 6
             },
             {
@@ -1314,7 +1368,7 @@
                 "parent_name": "",
                 "name": "InvCipher(si4, ui1 *, ui1 *, ui1 (*)[4], ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3906,
+                "line": 3909,
                 "column": 6
             },
             {
@@ -1323,7 +1377,7 @@
                 "parent_name": "",
                 "name": "AES_encrypt(ui1 *, ui1 *, si1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3949,
+                "line": 3952,
                 "column": 6
             },
             {
@@ -1332,7 +1386,7 @@
                 "parent_name": "",
                 "name": "AES_encryptWithKey(ui1 *, ui1 *, ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3971,
+                "line": 3974,
                 "column": 6
             },
             {
@@ -1341,7 +1395,7 @@
                 "parent_name": "",
                 "name": "AES_decrypt(ui1 *, ui1 *, si1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 3984,
+                "line": 3987,
                 "column": 6
             },
             {
@@ -1350,7 +1404,7 @@
                 "parent_name": "",
                 "name": "AES_decryptWithKey(ui1 *, ui1 *, ui1 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 4006,
+                "line": 4009,
                 "column": 6
             },
             {
@@ -1359,7 +1413,7 @@
                 "parent_name": "",
                 "name": "pack_mef_header(MEF_HEADER_INFO *, sf8, si1 *, si1 *, si1 *, si4, si4, si4, sf8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 4023,
+                "line": 4026,
                 "column": 6
             },
             {
@@ -1368,7 +1422,7 @@
                 "parent_name": "",
                 "name": "read_ncs_file(si1 *, si1 *, si1 *, si1 *, si4, ui8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 4147,
+                "line": 4150,
                 "column": 5
             },
             {
@@ -1377,7 +1431,7 @@
                 "parent_name": "",
                 "name": "uutc_time_from_date(sf8, sf8, sf8, sf8, sf8, sf8, ui8 *)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 4632,
+                "line": 4656,
                 "column": 6
             },
             {
@@ -1386,7 +1440,7 @@
                 "parent_name": "",
                 "name": "read_nev_file(si1 *, si1 *, ui8)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 4666,
+                "line": 4690,
                 "column": 5
             },
             {
@@ -1395,7 +1449,7 @@
                 "parent_name": "",
                 "name": "ncs2mef(Rcpp::StringVector)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 4898,
+                "line": 4922,
                 "column": 5
             }
         ]

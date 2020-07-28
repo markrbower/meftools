@@ -69,6 +69,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
+#include <dirent.h>
+#include <errno.h>
+#include <libgen.h>
 
 #include <Rcpp.h>
 
@@ -4179,9 +4182,11 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   extern MEF_GLOBALS	*MEF_globals;
 #endif
   si1 dir_name[1024];
-  si1 chan_name[1024];
+  char file_name[1024];
   si1 *ext;
   int month_format_type;
+  
+  fprintf( stderr, "Got to sub-function.\n");
   
   num_bytes_read = 0;
   last_temp_timestamp = 0;
@@ -4201,20 +4206,39 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   //extract_path_parts(inFileName, dir_name, chan_name, "ncs");
   
   
-  strcpy(chan_name, inFileName);
+  strcpy(file_name, inFileName);
   
-  ext = strrchr((si1 *) chan_name, '.');
+  fprintf( stderr, "Copied.\n" );
+  
+  ext = strrchr((si1 *) file_name, '.');
   if (ext != NULL)
     *ext = 0;
   
+  fprintf( stderr, "ext found.\n" );
+
 #ifndef OUTPUT_TO_MEF2
   sprintf(dir_name, "mef3");
 #else
+  fprintf( stderr, "MEF2.\n" );
   sprintf(dir_name, "mef2");
-  system("mkdir mef2");
+  fprintf( stderr, "dir_name.\n" );
+  DIR* dir = opendir("mef2");
+  if (dir) {
+    /* Directory exists. */
+    fprintf( stderr, "Directory exists.");
+    closedir(dir);
+  } else if (ENOENT == errno) {
+    /* Directory does not exist. */
+    system("mkdir mef2");
+    fprintf( stderr, "mkdir.\n" );
+  } else {
+    /* opendir() failed for some other reason. */
+    fprintf( stderr, "Directory name oddity.");
+  }
 #endif
   
-  
+  /* Strip path from 'file_name' */
+  char* chan_name = basename( file_name );
   
   fprintf(stderr, "dir_name = %s chan_name = %s\n", dir_name, chan_name);
   
@@ -4896,17 +4920,13 @@ si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor)
 //' @export
 // [[Rcpp::export]]
 int ncs2mef (Rcpp::StringVector strings) {
-  int	update_mef_header(), convert_mvf(), mayo_encode(), convert_mef();
   int dataFailed = 0;
   int numFiles, uid, anon_flag;
   ui1	*uid_array;
   char subject_password[32], session_password[32];
-  time_t start, end;
   ui8 uutc_time;
   int i;
   int nev_count, ncs_count;
-  
-  time(&start);
   
   if (strings.size() < 1) 
   {
@@ -4924,8 +4944,6 @@ int ncs2mef (Rcpp::StringVector strings) {
     fprintf(stderr, "Error: No file specified\n");
     return(1);
   }
-  
-  time(&start);
   
   uid_array = NULL;
   
@@ -4982,26 +5000,5 @@ int ncs2mef (Rcpp::StringVector strings) {
   if (dataFailed)
     return 1;
   
-  time(&end);
-  fprintf(stdout, "\nProcessing completed in %2.0lf seconds.\n", difftime(end, start) );
-  
   return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
