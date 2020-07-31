@@ -30,14 +30,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // ncs2mef
-int ncs2mef(Rcpp::StringVector strings);
+void ncs2mef(Rcpp::StringVector strings);
 RcppExport SEXP _meftools_ncs2mef(SEXP stringsSEXP) {
 BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::StringVector >::type strings(stringsSEXP);
-    rcpp_result_gen = Rcpp::wrap(ncs2mef(strings));
-    return rcpp_result_gen;
+    ncs2mef(strings);
+    return R_NilValue;
 END_RCPP
 }
 // read_mef_header

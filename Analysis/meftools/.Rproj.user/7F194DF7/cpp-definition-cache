@@ -622,7 +622,7 @@
     },
     {
         "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-        "file_last_write": 1595911612.0,
+        "file_last_write": 1595959414.0,
         "definitions": [
             {
                 "usr": "c:ncs2mef.cpp@T@si1",
@@ -724,15 +724,6 @@
                 "column": 22
             },
             {
-                "usr": "c:@SA@INDEX_DATA",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 237,
-                "column": 9
-            },
-            {
                 "usr": "c:@T@INDEX_DATA",
                 "kind": 8,
                 "parent_name": "",
@@ -740,15 +731,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
                 "line": 241,
                 "column": 3
-            },
-            {
-                "usr": "c:@SA@MEF_HEADER_INFO",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 244,
-                "column": 9
             },
             {
                 "usr": "c:@T@MEF_HEADER_INFO",
@@ -760,15 +742,6 @@
                 "column": 3
             },
             {
-                "usr": "c:@SA@RED_BLOCK_HDR_INFO",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 326,
-                "column": 9
-            },
-            {
                 "usr": "c:@T@RED_BLOCK_HDR_INFO",
                 "kind": 8,
                 "parent_name": "",
@@ -778,15 +751,6 @@
                 "column": 3
             },
             {
-                "usr": "c:@SA@RANGE_STATS",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 347,
-                "column": 9
-            },
-            {
                 "usr": "c:@T@RANGE_STATS",
                 "kind": 8,
                 "parent_name": "",
@@ -794,15 +758,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
                 "line": 353,
                 "column": 3
-            },
-            {
-                "usr": "c:@SA@PACKET_TIME",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 438,
-                "column": 9
             },
             {
                 "usr": "c:@T@PACKET_TIME",
@@ -848,15 +803,6 @@
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
                 "line": 457,
                 "column": 8
-            },
-            {
-                "usr": "c:@SA@CHANNEL_STATE",
-                "kind": 3,
-                "parent_name": "",
-                "name": "",
-                "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
-                "line": 462,
-                "column": 9
             },
             {
                 "usr": "c:@T@CHANNEL_STATE",
@@ -1450,7 +1396,7 @@
                 "name": "ncs2mef(Rcpp::StringVector)",
                 "file": "/Users/markrbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src/ncs2mef.cpp",
                 "line": 4922,
-                "column": 5
+                "column": 6
             }
         ]
     },

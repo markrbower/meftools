@@ -22,7 +22,7 @@ get_discontinuities <- function(strings, ToC) {
 #' @useDynLib meftools
 #' @export
 ncs2mef <- function(strings) {
-    .Call('_meftools_ncs2mef', PACKAGE = 'meftools', strings)
+    invisible(.Call('_meftools_ncs2mef', PACKAGE = 'meftools', strings))
 }
 
 #' @importFrom Rcpp evalCpp

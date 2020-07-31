@@ -7,12 +7,12 @@ MEFiter <- function(filename, password, ... ) {
   #' @param block1 Integer: Stop block number.
   #' @param time0 Integer: Start time value (in microseconds)
   #' @param time1 Integer: Stop time value (in microseconds)
-  #' @param step Integer: Time step (in seconds) for each iteration.
+  #' @param stepSize Integer: Timestep size (in seconds) for each iteration.
   #' @return A data iterator for MEF files.
   #' @export
   #' @examples
   #' \dontrun{
-  #'   data_iter <- MEFiter( filename, password, time0=1.00E15, time1=1.01E15, step=10 )
+  #'   data_iter <- MEFiter( filename, password, time0=1.00E15, time1=1.01E15, stepSize=10 )
   #'   data <- nextElem( data_iter )
   #' }
 
@@ -34,7 +34,7 @@ MEFiter <- function(filename, password, ... ) {
             "info" = {info = args[[arg]]#;
             print( paste0( info$ToC[1,1] ) )
             },
-            "step" = {step = args[[arg]];}
+            "stepSize" = {stepSize = args[[arg]];}
     )
   }
   
@@ -55,23 +55,23 @@ MEFiter <- function(filename, password, ... ) {
   if ( !exists( "time1" ) ) {
     time1 <- 1E20
   }
-  if ( exists( "step" ) ) {
-    size <- round( info$header$block_interval * step / 1E6 )
+  if ( exists( "stepSize" ) ) {
+    sampleSize <- round( info$header$block_interval * stepSize / 1E6 )
   } else {
-    size <- ceiling( 1E5/info$header$maximum_block_length )
+    sampleSize <- ceiling( 1E5/info$header$maximum_block_length )
   }
   microsecondsPerSample <- 1E6 / info$header$sampling_frequency
   
   # This seems messy and confusing with the addition of time ....
   i <- 1
   #  print( paste0( block0, ':', block1 ) )
-  #  print( paste0( block0, ' ', block1, ' ', size ) )
+  #  print( paste0( block0, ' ', block1, ' ', sampleSize ) )
   
-  # If step exists, use it. If not, use size.
-  if ( (block1-block0) > size ) {
+  # If sampleSize exists, use it. If not, use sampleSize.
+  if ( (block1-block0) > sampleSize ) {
     #    print( paste0( "multi-block read" ) )
     S <- seq( block0, block1 )
-    it <- iterators::idiv( length(S), chunkSize=size );
+    it <- iterators::idiv( length(S), chunkSize=sampleSize );
     newstops <- cumsum( unlist(as.list(it)) )
     stop <- block0 + newstops - 1
     NN <- length(newstops)
@@ -141,6 +141,7 @@ MEFiter <- function(filename, password, ... ) {
   
   obj <- list(nextElem=nextEl)
   attr( obj, "cache" ) <- cache
-  class(obj) <- c('MEFiter', 'abstractiter', 'iter')
   ihn_obj <- itertools::ihasNext( obj )
+  class(ihn_obj) <- c('MEFiter', 'ihasNext', 'abstractiter', 'iter')
+  ihn_obj
 }

@@ -4186,7 +4186,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   si1 *ext;
   int month_format_type;
   
-  fprintf( stderr, "Got to sub-function.\n");
+  //fprintf( stderr, "Got to sub-function.\n");
   
   num_bytes_read = 0;
   last_temp_timestamp = 0;
@@ -4201,46 +4201,46 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
 #endif
   
   
-  fprintf(stderr, "inFileName = %s\n", inFileName);
+  //fprintf(stderr, "inFileName = %s\n", inFileName);
   
   //extract_path_parts(inFileName, dir_name, chan_name, "ncs");
   
   
   strcpy(file_name, inFileName);
   
-  fprintf( stderr, "Copied.\n" );
+  //fprintf( stderr, "Copied.\n" );
   
   ext = strrchr((si1 *) file_name, '.');
   if (ext != NULL)
     *ext = 0;
   
-  fprintf( stderr, "ext found.\n" );
+  //fprintf( stderr, "ext found.\n" );
 
 #ifndef OUTPUT_TO_MEF2
   sprintf(dir_name, "mef3");
 #else
-  fprintf( stderr, "MEF2.\n" );
+  //fprintf( stderr, "MEF2.\n" );
   sprintf(dir_name, "mef2");
-  fprintf( stderr, "dir_name.\n" );
+  //fprintf( stderr, "dir_name.\n" );
   DIR* dir = opendir("mef2");
   if (dir) {
     /* Directory exists. */
-    fprintf( stderr, "Directory exists.");
+    //fprintf( stderr, "Directory exists.");
     closedir(dir);
   } else if (ENOENT == errno) {
     /* Directory does not exist. */
     system("mkdir mef2");
-    fprintf( stderr, "mkdir.\n" );
+    //fprintf( stderr, "mkdir.\n" );
   } else {
     /* opendir() failed for some other reason. */
-    fprintf( stderr, "Directory name oddity.");
+    //fprintf( stderr, "Directory name oddity.");
   }
 #endif
   
   /* Strip path from 'file_name' */
   char* chan_name = basename( file_name );
   
-  fprintf(stderr, "dir_name = %s chan_name = %s\n", dir_name, chan_name);
+  //fprintf(stderr, "dir_name = %s chan_name = %s\n", dir_name, chan_name);
   
   
 #ifndef OUTPUT_TO_MEF2
@@ -4401,7 +4401,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   month_format_type = 1;
   string_ptr1 = strstr(header_string, "-TimeCreated ");
   
-  fprintf(stderr, "length header = %d\n", strlen(header_string));
+  //fprintf(stderr, "length header = %d\n", strlen(header_string));
   
   /*
    if (string_ptr1 == NULL)
@@ -4483,7 +4483,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   temp_string[string_len] = 0;
   hour = atof(temp_string);
   
-  fprintf(stderr, "hour = %f\n", hour);
+  //fprintf(stderr, "hour = %f\n", hour);
   
   // extract minute
   string_ptr1 = string_ptr2 + 1;
@@ -4502,7 +4502,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   temp_string[string_len] = 0;
   second = atof(temp_string);
   
-  fprintf(stderr, "second = %f\n", second);
+  //fprintf(stderr, "second = %f\n", second);
   
   
   
@@ -4511,12 +4511,12 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   uutc_time_ptr = &uutc_time;
   uutc_time_from_date(year, month, day, hour, minute, second, uutc_time_ptr);
   
-  fprintf(stderr, "UUTC time is %ld  ", uutc_time);
+  //fprintf(stderr, "UUTC time is %ld  ", uutc_time);
   
   if (uutc_passed_in > 0)
     *uutc_time_ptr = uutc_passed_in;
   
-  fprintf(stderr, "Using time %ld ", *uutc_time_ptr);
+  //fprintf(stderr, "Using time %ld ", *uutc_time_ptr);
   
   fseek(infile, NCS_HEADER_SIZE, SEEK_SET);
   num_bytes_read = NCS_HEADER_SIZE;
@@ -4674,7 +4674,7 @@ void uutc_time_from_date(sf8 yr, sf8 mo, sf8 dy, sf8 hr, sf8 mn, sf8 sc, ui8 *uu
   fflush(stdout);
   //	fprintf(stdout, "tm_hr %d\ttm_gmtoff %d\n", tm.tm_hour, tm.tm_gmtoff);
   UTC_secs = mktime(&tm);
-  fprintf(stdout, "time %s", ctime_r(&UTC_secs, timestr));
+  //fprintf(stdout, "time %s", ctime_r(&UTC_secs, timestr));
   
   *uutc_time = (unsigned long long) (UTC_secs - (int) sc) * 1000000;
   *uutc_time += (unsigned long long) ((sc * 1000000.0) + 0.5);
@@ -4722,7 +4722,7 @@ si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor)
   fstat(fd, &sb);
   flen = sb.st_size;     // flen in bytes
   
-  fprintf(stderr, "In NEV processing\n");
+  //fprintf(stderr, "In NEV processing\n");
   
   
   
@@ -4883,7 +4883,7 @@ si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor)
     
     //fprintf(stdout,"Event String: %s\n", event_string);
     //fflush(stderr);
-    fprintf(stderr, "Event: %ld %s\n", timestamp + time_correction_factor, event_string);
+    //fprintf(stderr, "Event: %ld %s\n", timestamp + time_correction_factor, event_string);
     fprintf(ofp, "%ld, %s\n", timestamp + time_correction_factor, event_string);
 #ifndef OUTPUT_TO_MEF2
     write_annotation(annotation_state_struct, timestamp + time_correction_factor, "Note", 0, event_string);
@@ -4919,7 +4919,7 @@ si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor)
 //' @useDynLib meftools
 //' @export
 // [[Rcpp::export]]
-int ncs2mef (Rcpp::StringVector strings) {
+void ncs2mef (Rcpp::StringVector strings) {
   int dataFailed = 0;
   int numFiles, uid, anon_flag;
   ui1	*uid_array;
@@ -4931,7 +4931,7 @@ int ncs2mef (Rcpp::StringVector strings) {
   if (strings.size() < 1) 
   {
     Rcpp::Rcout << "Usage: ncs2mef filename(.ncs) [filename.nev]" << "\n";
-    return(1);
+    //return(1);
   }
   
   //defaults
@@ -4942,7 +4942,7 @@ int ncs2mef (Rcpp::StringVector strings) {
   // check for input file
   if (numFiles==0) {
     fprintf(stderr, "Error: No file specified\n");
-    return(1);
+    //return(1);
   }
   
   uid_array = NULL;
@@ -4966,7 +4966,7 @@ int ncs2mef (Rcpp::StringVector strings) {
   if (nev_count > 1)
   {
     fprintf(stderr, "More than one event (.nev) file is specified, please fix this so that there is only one event file!  Exiting.\n");
-    return(1);
+    //return(1);
   }
   
   ncs_count = 0;
@@ -4987,7 +4987,7 @@ int ncs2mef (Rcpp::StringVector strings) {
   if (ncs_count == 0)
   {
     fprintf(stderr, "There aren't any data (.ncs) files specified, so nothing to do!  Exiting.\n");
-    return(1);
+    //return(1);
   }
   
   for (i=0;i<numFiles;i++)
@@ -4997,8 +4997,7 @@ int ncs2mef (Rcpp::StringVector strings) {
     
   }
   
-  if (dataFailed)
-    return 1;
-  
-  return 0;
+//  if (dataFailed)
+//    return 1;
+//  return 0;
 }
