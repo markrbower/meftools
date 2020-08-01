@@ -63,7 +63,7 @@ MEFcont <- function( filename, password, ... ) {
         if (!hasNx())
           stop('StopIteration', call.=FALSE)
         has_next <<- NA
-        eval( cache() )
+        meftools::MEFiter( filename, password, info=info, block0=cache$contiguousStarts, block1=cache$contiguousStops, time0=time0, time1=time1 )
       }
       
       hasNx <- function() {
@@ -87,12 +87,15 @@ MEFcont <- function( filename, password, ... ) {
       obj
     }
     
-    cache <- list("filename"=filename, "password"=password, "info"=info )
+    props <- list("filename"=filename, "password"=password, "info"=info )
     
-    obj <- list(nextElem=nextEl)
-    attr( obj, "cache" ) <- cache
+    obj <- list(nextElem=nextEl,hasNext=ihasNext)
+    attr( obj, "props" ) <- props
+    obj <- ihasNext(it)
+    class(obj) <- c('ihasNext', 'abstractiter', 'iter', 'MEFcont')
+    obj    
 #    class(obj) <- c( 'MEFcont', 'abstractiter', 'iter' )
-    ihn_obj <- ihasNext( iterators::iter(obj) )
-    class(ihn_obj) <- c( 'MEFcont', 'ihasNext', 'abstractiter', 'iter' )
-    ihn_obj
+#    ihn_obj <- itertools::ihasNext( obj )
+#    class(ihn_obj) <- c( 'MEFcont', 'ihasNext', 'abstractiter', 'iter' )
+#    ihn_obj
 }

@@ -43,16 +43,16 @@ MEFiter <- function(filename, password, ... ) {
     stop(0)
     #    info <- mef_info( c(filename,password) )
   }
-  if ( !exists( "block0" ) ) {
+  if ( !exists( "block0" ) | is.null(block0) ) {
     block0 <- 1
   }
-  if ( !exists( "block1" ) ) {
+  if ( !exists( "block1" ) | is.null(block1) ) {
     block1 <- length( info$discontinuities )
   }
-  if ( !exists( "time0" ) ) {
+  if ( !exists( "time0" ) | is.null( time0 ) ) {
     time0 <- 0
   }
-  if ( !exists( "time1" ) ) {
+  if ( !exists( "time1" ) | is.null( time1 ) ) {
     time1 <- 1E20
   }
   if ( exists( "stepSize" ) ) {
@@ -137,11 +137,84 @@ MEFiter <- function(filename, password, ... ) {
     return(data)
   }
   
-  cache <- list("filename"=filename, "password"=password, "info"=info )
+  ihasNext <- function(it) {
+    if (!is.null(it$hasNext)) return(it)
+    cache <- NULL
+    has_next <- NA
+    
+    nextEl <- function() {
+      if (!hasNx())
+        stop('StopIteration', call.=FALSE)
+      has_next <<- NA
+      
+      # This is where decomp_mef returns data.
+      #    print( paste0( n$start, ' ', n$stop, ' ', ncol(info$ToC) ) )
+      block0 <- cache$start
+      if ( cache$stop > length(info$ToC[3,]) ) {
+        block1 <- ncol( info$ToC[1,] )
+      } else {
+        block1 <- cache$stop
+      }
+      s0 <- info$ToC[3,block0]
+      if ( block1==info$header$number_of_index_entries ) {
+        s1 <- info$header$number_of_samples
+      } else {
+        s1 <- info$ToC[3,(block1+1)]-1
+      }
+      dlast <- s1 - info$ToC[3,block1] + 1
+      #    print( paste0( s0, ' ', s1 ) )
+      data <- decomp_mef(c(filename, s0, s1, password) )
+      # Check the time window.
+      blockTime <- c( info$ToC[1,block0],  info$ToC[1,block1] + round(dlast*1E6/info$header$sampling_frequency) )
+      #    print( paste0( dlast, ' ', blockTime[1], ' ', blockTime[2] ) )
+      if ( blockTime[1]<=time0 & time0<=blockTime[2] ) { # requested start is within decoded data
+        bad <- ceiling( (time0 - blockTime[1]) / microsecondsPerSample )
+        data <- data[-1:-bad]
+      }
+      if ( blockTime[1]<=time1 & time1<=blockTime[2] ) { # requested stop is within decoded data
+        bad <- ceiling( (blockTime[2] - time1) / microsecondsPerSample )
+        LL <- length(data)
+        #      print( paste0( bad, ' ', LL, ' ', -(LL-bad+1) ) )
+        data <- data[-(LL-bad+1):-LL]
+      }
+      # Add the timestamp of the first value as an attribute.
+      attr( data, 's0' ) <- info$ToC[3,cache$start]
+      attr( data, 't0' ) <- info$ToC[1,cache$start]
+      # Add the timestamp of the last value as an attribute.
+      attr( data, 's1' ) <- info$ToC[3,cache$stop] + dlast
+      attr( data, 't1' ) <- info$ToC[1,cache$stop] + dlast * microsecondsPerSample;
+      # Add metadata as attributes.
+      attr( data, 'info' ) <- info
+      attr( data, 'dt' ) <- microsecondsPerSample
+      return(data)
+    }
+    
+    hasNx <- function() {
+      if (!is.na(has_next)) return(has_next)
+      tryCatch({
+        cache <<- nextElem(it)
+        has_next <<- TRUE
+      },
+      error=function(e) {
+        if (identical(conditionMessage(e), 'StopIteration')) {
+          has_next <<- FALSE
+        } else {
+          stop(e)
+        }
+      })
+      has_next
+    }
+    
+    obj <- list(nextElem=nextEl, hasNext=hasNx)
+    class(obj) <- c('ihasNext', 'abstractiter', 'iter')
+    obj
+  }
+
+  props <- list("filename"=filename, "password"=password, "info"=info )
   
-  obj <- list(nextElem=nextEl)
-  attr( obj, "cache" ) <- cache
-  ihn_obj <- itertools::ihasNext( obj )
-  class(ihn_obj) <- c('MEFiter', 'ihasNext', 'abstractiter', 'iter')
-  ihn_obj
+  obj <- list(nextElem=nextEl,hasNext=ihasNext)
+  attr( obj, "props" ) <- props
+  obj <- ihasNext(it)
+  class(obj) <- c('ihasNext', 'abstractiter', 'iter', 'MEFiter')
+  obj    
 }
