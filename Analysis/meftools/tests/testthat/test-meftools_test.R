@@ -60,7 +60,26 @@ test_that("decomp_mef works", {
 })
 
 test_that("MEFcont works", {
-  
+  vault = topsecret::get_secret_vault()
+  filename <- file.path( testthat::test_path(), "../Data/CSC1.mef", fsep = .Platform$file.sep)
+  mc <- meftools::MEFcont( filename, topsecret::get("MEF_password"))
+  expect_true( "MEFcont" %in% class(mc) )
+  mc$hasNext()
+  mi <- mc$nextElem()
+  expect_true( "MEFiter" %in% class(mi) )
+})
+
+test_that("MEFiter works", {
+  vault = topsecret::get_secret_vault()
+  filename <- file.path( testthat::test_path(), "../Data/CSC1.mef", fsep = .Platform$file.sep)
+  mc <- meftools::MEFcont( filename, topsecret::get("MEF_password"))
+  mc$hasNext()
+  mi <- mc$nextElem()
+  mi$hasNext()
+  data <- mi$nextElem()
+  expect_true( !is.null(data) )
+  expect_equal( length(data), 128000 )
+  expect_equal( data[100], 355 )
 })
 
 

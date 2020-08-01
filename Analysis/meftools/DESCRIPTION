@@ -19,7 +19,7 @@ Imports:
     RMySQL (>= 0.10.20),
     rJava (>= 0.9-13),
     here (>= 0.1)
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     testthat

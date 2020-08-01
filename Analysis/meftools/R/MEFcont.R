@@ -41,7 +41,7 @@ MEFcont <- function( filename, password, ... ) {
     
     # Use blocks
     nextEl <- function() {
-      values <- nextElem( it )
+      values <- iterators::nextElem( it )
       print(values)
 #      print( paste0( colnames(values) ) )
       #print( paste0( filename ) )
@@ -69,7 +69,7 @@ MEFcont <- function( filename, password, ... ) {
       hasNx <- function() {
         if (!is.na(has_next)) return(has_next)
         tryCatch({
-          cache <<- nextElem(it)
+          cache <<- iterators::nextElem(it)
           has_next <<- TRUE
         },
         error=function(e) {
