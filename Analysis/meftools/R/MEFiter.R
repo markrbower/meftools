@@ -32,7 +32,7 @@ MEFiter <- function(filename, password, ... ) {
             #            print( paste0( "time0 is ", time0 ) )
             },
             "info" = {info = args[[arg]]#;
-            print( paste0( info$ToC[1,1] ) )
+            #print( paste0( info$ToC[1,1] ) )
             },
             "stepSize" = {stepSize = args[[arg]];}
     )

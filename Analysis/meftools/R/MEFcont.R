@@ -28,8 +28,6 @@ MEFcont <- function( filename, password, ... ) {
               "info" = {info <- args[[arg]]}
       )
     }
-    print( time0 )
-    print( time1 )
 
     # Use only meftools files everywhere
     info <- mef_info( c(filename,password) )
@@ -42,7 +40,7 @@ MEFcont <- function( filename, password, ... ) {
     # Use blocks
     nextEl <- function() {
       values <- iterators::nextElem( it )
-      print(values)
+      #print(values)
 #      print( paste0( colnames(values) ) )
       #print( paste0( filename ) )
 #      print( values )
