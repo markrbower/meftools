@@ -19,7 +19,7 @@ MEFiter(filename, password, ...)
 
 \item{time1}{Integer: Stop time value (in microseconds)}
 
-\item{step}{Integer: Time step (in seconds) for each iteration.}
+\item{stepSize}{Integer: Timestep size (in seconds) for each iteration.}
 }
 \value{
 A data iterator for MEF files.
@@ -29,7 +29,7 @@ Create a data iterator for MEF files
 }
 \examples{
 \dontrun{
-  data_iter <- MEFiter( filename, password, time0=1.00E15, time1=1.01E15, step=10 )
+  data_iter <- MEFiter( filename, password, time0=1.00E15, time1=1.01E15, stepSize=10 )
   data <- nextElem( data_iter )
 }
 }

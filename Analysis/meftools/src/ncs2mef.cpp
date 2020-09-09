@@ -414,7 +414,8 @@ si4		getSBoxValue(si4);
 #define __NCS_2_MEF
 
 // Subroutine declarations
-ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *session_password, si1 *subject_password, si4 anonymize_flag, ui8 uutc_passed_in);
+//ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *session_password, si1 *subject_password, si4 anonymize_flag, ui8 uutc_passed_in);
+ui8 read_ncs_file( si1 *inFileName, si1 *uid, si1 *session_password, si1 *subject_password, si4 anonymize_flag, ui8 uutc_passed_in );
 void uutc_time_from_date(sf8 yr, sf8 mo, sf8 dy, sf8 hr, sf8 mn, sf8 sc, ui8 *uutc_time);
 si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor);
 
@@ -598,9 +599,9 @@ si4	ctrl_c_hit;
 #define __NCS_2_MEF
 
 // Subroutine declarations
-ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *session_password, si1 *subject_password, si4 anonymize_flag, ui8 uutc_passed_in);
-void uutc_time_from_date(sf8 yr, sf8 mo, sf8 dy, sf8 hr, sf8 mn, sf8 sc, ui8 *uutc_time);
-si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor);
+//ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *session_password, si1 *subject_password, si4 anonymize_flag, ui8 uutc_passed_in);
+//void uutc_time_from_date(sf8 yr, sf8 mo, sf8 dy, sf8 hr, sf8 mn, sf8 sc, ui8 *uutc_time);
+//si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor);
 
 
 #define DISCARD_BITS			4
@@ -928,7 +929,7 @@ ui8 RED_compress_block(si4 *in_buffer, ui1 *out_buffer, ui4 num_entries, ui8 uUT
   si4	i, diff, max_data_value, min_data_value;
   sf8	stats_scale;
   RANGE_STATS rng_st;
-
+  
   
   /*** generate differences ***/
   si1_p1 = (si1 *) diff_buffer;
@@ -1649,7 +1650,7 @@ EXPORT
     MEF_HEADER_INFO	*hs;
     si4		i, encrypted_segments, l, *rn;
     ui1		*ehbp, *ehb;
-
+    
     //check inputs
     if (hdr_struct == NULL)
     {
@@ -1820,7 +1821,7 @@ EXPORT
     si1		*encrypted_string;
     ui1		*hb, *dhbp, dhb[MEF_HEADER_LENGTH];
     si1		dummy;
-
+    
     
     //check inputs
     if (header_struct == NULL)
@@ -2066,7 +2067,7 @@ EXPORT
     ui1	decrypted_header[MEF_HEADER_LENGTH], *hbp, *dhbp;
     si1 temp_str[SESSION_PASSWORD_LENGTH];
     si4	encrypted_segments, l, i;
-
+    
     //check for null pointers
     if (header_block == NULL)
     {
@@ -2803,7 +2804,7 @@ EXPORT
     si1 discontinuity, *si1_p;
     si4 i, max_data_value, min_data_value;
     ui8 time_value, *ui8_p;	
-
+    
     //check inputs
     if (header_block==NULL) {
       fprintf(stderr, "[%s] NULL header block passed in\n", __FUNCTION__);
@@ -4146,14 +4147,18 @@ void pack_mef_header(MEF_HEADER_INFO *out_header_struct, sf8 secs_per_block, si1
   
 }
 #endif
-
-ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session_password, si4 anonymize_flag, ui8 uutc_passed_in)
-{
-  ui8 nr, flen, num_bytes_read, timestamp;
+//ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *session_password, si1 *subject_password, si4 anonymize_flag, ui8 uutc_passed_in)
+ui8 read_ncs_file(si1 *inFilename, si1 *uid, si1 *session_password, si1 *subject_password, si4 anonymize_flag, ui8 uutc_passed_in)
+  {
   FILE *infile;
+//  ui8 *uutc_time_ptr;
+
+  Rcpp::Rcout << "Into read_ncs_file" << std::endl;
+// XXXX
+  ui8 nr, flen, num_bytes_read, timestamp;
   si4 fd;
   struct stat	sb;
-  char header_string[1024];
+  char header_string[16384];
   char *string_ptr1, *string_ptr2;
   char temp_string[128];
   si2 sample_buffer[512];
@@ -4185,9 +4190,12 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   char file_name[1024];
   si1 *ext;
   int month_format_type;
+  double testVariable;
+  
+// XXXX
   
   //fprintf( stderr, "Got to sub-function.\n");
-  
+// XXXX  
   num_bytes_read = 0;
   last_temp_timestamp = 0;
   saved_start_time = 0;
@@ -4199,23 +4207,17 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   //MEF_globals->verbose = MEF_TRUE;
   //MEF_globals->number_of_records = 0;
 #endif
-  
-  
-  //fprintf(stderr, "inFileName = %s\n", inFileName);
-  
-  //extract_path_parts(inFileName, dir_name, chan_name, "ncs");
-  
-  
-  strcpy(file_name, inFileName);
+
+  strcpy(file_name, inFilename);
   
   //fprintf( stderr, "Copied.\n" );
   
   ext = strrchr((si1 *) file_name, '.');
   if (ext != NULL)
     *ext = 0;
-  
+// XXXX  
   //fprintf( stderr, "ext found.\n" );
-
+// XXXX
 #ifndef OUTPUT_TO_MEF2
   sprintf(dir_name, "mef3");
 #else
@@ -4224,25 +4226,25 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   //fprintf( stderr, "dir_name.\n" );
   DIR* dir = opendir("mef2");
   if (dir) {
-    /* Directory exists. */
+    // Directory exists. 
     //fprintf( stderr, "Directory exists.");
     closedir(dir);
   } else if (ENOENT == errno) {
-    /* Directory does not exist. */
+    // Directory does not exist. 
     system("mkdir mef2");
     //fprintf( stderr, "mkdir.\n" );
   } else {
-    /* opendir() failed for some other reason. */
+    // opendir() failed for some other reason. 
     //fprintf( stderr, "Directory name oddity.");
   }
 #endif
   
-  /* Strip path from 'file_name' */
+  // Strip path from 'file_name'
   char* chan_name = basename( file_name );
-  
+// XXXX
   //fprintf(stderr, "dir_name = %s chan_name = %s\n", dir_name, chan_name);
   
-  
+// XXXX  
 #ifndef OUTPUT_TO_MEF2
   channel_state_struct = (CHANNEL_STATE*) calloc((size_t) 1, sizeof(CHANNEL_STATE));
   
@@ -4293,9 +4295,11 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   
   
 #endif
-  
+// XXXX
+ 
+// XXXX  
   // open .Ncs file
-  infile = fopen(inFileName, "r");
+  infile = fopen(inFilename, "r");
   if (infile == NULL)
   {
     fprintf(stderr, "Error opening .Ncs file\n");
@@ -4306,207 +4310,158 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   flen = sb.st_size;     // flen in bytes
   
   // find "time opened" timestamp from header
-  nr = fread(header_string, sizeof(ui1), 1024, infile);
+  nr = fread(header_string, sizeof(ui1), 16384, infile);
+  Rcpp::Rcout << "Amount read: " << nr << std::endl;
   if (infile == NULL) 
   { 
     fprintf(stderr, "Error reading .Ncs header\n"); 
     return (1); 
   }
   
-  
-  
-  
-  
-  /*
-   
-   // point to beginning of date string
-   string_ptr1 = strstr(header_string, "Time Opened: (m/d/y):");
-   if (string_ptr1 == NULL)
-   {
-   fprintf(stderr, "Error reading open date 1 from .Ncs header\n");  
-   return (1);
-   
-   }
-   
-   string_ptr1 += strlen("Time Opened: (m/d/y): ");
-   
-   // extract month
-   string_ptr2 = strchr(string_ptr1, '/');
-   string_len = string_ptr2 - string_ptr1;
-   memcpy(temp_string, string_ptr1, string_len);
-   temp_string[string_len] = 0;
-   month = atof(temp_string);
-   
-   // extract day
-   string_ptr1 = string_ptr2 + 1;
-   string_ptr2 = strchr(string_ptr1, '/');
-   string_len = string_ptr2 - string_ptr1;
-   memcpy(temp_string, string_ptr1, string_len);
-   temp_string[string_len] = 0;
-   day = atof(temp_string);
-   
-   // extract year
-   string_ptr1 = string_ptr2 + 1;
-   string_ptr2 = strchr(string_ptr1, ' ');
-   string_len = string_ptr2 - string_ptr1;
-   memcpy(temp_string, string_ptr1, string_len);
-   temp_string[string_len] = 0;
-   year = atof(temp_string);
-   
-   string_ptr1 = strstr(header_string, "At Time: ");
-   if (string_ptr1 == NULL)
-   {
-   fprintf(stderr, "Error reading open date 2 from .Ncs header\n");  
-   return (1);
-   
-   }
-   
-   string_ptr1 += strlen("At Time: ");
-   
-   // extract hour
-   string_ptr2 = strchr(string_ptr1, ':');
-   string_len = string_ptr2 - string_ptr1;
-   memcpy(temp_string, string_ptr1, string_len);
-   temp_string[string_len] = 0;
-   hour = atof(temp_string);
-   
-   // extract minute
-   string_ptr1 = string_ptr2 + 1;
-   string_ptr2 = strchr(string_ptr1, ':');
-   string_len = string_ptr2 - string_ptr1;
-   memcpy(temp_string, string_ptr1, string_len);
-   temp_string[string_len] = 0;
-   minute = atof(temp_string);
-   
-   // extract second
-   string_ptr1 = string_ptr2 + 1;
-   string_ptr2 = strchr(string_ptr1, ' ');
-   string_len = string_ptr2 - string_ptr1;
-   memcpy(temp_string, string_ptr1, string_len);
-   temp_string[string_len] = 0;
-   second = atof(temp_string);
-   
-   
-   */
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  Rcpp::Rcout << header_string << std::endl;
+
   // point to beginning of date string
-  month_format_type = 1;
   string_ptr1 = strstr(header_string, "-TimeCreated ");
+// XXXX
+
+// Determine whether this string was found:
+  if ( string_ptr1 == NULL ) {
+    Rcpp::Rcout << "Failed to find the expected string identifier." << std::endl;
+    // XXXX  
+    string_ptr1 = strstr(header_string, "Time Opened");
+    if ( string_ptr1 == NULL ) {
+      Rcpp::Rcout << "Failed to find the expected the second string identifier." << std::endl;
+    } else {
+      string_ptr2 = strchr(string_ptr1, ':');
+      string_ptr1 = string_ptr2 + 2;
+
+      month_format_type = 2;
+      // extract month
+      Rcpp::Rcout << "Pointer: " << string_ptr1 << std::endl;
+      string_ptr2 = strchr(string_ptr1, '/');
+      //string_ptr1 = string_ptr2 + 1;
+      //string_ptr2 = strchr(string_ptr1, ' ');
+      string_len = string_ptr2 - string_ptr1;
+      memcpy(temp_string, string_ptr1, string_len);
+      temp_string[string_len] = 0;
+      Rcpp::Rcout << "temp: " << temp_string << std::endl;
+      month = atof(temp_string);
+      
+      // extract day
+      string_ptr1 = string_ptr2 + 1;
+      string_ptr2 = strchr(string_ptr1, '/');
+      string_len = string_ptr2 - string_ptr1;
+      memcpy(temp_string, string_ptr1, string_len);
+      temp_string[string_len] = 0;
+      day = atof(temp_string);
   
-  //fprintf(stderr, "length header = %d\n", strlen(header_string));
-  
-  /*
-   if (string_ptr1 == NULL)
-   {
-   string_ptr1 = strstr(header_string, "Time Opened: (m/d/y):");
-   if (string_ptr1 == NULL)
-   {
-   fprintf(stderr, "Error reading open date 1 from .Ncs header\n");
-   return (1);
-   }
-   
-   month_format_type = 2;
-   
-   }
-   
-   if (month_format_type == 1)
-   string_ptr1 += strlen("Time Opened (m/d/y): ");
-   else
-   string_ptr1 += strlen("Time Opened: (m/d/y): ");
-   
-   */
-  
-  string_ptr1 += strlen ("-TimeCreated ");
-  
-  // extract year
-  string_ptr2 = strchr(string_ptr1, '/');
-  //string_ptr1 = string_ptr2 + 1;
-  //string_ptr2 = strchr(string_ptr1, ' ');
-  string_len = string_ptr2 - string_ptr1;
-  memcpy(temp_string, string_ptr1, string_len);
-  temp_string[string_len] = 0;
-  year = atof(temp_string);
-  
-  // extract month
-  string_ptr1 = string_ptr2 + 1;
-  string_ptr2 = strchr(string_ptr1, '/');
-  string_len = string_ptr2 - string_ptr1;
-  memcpy(temp_string, string_ptr1, string_len);
-  temp_string[string_len] = 0;
-  month = atof(temp_string);
-  
-  // extract day
-  string_ptr1 = string_ptr2 + 1;
-  string_ptr2 = strchr(string_ptr1, ' ');
-  //string_ptr2 = string_ptr
-  string_len = string_ptr2 - string_ptr1;
-  memcpy(temp_string, string_ptr1, string_len);
-  temp_string[string_len] = 0;
-  day = atof(temp_string);
-  
-  
-  
-  /* string_ptr1 = strstr(header_string, "(h:m:s.ms) ");
-   format_type = 1;
-   if (string_ptr1 == NULL)
-   {
-   string_ptr1 = strstr(header_string, "At Time: ");
-   if (string_ptr1 == NULL)
-   {
-   fprintf(stderr, "Error reading open date 2 from .Ncs header\n");
-   return (1);
-   }
-   format_type = 2;
-   
-   }
-   
-   if (format_type == 1)
-   string_ptr1 += strlen("(h:m:s.ms) ");
-   if (format_type == 2)
-   string_ptr1 += strlen("At Time: ");
-   */
-  
-  string_ptr1 = strstr(string_ptr2, " ");
-  
-  // extract hour
-  string_ptr2 = strchr(string_ptr1, ':');
-  string_len = string_ptr2 - string_ptr1;
-  memcpy(temp_string, string_ptr1, string_len);
-  temp_string[string_len] = 0;
-  hour = atof(temp_string);
-  
-  //fprintf(stderr, "hour = %f\n", hour);
-  
-  // extract minute
-  string_ptr1 = string_ptr2 + 1;
-  string_ptr2 = strchr(string_ptr1, ':');
-  string_len = string_ptr2 - string_ptr1;
-  memcpy(temp_string, string_ptr1, string_len);
-  temp_string[string_len] = 0;
-  minute = atof(temp_string);
-  
-  // extract second
-  string_ptr1 = string_ptr2 + 1;
-  string_ptr2 = string_ptr1 + 2;
-  //string_ptr2 = strchr(string_ptr1, ' ');
-  string_len = string_ptr2 - string_ptr1;
-  memcpy(temp_string, string_ptr1, string_len);
-  temp_string[string_len] = 0;
-  second = atof(temp_string);
-  
-  //fprintf(stderr, "second = %f\n", second);
-  
-  
-  
-  
+      // extract year
+      string_ptr1 = string_ptr2 + 1;
+      string_ptr2 = strchr(string_ptr1, ' ');
+      //string_ptr2 = string_ptr
+      string_len = string_ptr2 - string_ptr1;
+      memcpy(temp_string, string_ptr1, string_len);
+      temp_string[string_len] = 0;
+      year = atof(temp_string);
+      // XXXX  
+      
+      // XXXX  
+      string_ptr2 = strchr(string_ptr1, ')');
+      string_ptr1 = string_ptr2 + 1;
+      
+      // extract hour
+      string_ptr2 = strchr(string_ptr1, ':');
+      string_len = string_ptr2 - string_ptr1;
+      memcpy(temp_string, string_ptr1, string_len);
+      temp_string[string_len] = 0;
+      hour = atof(temp_string);
+      
+      //fprintf(stderr, "hour = %f\n", hour);
+      
+      // extract minute
+      string_ptr1 = string_ptr2 + 1;
+      string_ptr2 = strchr(string_ptr1, ':');
+      string_len = string_ptr2 - string_ptr1;
+      memcpy(temp_string, string_ptr1, string_len);
+      temp_string[string_len] = 0;
+      minute = atof(temp_string);
+      
+      // extract second
+      string_ptr1 = string_ptr2 + 1;
+      //string_ptr2 = string_ptr1 + 2;
+      string_ptr2 = strchr(string_ptr1, ' ');
+      string_len = string_ptr2 - string_ptr1;
+      memcpy(temp_string, string_ptr1, string_len);
+      temp_string[string_len] = 0;
+      second = atof(temp_string);
+      
+      Rcpp::Rcout << "Time: " << year << ":" << month << ":" << day << ":" << hour << ":" << minute << ":" << second << std::endl;
+    }
+  } else {
+  // XXXX  
+    month_format_type = 1;
+    string_ptr1 += strlen ("-TimeCreated ");
+    
+    // extract year
+    string_ptr2 = strchr(string_ptr1, '/');
+    //string_ptr1 = string_ptr2 + 1;
+    //string_ptr2 = strchr(string_ptr1, ' ');
+    string_len = string_ptr2 - string_ptr1;
+    memcpy(temp_string, string_ptr1, string_len);
+    temp_string[string_len] = 0;
+    year = atof(temp_string);
+    
+    // extract month
+    string_ptr1 = string_ptr2 + 1;
+    string_ptr2 = strchr(string_ptr1, '/');
+    string_len = string_ptr2 - string_ptr1;
+    memcpy(temp_string, string_ptr1, string_len);
+    temp_string[string_len] = 0;
+    month = atof(temp_string);
+    testVariable = 2.1;
+    Rcpp::Rcout << "Test: " << testVariable << std::endl;
+  //  Rcpp::Rcout << "Month: " << std::fixed << month << std::endl;
+    
+    // extract day
+    string_ptr1 = string_ptr2 + 1;
+    string_ptr2 = strchr(string_ptr1, ' ');
+    //string_ptr2 = string_ptr
+    string_len = string_ptr2 - string_ptr1;
+    memcpy(temp_string, string_ptr1, string_len);
+    temp_string[string_len] = 0;
+    day = atof(temp_string);
+  // XXXX  
+
+  // XXXX  
+    string_ptr1 = strstr(string_ptr2, " ");
+    
+    // extract hour
+    string_ptr2 = strchr(string_ptr1, ':');
+    string_len = string_ptr2 - string_ptr1;
+    memcpy(temp_string, string_ptr1, string_len);
+    temp_string[string_len] = 0;
+    hour = atof(temp_string);
+    
+    //fprintf(stderr, "hour = %f\n", hour);
+    
+    // extract minute
+    string_ptr1 = string_ptr2 + 1;
+    string_ptr2 = strchr(string_ptr1, ':');
+    string_len = string_ptr2 - string_ptr1;
+    memcpy(temp_string, string_ptr1, string_len);
+    temp_string[string_len] = 0;
+    minute = atof(temp_string);
+    
+    // extract second
+    string_ptr1 = string_ptr2 + 1;
+    string_ptr2 = string_ptr1 + 2;
+    //string_ptr2 = strchr(string_ptr1, ' ');
+    string_len = string_ptr2 - string_ptr1;
+    memcpy(temp_string, string_ptr1, string_len);
+    temp_string[string_len] = 0;
+    second = atof(temp_string);
+    
+  }
   // create micro UTC time, assume central standard time zone for Mayo
   uutc_time_ptr = &uutc_time;
   uutc_time_from_date(year, month, day, hour, minute, second, uutc_time_ptr);
@@ -4521,18 +4476,10 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   fseek(infile, NCS_HEADER_SIZE, SEEK_SET);
   num_bytes_read = NCS_HEADER_SIZE;
   
-  inFileName[strlen(inFileName)-4] = '\0';
-  
-  //sample_buffer = (si2*) calloc((size_t) 1024, sizeof(si2));
-  
-  
-  // we don't yet know the sampling frequency, so we'll give it something that is big,
-  // so large buffers will be allocated.  We'll fix this later with setSamplingFrequency().
-  //MefChannelWriter channel_writer(inFileName, NULL, 1.0, 32556.0);
-  
-  
-  while (num_bytes_read < flen)
-  {
+  inFilename[strlen(inFilename)-4] = '\0';
+
+while (num_bytes_read < flen)
+{
     // read event timestamp
     nr = fread(&timestamp, sizeof(ui8), (size_t) 1, infile);
     num_bytes_read += sizeof(ui8);
@@ -4544,7 +4491,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
     
     fseek(infile, 4, SEEK_CUR);
     num_bytes_read += 4;
-    
+
     // read frequency
     nr = fread(&record_frequency, sizeof(ui4), (size_t) 1, infile);
     num_bytes_read += sizeof(ui4);
@@ -4569,7 +4516,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
       exit(1); 
     } 
     //fprintf(stderr, "num_valid_samples = %d\n", num_valid_samples);
-    
+
     nr = fread(sample_buffer, sizeof(si2), (size_t) 512, infile);
     if (nr != 512)
     { 
@@ -4578,7 +4525,8 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
     } 
     num_bytes_read += 1024;
     
-    temp_timestamp = timestamp + *uutc_time_ptr;/* - 3600000000;*/ // adjust 1 hour for daylight savings, this is not necessary
+    temp_timestamp = timestamp + *uutc_time_ptr;// - 3600000000; // adjust 1 hour for daylight savings, this is not necessary
+    
   if (temp_timestamp < last_temp_timestamp + 512.0 * ((1.0/record_frequency) * 1000000.0))
   {
     // fprintf(stderr, "messed up timestamps? %ld, %ld, %ld\n",last_temp_timestamp, temp_timestamp, timestamp);
@@ -4590,7 +4538,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   
   if (num_valid_samples > 512)
     fprintf(stderr, "invalid num_valid_samples... \n");
-  
+
   // iterate through the samples we just read, and assign timestamps to each.
   for (i=0;i<num_valid_samples;i++)
   {
@@ -4599,7 +4547,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
     packet_times[i].timestamp = temp_timestamp;
 #endif
     //samps[i] = (si4) *sample_buffer_ptr;
-    samps[i] =  sample_buffer[i];
+    samps[i] =  round( sample_buffer[i] / 32 );
     //fprintf(stderr, "ample %d: %d\n", i, samps[i]);
     
     //sample_buffer_ptr++;
@@ -4609,35 +4557,15 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
     
     temp_timestamp += ((1.0 / record_frequency) * 1000000.0);
   }
-  
-  //channel_writer.writeData(packet_times, samps, num_valid_samples);
-  
-  /*write_mef_channel_data(&session_state_struct->channels[0],
-   packet_times, 
-   samps, 
-   num_valid_samples, 
-   1.0,
-   (sf8) record_frequency);   // this sampling frequency value needs to be correct*/
-  
+
 #ifndef OUTPUT_TO_MEF2
   write_mef_channel_data(channel_state_struct, timestamps, samps, num_valid_samples, SECS_PER_BLOCK, record_frequency);
 #else
   write_mef_channel_data(channel_state_struct, &out_header_struct, packet_times, samps, num_valid_samples, SECS_PER_BLOCK);
 #endif
-  
-  
+
   }
-  
-  
-  // TBD revisit this
-  //out_header_struct.recording_start_time = saved_start_time;
-  
-  
-  // finish and close .mef file write
-  //channel_writer.close(&out_header_struct, subject_password);
-  //close_mef_channel_file(&session_state_struct->channels[0], /*&out_header_struct,*/ session_password, subject_password, 1.0);
-  
-  
+
 #ifndef OUTPUT_TO_MEF2
   close_mef_channel(channel_state_struct);
 #else
@@ -4647,7 +4575,7 @@ ui8 read_ncs_file(si1 *inFileName, si1 *uid, si1 *subject_password, si1 *session
   out_header_struct.recording_start_time = saved_start_time;
   close_mef_channel_file(channel_state_struct, &out_header_struct, NULL, NULL, SECS_PER_BLOCK);
 #endif
-  
+
   fclose(infile);
   
   return *uutc_time_ptr;
@@ -4659,17 +4587,25 @@ void uutc_time_from_date(sf8 yr, sf8 mo, sf8 dy, sf8 hr, sf8 mn, sf8 sc, ui8 *uu
   time_t		UTC_secs;
   long		gm_offset;
   char		timestr[30];
+  int tmp;
   
+  Rcpp::Rcout << "Into uutc_time_from_date" << std::endl;
+
   tm.tm_sec = (int) sc;
   tm.tm_min = (int) mn;
   tm.tm_hour = (int) hr;
   tm.tm_mday = (int) dy;
-  tm.tm_mon = (int) (mo - 1.0);
-  tm.tm_year = (int) (yr - 1900.0);
+//  tmp = round(mo);
+//  Rcpp::Rcout << mo << std::endl;
+//  Rcpp::Rcout << tmp << std::endl;
+//  tm.tm_mon = tmp;
+//  tm.tm_mon = (int) (mo - 1.0);
+//  tm.tm_year = (int) (yr - 1900.0);
   
   gm_offset = -6;
   tm.tm_gmtoff = gm_offset * 3600;
   
+/* XXXX  
   tzset();
   fflush(stdout);
   //	fprintf(stdout, "tm_hr %d\ttm_gmtoff %d\n", tm.tm_hour, tm.tm_gmtoff);
@@ -4678,7 +4614,7 @@ void uutc_time_from_date(sf8 yr, sf8 mo, sf8 dy, sf8 hr, sf8 mn, sf8 sc, ui8 *uu
   
   *uutc_time = (unsigned long long) (UTC_secs - (int) sc) * 1000000;
   *uutc_time += (unsigned long long) ((sc * 1000000.0) + 0.5);
-  
+*/ // XXXX
   return;
 }
 
@@ -4922,11 +4858,19 @@ si4 read_nev_file(si1 *inFileName, si1 *mef_path, ui8 time_correction_factor)
 void ncs2mef (Rcpp::StringVector strings) {
   int dataFailed = 0;
   int numFiles, uid, anon_flag;
-  ui1	*uid_array;
+  si1	*uid_array;
   char subject_password[32], session_password[32];
   ui8 uutc_time;
   int i;
   int nev_count, ncs_count;
+  
+  Rcpp::Rcout << "Running ncs2mef" << std::endl;
+  
+  std::vector<std::string> vstrings(strings.size());
+  int j;
+  for (j=0; j<strings.size(); j++) {
+    vstrings[j] = strings(j);
+  }
   
   if (strings.size() < 1) 
   {
@@ -4958,8 +4902,8 @@ void ncs2mef (Rcpp::StringVector strings) {
   nev_count = 0;
   for (i=0;i<numFiles;i++)
   {
-    
-    if (!strstr(strings[i], ".nev") == NULL)
+//    if (!strstr(strings[i], ".nev") == NULL)
+    if ( (vstrings[i]).find(".nev") != std::string::npos )
       nev_count++;
   }
   
@@ -4974,10 +4918,12 @@ void ncs2mef (Rcpp::StringVector strings) {
   {
     
     // main processing, this is where NCS is read and .MEF files are written
-    if (!strstr(strings[i], ".ncs") == NULL)
+//    if (!strstr(strings[i], ".ncs") == NULL)
+    if ( (vstrings[i]).find(".ncs") != std::string::npos )
     {
       ncs_count++;
-      uutc_time = read_ncs_file((si1*) strings[i], (si1*) uid_array, session_password, subject_password, anon_flag, uutc_time);
+//      uutc_time = read_ncs_file((si1*) strings[i], (si1*) uid_array, session_password, subject_password, anon_flag, uutc_time);
+      uutc_time = read_ncs_file( (si1*) strings[i], (si1*) uid_array, session_password, subject_password, anon_flag, uutc_time );
     }
     // do nev in separate pass, so make sure they are done last
     //else
@@ -4989,15 +4935,16 @@ void ncs2mef (Rcpp::StringVector strings) {
     fprintf(stderr, "There aren't any data (.ncs) files specified, so nothing to do!  Exiting.\n");
     //return(1);
   }
-  
+
+/*    
   for (i=0;i<numFiles;i++)
   {
     if (!strstr(strings[i], ".nev") == NULL)
       read_nev_file((si1*) strings[i], "mef3", uutc_time);
     
   }
-  
-//  if (dataFailed)
-//    return 1;
-//  return 0;
+*/  
+  //  if (dataFailed)
+  //    return 1;
+  //  return 0;
 }

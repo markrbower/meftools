@@ -44,7 +44,7 @@ test_that("ncs2mef works", {
 #  print( paste0( "ncs2mef: filename: ", filename ) )
   newFilename <- file.path( testthat::test_path(), "mef2/CSC1.mef", fsep = .Platform$file.sep)
 #  print( paste0( "ncs2mef: newFilename: ", newFilename ) )
-  #  # Convert
+  #  # Convert  
   meftools::ncs2mef( c(filename) )
 #  # Check the output
   info <- meftools::mef_info( c(newFilename, "blah"))

@@ -1,5 +1,21 @@
 {
     "debugBreakpointsState": {
-        "breakpoints": []
+        "breakpoints": [
+            {
+                "id": 0,
+                "path": "~/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/R/mef_info.R",
+                "line_number": 10,
+                "function_steps": "3",
+                "function_name": "mef_info",
+                "state": 1,
+                "editor_state": 1,
+                "editor_line_number": 10,
+                "is_pending_debug_completion": false,
+                "needs_updated_steps": false,
+                "type": 0,
+                "is_package_breakpoint": true,
+                "package_name": "meftools"
+            }
+        ]
     }
 }
