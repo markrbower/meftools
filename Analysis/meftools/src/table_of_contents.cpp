@@ -15,18 +15,18 @@
 //' @export
 // [[Rcpp::export]]
 Rcpp::NumericMatrix table_of_contents( Rcpp::StringVector strings ) {
-    printf( "ToC\n" );
+//    printf( "ToC\n" );
     char *filename = (si1*)strings(0);
-    printf( "filename: %s\n", filename );
-    printf( "%s\n", (char *)strings(1) );
+//    printf( "filename: %s\n", filename );
+//    printf( "%s\n", (char *)strings(1) );
     long index_data_offset = atol( strings(1) );
-    printf( "%ld\n", index_data_offset );
-    printf( "%s\n", (char *)strings(2) );
+//    printf( "%ld\n", index_data_offset );
+//    printf( "%s\n", (char *)strings(2) );
     long number_of_index_entries = atol( strings(2) );
-    printf( "%ld\n", number_of_index_entries );
+//    printf( "%ld\n", number_of_index_entries );
     //	printf( "%d\n", index_data_offset );
     //  printf( "%d\n", number_of_index_entries );
-    printf( "out of ToC\n" );
+//    printf( "out of ToC\n" );
     
     FILE *fp = fopen( filename, "r" );
     fseek( fp, index_data_offset, SEEK_SET );

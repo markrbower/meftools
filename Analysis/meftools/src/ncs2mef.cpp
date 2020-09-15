@@ -4318,7 +4318,7 @@ ui8 read_ncs_file(si1 *inFilename, si1 *uid, si1 *session_password, si1 *subject
     return (1); 
   }
   
-  Rcpp::Rcout << header_string << std::endl;
+//  Rcpp::Rcout << header_string << std::endl;
 
   // point to beginning of date string
   string_ptr1 = strstr(header_string, "-TimeCreated ");
@@ -4395,7 +4395,7 @@ ui8 read_ncs_file(si1 *inFilename, si1 *uid, si1 *session_password, si1 *subject
       temp_string[string_len] = 0;
       second = atof(temp_string);
       
-      Rcpp::Rcout << "Time: " << year << ":" << month << ":" << day << ":" << hour << ":" << minute << ":" << second << std::endl;
+//      Rcpp::Rcout << "Time: " << year << ":" << month << ":" << day << ":" << hour << ":" << minute << ":" << second << std::endl;
     }
   } else {
   // XXXX  
