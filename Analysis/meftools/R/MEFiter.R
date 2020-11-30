@@ -16,6 +16,7 @@ MEFiter <- function(filename, password, ... ) {
   #'   data <- nextElem( data_iter )
   #' }
 
+  # Parse args
   args <- list(...)
   for ( arg in names(args) ) {
     switch( arg,
@@ -38,6 +39,7 @@ MEFiter <- function(filename, password, ... ) {
     )
   }
   
+  # Set defaults
   if ( !exists( "info" ) ) {
     print( 'MEFiter was not initialized with an info variable' )
     stop(0)
@@ -67,7 +69,18 @@ MEFiter <- function(filename, password, ... ) {
   #  print( paste0( block0, ':', block1 ) )
   #  print( paste0( block0, ' ', block1, ' ', sampleSize ) )
   
-  # If sampleSize exists, use it. If not, use sampleSize.
+  # Define 'start' and 'stop' block numbers.
+  # This is where you set the blocks to match time requests.
+  # block0/block1 should be lists of endpoints for contiguous data.
+  # Use time0/time1 to find the desired blocks.
+  tmp <- which( info$ToC[1,] < time0 )
+  idx_fine0 <- tmp[length(tmp)]
+  if ( block0 < idx_fine0 & idx_fine0 < block1 ) { block0 = idx_fine0 }
+  tmp <- which( info$ToC[1,] > time1 )
+  idx_fine1 <- tmp[1]
+  if ( block0 < idx_fine1 & idx_fine1 < block1 ) { block1 = idx_fine1 }
+
+  # Set the start/stop of blocks from which data will be loaded (sampleSize)  
   if ( (block1-block0) > sampleSize ) {
     #    print( paste0( "multi-block read" ) )
     S <- seq( block0, block1 )
@@ -89,6 +102,10 @@ MEFiter <- function(filename, password, ... ) {
     return(NULL)
   }
   df <- data.frame( start, stop )
+  # Run the iterator up to the requested time so that the first returned sample
+  # contains the requested time point, or the first data afterward.
+  
+  
   
   it <- iterators::iter( df, by="row" )
   

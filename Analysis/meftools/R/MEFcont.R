@@ -16,9 +16,8 @@ MEFcont <- function( filename, password, ... ) {
   #'   data <- nextElem( data_iter )
   #' }
   
-    time0 <- 0
-    time1 <- 1E50
-    args <- list(...)
+  # Parse arguments
+  args <- list(...)
     for ( arg in names(args) ) {
       switch( arg,
               "time0" = {time0 = args[[arg]]},
@@ -28,27 +27,48 @@ MEFcont <- function( filename, password, ... ) {
               "info" = {info <- args[[arg]]}
       )
     }
-
-    # Use only meftools files everywhere
+  
+  if ( !exists('info') ) {
     info <- mef_info( c(filename,password) )
-    
+  }
+
+  # Set defaults
+  if ( !exists( "time0" ) ) {time0 <- 0}
+  if ( !exists( "time1" ) ) {time1 <- 1E20}
+  if ( !exists( "block0" ) ) {block0 <- 1}
+  if ( !exists( "block1" ) ) {block1 <- length( info$discontinuities )}
+
     i <- 1
     # Divide the continuous regions. Starts and Stops are inclusive.
     conts <- findContinuousMefSequences( info )
+    # Keep only those continuous regions within the time/block bounds.
+    contStartTimes <- info$ToC[1,conts$contiguousStarts]
+    idx0 <- which( contStartTimes < time0 )
+    contStopTimes <- info$ToC[1,conts$contiguousStops]
+    idx1 <- which( contStopTimes > time1 )
+    if ( length(idx0) == 0 ) {
+      print( "MEFcont: No valid starts found." )
+      return()
+    }
+    if ( length(idx1) == 0 ) {
+      print( "MEFcont: No valid stops found." )
+      return()
+    }
+    if ( idx0 > idx1 ) {
+      print( "MEFcont: starts and stops do not overlap." )
+      return()
+    }
+    newIdx <- idx0[length(idx0)]:idx1[1]
+    newStarts <- conts$contiguousStarts[newIdx]
+    newStops <- conts$contiguousStops[newIdx]
+    conts <- data.frame( contiguousStarts=newStarts, contiguousStops=newStops )
+    
     it <- iterators::iter( conts, by="row" )
     
     # Use blocks
     nextEl <- function() {
       values <- iterators::nextElem( it )
-      #print(values)
-#      print( paste0( colnames(values) ) )
-      #print( paste0( filename ) )
-#      print( values )
-#      print( time0 )
-#      print( time1 )
-      
       mi <- MEFiter( filename, password, info=info, block0=values$contiguousStarts, block1=values$contiguousStops, time0=time0, time1=time1 )
-#      MEFiter( filename=filename, password=password, info=info, time0=time0, time1=time1 )
       return( mi )
     }
     
