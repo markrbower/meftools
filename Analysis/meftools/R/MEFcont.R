@@ -48,11 +48,13 @@ MEFcont <- function( filename, password, ... ) {
     idx1 <- which( contStopTimes > time1 )
     if ( length(idx0) == 0 ) {
       print( "MEFcont: No valid starts found." )
-      return()
+      print( "Setting the end to the first block." )
+      idx0 <- 1
     }
     if ( length(idx1) == 0 ) {
       print( "MEFcont: No valid stops found." )
-      return()
+      print( "Setting the end to the last block." )
+      idx1 <- length(contStopTimes)
     }
     if ( idx0 > idx1 ) {
       print( "MEFcont: starts and stops do not overlap." )

@@ -73,12 +73,13 @@ MEFiter <- function(filename, password, ... ) {
   # This is where you set the blocks to match time requests.
   # block0/block1 should be lists of endpoints for contiguous data.
   # Use time0/time1 to find the desired blocks.
-  tmp <- which( info$ToC[1,] < time0 )
-  idx_fine0 <- tmp[length(tmp)]
-  if ( block0 < idx_fine0 & idx_fine0 < block1 ) { block0 = idx_fine0 }
-  tmp <- which( info$ToC[1,] > time1 )
-  idx_fine1 <- tmp[1]
-  if ( block0 < idx_fine1 & idx_fine1 < block1 ) { block1 = idx_fine1 }
+#  tmp <- which( info$ToC[1,] < time0 )
+#  idx_fine0 <- tmp[length(tmp)]
+#  if ( block0 < idx_fine0 & idx_fine0 < block1 ) { block0 = idx_fine0 }
+#  tmp <- which( info$ToC[1,] > time1 )
+#  if ( length(tmp) == 0 ) {idx_fine1 <- ncol(info$ToC[1,])}
+#  idx_fine1 <- tmp[1]
+#  if ( block0 < idx_fine1 & idx_fine1 < block1 ) { block1 = idx_fine1 }
 
   # Set the start/stop of blocks from which data will be loaded (sampleSize)  
   if ( (block1-block0) > sampleSize ) {

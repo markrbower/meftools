@@ -14,8 +14,10 @@ mefBuffer <- function( power ) {
     
   }
   
-  get() <- function() {
-    return buffer
+  get <- function() {
+    return(buffer)
   }
+  
+  
 }
 
