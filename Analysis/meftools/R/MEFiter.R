@@ -90,13 +90,22 @@ MEFiter <- function(filename, password, ... ) {
   }
   df <- data.frame( start, stop )
   
-  it <- iterators::iter( df, by="row" )
+  it <- itertools::ihasNext( iterators::iter( df, by="row" ) )
   
-  nextEl <- function() {
-    # This is where decomp_mef returns data.
-    #    print( paste0( time0, ' ', time1 ) )
-    n <- iterators::nextElem(it)
-    #    print( paste0( n$start, ' ', n$stop, ' ', ncol(info$ToC) ) )
+  # The next two functions (nextParamters and readByParameters)
+  # break "nextElem" into two steps, allowing data reading in future().
+  nextParameters <- function() {
+    if ( it$hasNext() ) {
+      return( it$nextElem() )
+    } else {
+      return( NULL )
+    }
+  }
+  
+  readByParameters <- function( n ) {
+    if ( is.null(n) ) {
+      return( NULL )
+    }
     block0 <- n$start
     if ( n$stop > length(info$ToC[3,]) ) {
       block1 <- ncol( info$ToC[1,] )
@@ -137,84 +146,19 @@ MEFiter <- function(filename, password, ... ) {
     return(data)
   }
   
-  ihasNext <- function(it) {
-    if (!is.null(it$hasNext)) return(it)
-    cache <- NULL
-    has_next <- NA
-    
-    nextEl <- function() {
-      if (!hasNx())
-        stop('StopIteration', call.=FALSE)
-      has_next <<- NA
-      
-      # This is where decomp_mef returns data.
-      #    print( paste0( n$start, ' ', n$stop, ' ', ncol(info$ToC) ) )
-      block0 <- cache$start
-      if ( cache$stop > length(info$ToC[3,]) ) {
-        block1 <- ncol( info$ToC[1,] )
-      } else {
-        block1 <- cache$stop
-      }
-      s0 <- info$ToC[3,block0]
-      if ( block1==info$header$number_of_index_entries ) {
-        s1 <- info$header$number_of_samples
-      } else {
-        s1 <- info$ToC[3,(block1+1)]-1
-      }
-      dlast <- s1 - info$ToC[3,block1] + 1
-      #    print( paste0( s0, ' ', s1 ) )
-      data <- decomp_mef(c(filename, s0, s1, password) )
-      # Check the time window.
-      blockTime <- c( info$ToC[1,block0],  info$ToC[1,block1] + round(dlast*1E6/info$header$sampling_frequency) )
-      #    print( paste0( dlast, ' ', blockTime[1], ' ', blockTime[2] ) )
-      if ( blockTime[1]<=time0 & time0<=blockTime[2] ) { # requested start is within decoded data
-        bad <- ceiling( (time0 - blockTime[1]) / microsecondsPerSample )
-        data <- data[-1:-bad]
-      }
-      if ( blockTime[1]<=time1 & time1<=blockTime[2] ) { # requested stop is within decoded data
-        bad <- ceiling( (blockTime[2] - time1) / microsecondsPerSample )
-        LL <- length(data)
-        #      print( paste0( bad, ' ', LL, ' ', -(LL-bad+1) ) )
-        data <- data[-(LL-bad+1):-LL]
-      }
-      # Add the timestamp of the first value as an attribute.
-      attr( data, 's0' ) <- info$ToC[3,cache$start]
-      attr( data, 't0' ) <- info$ToC[1,cache$start]
-      # Add the timestamp of the last value as an attribute.
-      attr( data, 's1' ) <- info$ToC[3,cache$stop] + dlast
-      attr( data, 't1' ) <- info$ToC[1,cache$stop] + dlast * microsecondsPerSample;
-      # Add metadata as attributes.
-      attr( data, 'info' ) <- info
-      attr( data, 'dt' ) <- microsecondsPerSample
-      return(data)
-    }
-    
-    hasNx <- function() {
-      if (!is.na(has_next)) return(has_next)
-      tryCatch({
-        cache <<- iterators::nextElem(it)
-        has_next <<- TRUE
-      },
-      error=function(e) {
-        if (identical(conditionMessage(e), 'StopIteration')) {
-          has_next <<- FALSE
-        } else {
-          stop(e)
-        }
-      })
-      has_next
-    }
-    
-    obj <- list(nextElem=nextEl, hasNext=hasNx)
-    class(obj) <- c('ihasNext', 'abstractiter', 'iter')
-    obj
+  nextEl <- function() {
+    n <- nextParameters()
+    return( readByParameters(n) )
   }
-
+  
+  hasNx <- function() {
+    return( it$hasNext() )
+  }
+  
   props <- list("filename"=filename, "password"=password, "info"=info )
   
-  obj <- list(nextElem=nextEl,hasNext=ihasNext)
+  obj <- list(nextElem=nextEl,hasNext=hasNx,nextParameters=nextParameters,readByParameters=readByParameters)
   attr( obj, "props" ) <- props
-  obj <- ihasNext(it)
   class(obj) <- c('ihasNext', 'abstractiter', 'iter', 'MEFiter')
   obj    
 }
