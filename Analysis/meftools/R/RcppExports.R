@@ -6,7 +6,7 @@
 #' @param StringVector strings
 #' @export
 decomp_mef <- function(strings) {
-    .Call('_meftools_decomp_mef', PACKAGE = 'meftools', strings)
+    .Call(`_meftools_decomp_mef`, strings)
 }
 
 #' @importFrom Rcpp evalCpp
@@ -15,14 +15,14 @@ decomp_mef <- function(strings) {
 #' @param NumericMatrix ToC
 #' @export
 get_discontinuities <- function(strings, ToC) {
-    .Call('_meftools_get_discontinuities', PACKAGE = 'meftools', strings, ToC)
+    .Call(`_meftools_get_discontinuities`, strings, ToC)
 }
 
 #' @importFrom Rcpp evalCpp
 #' @useDynLib meftools
 #' @export
 ncs2mef <- function(strings) {
-    invisible(.Call('_meftools_ncs2mef', PACKAGE = 'meftools', strings))
+    invisible(.Call(`_meftools_ncs2mef`, strings))
 }
 
 #' @importFrom Rcpp evalCpp
@@ -30,7 +30,7 @@ ncs2mef <- function(strings) {
 #' @param StringVector strings
 #' @export
 read_mef_header <- function(strings) {
-    .Call('_meftools_read_mef_header', PACKAGE = 'meftools', strings)
+    .Call(`_meftools_read_mef_header`, strings)
 }
 
 #' @importFrom Rcpp evalCpp
@@ -38,6 +38,6 @@ read_mef_header <- function(strings) {
 #' @param StringVector strings
 #' @export
 table_of_contents <- function(strings) {
-    .Call('_meftools_table_of_contents', PACKAGE = 'meftools', strings)
+    .Call(`_meftools_table_of_contents`, strings)
 }
 
