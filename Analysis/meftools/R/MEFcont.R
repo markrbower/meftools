@@ -19,6 +19,7 @@ MEFcont <- function( filename, password, ... ) {
     time0 <- 0
     time1 <- 1E50
     args <- list(...)
+    info <- NULL
     for ( arg in names(args) ) {
       switch( arg,
               "time0" = {time0 = args[[arg]]},
@@ -30,11 +31,13 @@ MEFcont <- function( filename, password, ... ) {
     }
 
     # Use only meftools files everywhere
-    info <- mef_info( c(filename,password) )
+    if ( is.null(info) ) {
+      info <- mef_info( c(filename,password) )
+    }
     
     i <- 1
     # Divide the continuous regions. Starts and Stops are inclusive.
-    conts <- findContinuousMefSequences( info )
+    conts <- findContinuousMefSequences( info, time0, time1 )
     it <- itertools::ihasNext( iterators::iter( conts, by="row" ) )
     
     # Use blocks
