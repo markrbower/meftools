@@ -38,7 +38,7 @@ MEFcont <- function( filename, password, ... ) {
     i <- 1
     # Divide the continuous regions. Starts and Stops are inclusive.
     conts <- findContinuousMefSequences( info, time0, time1 )
-    it <- itertools::ihasNext( iterators::iter( conts, by="row" ) )
+    it <<- itertools::ihasNext( iterators::iter( conts, by="row" ) )
     
     # Use blocks
     nextEl <- function() {

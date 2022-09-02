@@ -90,7 +90,7 @@ MEFiter <- function(filename, password, ... ) {
   }
   df <- data.frame( start, stop )
   
-  it <- itertools::ihasNext( iterators::iter( df, by="row" ) )
+  it <<- itertools::ihasNext( iterators::iter( df, by="row" ) )
   
   # The next two functions (nextParamters and readByParameters)
   # break "nextElem" into two steps, allowing data reading in future().
