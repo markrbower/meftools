@@ -13,7 +13,6 @@ mef_info <- function( args ) {
   password <- args[2]
 
   # Read the headerpwd
-  print( paste0( 'meftools::mef_info', filename, ' ', password ) )
   header = read_mef_header(c(filename,password))
 #  print( header )
   

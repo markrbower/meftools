@@ -48,7 +48,9 @@ MEFcont <- function( filename, password, ... ) {
     }
     
     hasNx <- function() {
-      return( it$hasNext() )      
+      value <- it$hasNext()
+      print(value)
+      return( value )      
     }
     
     props <- list("filename"=filename, "password"=password, "info"=info )
