@@ -15,6 +15,8 @@ MEFiter <- function(filename, password, ... ) {
   #'   data_iter <- MEFiter( filename, password, time0=1.00E15, time1=1.01E15, stepSize=10 )
   #'   data <- nextElem( data_iter )
   #' }
+  library( iterators )
+  library( itertools )
 
   args <- list(...)
   for ( arg in names(args) ) {

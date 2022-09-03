@@ -15,6 +15,8 @@ MEFcont <- function( filename, password, ... ) {
   #'   data_iter <- MEFiter( filename, password, time0=1.00E15, time1=1.01E15, step=10 )
   #'   data <- nextElem( data_iter )
   #' }
+  library( iterators )
+  library( itertools )
   
     time0 <- 0
     time1 <- 1E50
