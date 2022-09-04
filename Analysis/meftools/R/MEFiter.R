@@ -92,7 +92,7 @@ MEFiter <- function(filename, password, ... ) {
   }
   df <- data.frame( start, stop )
   
-  it <<- itertools::ihasNext( iterators::iter( df, by="row" ) )
+  it <- itertools::ihasNext( iterators::iter( df, by="row" ) )
   
   # The next two functions (nextParamters and readByParameters)
   # break "nextElem" into two steps, allowing data reading in future().
@@ -161,6 +161,6 @@ MEFiter <- function(filename, password, ... ) {
   
   obj <- list(nextElem=nextEl,hasNext=hasNx,nextParameters=nextParameters,readByParameters=readByParameters)
   attr( obj, "props" ) <- props
-  class(obj) <- c('ihasNext', 'abstractiter', 'iter', 'MEFiter')
+  class(obj) <- c('MEFiter')
   obj    
 }
