@@ -45,7 +45,7 @@ MEFcont <- function( filename, password, ... ) {
     # Use blocks
     nextEl <- function() {
       values <- iterators::nextElem( it )
-      mi <- MEFiter( filename, password, info=info, block0=values$contiguousStarts, block1=values$contiguousStops, time0=time0, time1=time1 )
+      mi <- MEFiter( filename, password, info=info, block0=values$contiguousStarts, block1=values$contiguousStops, time0=time0, time1=time1, stepSize=3600 )
       return( mi )
     }
     

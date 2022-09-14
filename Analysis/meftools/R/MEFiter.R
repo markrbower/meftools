@@ -69,7 +69,6 @@ MEFiter <- function(filename, password, ... ) {
   #  print( paste0( block0, ':', block1 ) )
   #  print( paste0( block0, ' ', block1, ' ', sampleSize ) )
   
-  # If sampleSize exists, use it. If not, use sampleSize.
   if ( (block1-block0) > sampleSize ) {
     #    print( paste0( "multi-block read" ) )
     S <- seq( block0, block1 )
