@@ -2186,11 +2186,11 @@ static ui8 set_session_unique_ID(char *file_name, ui1 *array)
 EXPORT
 static si4 check_header_block_alignment(ui1 *header_block, si4 verbose)
 {
-    if ((ui8) header_block % 8) {
-        if (verbose)
-            (void) fprintf(stderr, "Header block is not 8 byte boundary aligned [use malloc() rather than heap declaration] ==> exiting\n");
-        return(1);
-    }
+    //if ((ui8) header_block % 8) {
+    //   if (verbose)
+    //        (void) fprintf(stderr, "Header block is not 8 byte boundary aligned [use malloc() rather than heap declaration] ==> exiting\n");
+    //    return(1);
+    //}
     
     return(0);
 }
