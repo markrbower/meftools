@@ -60,7 +60,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/mman.h>
+//#include <sys/mman.h>
 #include <pthread.h>
 #include <strings.h>
 #include <math.h>
