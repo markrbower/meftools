@@ -70,7 +70,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_meftools_decomp_mef", (DL_FUNC) &_meftools_decomp_mef, 1},
     {"_meftools_get_discontinuities", (DL_FUNC) &_meftools_get_discontinuities, 2},
-    {"_meftools_ncs2mef", (DL_FUNC) &_meftools_ncs2mef, 1},
+//    {"_meftools_ncs2mef", (DL_FUNC) &_meftools_ncs2mef, 1},
     {"_meftools_read_mef_header", (DL_FUNC) &_meftools_read_mef_header, 1},
     {"_meftools_table_of_contents", (DL_FUNC) &_meftools_table_of_contents, 1},
     {NULL, NULL, 0}
