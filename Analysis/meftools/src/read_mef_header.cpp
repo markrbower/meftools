@@ -2102,7 +2102,7 @@ static ui8 generate_unique_ID(ui1 *array)
     
     if (first_time)
     {
-        srandom(time(NULL));
+        srand(time(NULL));
         first_time = 0;
     }
     
