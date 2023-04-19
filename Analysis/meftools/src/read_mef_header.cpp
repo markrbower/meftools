@@ -1202,7 +1202,8 @@ static ui8 RED_compress_block(si4 *in_buffer, ui1 *out_buffer, ui4 num_entries, 
     diff_cnts = (si4) (si1_p1 - (si1 *) diff_buffer);
     
     /*** generate statistics ***/
-    bzero((void *) cnts, 1024);
+    //bzero((void *) cnts, 1024);
+    memset((void *) cnts, 0, 1024);
     ui1_p1 = diff_buffer;
     for (i = diff_cnts; i--;)
         ++cnts[*ui1_p1++];
