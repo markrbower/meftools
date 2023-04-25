@@ -20,13 +20,6 @@ get_discontinuities <- function(strings, ToC) {
 
 #' @importFrom Rcpp evalCpp
 #' @useDynLib meftools
-#' @export
-ncs2mef <- function(strings) {
-    invisible(.Call(`_meftools_ncs2mef`, strings))
-}
-
-#' @importFrom Rcpp evalCpp
-#' @useDynLib meftools
 #' @param StringVector strings
 #' @export
 read_mef_header <- function(strings) {
