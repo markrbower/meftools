@@ -2040,7 +2040,7 @@ static ui8 set_session_unique_ID(char *file_name, ui1 *array)
     
     
     //Open file
-    mef_fp = fopen(file_name, "r+");
+    mef_fp = fopen(file_name, "rb+");
     if (mef_fp == NULL) {
         fprintf(stderr, "%s: Could not open file %s\n", __FUNCTION__, file_name);
         return(1);
@@ -2186,7 +2186,7 @@ static si4	write_mef(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1
         fprintf(stderr, "no \".mef\" on input name => exiting\n");
         return(1);
     }
-    fp = fopen(out_file, "w");
+    fp = fopen(out_file, "wb");
     if (fp == NULL) {fprintf(stderr, "Error [%s]: Can't open file %s for writing\n\n", __FUNCTION__, out_file); exit(1);}
     
     
@@ -2327,7 +2327,7 @@ static si4	write_mef_ind(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len,
         fprintf(stderr, "no \".mef\" on input name => exiting\n");
         return(1);
     }
-    fp = fopen(out_file, "w");
+    fp = fopen(out_file, "wb");
     if (fp == NULL) {fprintf(stderr, "Error [%s]: Can't open file %s for writing\n\n", __FUNCTION__, out_file); exit(1);}
     
     memset(header, 0, MEF_HEADER_LENGTH); //fill mef header space with zeros - will write real info after writing blocks and indices
@@ -2633,18 +2633,18 @@ static si4 validate_mef(char *mef_filename, char *log_filename, char *password)
     else {
         //check to see if log file exists
         logfile = 1;
-        lfp = fopen(log_filename, "r");
+        lfp = fopen(log_filename, "rb");
         if (lfp != NULL)
             fprintf(stdout, "[%s] Appending to existing logfile %s\n", __FUNCTION__, log_filename);
         fclose(lfp);
-        lfp = fopen(log_filename, "a+");
+        lfp = fopen(log_filename, "ab+");
         if (lfp == NULL) {
             fprintf(stderr, "[%s] Error opening %s for writing\n", __FUNCTION__, log_filename);
             return(1);
         }
     }
     
-    mfp = fopen(mef_filename, "r");
+    mfp = fopen(mef_filename, "rb");
     if (mfp == NULL) {fprintf(stderr, "[%s] Error opening mef file %s\n", __FUNCTION__, mef_filename); return(1);}
     
     n = fread(encr_hdr, 1, MEF_HEADER_LENGTH, mfp);
@@ -2869,7 +2869,7 @@ std::vector<int> decomp_mef(Rcpp::StringVector strings)
     }
     
     /* read header */
-    fp = fopen(f_name, "r");
+    fp = fopen(f_name, "rb");
     if (fp == NULL) {
         printf("[decomp_mef] could not open the file \"%s\" => exiting\n",  f_name);
         return return_data;
