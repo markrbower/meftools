@@ -2959,6 +2959,8 @@ Rcpp::MEF_HEADER_INFO read_mef_header(Rcpp::StringVector strings) {
 	
 	bk_hdr = (ui1*)calloc(sizeof(ui1), MEF_HEADER_LENGTH);
 	num = fread(bk_hdr, 1, MEF_HEADER_LENGTH, fp);
+	printf( "MEF_HEADER_LENGTH: %d\n", MEF_HEADER_LENGTH );
+	printf( "num: %d\n", num );  
 	if (num != MEF_HEADER_LENGTH) {
 		fprintf(stderr, "Error reading file %s\n", filename);
 		return *header;
