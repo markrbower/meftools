@@ -4,7 +4,10 @@
 MEF_HEADER converRcppHeader( Rcpp::MEF_HEADER_INFO rcpp_header ) {
     MEF_HEADER mef_header;
 
-    si1 institution[INSTITUTION_LENGTH];
+    mef_header.institution = rcpp_header.institution;
+
+
+
     si1 unencrypted_text_field[UNENCRYPTED_TEXT_FIELD_LENGTH];
     si1 encryption_algorithm[ENCRYPTION_ALGORITHM_LENGTH];
     ui1 subject_encryption_used;
