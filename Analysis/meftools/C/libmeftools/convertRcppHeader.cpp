@@ -51,16 +51,10 @@ MEF_HEADER converRcppHeader( Rcpp::MEF_HEADER_INFO mef_header. {
     copy( rcpp_header->file_unique_ID, FILE_UNIQUE_ID_LENGTH, mef_header->file_unique_ID );
     copy( rcpp_header->anonymized_subject_name, ANONYMIZED_SUBJECT_NAME_LENGTH, mef_header->anonymized_subject_name );
     mef_header.header_crc = rcpp_header.header_crc;
-
-
-    mef_header.= rcpp_header.;
-
-    copy( rcpp_header->, , mef_header-> );
+    mef_header.file_index= rcpp_header.file_index;
+    mef_header.discontinuity_data= rcpp_header.discontinuity_data;
+}
   
-//    ui4 header_crc;
-    INDEX_DATA *file_index;
-    ui8 *discontinuity_data;
-  } MEF_HEADER; 
 
 //  typedef struct {
 //    si1 institution[INSTITUTION_LENGTH];
@@ -109,11 +103,10 @@ MEF_HEADER converRcppHeader( Rcpp::MEF_HEADER_INFO mef_header. {
 //    ui8 number_of_discontinuity_entries;
 //    ui1 file_unique_ID[FILE_UNIQUE_ID_LENGTH];
 //    si1 anonymized_subject_name[ANONYMIZED_SUBJECT_NAME_LENGTH];
-
-
-
-
-
+//    ui4 header_crc;
+//    INDEX_DATA *file_index;
+//    ui8 *discontinuity_data;
+//  } MEF_HEADER; 
 
 }
 
