@@ -1,61 +1,61 @@
 
 
 
-MEF_HEADER converRcppHeader( Rcpp::MEF_HEADER_INFO rcpp_header ) {
-    MEF_HEADER mef_header;
+MEF_HEADER converRcppHeader( Rcpp::MEF_HEADER_INFO mef_header. {
+    MEF_HEADER rcpp_header.
 
-    copy( rcpp_header->institution, INSTITUTION_LENGTH, mef_header->institution );
-    copy( rcpp_header->unencrypted_text_field, UNENCRYPTED_TEXT_FIELD_LENGTH , mef_header->unencrypted_text_field );
-    copy( rcpp_header->encryption_algorithm, ENCRYPTION_ALGORITHM_LENGTH, mef_header->encryption_algorithm );
-    rcpp_header.subject_encryption_used = mef_header.subject_encryption_used;
-    rcpp_header.session_encryption_used = mef_header.session_encryption_used;
-    rcpp_header.data_encryption_used = mef_header.data_encryption_used;
-    rcpp_header.byte_order_code = mef_header.byte_order_code;
-    rcpp_header.header_version_major = mef_header.header_version_major;
-    rcpp_header.header_version_minor = mef_header.header_version_minor;
-    copy( rcpp_header->session_unique_ID, SESSION_UNIQUE_ID_LENGTH, mef_header->session_unique_ID );
-    rcpp_header.header_length = mef_header.header_length;
-    copy( rcpp_header->subject_first_name, SUBJECT_FIRST_NAME_LENGTH, mef_header->subject_first_name );
-    copy( rcpp_header->subject_second_name, SUBJECT_SECOND_NAME_LENGTH, mef_header->subject_second_name );
-    copy( rcpp_header->subject_third_name, SUBJECT_THIRD_NAME_LENGTH, mef_header->subject_third_name );
-    copy( rcpp_header->subject_id, SUBJECT_ID_LENGTH, mef_header->subject_id );
-    copy( rcpp_header->session_password, SESSION_PASSWORD_LENGTH, mef_header->session_password );
-    copy( rcpp_header->subject_validation_field, SUBJECT_VALIDATION_FIELD_LENGTH, mef_header->subject_validation_field );
-    copy( rcpp_header->session_validation_field, SESSION_VALIDATION_FIELD_LENGTH, mef_header->session_validation_field );
-    copy( rcpp_header->protected_region, PROTECTED_REGION_LENGTH, mef_header->protected_region );
-    rcpp_header.number_of_samples = mef_header.number_of_samples;
-    copy( rcpp_header->channel_name, CHANNEL_NAME_LENGTH, mef_header->channel_name );
-    rcpp_header.recording_start_time = mef_header.recording_start_time;
-    rcpp_header.recording_end_time = mef_header.recording_end_time;
-    rcpp_header.sampling_frequency = mef_header.sampling_frequency;
-    rcpp_header.low_frequency_filter_setting = mef_header.low_frequency_filter_setting;
-    rcpp_header.high_frequency_filter_setting = mef_header.high_frequency_filter_setting;
-    rcpp_header.notch_filter_frequency= mef_header.notch_filter_frequency;
-    rcpp_header.voltage_conversion_factor = mef_header.voltage_conversion_factor;
-    copy( rcpp_header->acquisition_system, ACQUISITION_SYSTEM_LENGTH, mef_header->acquisition_system );
-    copy( rcpp_header->channel_comments, CHANNEL_COMMENTS_LENGTH, mef_header->channel_comments );
-    copy( rcpp_header->study_comments, STUDY_COMMENTS_LENGTH, mef_header->study_comments );
-    rcpp_header.physical_channel_number = mef_header.physical_channel_number;
-    copy( rcpp_header->compression_algorithm, COMPRESSION_ALGORITHM_LENGTH, mef_header->compression_algorithm );
-    rcpp_header.maximum_compressed_block_size = mef_header.maximum_compressed_block_size;
-    rcpp_header.maximum_block_length = mef_header.maximum_block_length;
-    rcpp_header.block_interval = mef_header.block_interval;
-    rcpp_header.maximum_data_value = mef_header.maximum_data_value;
-    rcpp_header.minimum_data_value = mef_header.minimum_data_value;
-    rcpp_header.index_data_offset = mef_header.index_data_offset;
-    rcpp_header.number_of_index_entries = mef_header.number_of_index_entries;
-    rcpp_header.block_header_length = mef_header.block_header_length;
-    rcpp_header.GMT_offset = mef_header.GMT_offset;
-    rcpp_header.discontinuity_data_offset = mef_header.discontinuity_data_offset;
-    rcpp_header.number_of_discontinuity_entries = mef_header.number_of_discontinuity_entries;
-    copy( rcpp_header->file_unique_ID, FILE_UNIQUE_ID_LENGTH, mef_header->file_unique_ID );
-    copy( rcpp_header->anonymized_subject_name, ANONYMIZED_SUBJECT_NAME_LENGTH, mef_header->anonymized_subject_name );
-    rcpp_header.header_crc = mef_header.header_crc;
+    copy( mef_header.institution, INSTITUTION_LENGTH, rcpp_header.>institution );
+    copy( mef_header.unencrypted_text_field, UNENCRYPTED_TEXT_FIELD_LENGTH , rcpp_header.>unencrypted_text_field );
+    copy( mef_header.encryption_algorithm, ENCRYPTION_ALGORITHM_LENGTH, rcpp_header.>encryption_algorithm );
+    mef_header.ubject_encryption_used = rcpp_header.subject_encryption_used;
+    mef_header.ession_encryption_used = rcpp_header.session_encryption_used;
+    mef_header.ata_encryption_used = rcpp_header.data_encryption_used;
+    mef_header.yte_order_code = rcpp_header.byte_order_code;
+    mef_header.eader_version_major = rcpp_header.header_version_major;
+    mef_header.eader_version_minor = rcpp_header.header_version_minor;
+    copy( mef_header.session_unique_ID, SESSION_UNIQUE_ID_LENGTH, rcpp_header.>session_unique_ID );
+    mef_header.eader_length = rcpp_header.header_length;
+    copy( mef_header.subject_first_name, SUBJECT_FIRST_NAME_LENGTH, rcpp_header.>subject_first_name );
+    copy( mef_header.subject_second_name, SUBJECT_SECOND_NAME_LENGTH, rcpp_header.>subject_second_name );
+    copy( mef_header.subject_third_name, SUBJECT_THIRD_NAME_LENGTH, rcpp_header.>subject_third_name );
+    copy( mef_header.subject_id, SUBJECT_ID_LENGTH, rcpp_header.>subject_id );
+    copy( mef_header.session_password, SESSION_PASSWORD_LENGTH, rcpp_header.>session_password );
+    copy( mef_header.subject_validation_field, SUBJECT_VALIDATION_FIELD_LENGTH, rcpp_header.>subject_validation_field );
+    copy( mef_header.session_validation_field, SESSION_VALIDATION_FIELD_LENGTH, rcpp_header.>session_validation_field );
+    copy( mef_header.protected_region, PROTECTED_REGION_LENGTH, rcpp_header.>protected_region );
+    mef_header.umber_of_samples = rcpp_header.number_of_samples;
+    copy( mef_header.channel_name, CHANNEL_NAME_LENGTH, rcpp_header.>channel_name );
+    mef_header.ecording_start_time = rcpp_header.recording_start_time;
+    mef_header.ecording_end_time = rcpp_header.recording_end_time;
+    mef_header.ampling_frequency = rcpp_header.sampling_frequency;
+    mef_header.ow_frequency_filter_setting = rcpp_header.low_frequency_filter_setting;
+    mef_header.igh_frequency_filter_setting = rcpp_header.high_frequency_filter_setting;
+    mef_header.otch_filter_frequency= rcpp_header.notch_filter_frequency;
+    mef_header.oltage_conversion_factor = rcpp_header.voltage_conversion_factor;
+    copy( mef_header.acquisition_system, ACQUISITION_SYSTEM_LENGTH, rcpp_header.>acquisition_system );
+    copy( mef_header.channel_comments, CHANNEL_COMMENTS_LENGTH, rcpp_header.>channel_comments );
+    copy( mef_header.study_comments, STUDY_COMMENTS_LENGTH, rcpp_header.>study_comments );
+    mef_header.hysical_channel_number = rcpp_header.physical_channel_number;
+    copy( mef_header.compression_algorithm, COMPRESSION_ALGORITHM_LENGTH, rcpp_header.>compression_algorithm );
+    mef_header.aximum_compressed_block_size = rcpp_header.maximum_compressed_block_size;
+    mef_header.aximum_block_length = rcpp_header.maximum_block_length;
+    mef_header.lock_interval = rcpp_header.block_interval;
+    mef_header.aximum_data_value = rcpp_header.maximum_data_value;
+    mef_header.inimum_data_value = rcpp_header.minimum_data_value;
+    mef_header.ndex_data_offset = rcpp_header.index_data_offset;
+    mef_header.umber_of_index_entries = rcpp_header.number_of_index_entries;
+    mef_header.lock_header_length = rcpp_header.block_header_length;
+    mef_header.MT_offset = rcpp_header.GMT_offset;
+    mef_header.iscontinuity_data_offset = rcpp_header.discontinuity_data_offset;
+    mef_header.umber_of_discontinuity_entries = rcpp_header.number_of_discontinuity_entries;
+    copy( mef_header.file_unique_ID, FILE_UNIQUE_ID_LENGTH, rcpp_header.>file_unique_ID );
+    copy( mef_header.anonymized_subject_name, ANONYMIZED_SUBJECT_NAME_LENGTH, rcpp_header.>anonymized_subject_name );
+    mef_header.eader_crc = rcpp_header.header_crc;
 
 
-    rcpp_header. = mef_header.;
+    mef_header.= rcpp_header.;
 
-    copy( rcpp_header->, , mef_header-> );
+    copy( rcpp_header, , mef_header.> );
   
 //    ui4 header_crc;
     INDEX_DATA *file_index;
