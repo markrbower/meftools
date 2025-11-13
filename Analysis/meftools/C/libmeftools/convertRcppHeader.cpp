@@ -1,5 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <time.h>
 
-
+#include "../inst/include/meftools_types.h"
+#include <RcppCommon.h>
+#include <Rcpp.h>
 
 MEF_HEADER converRcppHeader( Rcpp::MEF_HEADER_INFO mef_header. {
     MEF_HEADER rcpp_header.
@@ -107,8 +114,6 @@ MEF_HEADER converRcppHeader( Rcpp::MEF_HEADER_INFO mef_header. {
 //    INDEX_DATA *file_index;
 //    ui8 *discontinuity_data;
 //  } MEF_HEADER; 
-
-}
 
 
 
