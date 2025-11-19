@@ -1,5 +1,5 @@
 #Makefile for Ncs2Mef project
-CC = gcc
+CC = g++
 #CFLAGS = -m64 -Wunused-variable -Wuninitialized
 CFLAGS = -m64 -g
 OPTFLAGS = -O3 

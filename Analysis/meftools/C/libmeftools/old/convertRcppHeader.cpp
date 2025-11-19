@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <time.h>
 
-#include "../inst/include/meftools_types.h"
+#include <meftools_types.h>
 #include <RcppCommon.h>
 #include <Rcpp.h>
 
