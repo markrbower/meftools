@@ -71,7 +71,7 @@
 //#include "mef_header_2_0.h"
 
 //
-//	void set_hdr_unique_ID(Rcpp::MEF_HEADER_INFO *header, ui1 *array)
+//	void set_hdr_unique_ID(MEF_HEADER_INFO *header, ui1 *array)
 //
 //	inputs:
 //		pointer to mef header structure
@@ -80,7 +80,7 @@
 //	this routine copies the 7 unsigned char unique ID to the header structure. If array is NULL,
 //	a new UID is generated.
 //
-void set_hdr_unique_ID(Rcpp::MEF_HEADER_INFO *header, ui1 *array);
+void set_hdr_unique_ID(MEF_HEADER_INFO *header, ui1 *array);
 
 //
 //	void check_header_block_alignment(ui1 *header_block)
@@ -107,7 +107,7 @@ si4 check_header_block_alignment(ui1 *header_block, si4 verbose);
 void strncpy2(si1 *s1, si1 *s2, si4 n);
 
 //
-//	void init_hdr_struct(Rcpp::MEF_HEADER_INFO *header);
+//	void init_hdr_struct(MEF_HEADER_INFO *header);
 //
 //	inputs:
 //		header (pointer to mef header structure)
@@ -118,10 +118,10 @@ void strncpy2(si1 *s1, si1 *s2, si4 n);
 //	Fields initialized with values: header_version_major, header_version_minor, header_length,
 //		byte_order_code, compression_algorithm, encryption_algorithm
 //
-void init_hdr_struct(Rcpp::MEF_HEADER_INFO *header);
+void init_hdr_struct(MEF_HEADER_INFO *header);
 
 //
-// si4	write_mef(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password)
+// si4	write_mef(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password)
 //
 //	inputs:
 //		pointer to integer array of samples
@@ -143,10 +143,10 @@ void init_hdr_struct(Rcpp::MEF_HEADER_INFO *header);
 //      of contents as input.
 //
 //
-si4	write_mef(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password);
+si4	write_mef(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password);
 //
-//si4	write_mef_ind(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block);
-si4	write_mef_ind(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block, si4 num_blocks, ui1 *discontinuity_array);
+//si4	write_mef_ind(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block);
+si4	write_mef_ind(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block, si4 num_blocks, ui1 *discontinuity_array);
 
 
 //si4	build_RED_block_header(ui1 *header_block, RED_BLOCK_HDR_INFO *header_struct)
@@ -1319,9 +1319,9 @@ ui8 RED_decompress_block(ui1 *in_buffer, si4 *out_buffer, si1 *diff_buffer, si1 
 #define FLOAT_EQUAL(x,y) ( ((y - EPSILON) < x) && (x <( y + EPSILON)) )
 
 EXPORT
-static si4	build_mef_header_block(ui1 *encrypted_hdr_block, Rcpp::MEF_HEADER_INFO *hdr_struct, si1 *password)
+static si4	build_mef_header_block(ui1 *encrypted_hdr_block, MEF_HEADER_INFO *hdr_struct, si1 *password)
 {
-    Rcpp::MEF_HEADER_INFO	*hs;
+    MEF_HEADER_INFO	*hs;
     si4		i, encrypted_segments, l, *rn;
     ui1		*ehbp, *ehb;
     
@@ -1486,9 +1486,9 @@ static si4	build_mef_header_block(ui1 *encrypted_hdr_block, Rcpp::MEF_HEADER_INF
 
 
 EXPORT
-static si4	read_mef_header_block(ui1 *header_block, Rcpp::MEF_HEADER_INFO *header_struct, si1 *password)
+static si4	read_mef_header_block(ui1 *header_block, MEF_HEADER_INFO *header_struct, si1 *password)
 {
-    Rcpp::MEF_HEADER_INFO	*hs;
+    MEF_HEADER_INFO	*hs;
     si4		i, privileges, encrypted_segments, session_is_readable, subject_is_readable;
     si1 	encrypted_string[32];
     ui1		*hb, *dhbp, dhb[MEF_HEADER_LENGTH];
@@ -1523,7 +1523,7 @@ static si4	read_mef_header_block(ui1 *header_block, Rcpp::MEF_HEADER_INFO *heade
     }
     
     memcpy(dhb, header_block, MEF_HEADER_LENGTH);
-    memset(header_struct, 0, sizeof(Rcpp::MEF_HEADER_INFO));
+    memset(header_struct, 0, sizeof(MEF_HEADER_INFO));
     
     //read unencrypted fields
     strncpy2(hs->institution, (si1 *) (dhb + INSTITUTION_OFFSET), INSTITUTION_LENGTH);
@@ -1783,11 +1783,11 @@ static  si4	validate_password(ui1 *header_block, si1 *password)
 
 //==============================================================================================
 //
-//	void showHeader(Rcpp::MEF_HEADER_INFO *headerStruct)
+//	void showHeader(MEF_HEADER_INFO *headerStruct)
 //
 
 EXPORT
-static void showHeader(Rcpp::MEF_HEADER_INFO *headerStruct)
+static void showHeader(MEF_HEADER_INFO *headerStruct)
 {
     si8	long_file_time;
     //	si4 file_time;
@@ -1987,7 +1987,7 @@ static ui8 generate_unique_ID(ui1 *array)
 
 
 EXPORT
-static void set_hdr_unique_ID(Rcpp::MEF_HEADER_INFO *header, ui1 *array)
+static void set_hdr_unique_ID(MEF_HEADER_INFO *header, ui1 *array)
 {
     //check input
     if (header == NULL)
@@ -2082,9 +2082,9 @@ static void strncpy2(si1 *s1, si1 *s2, si4 n)
 }
 
 
-static void init_hdr_struct(Rcpp::MEF_HEADER_INFO *header)
+static void init_hdr_struct(MEF_HEADER_INFO *header)
 {
-    memset(header, 0, sizeof(Rcpp::MEF_HEADER_INFO));
+    memset(header, 0, sizeof(MEF_HEADER_INFO));
     
     header->header_version_major=HEADER_MAJOR_VERSION;
     header->header_version_minor=HEADER_MINOR_VERSION;
@@ -2103,7 +2103,7 @@ static void init_hdr_struct(Rcpp::MEF_HEADER_INFO *header)
 }
 
 EXPORT
-static si4	write_mef(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password)
+static si4	write_mef(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password)
 {
     ui1 *header, encryption_key[240], byte_padding[8], discontinuity_flag;
     si1	*compressed_buffer, *cbp;
@@ -2257,7 +2257,7 @@ static si4	write_mef(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1
 }
 
 EXPORT
-static si4	write_mef_ind(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block, si4 num_blocks, ui1 *discontinuity_array)
+static si4	write_mef_ind(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block, si4 num_blocks, ui1 *discontinuity_array)
 {
     ui1 *header, encryption_key[240], byte_padding[8];
     si1	*compressed_buffer, *cbp, free_index=0, free_discont=0;
@@ -2600,7 +2600,7 @@ static si4 validate_mef(char *mef_filename, char *log_filename, char *password)
     ui4 crc, block_size;
     char message[200], *time_str;
     FILE *mfp, *lfp;
-    Rcpp::MEF_HEADER_INFO header;
+    MEF_HEADER_INFO header;
     RED_BLOCK_HDR_INFO bk_hdr;
     INDEX_DATA *indx_array;
     time_t now;
@@ -2801,24 +2801,24 @@ static si4 validate_mef(char *mef_filename, char *log_filename, char *password)
 //' @param StringVector strings
 //' @export
 // [[Rcpp::export]]
-Rcpp::MEF_HEADER_INFO read_mef_header(Rcpp::StringVector strings) {
+MEF_HEADER_INFO read_mef_header(StringVector strings) {
 //StringVector read_mef_header(StringVector strings) {
 //int main (int argc, const char * argv[]) {
   si4 i, num;
 
 	ui1 *bk_hdr;
 	FILE *fp;
-	Rcpp::MEF_HEADER_INFO *header;
-	Rcpp::StringVector result(49);
+	MEF_HEADER_INFO *header;
+	StringVector result(49);
 	
 	char * filename = (si1*)(strings(0));
-//	Rcpp::Rcout << "filename: " << strings(0) << "\n";
+//	Rcout << "filename: " << strings(0) << "\n";
 	
 	char * password = (si1*)(strings(1));
-//	Rcpp::Rcout << "password: " << strings(1) << "\n";
+//	Rcout << "password: " << strings(1) << "\n";
 
-	header = (Rcpp::MEF_HEADER_INFO*)malloc(sizeof(Rcpp::MEF_HEADER_INFO));
-  memset(header, 0, sizeof(Rcpp::MEF_HEADER_INFO));
+	header = (MEF_HEADER_INFO*)malloc(sizeof(MEF_HEADER_INFO));
+  memset(header, 0, sizeof(MEF_HEADER_INFO));
 	
 	fp = fopen(filename, "rb");
 	if (fp == NULL) {
