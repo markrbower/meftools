@@ -22,8 +22,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
+#include <iostream>
 
-#include "../inst/include/meftools_types.h"
+#include "meftools_types.h"
 
 // Flags for C++ compiler: include Boost headers, use the C++11 standard
 
@@ -2801,7 +2802,7 @@ static si4 validate_mef(char *mef_filename, char *log_filename, char *password)
 //' @param StringVector strings
 //' @export
 // [[Rcpp::export]]
-MEF_HEADER_INFO read_mef_header(StringVector strings) {
+MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings) {
 //StringVector read_mef_header(StringVector strings) {
 //int main (int argc, const char * argv[]) {
   si4 i, num;
@@ -2809,12 +2810,12 @@ MEF_HEADER_INFO read_mef_header(StringVector strings) {
 	ui1 *bk_hdr;
 	FILE *fp;
 	MEF_HEADER_INFO *header;
-	StringVector result(49);
+	std::vector<std::string> result(49);
 	
-	char * filename = (si1*)(strings(0));
+	char * filename = (char*)(strings[0].c_str());
 //	Rcout << "filename: " << strings(0) << "\n";
 	
-	char * password = (si1*)(strings(1));
+	char * password = (char*)(strings[1].c_str());
 //	Rcout << "password: " << strings(1) << "\n";
 
 	header = (MEF_HEADER_INFO*)malloc(sizeof(MEF_HEADER_INFO));

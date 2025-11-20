@@ -1,0 +1,500 @@
+  136  ls
+  137  cd ThresholdDetection/
+  138  ls
+  139  ls -al
+  140  vi .gitignore
+  141  ls
+  142  mv ThresholdDetection/* .
+  143  ls
+  144  ls ThresholdDetection/
+  145  rm -rf ThresholdDetection/
+  146  ls
+  147  ls C
+  148  git add .
+  149  git commit -m "initial commit"
+  150  git push
+  151  cd C
+  152  ls
+  153  cd td/
+  154  ls
+  155  cd src
+  156  ls
+  157  cd ..
+  158  ls
+  159  ls ~/Dropbox/Documents/Concepts/
+  160  pwd
+  161  cd ../..
+  162  pwd
+  163  ls -al
+  164  vi .gitignore 
+  165  ls
+  166  cd ..
+  167  ls
+  168  cd ..
+  169  ls
+  170  ls Analysis/
+  171  ls Analysis/ThresholdDetection/
+  172  ls Analysis/ThresholdDetection/C
+  173  ls Analysis/ThresholdDetection/C/td
+  174  ls
+  175  ls -al
+  176  cd Analysis/
+  177  ls
+  178  ls -al
+  179  cd ThresholdDetection/
+  180  ls -al
+  181  ls C/bin
+  182  ls C
+  183  ls C/td
+  184  vi .gitignore 
+  185  pwd
+  186  cd C
+  187  cd src
+  188  ls
+  189  cd td
+  190  ls
+  191  cd src
+  192  ls
+  193  vi Makefile
+  194  pwd
+  195  pwd
+  196  ls
+  197  cd ..
+  198  ls
+  199  pwd
+  200  mv src/Makefile .
+  201  ls
+  202  mkdir include
+  203  ls src/*.h
+  204  mv src/*.h include
+  205  ls
+  206  ls src
+  207  mkdir bin
+  208  mkdir build
+  209  ls
+  210  touch README.md
+  211  ls
+  212  ls include/
+  213  vi Makefile
+  214  git add .
+  215  git commit -m "Changed the structure of the C directory"
+  216  git push
+  217  vi Makefile
+  218  ls
+  219  ls src
+  220  vi Makefile
+  221  git add .
+  222  git commit -m "Working on the Makefile"
+  223  git push
+  224  vi Makefile
+  225  ls
+  226  ls src/*.c
+  227  vi Makefile
+  228  history > tmp
+  229  vi tmp
+  230  cp ~/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/CSC_convert_v2/Makefile Makefile_original
+  231  ls
+  232  mv Makefile_original original_Makefile
+  233  vi original_Makefile 
+  234  cp original_Makefile original_Makefile_2
+  235  vi original_Makefile
+  236  ls src
+  237  vi original_Makefile
+  238  ls
+  239  vi Makefile
+  240  make
+  241  ls
+  242  ls include/
+  243  vi Makefile
+  244  make
+  245  vi Makefile
+  246  make
+  247  vi Makefile
+  248  make
+  249  ls include/
+  250  ls
+  251  ls ~/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/CSC_convert_v2
+  252  vi include/Ncs2Mef.h
+  253  vi include/Ncs2Mef.h
+  254  vi Makefile
+  255  vi original_Makefile
+  256  vi Makefile
+  257  make
+  258  git add .
+  259  git commit -m "Progress on Makefile"
+  260  git push
+  261  ls
+  262  ls bin
+  263  ls build
+  264  ls srd
+  265  ls src
+  266  ls include/
+  267  vi Makefile
+  268  make mef2
+  269  vi Makefile
+  270  make mef
+  271  vi Makefile
+  272  make
+  273  make mef
+  274  vi Makefile
+  275  vi Makefile
+  276  make mef2
+  277  vi Makefile
+  278  make mef2
+  279  ls
+  280  ls bin
+  281  ls -al
+  282  git add .
+  283  git commit -m "Makefile works for 'mef2' call"
+  284  git push
+  285  ls
+  286  vi Makefile
+  287  ./Ncs2Mef2 
+  288  ls
+  289  ls tmp
+  290  vi tmp
+  291  rm tmp
+  292  ls
+  293  cp /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.ncs .
+  294  ls
+  295  ./Ncs2Mef2 CSC1.ncs
+  296  ls -al
+  297  ls mef2
+  298  ls -al mef2
+  299  pwd
+  300  git add .
+  301  git commit -m "The directory now has an .ncs data file to allow testing."
+  302  git push
+  303  ls
+  304  vi Makefile
+  305  ls src
+  306  vi Makefile
+  307  ls src
+  308  vi Makefile
+  309  make
+  310  vi Makefile
+  311  make
+  312  vi Makefile
+  313  make mef2
+  314  touch src/main.c
+  315  make mef2
+  316  ls -al
+  317  ls src
+  318  ls -al
+  319  ls -al src
+  320  rm Ncs2Mef2
+  321  make mef2
+  322  ls -al
+  323  rm src/Ncs2Mef2
+  324  make mef2
+  325  ls bin
+  326  ls build
+  327  ls src
+  328  vi Makefile
+  329  make mef2
+  330  ls -al
+  331  ls bin
+  332  ls build
+  333  ls src
+  334  ls bin
+  335  rm bin/main.d
+  336  make mef2
+  337  ls
+  338  ls src
+  339  vi Makefile
+  340  make mef
+  341  make mef2
+  342  vi Makefile
+  343  make mef2
+  344  vi original_Makefile
+  345  vi Makefile
+  346  make mef2
+  347  vi Makefile
+  348  make mef2
+  349  vi Makefile
+  350  make mef2
+  351  vi Makefile
+  352  make mef2
+  353  vi Makefile
+  354  make mef2
+  355  vi Makefile
+  356  vi src/main.c
+  357  ls /private/tmp
+  358  ls /private/tmp/main*
+  359  ls /private/tmp/main.o
+  360  make mef2
+  361  pwd
+  362  ls
+  363  ls src
+  364  vi Makefile
+  365  vi Makefile
+  366  make mef2
+  367  vi Makefile
+  368  make mef2
+  369  ls -al
+  370  git add .
+  371  git commit -m "In Makefile, remember to list dependent files after the name"
+  372  git push
+  373  vi Makefile
+  374  touch main.c
+  375  make mef2
+  376  vi Makefile
+  377  make mef2
+  378  ls
+  379  cp main.c main_mef2.*
+  380  ls
+  381  mv main_mef2.* main_mef2._c
+  382  ls
+  383  vi Makefile
+  384  vi main.c
+  385  pwd
+  386  ls
+  387  vi main.c
+  388  vi main_mef2._c 
+  389  ls src
+  390  ls main*
+  391  rm main*
+  392  cp src/main.c main_mef2._c
+  393  vi src/main.c
+  394  git add .
+  395  git commit -m "Ready to convert main.c to a reading function"
+  396  git push
+  397  ssh-keygen -t rsa -C "your_email@example.com"
+  398  ssh-keygen -t rsa -C "mark.bower@yale.edu"
+  399  pwd
+  400  cd /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/src
+  401  cd ..
+  402  s
+  403  ls
+  404  cd R
+  405  ls
+  406  ls *.R
+  407  vi onLoad.R
+  408  pwd
+  409  cd ../src
+  410  ls
+  411  ls *.cpp
+  412  vi read_mef_header.cpp
+  413  vi mef_info.cpp
+  414  vi read_mef_header.cpp
+  415  vi RcppExports.cpp
+  416  pwd
+  417  ls
+  418  cd ..
+  419  ls
+  420  ls C
+  421  cd C
+  422  cd CSC_convert_v2/
+  423  ls
+  424  vi mef.h
+  425  vi Ncs2Mef.h
+  426  cd ..
+  427  pwd
+  428  cd ..
+  429  ls
+  430  ls mef2
+  431  grep Rcpp::MEF_HEADER_INFO *
+  432  grep -r "Rcpp::MEF_HEADER_INFO" .
+  433  s
+  434  ls
+  435  vi inst/include/meftools_types.h
+  436  pwd
+  437  ls
+  438  cd C
+  439  ls
+  440  cd CSC_convert_v2/
+  441  ls
+  442  ls ../src
+  443  pwd
+  444  ls ../../src
+  445  mv ../../src/C
+  446  ls
+  447  mv ../../src/mef_info.cpp C/.
+  448  pwd
+  449  cd ..
+  450  mv ../../src/mef_info.cpp C/.
+  451  mv ../../src/mef_info.cpp .
+  452  mv ../src/mef_info.cpp .
+  453  ls
+  454  pwd
+  455  mkdir libmeftools
+  456  cd libmeftools/
+  457  ls ..
+  458  mv ../mef_info.cpp .
+  459  ls ../CSC_convert_v2/
+  460  cp ../CSC_convert_v2/Makfele .
+  461  pwd
+  462  ls ..
+  463  ls ../CSC_convert_v2/
+  464  cp ../CSC_convert_v2/Makfile .
+  465  pwd
+  466  cp ../CSC_convert_v2/Makefile .
+  467  ls
+  468  ls ..
+  469  pwd
+  470  ls
+  471  vi mef_info.cpp 
+  472  vi mef_info.cpp 
+  473  vi mef_info.cpp 
+  474  vi convertRcppHeader.cpp
+  475  vi convertRcppHeader.cpp
+  476  vi mef_info.cpp 
+  477  vi convertRcppHeader.cpp
+  478  vi mef_info.cpp 
+  479  vi convertRcppHeader.cpp
+  480  vi mef_info.cpp 
+  481  vi convertRcppHeader.cpp
+  482  vi mef_info.cpp 
+  483  vi convertRcppHeader.cpp
+  484  vi convertRcppHeader.cpp
+  485  pwd
+  486  ls ..
+  487  ls ../CSC_convert_v2/
+  488  ls ../..
+  489  vi ../../inst/include/meftools_types.h 
+  490  vi mef_info.cpp 
+  491  vi convertRcppHeader.cpp 
+  492  git add .
+  493  git commit -m "convertRcppHeader.cpp started"
+  494  git push
+  495  vi convertRcppHeader.cpp 
+  496  vi convertRcppHeader.cpp 
+  497  git add .
+  498  git commit -m "Ready to work on convertRcppHeader.cpp"
+  499  git push
+  500  vi convertRcppHeader.cpp 
+  501  cd Dropbox/Documents/Concepts/
+  502  ls
+  503  cd 2018_07_29_meftools/
+  504  ls
+  505  cd meftools/Analysis/meftools
+  506  ls
+  507  cd C
+  508  ls
+  509  cd libmeftools/
+  510  ls
+  511  vi convertRcppHeader.cpp 
+  512  ls
+  513  cd ../
+  514  ls
+  515  cd libmeftools/
+  516  ls
+  517  cd ..
+  518  cd CSC_convert_v2/
+  519  ls
+  520  vi mef_lib.c
+  521  pwd
+  522  cd ../libmeftools/
+  523  ls
+  524  vi mef_info.cpp 
+  525  vi convertRcppHeader.cpp 
+  526  git add .
+  527  git commit -m "convertRcppHeader.cpp has been mostly entered"
+  528  git push
+  529  vi convertRcppHeader.cpp 
+  530  git add .
+  531  git commit -m "Fixed the mef_ vs. rcpp_ header problem"
+  532  git push
+  533  vi convertRcppHeader.cpp 
+  534  gi add .
+  535  git commit -m "Fixed a lot of typos"
+  536  git push
+  537  git add 
+  538  git add .
+  539  git commit -m "Fixed a lot of typos"
+  540  git push
+  541  vi convertRcppHeader.cpp 
+  542  git add .
+  543  git commit -m "converter ready for first compilation attempt"
+  544  git push
+  545  ls
+  546  vi convertRcppHeader.cpp 
+  547  ls ..
+  548  ls ../CSC_convert_v2/
+  549  vi ../CSC_convert_v2/main.c 
+  550  ls ../..
+  551  ls ../../src
+  552  vi ../../src/read_mef_header.cpp
+  553  vi convertRcppHeader.cpp 
+  554  git add .
+  555  git commit -m "Have the includes for convertRcppHeader.cpp. Ready to compile."
+  556  git push
+  557  vi Makefile
+  558  vi convertRcppHeader.cpp 
+  559  pwd
+  560  vi convertRcppHeader.cpp 
+  561  vi ../../inst/include/meftools_types.h 
+  562  vi convertRcppHeader.cpp 
+  563  history > tmp
+  564  vi tmp
+  565  python3 /Users/markbower/Dropbox/Documents/Concepts/2021_12_11_2021_Scraping/Analysis/scraping/Python/scraper/main.py
+  566  pwd
+  567  ls
+  568  vi Makefile
+  569  pwd
+  570  g++ -o convertRcppHeader -m64 -g -I /Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include convertRcppHeader.cpp
+  571  ls
+  572  ls ..
+  573  ls ../..
+  574  ls ../../inst/include/
+  575  ls ..
+  576  g++ -o convertRcppHeader -m64 -g -I /Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include,../../inst/include convertRcppHeader.cpp
+  577  pwd
+  578  ls ../../inst/include/
+  579  g++ -o convertRcppHeader -m64 -g -I /Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include,/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include convertRcppHeader.cpp
+  580  ls /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  581* g++ -o convertRcppHeader -m64 -g -I /Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include;/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  582  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I /Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include;/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  583  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  584  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  585  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  586  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  587  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  588  vi Rconfig.h
+  589  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  590  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  591  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  592  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  593  vi Makefile
+  594  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  595  g++  convertRcppHeader.cpp -o convertRcppHeader -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/Rcpp/inst/include -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+  596  ls
+  597  ls
+  598  pwd
+  599  ls
+  600  ls ..
+  601  ls ../CSC_convert_v2/
+  602  ls ../src
+  603  pwd
+  604  ls ../../src
+  605  pwd
+  606  ls
+  607  vi mef_info.cpp
+  608  vi mef_info.cpp
+  609  mkdir old
+  610  mv *.cpp old
+  611  ls
+  612  rm tmp
+  613  vi readMefHeader.cpp
+  614  vi readMefHeader.cpp
+  615  vi readMefHeader.cpp
+  616  ls
+  617  rm readMefHeader.cpp 
+  618  vi readMef.cpp
+  619  vi readMef.cpp
+  620  vi readMef.cpp
+  621  vi read_mef_header.cpp 
+  622  git add .
+  623  git commit -m "Copied read_mef_header.cpp to the libmeftools directory to remove Rcpp."
+  624  git push
+  625  ls
+  626  ls ..
+  627  ls ../..
+  628  ls ../../inst/include/
+  629  vi ../../inst/include/meftools_types.h 
+  630  vi read_mef_header.cpp 
+  631  git add .
+  632  git commit -m "All Rcpp:: references removed"
+  633  git push
+  634  ls
+  635  history > tmp

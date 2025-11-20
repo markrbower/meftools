@@ -1,7 +1,7 @@
 #Makefile for Ncs2Mef project
 CC = g++
 #CFLAGS = -m64 -Wunused-variable -Wuninitialized
-CFLAGS = -m64 -g
+CFLAGS = -m64 -g -w
 OPTFLAGS = -O3 
 MAIN = main.c
 #MEFLIB_DIR = ../MEF_3_starter_kit
