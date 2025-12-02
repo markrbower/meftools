@@ -9,11 +9,22 @@ MEFLIB_DIR = .
 SRCFILES = convert_ncs.c write_mef_channel.c $(MEFLIB_DIR)/meflib.c $(MEFLIB_DIR)/mefrec.c
 TARGET = Ncs2Mef3
 #INCLUDE = ../MEF_3_starter_kit
-INCLUDE = .
+INCLUDE = /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
 
 
 all: #full build
 	$(CC) -o $(TARGET) $(CFLAGS) $(MAIN) $(SRCFILES) -I $(INCLUDE)
 
-mef2: 
-	$(CC) -o Ncs2Mef2 $(CFLAGS) -DOUTPUT_TO_MEF2 main.c convert_ncs.c write_mef_channel_mef2.c mef_lib.c
+read_mef_header: # general purpose function
+	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
+
+readMef: # general purpose function 
+	$(CC) -c readMef.cpp $(CFLAGS) read_mef_header.cpp read_mef_header.o -I $(INCLUDE)
+
+peakFinder: # application
+	$(CC) -o peakFinder peakFinder.cpp $(CFLAGS) read_mef_header.o readMef.o -I $(INCLUDE)
+
+
+
+
+
