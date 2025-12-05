@@ -18,6 +18,9 @@ all: #full build
 read_mef_header: # general purpose function
 	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
 
+VectorIterator: # general purpose function 
+	$(CC) -c VectorIterator.cpp $(CFLAGS)
+
 readMef: # general purpose function 
 	$(CC) -c readMef.cpp $(CFLAGS) read_mef_header.cpp read_mef_header.o -I $(INCLUDE)
 
