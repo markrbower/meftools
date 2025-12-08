@@ -22,7 +22,7 @@ VectorIterator: # general purpose function
 	$(CC) -c VectorIterator.cpp $(CFLAGS)
 
 readMef: # general purpose function 
-	$(CC) -c readMef.cpp $(CFLAGS) read_mef_header.cpp read_mef_header.o -I $(INCLUDE)
+	$(CC) -c readMef.cpp $(CFLAGS) read_mef_header.cpp VectorIterator.o read_mef_header.o -I $(INCLUDE)
 
 peakFinder: # application
 	$(CC) -o peakFinder peakFinder.cpp $(CFLAGS) read_mef_header.o readMef.o -I $(INCLUDE)
