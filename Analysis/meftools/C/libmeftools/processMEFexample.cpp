@@ -1,3 +1,10 @@
+/* processMEFexample.cpp
+
+A template for using MEF reading functions.
+
+Mark R. Bower
+Yale University
+*/
 #include <string>
 #include <iostream>
 
@@ -5,7 +12,7 @@
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
-void readMef( char* filename, char* password ) {
+void processMEFexample( char* filename, char* password ) {
 	IteratorVector<int> data;
 
 	std::vector<std::string> strings(2);
