@@ -18,6 +18,9 @@ all: #full build
 read_mef_header: # general purpose function
 	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
 
+table_of_contents:
+	$(CC) -c table_of_contents.cpp $(CFLAGS) -I $(INCLUDE)
+
 MEFinfo:
 	$(CC) -c MEFinfo.cpp $(CFLAGS) -I $(INCLUDE)
 
