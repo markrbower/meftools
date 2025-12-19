@@ -21,6 +21,9 @@ read_mef_header: # general purpose function
 table_of_contents:
 	$(CC) -c table_of_contents.cpp $(CFLAGS) -I $(INCLUDE)
 
+get_discontinuities:
+	$(CC) -c get_discontinuities.cpp $(CFLAGS) -I $(INCLUDE)
+
 MEFinfo:
 	$(CC) -c MEFinfo.cpp $(CFLAGS) -I $(INCLUDE)
 
