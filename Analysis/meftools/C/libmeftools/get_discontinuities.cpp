@@ -18,7 +18,7 @@ using namespace std;
 //' @export
 vector<int> get_discontinuities( vector<string> strings, long long **ToC ) {
   char *filename = (char *)strings[0].c_str();
-  int number_of_index_entries = stoi( strings[1] );
+  int number_of_index_entries = stoi( strings[2] );
 
   FILE *fp = fopen( filename, "r" );
   unsigned char* buf = (unsigned char *)malloc( 1 * sizeof(unsigned char) );

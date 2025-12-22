@@ -25,7 +25,7 @@ get_discontinuities:
 	$(CC) -c get_discontinuities.cpp $(CFLAGS) -I $(INCLUDE)
 
 MEFinfo:
-	$(CC) -c MEFinfo.cpp $(CFLAGS) -I $(INCLUDE)
+	$(CC) -c MEFinfo.cpp $(CFLAGS) -I $(INCLUDE) table_of_contents.o get_discontinuities.o
 
 MEFiter: # general purpose function 
 	$(CC) -c MEFiter.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o
