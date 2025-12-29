@@ -32,8 +32,8 @@ public:
     header = read_mef_header( args );
 
     variables.push_back( this->filename );
-    variables.push_back( header.index_data_offset );
-    variables.push_back( header.number_of_index_entries );
+    variables.push_back( to_string( header.index_data_offset ) );
+    variables.push_back( to_string( header.number_of_index_entries ) );
 
     ToC = table_of_contents( variables );
 
