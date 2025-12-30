@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "meftools_types.h"
+#include "MEFinfo.h"
 
 
 class MEFiter {
