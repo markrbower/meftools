@@ -4,6 +4,7 @@
 #include "meftools_types.h"
 #include "MEFinfo.h"
 
+using namespace std;
 
 class MEFiter {
 private:
@@ -43,18 +44,18 @@ public:
 		}
 		starts.pop_back();
 
-	}
+	};
 
-	public boolean hasNext() {
-
-
-	}
+	bool hasNext() {
 
 
-	public vector<int> next() {
+	};
 
 
-	}
+	vector<int> next() {
+
+
+	};
 
 }
 
