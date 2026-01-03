@@ -21,8 +21,8 @@ public:
 		this->info   = info;
 		this->stepSize = stepSize;
 
-		this->sampleSize = round( info.header.block_interval * stepSize / 1E6 );
-		this->microsecondsPerSample = 1E6 / info.header.sampling_frequency;
+		this->sampleSize = round( info.getHeader().block_interval * stepSize / 1E6 );
+		this->microsecondsPerSample = 1E6 / info.getHeader().sampling_frequency;
 
 		// Compute a stepSize that will distribute points equally among blocks
 		int nBlocks;
@@ -34,13 +34,13 @@ public:
 		}
 		
 		this->stepSize = ceil( this->sampleSize / nBlocks );
-		int nextStop; 
+		int nextStart; 
 		vector<int> starts, stops;
 		starts.push_back( block0 );
 		for ( int block=0; block<nBlocks; block++ ) {
 			nextStart = starts[block] + stepSize;
-			stops.push_back( next_start - 1 );
-			starts.push_back( next_start );
+			stops.push_back( nextStart - 1 );
+			starts.push_back( nextStart );
 		}
 		starts.pop_back();
 
@@ -57,17 +57,4 @@ public:
 
 	};
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
