@@ -30,6 +30,9 @@ MEFinfo:
 MEFiter: # general purpose function 
 	$(CC) -c MEFiter.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o
 
+MEFcont: # general purpose function 
+	$(CC) -c MEFcont.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o
+
 VectorIterator: # general purpose function 
 	$(CC) -c VectorIterator.cpp $(CFLAGS)
 
