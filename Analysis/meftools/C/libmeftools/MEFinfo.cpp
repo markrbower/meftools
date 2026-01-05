@@ -7,6 +7,7 @@
 #include <time.h>
 #include <vector>
 #include <string>
+#include <list>
 
 #include "meftools_types.h"
         
@@ -46,5 +47,43 @@ public:
 
   vector<int> getDiscontinuities() { return( discontinuities ); }  
   
+  list<vector<int>> findContinuousMefSequences( int time0, int time1 ) {
+    vector<long long> result;
+    int microsecPerSample = 1E6/header.sampling_frequency;
+
+    int doneFlag = 0;
+    list<vector<int>> conts;
+    vector<int> contiguousStarts;
+    vector<int> contiguousStops;
+    vector<int> dsamp;
+    int N = discontinuities.size();
+    for ( int i=0; i<(N-1); i++ ) { // the last block cannot contain a start
+      dsamp.push_back( ToC[3,(i+1)] - ToC[3,i] );
+      if ( ToC[1][i] <= time1 ) {
+        if ( ToC[1][i] >= time0 ) {
+          if ( discontinuities[i] == 1 ) {
+            contiguousStarts.push_back( i );
+	    contiguousStops.push_back( i-1 );
+          } 
+        }
+      }
+      if ( doneFlag == 0 ) {
+        contiguousStops.push_back( i-1 );
+        doneFlag = 1;
+      }
+    }
+    contiguousStops.erase( contiguousStops.begin() );
+    
+    N = contiguousStarts.size();
+    for ( int i=0; i<N; i++ ) {
+      vector<int> tmp;
+      tmp.push_back( ToC[1][contiguousStarts[i]] );
+      tmp.push_back( ToC[1][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample );
+      conts.push_back( tmp );
+    }
+
+    return( conts );
+  }
+
 };
 

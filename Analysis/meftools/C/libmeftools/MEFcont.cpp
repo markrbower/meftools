@@ -31,9 +31,18 @@ class MEFcont( char* filename, char* password, int bufferSize, timeConstraints, 
 private:
   int time0, time1, window, bufferSize;
   MEFinfo info;
+  MEFiter conts;
 
 public:
   MEFcont( string filename, string password, int block0, int block1, int time0, int time1, int step ) {
+    if ( info == NULL ) {
+      info = MEFinfo( filename, password );
+    }
+    # Divide the continuous regions. Starts and Stops are inclusive.
+    conts = info.findContinuousMefSequences( time0, time1 );
+    it <- itertools::ihasNext( iterators::iter( conts, by="row" ) );
+    
+
 
   }
 
