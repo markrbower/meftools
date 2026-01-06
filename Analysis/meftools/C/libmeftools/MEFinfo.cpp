@@ -10,12 +10,13 @@
 #include <list>
 
 #include "meftools_types.h"
+#include "MEFinfo.h"
         
 using namespace std;
 
-MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
-long long** table_of_contents( vector<string> strings );
-vector<int> get_discontinuities( vector<string> strings, long long **ToC );
+MEF_HEADER_INFO read_mef_header( vector<string> args );
+long long** table_of_contents( vector<string> variables );
+vector<int> get_discontinuities( vector<string> variables, long long** ToC );
 
 class MEFinfo {
 private:
