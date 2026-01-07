@@ -31,10 +31,10 @@ MEFiter: # general purpose function
 	$(CC) -c MEFiter.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o
 
 MEFcont: # general purpose function 
-	$(CC) -c MEFcont.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFiter.o
+	$(CC) -c MEFcont.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFiter.o VectorIterator.o
 
 VectorIterator: # general purpose function 
-	$(CC) -c VectorIterator.cpp $(CFLAGS)
+	$(CC) -c VectorIterator.cpp $(CFLAGS) -I $(INCLUDE)
 
 readMef: # general purpose function 
 	$(CC) -c readMef.cpp $(CFLAGS) read_mef_header.cpp VectorIterator.o read_mef_header.o -I $(INCLUDE)

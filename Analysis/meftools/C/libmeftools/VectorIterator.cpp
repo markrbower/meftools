@@ -19,13 +19,17 @@ int main() {
 #include <iostream>
 #include <vector>
 
+#include "VectorIterator.h"
+
 // Iterator interface
+/*
 template <typename T>
 class Iterator {
 public:
     virtual T next() = 0;
     virtual bool hasNext() = 0;
 };
+*/
 
 // Concrete Iterator for a vector
 template <typename T>

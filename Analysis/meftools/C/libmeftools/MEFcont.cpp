@@ -23,6 +23,7 @@ private:
   MEFinfo info;
   list<vector<int>> conts;
   MEFiter it;
+  Iterator<int>* iterator;
 
 public:
   MEFcont( char* filename, char* password, int bufferSize, vector<int> timeConstraints, MEFinfo info ) {
@@ -31,11 +32,20 @@ public:
 //    }
     // Divide the continuous regions. Starts and Stops are inclusive.
     conts = info.findContinuousMefSequences( time0, time1 );
+    // Convert 'conts' to a MEFiter.
+
     it <- itertools::ihasNext( iterators::iter( conts, by="row" ) );
-    
-
-
+    iterator = new VectorIterator<int>(conts);
   }
+
+  bool hasNext() {
+    return( iterator.hasNext() );
+  };
+
+
+  vector<int> next() {
+    return ( iterator.next() );
+  };
 
 };
 
