@@ -3,6 +3,7 @@
 
 #include "meftools_types.h"
 #include "MEFinfo.h"
+#include "VectorIterator.h"
 
 using namespace std;
 
@@ -11,6 +12,8 @@ private:
 	int block0,block1,stepSize,sampleSize,microsecondsPerSample;
 	long long time0,time1;
 	MEFinfo info;
+	vector<int> starts, stops;
+	int counter, counterLimit;
 
 public:
 	MEFiter( char* filename, char* password, MEFinfo info, int block0, int block1, int time0, int time1, int stepSize ) {
@@ -35,7 +38,6 @@ public:
 		
 		this->stepSize = ceil( this->sampleSize / nBlocks );
 		int nextStart; 
-		vector<int> starts, stops;
 		starts.push_back( block0 );
 		for ( int block=0; block<nBlocks; block++ ) {
 			nextStart = starts[block] + stepSize;
@@ -43,18 +45,22 @@ public:
 			starts.push_back( nextStart );
 		}
 		starts.pop_back();
-
+		counter = 0;
+		counterLimit = starts.size();
 	};
 
 	bool hasNext() {
-
-
+		return( counter < counterLimit );
 	};
 
 
 	vector<int> next() {
-
-
+		vector<int> result;
+		result.push_back( starts[counter] );
+		result.push_back( stops[counter] );
+		counter++;
+		return( result );
 	};
 
 };
+
