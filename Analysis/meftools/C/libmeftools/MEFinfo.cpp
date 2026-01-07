@@ -10,7 +10,7 @@
 #include <list>
 
 #include "meftools_types.h"
-#include "MEFinfo.h"
+//#include "MEFinfo.h"
         
 using namespace std;
 
@@ -48,12 +48,12 @@ public:
 
   vector<int> getDiscontinuities() { return( discontinuities ); }  
   
-  list<vector<int>> findContinuousMefSequences( int time0, int time1 ) {
+  vector<vector<int>> findContinuousMefSequences( int time0, int time1 ) {
     vector<long long> result;
     int microsecPerSample = 1E6/header.sampling_frequency;
 
     int doneFlag = 0;
-    list<vector<int>> conts;
+    vector<vector<int>> conts;
     vector<int> contiguousStarts;
     vector<int> contiguousStops;
     vector<int> dsamp;

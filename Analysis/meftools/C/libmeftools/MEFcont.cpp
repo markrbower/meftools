@@ -14,6 +14,7 @@
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
+#include "VectorIterator.h"
 
 using namespace std;
 
@@ -21,9 +22,10 @@ class MEFcont {
 private:
   int time0, time1, window, bufferSize;
   MEFinfo info;
-  list<vector<int>> conts;
+  vector<vector<int>> conts;
   MEFiter it;
   Iterator<int>* iterator;
+  int counter, counterLimit;
 
 public:
   MEFcont( char* filename, char* password, int bufferSize, vector<int> timeConstraints, MEFinfo info ) {
@@ -34,17 +36,23 @@ public:
     conts = info.findContinuousMefSequences( time0, time1 );
     // Convert 'conts' to a MEFiter.
 
-    it <- itertools::ihasNext( iterators::iter( conts, by="row" ) );
-    iterator = new VectorIterator<int>(conts);
+//    it <- itertools::ihasNext( iterators::iter( conts, by="row" ) );
+//    iterator = new VectorIterator<int>(conts);
+      counter = 0;
+      counterLimit = conts.size();
   }
 
   bool hasNext() {
-    return( iterator.hasNext() );
+//    return( iterator->hasNext() );
+      return( counter < counterLimit );
   };
 
 
   vector<int> next() {
-    return ( iterator.next() );
+//    return ( iterator->next() );
+      vector<int> value = conts[counter];
+      counter++;
+      return( value ); 
   };
 
 };
