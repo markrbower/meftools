@@ -9,18 +9,19 @@ Yale University
 #include <iostream>
 
 #include "meftools_types.h"
+#include "MEFcont.h"
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
-void processMEFexample( char* filename, char* password ) {
+void processMEFexample( char* filename, char* password, int bufferSize, vector<long long> timeConstraints, MEFinfo info ) {
 	IteratorVector<int> data;
 
 	std::vector<std::string> strings(2);
 	strings[0] = filename;
 	strings[1] = password;
-	MEF_HEADER_INFO mefInfo = read_mef_header( strings );
+	MEFinfo info = MEFinfo( filename, password );
 
-	MEFcont mefCont <- meftools::MEFcont( filename, 'erlichda', compArgs_caseSpecific$get('bufferSize'), window=timeConstraints, info=compArgs_caseSpecific$get('info') )
+	MEFcont mefCont <- MEFcont( filename, password, bufferSize, timeConstraints, info );
 
 	while ( mefCont$hasNext() ) {
 	        counterIdx = counterIdx + 1;
