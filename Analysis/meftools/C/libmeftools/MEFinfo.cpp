@@ -27,10 +27,13 @@ private:
   vector<string> variables;
 
 public:
-  MEFinfo( vector<string> args ) {
-    this->filename = args[0];
-    this->password = args[1];
+  MEFinfo( string filename, string password ) {
+    this->filename = filename;
+    this->password = password;
 
+    vector<string> args;
+    args.push_back( filename );
+    args.push_back( password );
     header = read_mef_header( args );
 
     variables.push_back( this->filename );
@@ -48,7 +51,9 @@ public:
 
   vector<int> getDiscontinuities() { return( discontinuities ); }  
   
-  vector<vector<int>> findContinuousMefSequences( int time0, int time1 ) {
+  vector<vector<int>> findContinuousMefSequences( vector<long long> timeConstraints ) {
+    long long time0 = timeConstraints[0];
+    long long time1 = timeConstraints[1];
     vector<long long> result;
     int microsecPerSample = 1E6/header.sampling_frequency;
 

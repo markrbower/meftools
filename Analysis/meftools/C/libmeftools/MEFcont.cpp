@@ -14,45 +14,46 @@
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
-#include "VectorIterator.h"
 
 using namespace std;
 
 class MEFcont {
 private:
-  int time0, time1, window, bufferSize;
+  char* filename;
+  char* password;
+  int bufferSize;
   MEFinfo info;
   vector<vector<int>> conts;
-  MEFiter it;
-  Iterator<int>* iterator;
   int counter, counterLimit;
 
 public:
-  MEFcont( char* filename, char* password, int bufferSize, vector<int> timeConstraints, MEFinfo info ) {
+  MEFcont( char* filename, char* password, int bufferSize, vector<long long> timeConstraints, MEFinfo info ) {
 //    if ( info == NULL ) {
 //      info = MEFinfo( filename, password );
 //    }
     // Divide the continuous regions. Starts and Stops are inclusive.
-    conts = info.findContinuousMefSequences( time0, time1 );
-    // Convert 'conts' to a MEFiter.
+    this->filename = (char*)filename;
+    this->password = (char*)password;
+    this->info = info;
+    this->bufferSize = bufferSize;
+    this->conts = info.findContinuousMefSequences( timeConstraints );
 
-//    it <- itertools::ihasNext( iterators::iter( conts, by="row" ) );
-//    iterator = new VectorIterator<int>(conts);
-      counter = 0;
-      counterLimit = conts.size();
+    counter = 0;
+    counterLimit = this->conts.size();
   }
 
   bool hasNext() {
-//    return( iterator->hasNext() );
       return( counter < counterLimit );
   };
 
 
-  vector<int> next() {
-//    return ( iterator->next() );
-      vector<int> value = conts[counter];
+  MEFiter next() {
+      vector<int> vec = conts[counter];
+      int block0 = vec[0];
+      int block1 = vec[1];
+      MEFiter it = MEFiter( filename, password, info, block0, block1, bufferSize );
       counter++;
-      return( value ); 
+      return( it ); 
   };
 
 };

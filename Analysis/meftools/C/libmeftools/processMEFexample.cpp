@@ -13,7 +13,7 @@ Yale University
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
-void processMEFexample( char* filename, char* password, int bufferSize, vector<long long> timeConstraints, MEFinfo info ) {
+void processMEFexample( char* filename, char* password, int bufferSize, vector<long long> timeConstraints ) {
 	IteratorVector<int> data;
 
 	std::vector<std::string> strings(2);
@@ -24,7 +24,6 @@ void processMEFexample( char* filename, char* password, int bufferSize, vector<l
 	MEFcont mefCont <- MEFcont( filename, password, bufferSize, timeConstraints, info );
 
 	while ( mefCont$hasNext() ) {
-	        counterIdx = counterIdx + 1;
         	data = mefCont$nextElem();
 	        peaks <- NPI:::computePeaks( peakComputationVariables, data, compArgs_caseSpecific )
 	}

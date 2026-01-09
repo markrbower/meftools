@@ -3,24 +3,20 @@
 
 #include "meftools_types.h"
 #include "MEFinfo.h"
-#include "VectorIterator.h"
 
 using namespace std;
 
 class MEFiter {
 private:
 	int block0,block1,stepSize,sampleSize,microsecondsPerSample;
-	long long time0,time1;
 	MEFinfo info;
 	vector<int> starts, stops;
 	int counter, counterLimit;
 
 public:
-	MEFiter( char* filename, char* password, MEFinfo info, int block0, int block1, int time0, int time1, int stepSize ) {
+	MEFiter( char* filename, char* password, MEFinfo info, int block0, int block1, int stepSize ) {
 		this->block0 = block0;
 		this->block1 = block1;
-		this->time0  = time0;
-		this->time1  = time1;
 		this->info   = info;
 		this->stepSize = stepSize;
 
