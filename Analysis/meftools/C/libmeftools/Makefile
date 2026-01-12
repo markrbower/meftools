@@ -36,13 +36,11 @@ MEFcont: # general purpose function
 VectorIterator: # general purpose function 
 	$(CC) -c VectorIterator.cpp $(CFLAGS) -I $(INCLUDE)
 
-readMef: # general purpose function 
-	$(CC) -c readMef.cpp $(CFLAGS) read_mef_header.cpp VectorIterator.o read_mef_header.o -I $(INCLUDE)
+processMEFexample: # application
+	$(CC) -o processMEFexample.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFcont.o
 
-peakFinder: # application
-	$(CC) -o peakFinder peakFinder.cpp $(CFLAGS) read_mef_header.o readMef.o -I $(INCLUDE)
-
-
+main: # application
+	$(CC) -c main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o
 
 
 

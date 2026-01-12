@@ -8,13 +8,14 @@ using namespace std;
 
 class MEFiter {
 private:
+        MEFinfo info;
+
 	int block0,block1,stepSize,sampleSize,microsecondsPerSample;
-	MEFinfo info;
 	vector<int> starts, stops;
 	int counter, counterLimit;
 
 public:
-	MEFiter( char* filename, char* password, MEFinfo info, int block0, int block1, int stepSize ) {
+	MEFiter( string filename, string password, MEFinfo info_, int block0, int block1, int stepSize ) : info(info_) {
 		this->block0 = block0;
 		this->block1 = block1;
 		this->info   = info;
@@ -43,6 +44,7 @@ public:
 		starts.pop_back();
 		counter = 0;
 		counterLimit = starts.size();
+
 	};
 
 	bool hasNext() {

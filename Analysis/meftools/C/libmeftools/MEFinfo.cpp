@@ -27,6 +27,8 @@ private:
   vector<string> variables;
 
 public:
+  MEFinfo() {}
+
   MEFinfo( string filename, string password ) {
     this->filename = filename;
     this->password = password;

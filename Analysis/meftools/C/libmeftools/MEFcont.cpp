@@ -10,6 +10,7 @@
 #include <string>
 #include <string>
 #include <iostream>
+#include <limits>
 
 #include "meftools_types.h"
 #include "MEFinfo.h"
@@ -19,23 +20,27 @@ using namespace std;
 
 class MEFcont {
 private:
-  char* filename;
-  char* password;
+  string filename;
+  string password;
   int bufferSize;
   MEFinfo info;
   vector<vector<int>> conts;
   int counter, counterLimit;
 
 public:
-  MEFcont( char* filename, char* password, int bufferSize, vector<long long> timeConstraints, MEFinfo info ) {
+  MEFcont( string filename, string password, MEFinfo info, int bufferSize ) {
 //    if ( info == NULL ) {
 //      info = MEFinfo( filename, password );
 //    }
     // Divide the continuous regions. Starts and Stops are inclusive.
-    this->filename = (char*)filename;
-    this->password = (char*)password;
+    this->filename = filename;
+    this->password = password;
     this->info = info;
     this->bufferSize = bufferSize;
+
+// No timeConstraints were given, so read the entire file
+    vector<long long> timeConstraints = { 0, LLONG_MAX };
+
     this->conts = info.findContinuousMefSequences( timeConstraints );
 
     counter = 0;
@@ -46,11 +51,11 @@ public:
       return( counter < counterLimit );
   };
 
-
   MEFiter next() {
       vector<int> vec = conts[counter];
       int block0 = vec[0];
       int block1 = vec[1];
+i = new Inner( *this );
       MEFiter it = MEFiter( filename, password, info, block0, block1, bufferSize );
       counter++;
       return( it ); 
