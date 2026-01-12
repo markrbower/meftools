@@ -3,7 +3,7 @@
 #include <string.h>
 
 int main (int argc, const char * argv[]) {
-    string filename = argv[1];
+    string filename = "";
     string password = "erlichda";
     int bufferSize = 1024;
 

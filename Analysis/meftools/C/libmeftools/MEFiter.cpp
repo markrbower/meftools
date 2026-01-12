@@ -15,6 +15,7 @@ private:
 	int counter, counterLimit;
 
 public:
+// Use of another class's object in constructor: https://stackoverflow.com/questions/40138402/constructors-with-objects-as-parameters
 	MEFiter( string filename, string password, MEFinfo info_, int block0, int block1, int stepSize ) : info(info_) {
 		this->block0 = block0;
 		this->block1 = block1;

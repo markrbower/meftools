@@ -37,10 +37,10 @@ VectorIterator: # general purpose function
 	$(CC) -c VectorIterator.cpp $(CFLAGS) -I $(INCLUDE)
 
 processMEFexample: # application
-	$(CC) -o processMEFexample.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFcont.o
+	$(CC) -c processMEFexample.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFcont.o
 
-main: # application
-	$(CC) -c main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o
+main: # analysisLookingForPeaks
+	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o
 
 
 

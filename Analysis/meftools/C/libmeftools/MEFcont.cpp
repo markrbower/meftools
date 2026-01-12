@@ -28,7 +28,7 @@ private:
   int counter, counterLimit;
 
 public:
-  MEFcont( string filename, string password, MEFinfo info, int bufferSize ) {
+  MEFcont( string filename, string password, MEFinfo info_, int bufferSize ) : info(info_) {
 //    if ( info == NULL ) {
 //      info = MEFinfo( filename, password );
 //    }
@@ -55,7 +55,6 @@ public:
       vector<int> vec = conts[counter];
       int block0 = vec[0];
       int block1 = vec[1];
-i = new Inner( *this );
       MEFiter it = MEFiter( filename, password, info, block0, block1, bufferSize );
       counter++;
       return( it ); 
