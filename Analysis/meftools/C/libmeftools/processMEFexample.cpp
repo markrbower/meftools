@@ -22,9 +22,9 @@ void processMEFexample( string filename, string password, int bufferSize ) {
 	strings[1] = password;
 	MEFinfo info = MEFinfo( filename, password );
 
-	MEFcont mefCont <- MEFcont( filename, password, info, bufferSize );
+	MEFcont mefCont = MEFcont( filename, password, info, bufferSize );
 	while ( mefCont.hasNext() ) {
-        	MEFiter it = mefCont.nextElem();
+        	MEFiter it = mefCont.next();
 //	        peaks <- NPI:::computePeaks( it, caseSpecificVariables, peakComputationVariables )
 	}
 

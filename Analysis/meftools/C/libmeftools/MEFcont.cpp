@@ -44,7 +44,7 @@ public:
 
     counter = 0;
     counterLimit = this->conts.size();
-  }
+  };
 
   bool hasNext() {
       return( counter < counterLimit );
