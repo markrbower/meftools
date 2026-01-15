@@ -8,7 +8,6 @@
   #'  iterCont <- meftools::MEFcont( filename, 'erlichda', compArgs_caseSpecific$get('bufferSize'), window=timeConstraints, info=compArgs_caseSpecific$get('info') )
 */
 #include <string>
-#include <string>
 #include <iostream>
 #include <limits>
 
@@ -35,7 +34,7 @@ public:
     // Divide the continuous regions. Starts and Stops are inclusive.
     this->filename = filename;
     this->password = password;
-    this->info = info;
+    this->info = info_;
     this->bufferSize = bufferSize;
 
 // No timeConstraints were given, so read the entire file
