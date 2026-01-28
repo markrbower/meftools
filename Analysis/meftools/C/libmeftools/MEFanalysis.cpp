@@ -11,21 +11,17 @@ Yale University
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
-#include "MEFcont.h"
-#include "MEFanalysis.h"
 
 
-
-class MEFanalysis {
-public:
-	virtual void setIterator( MEFiter iter ) = 0;
-	virtual void compute() = 0;
-	virtual void store() = 0;
-	virtual void performance() = 0;
-	virtual void graph() = 0;
+MEFanalysis::MEFanalysis( MEFiter iter_, CaseSpecificVariables case, ComputationSpecificVariables comp ) : info(info_) {
 }
 
 
+void MEFanalysis::setIterator( MEFiter iter ) {};
+void MEFanalysis::compute() {};
+void MEFanalysis::store() {};
+void MEFanalysis::performance() {};
+void MEFanalysis::graph() {};
 
 
 

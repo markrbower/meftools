@@ -15,30 +15,32 @@ Yale University
 #include "MEFanalysis.h"
 
 
+class analysisFindPeaks: public MEFanalysis {
+private:
+    MEFiter iter;
 
-class analysisFindPeaks : public MEFanalysis {
 public:
-    analysisFindPeaks( caseSpecificVariables csv, peakComputationVariables pcv ) {
+    analysisFindPeaks( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {
 
     }
 
-    void setIterator( MEFiter iter_ ) override {
+    void setIterator( MEFiter iter_ ) {
         iter = iter_;
     }
 
-    void compute() override {
+    void compute() {
         // Implementation of MyFunction
     }
 
-    void store() override {
+    void store() {
         // Implementation of MyFunction
     }
 
-    void performance() override {
+    void performance() {
         // Implementation of MyFunction
     }
 
-    void graph() override {
+    void graph() {
         // Implementation of MyFunction
     }
 

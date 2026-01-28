@@ -35,11 +35,11 @@ void processMEFexample( string filename, string password, int bufferSize, int th
 	peakCompVar.threshold = threshold;
 	peakCompVar.duration = duration;
 
-	peaks = analysisFindPeaks( caseSpecVar, peakCompVars );
+	MEFiter iter_ = MEFiter( filename, password, info, 0, 1, 1 ) {
+	peaks = analysisFindPeaks( iter_, caseSpecVar, peakCompVars );
 	MEFcont mefCont = MEFcont( filename, password, info, bufferSize );
 	while ( mefCont.hasNext() ) {
         	MEFiter it = mefCont.next();
-
 
 // Threshold
 		peaks.setIterator( it );
