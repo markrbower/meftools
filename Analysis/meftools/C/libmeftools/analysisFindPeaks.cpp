@@ -21,6 +21,7 @@ private:
 
 public:
     analysisFindPeaks( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {
+        iter = iter_;
 
     }
 
@@ -29,19 +30,24 @@ public:
     }
 
     void compute() {
-        // Implementation of MyFunction
+        // Iterate through the given section, find peaks, blackout, then store.
+        // Add peak times to a vector.
+
     }
 
     void store() {
-        // Implementation of MyFunction
+        // Check buffer, then store.
+
     }
 
     void performance() {
         // Implementation of MyFunction
+
     }
 
     void graph() {
         // Implementation of MyFunction
+
     }
 
 };
