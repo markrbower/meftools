@@ -10,6 +10,7 @@ SRCFILES = convert_ncs.c write_mef_channel.c $(MEFLIB_DIR)/meflib.c $(MEFLIB_DIR
 TARGET = Ncs2Mef3
 #INCLUDE = ../MEF_3_starter_kit
 INCLUDE = /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
+INCLUDE_MYSQL = /opt/homebrew/Cellar/mysql-connector-c++/9.6.0/include
 
 
 all: #full build
@@ -41,6 +42,9 @@ analysisFindPeaks: # general purpose function
 
 analysisNPI: # general purpose function 
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o
+
+da: # general purpose function 
+	$(CC) -c DatabaseAccessor.cpp $(CFLAGS) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0
 
 
 
