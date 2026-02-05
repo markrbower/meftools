@@ -5,26 +5,23 @@
   #'  Organizes MySQL database activity. 
   #' 
 */
+#include <string>
+#include <iostream>
 #include <mysqlx/xdevapi.h>
+#include "DatabaseAccessor.h"
 
-class DatabaseAccessor {
-private:
-    std::unique_ptr<mysqlx::Session> _session;
+DatabaseAccessor::DatabaseAccessor(const std::string& host, int port, const std::string& user, const std::string& password, const std::string& databaseName ) {
+    _session = std::make_unique<mysqlx::Session>(host, port, user, password, databaseName );
+}
 
-public:
-    DatabaseAccessor(const std::string& host, int port, const std::string& user, const std::string& password) {
-        _session = std::make_unique<mysqlx::Session>(host, port, user, password);
+DatabaseAccessor::~DatabaseAccessor() {
+    if (_session) {
+        _session->close();
     }
+}
 
-    ~DatabaseAccessor() {
-        if (_session) {
-            _session->close();
-        }
-    }
-
-    void executeQuery(const std::string& query) {
-        mysqlx::SqlStatement stmt = _session->sql(query);
-        stmt.execute();
-    }
-};
+void DatabaseAccessor::executeQuery(const std::string& query) {
+    mysqlx::SqlStatement stmt = _session->sql(query);
+    stmt.execute();
+}
 

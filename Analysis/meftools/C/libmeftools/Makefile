@@ -44,7 +44,7 @@ analysisNPI: # general purpose function
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o
 
 da: # general purpose function 
-	$(CC) -c DatabaseAccessor.cpp $(CFLAGS) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0
+	$(CC) -c DatabaseAccessor.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0
 
 
 
@@ -53,6 +53,9 @@ processMEFexample: # application
 
 main: # analysisLookingForPeaks
 	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o
+
+da_test: # test DatabaseAccessor
+	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o
 
 
 
