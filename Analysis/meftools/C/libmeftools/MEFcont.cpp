@@ -14,28 +14,19 @@
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
+#include "MEFcont.h"
 
 using namespace std;
 
-class MEFcont {
-private:
-  string filename;
-  string password;
-  int bufferSize;
-  MEFinfo info;
-  vector<vector<int>> conts;
-  int counter, counterLimit;
-
-public:
-  MEFcont( string filename, string password, MEFinfo info_, int bufferSize ) : info(info_) {
+MEFcont::MEFcont( string filename_, string password_, MEFinfo info_, int bufferSize_ ) : info(info_) {
 //    if ( info == NULL ) {
 //      info = MEFinfo( filename, password );
 //    }
     // Divide the continuous regions. Starts and Stops are inclusive.
-    this->filename = filename;
-    this->password = password;
-    this->info = info_;
-    this->bufferSize = bufferSize;
+    filename = filename_;
+    password = password_;
+    info = info_;
+    bufferSize = bufferSize_;
 
 // No timeConstraints were given, so read the entire file
     vector<long long> timeConstraints = { 0, LLONG_MAX };
@@ -46,18 +37,16 @@ public:
     counterLimit = this->conts.size();
   };
 
-  bool hasNext() {
-      return( counter < counterLimit );
-  };
+bool MEFcont::hasNext() {
+    return( counter < counterLimit );
+};
 
-  MEFiter next() {
-      vector<int> vec = conts[counter];
-      int block0 = vec[0];
-      int block1 = vec[1];
-      MEFiter it = MEFiter( filename, password, info, block0, block1, bufferSize );
-      counter++;
-      return( it ); 
-  };
-
+MEFiter MEFcont::next() {
+    vector<int> vec = conts[counter];
+    int block0 = vec[0];
+    int block1 = vec[1];
+    MEFiter it = MEFiter( filename, password, info, block0, block1, bufferSize );
+    counter++;
+    return( it ); 
 };
 
