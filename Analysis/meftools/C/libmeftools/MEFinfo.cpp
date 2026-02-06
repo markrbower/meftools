@@ -10,7 +10,7 @@
 #include <list>
 
 #include "meftools_types.h"
-//#include "MEFinfo.h"
+#include "MEFinfo.h"
         
 using namespace std;
 
@@ -18,18 +18,7 @@ MEF_HEADER_INFO read_mef_header( vector<string> args );
 long long** table_of_contents( vector<string> variables );
 vector<int> get_discontinuities( vector<string> variables, long long** ToC );
 
-class MEFinfo {
-private:
-  string filename, password;
-  MEF_HEADER_INFO header;
-  long long **ToC;
-  vector<int> discontinuities;
-  vector<string> variables;
-
-public:
-  MEFinfo() {}
-
-  MEFinfo( string filename, string password ) {
+MEFinfo::MEFinfo( string filename, string password ) {
     this->filename = filename;
     this->password = password;
 
@@ -45,15 +34,15 @@ public:
     ToC = table_of_contents( variables );
 
     discontinuities = get_discontinuities( variables, ToC );
-  }
+}
 
-  MEF_HEADER_INFO getHeader() { return( header ); }
+MEF_HEADER_INFO MEFinfo::getHeader() { return( header ); }
 
-  long long** getToC() { return( ToC ); }
+long long** MEFinfo::getToC() { return( ToC ); }
 
-  vector<int> getDiscontinuities() { return( discontinuities ); }  
+vector<int> MEFinfo::getDiscontinuities() { return( discontinuities ); }  
   
-  vector<vector<int>> findContinuousMefSequences( vector<long long> timeConstraints ) {
+vector<vector<int>> MEFinfo::findContinuousMefSequences( vector<long long> timeConstraints ) {
     long long time0 = timeConstraints[0];
     long long time1 = timeConstraints[1];
     vector<long long> result;
@@ -91,7 +80,5 @@ public:
     }
 
     return( conts );
-  }
-
-};
+}
 
