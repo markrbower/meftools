@@ -38,7 +38,7 @@ VectorIterator: # general purpose function
 	$(CC) -c VectorIterator.cpp $(CFLAGS) -I $(INCLUDE)
 
 analysisFindPeaks: # general purpose function 
-	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o
+	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE)
 
 analysisNPI: # general purpose function 
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o
@@ -49,7 +49,7 @@ da: # general purpose function
 
 
 processMEFexample: # application
-	$(CC) -c processMEFexample.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFiter.o MEFcont.o MEFanalysis.o
+	$(CC) -c processMEFexample.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFiter.o MEFcont.o
 
 main: # analysisLookingForPeaks
 	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o

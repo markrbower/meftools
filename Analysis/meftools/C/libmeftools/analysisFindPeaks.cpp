@@ -14,42 +14,37 @@ Yale University
 #include "MEFcont.h"
 #include "MEFanalysis.h"
 
+#include "analysisFindPeaks.h"
 
-class analysisFindPeaks: public MEFanalysis {
-private:
-    MEFiter iter;
-
-public:
-    analysisFindPeaks( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {
+    analysisFindPeaks::analysisFindPeaks( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {
         iter = iter_;
 
     }
 
-    void setIterator( MEFiter iter_ ) {
-        iter = iter_;
+    void MEFanalysis::setIterator( MEFiter iter_ ) {
+        MEFanalysis::iter = iter_;
     }
 
-    void compute() {
+    void MEFanalysis::compute() {
         // Iterate through the given section, find peaks, blackout, then store.
         // Add peak times to a vector.
 
     }
 
-    void store() {
+    void MEFanalysis::store() {
         // Check buffer, then store.
 
     }
 
-    void performance() {
+    void MEFanalysis::performance() {
         // Implementation of MyFunction
 
     }
 
-    void graph() {
+    void MEFanalysis::graph() {
         // Implementation of MyFunction
 
     }
 
-};
 
 
