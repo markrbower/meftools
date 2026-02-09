@@ -49,7 +49,9 @@ da: # general purpose function
 
 
 processMEFexample: # application
-	$(CC) -c processMEFexample.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o MEFiter.o MEFcont.o
+	$(CC) -c processMEFexample.cpp $(CFLAGS) -I $(INCLUDE)
+
+
 
 main: # analysisLookingForPeaks
 	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o

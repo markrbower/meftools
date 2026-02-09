@@ -13,6 +13,7 @@ Yale University
 #include "MEFiter.h"
 #include "MEFcont.h"
 #include "MEFanalysis.h"
+#include "analysisFindPeaks.h"
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
@@ -26,17 +27,17 @@ void processMEFexample( string filename, string password, int bufferSize, int th
 	MEFinfo info = MEFinfo( filename, password );
 
 // caseSpecificVariables
-	caseSpecificVariables caseSpecVar;
-	caseSpecVar.filename = filename
+	CaseSpecificVariables caseSpecVar;
+	caseSpecVar.filename = filename;
 	caseSpecVar.bufferSize = bufferSize;
 
 // peakComputationVariables
-	peakComputationVariables peakCompVar;
+	AlgorithmSpecificVariables peakCompVar;
 	peakCompVar.threshold = threshold;
 	peakCompVar.duration = duration;
 
-	MEFiter iter_ = MEFiter( filename, password, info, 0, 1, 1 ) {
-	peaks = analysisFindPeaks( iter_, caseSpecVar, peakCompVars );
+	MEFiter iter_ = MEFiter( filename, password, info, 0, 1, 1 );
+	peaks = analysisFindPeaks( iter_, caseSpecVar, peakCompVar );
 	MEFcont mefCont = MEFcont( filename, password, info, bufferSize );
 	while ( mefCont.hasNext() ) {
         	MEFiter it = mefCont.next();
@@ -57,9 +58,6 @@ void processMEFexample( string filename, string password, int bufferSize, int th
 
 // NPI
 //	        peaks <- NPI:::computePeaks( it, caseSpecVar, peakCompVar )
-
-
-
 
 	}
 
