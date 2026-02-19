@@ -11,9 +11,10 @@ Yale University
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
+#include "MEFanalysis.h"
 
 
-MEFanalysis::MEFanalysis( MEFiter iter_, CaseSpecificVariables case, ComputationSpecificVariables comp ) : info(info_) {
+MEFanalysis::MEFanalysis( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {
 }
 
 

@@ -13,7 +13,6 @@ Yale University
 #include "MEFiter.h"
 #include "MEFcont.h"
 #include "MEFanalysis.h"
-
 #include "analysisFindPeaks.h"
 
     analysisFindPeaks::analysisFindPeaks( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {

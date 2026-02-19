@@ -37,6 +37,9 @@ MEFcont: # general purpose function
 VectorIterator: # general purpose function 
 	$(CC) -c VectorIterator.cpp $(CFLAGS) -I $(INCLUDE)
 
+MEFanalysis: # general purpose function 
+	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE)
+
 analysisFindPeaks: # general purpose function 
 	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE)
 
@@ -55,6 +58,9 @@ processMEFexample: # application
 
 main: # analysisLookingForPeaks
 	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o
+
+main_alfp: # analysisLookingForPeaks
+	$(CC) main_analysisLookingForPeaks.cpp -o main $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 analysisFindPeaks.o processMEFexample.o MEFinfo.o MEFiter.o MEFcont.o read_mef_header.o table_of_contents.o get_discontinuities.o
 
 da_test: # test DatabaseAccessor
 	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o
