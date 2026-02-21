@@ -26,7 +26,10 @@ Yale University
 
     void MEFanalysis::compute() {
         // Iterate through the given section, find peaks, blackout, then store.
-        // Add peak times to a vector.
+	while ( iter.hasNext() ) {
+		data.push_back( iter.next() );
+        	// Is the value 20 spots back a local peak?
+		std::vector<int> y(x.end() - n, x.end());
 
     }
 
