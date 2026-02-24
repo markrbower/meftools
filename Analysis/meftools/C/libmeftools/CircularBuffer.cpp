@@ -9,6 +9,7 @@ class CircularBuffer {
 private:
     vector<int> buffer;
     int front;
+    int mid;
     int center;
     int back;
     int capacity;
@@ -40,7 +41,7 @@ public:
 //            throw overflow_error("CircularBuffer is full");
         } else {
 	        back  = (back + 1);
-		if ( size() % 2 ) { // size() is odd
+		if ( size() % 2 && size() > 2 ) { // size() is odd
 			mid = (mid + 1) % capacity;
 		}	
 	}
@@ -51,11 +52,9 @@ public:
         if (empty()) {
             throw underflow_error("CircularBuffer is empty");
         }
-
-
-
-
-
+        if ( (size() % 2)==0 ) { // Currently has even length
+		mid = (mid+1) % capacity;
+	}
         front = (front + 1) % capacity;
     }
     
