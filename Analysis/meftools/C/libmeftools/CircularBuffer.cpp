@@ -65,6 +65,13 @@ public:
         return buffer[front];
     }
     
+    int getMid() {
+        if (empty()) {
+            throw out_of_range("CircularBuffer is empty");
+        }
+        return buffer[mid];
+    }
+    
     int getBack() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
@@ -97,6 +104,22 @@ public:
         }
         cout << endl;
     }
+
+    bool isPeak() {
+        if (full()) {
+            int idx = front;
+            while (idx != back) {
+                if ( idx != mid ) {
+                    if ( buffer[idx] >= buffer[mid] )
+                        return 0;
+                }
+                idx = (idx + 1) % capacity;
+            }
+            return 1;
+        }
+        return 0;
+    }            
+
 };
 
 /*
