@@ -27,9 +27,16 @@ Yale University
     void MEFanalysis::compute() {
         // Iterate through the given section, find peaks, blackout, then store.
 	while ( iter.hasNext() ) {
+		// I only need a ring buffer of size "window".
+
 		data.push_back( iter.next() );
         	// Is the value 20 spots back a local peak?
-		std::vector<int> y(x.end() - n, x.end());
+		std::vector<int> windowedData(data.end() - n, data.end());
+		// Absolute value
+		// Is the value at index=10 the greatest?
+
+
+
 
     }
 

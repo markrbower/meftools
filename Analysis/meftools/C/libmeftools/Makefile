@@ -16,6 +16,9 @@ INCLUDE_MYSQL = /opt/homebrew/Cellar/mysql-connector-c++/9.6.0/include
 all: #full build
 	$(CC) -o $(TARGET) $(CFLAGS) $(MAIN) $(SRCFILES) -I $(INCLUDE)
 
+CircularBuffer:
+	$(CC) -c CircularBuffer.cpp $(CFLAGS) -I $(INCLUDE)
+
 read_mef_header: # general purpose function
 	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
 
