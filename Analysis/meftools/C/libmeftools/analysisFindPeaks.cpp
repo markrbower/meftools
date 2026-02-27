@@ -28,7 +28,7 @@ void analysisFindPeaks::compute() {
 	    push_back( iter.next() );
 	    if ( isPeak() ) {
                 // Find the timestamp from the index.
-                peakBuffer.push_back( iter.time() );
+                peakBuffer.push_back( MEFiter::iter.time() );
                 valuesBuffer.push_back( analysisFindPeaks::circbuf.getBuffer() );
                 // Check whether buffers should be written to MySQL
 

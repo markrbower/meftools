@@ -50,3 +50,6 @@ vector<int> MEFiter::next() {
 	return( result );
 };
 
+long long time() {
+    return 0L;
+}

@@ -12,11 +12,11 @@ Yale University
 #include "MEFinfo.h"
 #include "MEFiter.h"
 #include "MEFanalysis.h"
+#include "MEFcont.h"
 
 
-MEFanalysis::MEFanalysis( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {
+MEFanalysis::MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFcont cont_ ) : cont(cont_) {
 }
-
 
 void MEFanalysis::compute() {};
 void MEFanalysis::store() {};
