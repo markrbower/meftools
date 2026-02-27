@@ -44,7 +44,7 @@ MEFanalysis: # general purpose function
 	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE)
 
 analysisFindPeaks: # general purpose function 
-	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE) CircularBuffer.o
+	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE)
 
 analysisNPI: # general purpose function 
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o

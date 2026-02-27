@@ -92,6 +92,16 @@ void CircularBuffer::printBuffer() {
         cout << endl;
     }
 
+vector<int> CircularBuffer::getBuffer() {
+        vector<int> buf;
+        int idx = front;
+        while (idx != back) {
+            buf.push_back( buffer[idx] );
+            idx = (idx + 1) % capacity;
+        }
+        cout << endl;
+    }
+
 bool CircularBuffer::isPeak() {
         if (full()) {
             int idx = front;
