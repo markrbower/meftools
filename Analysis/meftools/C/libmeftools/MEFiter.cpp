@@ -50,4 +50,3 @@ vector<int> MEFiter::next() {
 	return( result );
 };
 
-

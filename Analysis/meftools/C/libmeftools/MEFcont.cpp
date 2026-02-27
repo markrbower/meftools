@@ -50,3 +50,9 @@ MEFiter MEFcont::next() {
     return( it ); 
 };
 
+long long MEFcont::time( int index ) {
+
+
+
+};
+

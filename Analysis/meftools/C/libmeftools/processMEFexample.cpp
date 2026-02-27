@@ -37,28 +37,24 @@ void processMEFexample( string filename, string password, int bufferSize, int th
 	peakCompVar.duration = duration;
 
 	// Constructor for analysis
-	peaks = analysisFindPeaks( iter_, caseSpecVar, peakCompVar );
 
 	MEFcont mefCont = MEFcont( filename, password, info, bufferSize );
-	while ( mefCont.hasNext() ) {
-        	MEFiter it = mefCont.next();
-
+	peaks = analysisFindPeaks( caseSpecVar, peakCompVar, mefCont );
 // Threshold
-		peaks.setIterator( it );
-		peaks.compute();
-		peaks.store();
-		peaks.performance();
-		peaks.graph();
+	peaks.compute();
+	peaks.store();
+	peaks.performance();
+	peaks.graph();
 
 	// What do I do with "peaks" for subsequent analysis steps?
-//		clusters = analysisNPI( it, caseSpecVar, clusterCompVars, peaks );
-//		clusters.localGraph();
-//		clusters.globalGraph();
-//		clusters.performance();
-//		clusters.graph();
+//	clusters = analysisNPI( it, caseSpecVar, clusterCompVars, peaks );
+//	clusters.localGraph();
+//	clusters.globalGraph();
+//	clusters.performance();
+//	clusters.graph();
 
 // NPI
-//	        peaks <- NPI:::computePeaks( it, caseSpecVar, peakCompVar )
+//        peaks <- NPI:::computePeaks( it, caseSpecVar, peakCompVar )
 
 	}
 

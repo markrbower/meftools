@@ -1,24 +1,11 @@
 #include <iostream>
 #include <vector>
-using namespace std;
+
+#include "CircularBuffer.h"
 
 using namespace std;
 
-// Circular buffer class
-class CircularBuffer {
-private:
-    vector<int> buffer;
-    int front;
-    int mid;
-    int center;
-    int back;
-    int capacity;
-
-public:
-
-    // Constructor to intialize circular buffer's data
-    // members
-    CircularBuffer(int _capacity) {
+CircularBuffer::CircularBuffer(int _capacity) {
         
         // If the capacity is invalid
         if (_capacity < 0) {
@@ -32,7 +19,7 @@ public:
     }
 
     // Function to add an element to the buffer
-    void push_back(int val) {
+void CircularBuffer::push_back(int val) {
         buffer[back] = val;
         if (full()) {
 	        back  = (back + 1)  % capacity;
@@ -48,7 +35,7 @@ public:
     }
 
     // Function to remove an element from the buffer
-    void pop_front() {
+void CircularBuffer::pop_front() {
         if (empty()) {
             throw underflow_error("CircularBuffer is empty");
         }
@@ -58,21 +45,21 @@ public:
         front = (front + 1) % capacity;
     }
     
-    int getFront() {
+int CircularBuffer::getFront() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
         return buffer[front];
     }
     
-    int getMid() {
+int CircularBuffer::getMid() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
         return buffer[mid];
     }
     
-    int getBack() {
+int CircularBuffer::getBack() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
@@ -80,15 +67,15 @@ public:
     }
 
     // Function to check if the buffer is empty
-    bool empty() const { return front == back; }
+bool CircularBuffer::empty() { return front == back; }
 
     // Function to check if the buffer is full
-    bool full() const {
+bool CircularBuffer::full() {
         return (back + 1) % capacity == front;
     }
 
     // Function to get the size of the buffer
-    int size() const {
+int CircularBuffer::size() {
         if (back >= front) {
             return back - front;
         }
@@ -96,7 +83,7 @@ public:
     }
 
     // Function to print the elements of the buffer
-    void printBuffer() const {
+void CircularBuffer::printBuffer() {
         int idx = front;
         while (idx != back) {
             cout << buffer[idx] << " ";
@@ -105,7 +92,7 @@ public:
         cout << endl;
     }
 
-    bool isPeak() {
+bool CircularBuffer::isPeak() {
         if (full()) {
             int idx = front;
             while (idx != back) {
@@ -118,9 +105,8 @@ public:
             return 1;
         }
         return 0;
-    }            
+}            
 
-};
 
 /*
 int main() {

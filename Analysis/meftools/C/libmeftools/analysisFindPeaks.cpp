@@ -15,28 +15,29 @@ Yale University
 #include "MEFanalysis.h"
 #include "analysisFindPeaks.h"
 
-    analysisFindPeaks::analysisFindPeaks( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpecificVariables asv ) : iter(iter_) {
-        iter = iter_;
+    analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFcont cont_ ) : cont(cont_) {
+        cont = cont_;
 
-    }
+        CircularBuffer circbuf( );
 
-    void MEFanalysis::setIterator( MEFiter iter_ ) {
-        MEFanalysis::iter = iter_;
     }
 
     void MEFanalysis::compute() {
         // Iterate through the given section, find peaks, blackout, then store.
 	while ( iter.hasNext() ) {
 		// I only need a ring buffer of size "window".
+		circbuf.push_back( iter.next() );
+		if ( circbuf.isPeak() ) {
+                    // Find the timestamp from the index.
+                    peakBuffer.push_back( iter.time() );
+                    valuesBuffer.push_bakc( circbuf.getBuffer() );`
+                    // Check whether buffers should be written to MySQL
 
-		data.push_back( iter.next() );
-        	// Is the value 20 spots back a local peak?
-		std::vector<int> windowedData(data.end() - n, data.end());
-		// Absolute value
-		// Is the value at index=10 the greatest?
 
 
-
+		}
+            }
+        }
 
     }
 

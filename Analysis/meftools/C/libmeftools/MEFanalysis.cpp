@@ -18,7 +18,6 @@ MEFanalysis::MEFanalysis( MEFiter iter_, CaseSpecificVariables csv, AlgorithmSpe
 }
 
 
-void MEFanalysis::setIterator( MEFiter iter ) {};
 void MEFanalysis::compute() {};
 void MEFanalysis::store() {};
 void MEFanalysis::performance() {};
