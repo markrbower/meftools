@@ -22,16 +22,28 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecif
 }
 
 void analysisFindPeaks::compute() {
-        // Iterate through the given section, find peaks, blackout, then store.
-	while ( iter.hasNext() ) {
-	    // I only need a ring buffer of size "window".
-	    push_back( iter.next() );
-	    if ( isPeak() ) {
-                // Find the timestamp from the index.
-                peakBuffer.push_back( MEFiter::iter.time() );
-                valuesBuffer.push_back( analysisFindPeaks::circbuf.getBuffer() );
-                // Check whether buffers should be written to MySQL
+// Use MEFcont to supply contiguous sequences
 
+        // Iterate through the given section, find peaks, blackout, then store.
+	while ( cont.hasNext() ) {
+	    // I only need a ring buffer of size "window".
+            MEFiter iter = cont.next();
+            while ( iter.hasNext() ) {
+                vector<int> startStop = iter.next();
+		int start = startStop[0];
+		int stop  = startStop[1];
+                data = readMEF( start, stop );
+                for ( int i=0; i<data.size(); i++ ) {
+                    push_back( data[i] );
+	            if ( isPeak() ) {
+                        // Find the timestamp from the index.
+                        peakBuffer.push_back( MEFiter::iter.time() );
+                        valuesBuffer.push_back( analysisFindPeaks::circbuf.getBuffer() );
+                        // Check whether buffers should be written to MySQL
+
+
+                    }
+                }
 	    }
         }
 }
