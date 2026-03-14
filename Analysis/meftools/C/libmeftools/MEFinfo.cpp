@@ -36,10 +36,6 @@ MEFinfo::MEFinfo( string filename, string password ) {
     discontinuities = get_discontinuities( variables, ToC );
 }
 
-MEF_HEADER_INFO MEFinfo::getHeader() { return( header ); }
-
-long long** MEFinfo::getToC() { return( ToC ); }
-
 vector<int> MEFinfo::getDiscontinuities() { return( discontinuities ); }  
   
 vector<vector<int>> MEFinfo::findContinuousMefSequences( vector<long long> timeConstraints ) {
@@ -80,5 +76,21 @@ vector<vector<int>> MEFinfo::findContinuousMefSequences( vector<long long> timeC
     }
 
     return( conts );
+}
+
+MEF_HEADER_INFO MEFinfo::getHeader() {
+    return header;
+}
+
+long long** MEFinfo::getToC() {
+    return ToC;
+}
+
+string MEFinfo::getFilename() {
+    return filename;
+}
+
+string MEFinfo::getPassword() {
+    return password;
 }
 
