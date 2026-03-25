@@ -11,6 +11,8 @@ using namespace std;
 stepSize: max number of seconds per step
 */
 
+vector<int> decomp_mef( string f, long long s0, long long s1, string p );
+
 MEFiter::MEFiter( MEFinfo info_, int block0, int block1, int stepSize ) : info(info_) {
 	this->time0 = 0;
 	this->time1 = 1E20;
