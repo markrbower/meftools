@@ -2818,7 +2818,7 @@ static si4 validate_mef(char *mef_filename, char *log_filename, char *password)
 // Return an int*, not a NumericVector
 //
 
-std::vector<int> decomp_mef(char* f_name, long long start_idx, long long end_idx, char* password )
+std::vector<int> decomp_mef(std::string filename, long long start_idx, long long end_idx, std::string pword )
 {
 //    char			*c, *comp_data, *cdp, *last_block_p, encryptionKey[240];
     char			*c, *comp_data, *cdp, *last_block_p;
@@ -2833,9 +2833,11 @@ std::vector<int> decomp_mef(char* f_name, long long start_idx, long long end_idx
     RED_BLOCK_HDR_INFO	block_hdr;
     
 //    char *f_name = (si1*)(strings(0));
+    const char *f_name = filename.c_str();
 //    unsigned long long int start_idx = (unsigned long long int) atoll( strings(1) );
 //    unsigned long long int end_idx = (unsigned long long int) atoll( strings(2) );
 //    char *password = (si1*)(strings(3));
+    const char *password = pword.c_str();
     
     // Set the output pointer to the output matrix.
     unsigned long long int long_decomp_data_len = end_idx - start_idx + (unsigned long long int) 1;
