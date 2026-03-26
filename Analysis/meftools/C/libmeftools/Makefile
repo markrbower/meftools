@@ -28,6 +28,9 @@ table_of_contents:
 get_discontinuities:
 	$(CC) -c get_discontinuities.cpp $(CFLAGS) -I $(INCLUDE)
 
+decomp_mef:
+	$(CC) -c decomp_mef.cpp $(CFLAGS) -I $(INCLUDE)
+
 MEFinfo:
 	$(CC) -c MEFinfo.cpp $(CFLAGS) -I $(INCLUDE) table_of_contents.o get_discontinuities.o
 
