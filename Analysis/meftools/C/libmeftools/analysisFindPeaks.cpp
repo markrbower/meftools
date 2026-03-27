@@ -16,8 +16,12 @@ Yale University
 #include "CircularBuffer.h"
 #include "analysisFindPeaks.h"
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFcont cont_, CircularBuffer cb_ ) : cont(cont_), circbuf(cb_) {
+vector<int> decomp_mef( string f, long long s0, long long s1, string p );
+
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFcont cont_, CircularBuffer cb_ ) : cont(cont_), circbuf(cb_) {
         cont = cont_;
+	csv = csv_;
+	asv = asv_;
         analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
 }
 
@@ -32,12 +36,12 @@ void analysisFindPeaks::compute() {
                 vector<int> startStop = iter.next();
 		int start = startStop[0];
 		int stop  = startStop[1];
-                data = readMEF( start, stop );
+                std::vector<int> data = decomp_mef( csv.filename, start, stop, csv.password );
                 for ( int i=0; i<data.size(); i++ ) {
                     push_back( data[i] );
 	            if ( isPeak() ) {
                         // Find the timestamp from the index.
-                        peakBuffer.push_back( MEFiter::iter.time() );
+                        peakBuffer.push_back( iter.getTime() );
                         valuesBuffer.push_back( analysisFindPeaks::circbuf.getBuffer() );
                         // Check whether buffers should be written to MySQL
 
