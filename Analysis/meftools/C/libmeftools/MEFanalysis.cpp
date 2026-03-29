@@ -19,7 +19,6 @@ MEFanalysis::MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables 
 }
 
 void MEFanalysis::compute() {};
-void MEFanalysis::store() {};
 void MEFanalysis::performance() {};
 void MEFanalysis::graph() {};
 

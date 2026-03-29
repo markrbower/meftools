@@ -27,6 +27,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 
 void analysisFindPeaks::compute() {
 // Use MEFcont to supply contiguous sequences
+	int bufferLimit = 1000;
 
         // Iterate through the given section, find peaks, blackout, then store.
 	while ( cont.hasNext() ) {
@@ -38,22 +39,25 @@ void analysisFindPeaks::compute() {
 		int stop  = startStop[1];
                 std::vector<int> data = decomp_mef( csv.filename, start, stop, csv.password );
                 for ( int i=0; i<data.size(); i++ ) {
-                    push_back( data[i] );
+                    circbuf.push_back( data[i] );
 	            if ( isPeak() ) {
                         // Find the timestamp from the index.
                         peakBuffer.push_back( iter.getTime() );
                         valuesBuffer.push_back( analysisFindPeaks::circbuf.getBuffer() );
                         // Check whether buffers should be written to MySQL
-
-
+			if ( peakBuffer.size() > bufferLimit ) {
+				store( peakBuffer, valuesBuffer );
+				peakBuffer.clear();
+				valuesBuffer.clear();
+			}
                     }
                 }
 	    }
         }
+	store( peakBuffer, valuesBuffer );
 }
 
-
-void MEFanalysis::store() {
+void MEFanalysis::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
         // Check buffer, then store.
 
 }
