@@ -1,3 +1,6 @@
+#ifndef MEF_CONT
+#define MEF_CONT
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,16 +14,19 @@ using namespace std;
 
 class MEFcont {
 private:
-  class MEFinfo;
+  string filename;
+  string password;
   int bufferSize;
   vector<vector<int>> conts;
-  int counter, counterLimit;
+  int counter;
+  int counterLimit;
+  MEFinfo info;
 
 public:
   MEFcont( string filename, string password, MEFinfo info, int bufferSize );
   bool hasNext();
-  vector<MEFiter> next();
-
-  MEFinfo* info;
+  MEFiter next();
 
 };
+
+#endif

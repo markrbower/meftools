@@ -1,4 +1,5 @@
-#include <RcppCommon.h>
+#ifndef MEFTOOLS_TYPES_H
+#define MEFTOOLS_TYPES_H
 
   /******************** header fields *************************/
   /************* header version & constants *******************/
@@ -153,9 +154,7 @@
   } INDEX_DATA;
 
   // BEGIN --- endian_functions.c
-  
-  namespace Rcpp {
-  // [[Rcpp::export]]
+
   typedef struct {
     si1	institution[INSTITUTION_LENGTH];
     si1	unencrypted_text_field[UNENCRYPTED_TEXT_FIELD_LENGTH];
@@ -208,11 +207,10 @@
     ui8 *discontinuity_data;
   } MEF_HEADER_INFO;
   
-  template <> SEXP wrap(const MEF_HEADER_INFO& x);
+//  template <> SEXP wrap(const MEF_HEADER_INFO& x);
   
-  template<> MEF_HEADER_INFO* as(SEXP x);
+//  template<> MEF_HEADER_INFO* as(SEXP x);
   
-  } 
   
   typedef struct {
     ui4 CRC_32;
@@ -234,6 +232,9 @@
     ui4	underflow_bytes;
     ui1	*ob_p;
   } RANGE_STATS;
+#endif
+
+
 
   // #include "size_types.h" // already listed above
   // #include "endian_functions.h"
@@ -264,17 +265,17 @@
   static void	AES_decryptWithKey(unsigned char *in, unsigned char *out, unsigned char *RoundKey);
   static si4 check_header_block_alignment(ui1 *header_block, si4 verbose);
   static void strncpy2(si1 *s1, si1 *s2, si4 n);
-  static void init_hdr_struct(Rcpp::MEF_HEADER_INFO *header);
-  static si4	write_mef(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password);
-  static si4	write_mef_ind(si4 *samps, Rcpp::MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block, si4 num_blocks, ui1 *discontinuity_array);
+  static void init_hdr_struct(MEF_HEADER_INFO *header);
+  static si4	write_mef(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password);
+  static si4	write_mef_ind(si4 *samps, MEF_HEADER_INFO *mef_header, ui8 len, si1 *out_file, si1 *subject_password, INDEX_DATA *index_block, si4 num_blocks, ui1 *discontinuity_array);
   static si4	build_RED_block_header(ui1 *header_block, RED_BLOCK_HDR_INFO *header_struct);
   static ui8 set_session_unique_ID(char *file_name, ui1 *array);
-  static void set_hdr_unique_ID(Rcpp::MEF_HEADER_INFO *header, ui1 *array);
+  static void set_hdr_unique_ID(MEF_HEADER_INFO *header, ui1 *array);
   static ui8 generate_unique_ID(ui1 *array);
   static ui4 calculate_CRC(ui1 *data_block);  
   static si4	validate_password(ui1 *header_block, si1 *password);
-  static si4	build_mef_header_block(ui1 *encrypted_hdr_block, Rcpp::MEF_HEADER_INFO *hdr_struct, si1 *password);
-  static si4	read_mef_header_block(ui1 *header_block, Rcpp::MEF_HEADER_INFO *header_struct, si1 *password);
+  static si4	build_mef_header_block(ui1 *encrypted_hdr_block, MEF_HEADER_INFO *hdr_struct, si1 *password);
+  static si4	read_mef_header_block(ui1 *header_block, MEF_HEADER_INFO *header_struct, si1 *password);
   static void set_block_hdr_unique_ID(ui1 *block_header, ui1 *array);
   static si4 validate_mef(char *mef_filename, char *log_filename, char *password);
   static void encode_symbol(ui1 symbol, ui4 symbol_cnts, ui4 cnts_lt_symbol, ui4 tot_cnts, RANGE_STATS *rstats );
@@ -282,7 +283,7 @@
   static void enc_normalize(RANGE_STATS *rstats);
   static si4	read_RED_block_header(ui1 *header_block, RED_BLOCK_HDR_INFO *header_struct);
   static ui8 RED_compress_block(si4 *in_buffer, ui1 *out_buffer, ui4 num_entries, ui8 uUTC_time, ui1 discontinuity, si1 *key, RED_BLOCK_HDR_INFO *block_hdr);
-  static void showHeader(Rcpp::MEF_HEADER_INFO *headerStruct);
+  static void showHeader(MEF_HEADER_INFO *headerStruct);
   
   
   
@@ -295,8 +296,8 @@
   static ui8	rev_ui8(ui8 x);
   static sf8	rev_sf8(sf8 x);
   
-#endif
   // END --- endian_functions.h ---
   
   
+#endif
   

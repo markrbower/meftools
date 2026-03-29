@@ -1,3 +1,7 @@
+#ifndef MEF_INFO_H
+#define MEF_INFO_H
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,6 +10,8 @@
 #include <vector>
 #include <string>
 #include <list>
+
+#include "meftools_types.h"
 
 using namespace std;
 
@@ -18,8 +24,12 @@ private:
   vector<string> variables;
 public:
   MEFinfo( string filename, string password );
-  MEF_HEADER_INFO getHeader();
-  long long** getToC();
   vector<int> getDiscontinuities();
   vector<vector<int>> findContinuousMefSequences( vector<long long> timeConstraints );
+  MEF_HEADER_INFO getHeader();
+  long long** getToC();
+  string getFilename();
+  string getPassword();
 };
+
+#endif

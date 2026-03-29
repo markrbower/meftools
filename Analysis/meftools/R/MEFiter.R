@@ -119,6 +119,7 @@ MEFiter <- function(filename, password, ... ) {
     } else {
       s1 <- info$ToC[3,(block1+1)]-1
     }
+    # "dlast" is the number of samples in the last block
     dlast <- s1 - info$ToC[3,block1] + 1
     #    print( paste0( s0, ' ', s1 ) )
     data <- decomp_mef(c(filename, s0, s1, password) )
