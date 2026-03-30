@@ -23,6 +23,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	csv = csv_;
 	asv = asv_;
         analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
+	dbcm = DatabaseConnectionManager( csv.subject );
 }
 
 void analysisFindPeaks::compute() {
@@ -58,8 +59,7 @@ void analysisFindPeaks::compute() {
 }
 
 void MEFanalysis::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
-        // Check buffer, then store.
-
+	dbcm.batchInsertTimeVector( peakBuffer, valueBuffer );
 }
 
 void MEFanalysis::performance() {
