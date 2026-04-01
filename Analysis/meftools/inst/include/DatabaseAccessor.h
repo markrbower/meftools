@@ -20,7 +20,11 @@ private:
 public:
     DatabaseAccessor(const std::string& host, int port, const std::string& user, const std::string& password, const std::string& databaseName);
 
+    DatabaseAccessor(const std::string& databaseName);
+
     ~DatabaseAccessor();
+
+    mysqlx::SqlResult createTable(const std::string& tableName,const std::string& tableValues);
 
     mysqlx::SqlResult executeQuery(const std::string& query);
 };
