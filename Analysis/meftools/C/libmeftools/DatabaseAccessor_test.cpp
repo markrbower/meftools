@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    DatabaseAccessor db("localhost", 33060, "root", "", "cpp_mysql_demo");
+    DatabaseAccessor da("localhost", 33060, "root", "", string database_name);
 
     mysqlx::SqlResult result0 = db.executeQuery("drop table if exists peaks;");
 

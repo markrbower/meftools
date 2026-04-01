@@ -23,12 +23,13 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	csv = csv_;
 	asv = asv_;
         analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
-	dbcm = DatabaseConnectionManager( csv.subject );
+	dbcm = DatabaseAccessor("NPI");
+	dbcm.createTable("peaks",“(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))” );
 }
 
 void analysisFindPeaks::compute() {
 // Use MEFcont to supply contiguous sequences
-	int bufferLimit = 1000;
+	int bufferLimit = 100;
 
         // Iterate through the given section, find peaks, blackout, then store.
 	while ( cont.hasNext() ) {
@@ -59,7 +60,13 @@ void analysisFindPeaks::compute() {
 }
 
 void MEFanalysis::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
-	dbcm.batchInsertTimeVector( peakBuffer, valueBuffer );
+
+
+
+
+
+
+
 }
 
 void MEFanalysis::performance() {

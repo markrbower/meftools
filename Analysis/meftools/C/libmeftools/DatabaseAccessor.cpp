@@ -3,6 +3,7 @@
 // Yale University
 /*
   #'  Organizes MySQL database activity. 
+  #'    For general use, create a Singleton that allows users to set their defaults.
   #' 
 */
 #include <string>
@@ -14,10 +15,18 @@ DatabaseAccessor::DatabaseAccessor(const std::string& host, int port, const std:
     _session = make_unique<mysqlx::Session>(host, port, user, password, databaseName );
 }
 
+DatabaseAccessor::DatabaseAccessor(const std::string& databaseName) {
+    _session = make_unique<mysqlx::Session>("localhost", 33060, "root", "password", databaseName );
+}
+
 DatabaseAccessor::~DatabaseAccessor() {
     if (_session) {
         _session->close();
     }
+}
+
+mysqlx::SqlResult DatabaseAccessor::createTable( const std::string& tableName, const std::string& tableValues ) {
+
 }
 
 mysqlx::SqlResult DatabaseAccessor::executeQuery(const std::string& query) {
