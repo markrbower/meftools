@@ -15,6 +15,7 @@ Yale University
 #include "MEFanalysis.h"
 #include "CircularBuffer.h"
 #include "analysisFindPeaks.h"
+#include "DatabaseAccessor.h"
 
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
@@ -23,13 +24,18 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	csv = csv_;
 	asv = asv_;
         analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
-	dbcm = DatabaseAccessor("NPI");
-	dbcm.createTable("peaks",“(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))” );
+	dba = DatabaseAccessor("NPI");
+	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
 }
 
 void analysisFindPeaks::compute() {
 // Use MEFcont to supply contiguous sequences
 	int bufferLimit = 100;
+	int bufferCount = 0;
+	vector<char> buffer( bufferLimit * 5 );	
+	char charArray[20];
+
+	buffer.push_back("(");
 
         // Iterate through the given section, find peaks, blackout, then store.
 	while ( cont.hasNext() ) {
@@ -44,27 +50,31 @@ void analysisFindPeaks::compute() {
                     circbuf.push_back( data[i] );
 	            if ( isPeak() ) {
                         // Find the timestamp from the index.
-                        peakBuffer.push_back( iter.getTime() );
-                        valuesBuffer.push_back( analysisFindPeaks::circbuf.getBuffer() );
+			sprintf( charArray, "%lld", iter.getTime() );
+			buffer.push_back( charArray );
+			bufferCount++;
+			vector<int> values = circbuf.getBuffer();
+			for ( values ) {
+				sprintf( charArray, ",%d", value );
+				buffer.push_back( charArray );
+			}
                         // Check whether buffers should be written to MySQL
-			if ( peakBuffer.size() > bufferLimit ) {
-				store( peakBuffer, valuesBuffer );
-				peakBuffer.clear();
-				valuesBuffer.clear();
+			if ( bufferCount > bufferLimit ) {
+				buffer.push_back(");");
+				dba.store( "peaks", buffer );
+				buffer.clear();
+				bufferCount = 0;
+				buffer.push_back("(");
 			}
                     }
                 }
 	    }
         }
-	store( peakBuffer, valuesBuffer );
+	if ( bufferCount > 0 )
+		dba.store( "peaks", buffer );
 }
 
 void MEFanalysis::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
-
-
-
-
-
 
 
 }

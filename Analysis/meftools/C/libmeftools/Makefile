@@ -47,7 +47,7 @@ MEFanalysis: # general purpose function
 	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE)
 
 analysisFindPeaks: # general purpose function 
-	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE)
+	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL)
 
 analysisNPI: # general purpose function 
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o

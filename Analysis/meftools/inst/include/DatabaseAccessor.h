@@ -1,6 +1,5 @@
 #ifndef DATABASE_ACCESSOR
 #define DATABASE_ACCESSOR
-#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,21 +12,24 @@
 
 #include <mysqlx/xdevapi.h>
 
+using namespace std;
+
 class DatabaseAccessor {
-private:
-    std::unique_ptr<mysqlx::Session> _session;
 
 public:
-    DatabaseAccessor(const std::string& host, int port, const std::string& user, const std::string& password, const std::string& databaseName);
+    mysqlx::Session session;
 
-    DatabaseAccessor(const std::string& databaseName);
+    DatabaseAccessor(const std::string& uri) : session(mysqlx::Session(uri)) {}
+    
+    void close() {
+        session.close();
+    }
 
-    ~DatabaseAccessor();
+    mysqlx::SqlResult createTable(char& tableName,char& tableValues);
 
-    mysqlx::SqlResult createTable(const std::string& tableName,const std::string& tableValues);
+    bool runQuery( string tableName, string queryString );
 
-    mysqlx::SqlResult executeQuery(const std::string& query);
 };
 
 
-
+#endif

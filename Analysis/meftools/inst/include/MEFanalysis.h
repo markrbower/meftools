@@ -11,7 +11,7 @@
 #include <list>
 
 #include "MEFcont.h"
-#include "DatabaseConnectionManager.h"
+#include "DatabaseAccessor.h"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ class MEFanalysis {
 	CaseSpecificVariables csv;
 	AlgorithmSpecificVariables asv;
         MEFcont cont;
-	DatabaseConnectionManager dbcm;
+	DatabaseAccessor dba;
 	
 	MEFanalysis();
 	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFcont cont_ );
