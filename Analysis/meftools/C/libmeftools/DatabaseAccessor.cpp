@@ -7,6 +7,7 @@
   #' 
 */
 #include <iostream>
+#include <mysql/mysql.h>
 #include <mysqlx/xdevapi.h>
 #include "DatabaseAccessor.h"
 #include <string>
@@ -24,6 +25,8 @@ mysqlx::RowResult DatabaseAccessor::runQuery( string queryString ) {
 
 bool DatabaseAccessor::vectorInsert( vector<string> rows ) {
 	// Prepare the statement
+	MYSQL *mysql;
+	mysql = mysql_init(NULL);
 	MYSQL_STMT *stmt;
 	MYSQL_BIND bind[4];
 	char *value0 = "example";
@@ -35,7 +38,8 @@ bool DatabaseAccessor::vectorInsert( vector<string> rows ) {
 	unsigned long length3 = strlen(value3);
 
 	stmt = mysql_stmt_init(mysql);
-	mysql_stmt_prepare(stmt, "INSERT INTO peaks (subject,session,time,waveform) VALUES (?, ?, ?, ?)”, strlen(query));
+	char* query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?, ?, ?, ?)";
+	mysql_stmt_prepare(stmt, query, strlen(query));
 	memset(bind, 0, sizeof(bind));
 
 	bind[0].buffer_type = MYSQL_TYPE_STRING;
@@ -69,6 +73,10 @@ bool DatabaseAccessor::vectorInsert( vector<string> rows ) {
 		// Rollback the transaction in case of an error
 		session.rollback();
 	} 
-	db.dropCollection("my_collection");
+	if (mysql_stmt_close(stmt)) {
+	  fprintf(stderr, " failed while closing the statement\n");
+	  fprintf(stderr, " %s\n", mysql_error(mysql));
+	  exit(0);
+	}
 }
 

@@ -10,7 +10,8 @@ SRCFILES = convert_ncs.c write_mef_channel.c $(MEFLIB_DIR)/meflib.c $(MEFLIB_DIR
 TARGET = Ncs2Mef3
 #INCLUDE = ../MEF_3_starter_kit
 INCLUDE = /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-INCLUDE_MYSQL = /opt/homebrew/Cellar/mysql-connector-c++/9.6.0/include
+INCLUDE_MYSQLX = /opt/homebrew/Cellar/mysql-connector-c++/9.6.0/include
+INCLUDE_MYSQL = /opt/homebrew/opt/mysql-client/include
 
 
 all: #full build
@@ -47,13 +48,13 @@ MEFanalysis: # general purpose function
 	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE)
 
 analysisFindPeaks: # general purpose function 
-	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL)
+	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX)
 
 analysisNPI: # general purpose function 
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o
 
 da: # general purpose function 
-	$(CC) -c DatabaseAccessor.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0
+	$(CC) -c DatabaseAccessor.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0
 
 
 
@@ -66,10 +67,10 @@ main: # analysisLookingForPeaks
 	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o
 
 main_alfp: # analysisLookingForPeaks
-	$(CC) main_analysisLookingForPeaks.cpp -o main $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 analysisFindPeaks.o processMEFexample.o MEFinfo.o MEFiter.o MEFcont.o read_mef_header.o table_of_contents.o get_discontinuities.o
+	$(CC) main_analysisLookingForPeaks.cpp -o main $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 analysisFindPeaks.o processMEFexample.o MEFinfo.o MEFiter.o MEFcont.o read_mef_header.o table_of_contents.o get_discontinuities.o
 
 da_test: # test DatabaseAccessor
-	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o
+	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o
 
 
 

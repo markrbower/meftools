@@ -32,6 +32,7 @@ void analysisFindPeaks::compute() {
 // Use MEFcont to supply contiguous sequences
 	char charArray[20];
 	map<long long, string> peaks;
+	int bufferLimit = 100;
 
         // Iterate through the given section, find peaks, blackout, then store.
 	while ( cont.hasNext() ) {
@@ -49,24 +50,16 @@ void analysisFindPeaks::compute() {
                 for ( int i=0; i<data.size(); i++ ) {
                     circbuf.push_back( data[i] );
 	            if ( isPeak() ) {
-			// Begin writing the buffer
-	//		sprintf( charArray, "(\"", %s, "\",\"", %s, "\",", subject, session );
-	//		buffer.push_back( charArray );
-                        // Find the timestamp from the index.
-	//		sprintf( charArray, "%lld,", iter.getTime() );
-	//		buffer.push_back( charArray );
-			bufferCount++;
 			vector<int> values = circbuf.getBuffer();
-	//		buffer.push_back( "\"" );
-	//		for ( values ) {
-	//			sprintf( charArray, "%d,", value );
-	//			buffer.push_back( charArray );
-	//		}
-	//		buffer.resize( buffer.size() - 1 );
-	//		buffer.push_back( "\")" );
+			string valueString;
+			for ( auto v: values ) {
+				sprintf( charArray, "%s,", value );
+				valueString.append( charArray );
+			}
+			valueString.resize( valueString.size() - 1 );
+			peaks.insert( { circbuf.getTime(), valueString } );
                         // Check whether buffers should be written to MySQL
-			if ( bufferCount > bufferLimit ) {
-	//			buffer.push_back(";");
+			if ( peaks.size() > bufferLimit ) {
 				dba.store( "peaks", buffer );
 				buffer.clear();
 				bufferCount = 0;
@@ -75,8 +68,8 @@ void analysisFindPeaks::compute() {
                 }
 	    }
         }
-	if ( bufferCount > 0 )
-		dba.store( "peaks", buffer );
+	if ( peaks.size() > 0 )
+		dba.store( "peaks", peaks );
 }
 
 void MEFanalysis::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
