@@ -18,12 +18,12 @@ mysqlx::SqlResult DatabaseAccessor::createTable( char& tableName, char& tableVal
 
 }
 
-mysqlx::RowResult DatabaseAccessor::runQuery( string queryString ) {
-	mysqlx::RowResult result = session.sql( queryString ).execute();
+mysqlx::SqlResult DatabaseAccessor::runQuery( string queryString ) {
+	mysqlx::SqlResult result = session.sql( queryString ).execute();
 	return( result );
 }
 
-bool DatabaseAccessor::vectorInsert( vector<string> rows ) {
+bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	// Prepare the statement
 	MYSQL *mysql;
 	mysql = mysql_init(NULL);

@@ -27,9 +27,9 @@ public:
 
     mysqlx::SqlResult createTable(char& tableName,char& tableValues);
 
-    mysqlx::RowResult runQuery( string queryString );
+    mysqlx::SqlResult runQuery( string queryString );
 
-    bool vectorInsert( vector<string> rows );
+    bool vectorInsert( map<long long,string> rows );
 
 };
 
