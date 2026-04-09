@@ -33,7 +33,7 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	unsigned long length0 = strlen(value0);
 	char *value1 = "example";
 	unsigned long length1 = strlen(value1);
-	long value2 = 42;
+	long long value2 = 42;
 	char *value3 = "example";
 	unsigned long length3 = strlen(value3);
 
@@ -42,10 +42,14 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	mysql_stmt_prepare(stmt, query, strlen(query));
 	memset(bind, 0, sizeof(bind));
 
-	bind[0].buffer_type = MYSQL_TYPE_STRING;
-	bind[1].buffer_type = MYSQL_TYPE_STRING;
+//	std::auto_ptr< sql::Statement > sqlstmt( session.createStatement() );	
+
+//	mysqlx::PreparedStatement prep = session.sql( "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)").prepare();
+
+	bind[0].buffer_type = MYSQL_TYPE_VARCHAR;
+	bind[1].buffer_type = MYSQL_TYPE_VARCHAR;
 	bind[2].buffer_type = MYSQL_TYPE_LONGLONG;
-	bind[3].buffer_type = MYSQL_TYPE_STRING;
+	bind[3].buffer_type = MYSQL_TYPE_VARCHAR;
 
 	// Start a transaction
 	string str = "hi";
@@ -54,24 +58,41 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 		for ( auto row: rows ) {
 			bind[0].buffer = (char *)value0;
 			bind[0].length = &length0;
+			bind[0].is_null = 0;
 
 			bind[1].buffer = (char *)value1;
 			bind[1].length = &length1;
+			bind[1].is_null = 0;
 
 			bind[2].buffer = (char *)&value2;
+			bind[2].is_null = 0;
 
 			bind[3].buffer = (char *)value3;
 			bind[3].length = &length3;
+			bind[3].is_null = 0;
 
 			mysql_stmt_bind_param(stmt, bind);
 			mysql_stmt_execute(stmt);
+			cout << "send" << endl;
+			mysqlx::SqlResult result = runQuery("SELECT COUNT(*) FROM peaks;");
+			mysqlx::Row val;
+			while (val = result.fetchOne()) {
+			    std::cout << "Column1: " << val[0] << std::endl;
+			}
 		}
 
 		// Commit the transaction if everything went well
 		session.commit();
+		cout << "committed" << endl;
+		mysqlx::SqlResult result1 = runQuery("SELECT COUNT(*) FROM peaks;");
+		mysqlx::Row val;
+		while (val = result1.fetchOne()) {
+		    std::cout << "Column1: " << val[0] << std::endl;
+		}
 	} catch (const mysqlx::Error &err) {
 		// Rollback the transaction in case of an error
 		session.rollback();
+		cout << "rolled back" << endl;
 	} 
 	if (mysql_stmt_close(stmt)) {
 	  fprintf(stderr, " failed while closing the statement\n");

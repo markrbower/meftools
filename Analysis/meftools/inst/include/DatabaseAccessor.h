@@ -19,7 +19,13 @@ class DatabaseAccessor {
 public:
     mysqlx::Session session;
 
-    DatabaseAccessor(const std::string& uri) : session(mysqlx::Session(uri)) {}
+    DatabaseAccessor(const std::string& uri)
+		: session( mysqlx::SessionOption::HOST, "localhost", 
+		           mysqlx::SessionOption::PORT, 33060, 
+		           mysqlx::SessionOption::USER, "root", 
+		           mysqlx::SessionOption::PWD,  "" ) {
+	
+    }
     
     void close() {
         session.close();

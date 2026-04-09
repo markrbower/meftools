@@ -11,6 +11,9 @@ int main() {
     DatabaseAccessor da( "peaks" );
     map<long long,string> peaks;
 
+    da.runQuery("create database if not exists peaks;");
+    da.runQuery("use peaks;");
+
     mysqlx::SqlResult result0 = da.runQuery("drop table if exists peaks;");
 
     mysqlx::SqlResult result1 = da.runQuery("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(256));" );

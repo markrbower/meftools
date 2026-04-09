@@ -70,7 +70,7 @@ main_alfp: # analysisLookingForPeaks
 	$(CC) main_analysisLookingForPeaks.cpp -o main $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 analysisFindPeaks.o processMEFexample.o MEFinfo.o MEFiter.o MEFcont.o read_mef_header.o table_of_contents.o get_discontinuities.o
 
 da_test: # test DatabaseAccessor
-	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient
+	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
 
 
 
