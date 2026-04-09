@@ -29,7 +29,7 @@ public:
 
     mysqlx::RowResult runQuery( string queryString );
 
-    bool vectorInsert( vector<string> rows );
+    bool mapInsert( map<long long, string> keyValues );
 
 };
 
