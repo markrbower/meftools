@@ -27,13 +27,13 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	// Prepare the statement
 //	MYSQL *mysql;
 	MYSQL_STMT *stmt;
-	MYSQL_BIND bind[1];
-	int value0 = 3;
-//	unsigned long length0 = strlen(value0);
+	MYSQL_BIND bind[4];
+	char *value0 = "subject";
+	unsigned long length0 = strlen(value0);
 	char *value1 = "example";
 	unsigned long length1 = strlen(value1);
 	long long value2 = 42;
-	char *value3 = "example";
+	char *value3 = "wave";
 	unsigned long length3 = strlen(value3);
 	int status;
 
@@ -45,7 +45,8 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	}
         cout << "Statement initialized" << endl;
 
-	string query = "INSERT INTO peaks (id) VALUES (?)";
+	string query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?,?,?,?)";
+//	string query = "INSERT INTO peaks (id) VALUES (?)";
 	unsigned long stmt_length = query.size();
 	cout << stmt_length << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
@@ -68,22 +69,26 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	session.startTransaction();
 	try {
 		for ( auto row: rows ) {
-			bind[0].buffer_type = MYSQL_TYPE_LONG;
-			bind[0].buffer = (char *)&value0;
-			bind[0].length = 0;
+			bind[0].buffer_type = MYSQL_TYPE_VARCHAR;
+			bind[0].buffer = (char *)value0;
+			bind[0].length = &length0;
 			bind[0].is_null = 0;
-/*
+
+			bind[1].buffer_type = MYSQL_TYPE_VARCHAR;
 			bind[1].buffer = (char *)value1;
 			bind[1].length = &length1;
 			bind[1].is_null = 0;
 
+			bind[2].buffer_type = MYSQL_TYPE_LONG;
 			bind[2].buffer = (char *)&value2;
+			bind[2].length = 0;
 			bind[2].is_null = 0;
 
+			bind[3].buffer_type = MYSQL_TYPE_VARCHAR;
 			bind[3].buffer = (char *)value3;
 			bind[3].length = &length3;
 			bind[3].is_null = 0;
-*/
+
 			status = mysql_stmt_bind_param(stmt, bind);
 			if (status) {
 			    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));

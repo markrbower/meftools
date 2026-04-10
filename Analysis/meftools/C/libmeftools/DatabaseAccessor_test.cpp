@@ -18,8 +18,8 @@ int main() {
 
     mysqlx::SqlResult result0 = da.runQuery("drop table if exists peaks;");
 
-//    mysqlx::SqlResult result1 = da.runQuery("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(256));" );
-    mysqlx::SqlResult result1 = da.runQuery("create table peaks (id int);" );
+    mysqlx::SqlResult result1 = da.runQuery("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(256));" );
+//    mysqlx::SqlResult result1 = da.runQuery("create table peaks (id int);" );
 
 //    mysqlx::SqlResult result2 = da.runQuery("insert into peaks (subject,session,time,waveform) values (\'001\',\'day1\',12345,\'1,2,3,4,5\'),(\'001\',\'day1\',12346,\'1,2,3,4,6\');" );
 
