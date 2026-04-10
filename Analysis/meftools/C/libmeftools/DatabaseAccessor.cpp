@@ -25,41 +25,54 @@ mysqlx::SqlResult DatabaseAccessor::runQuery( string queryString ) {
 
 bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	// Prepare the statement
-	MYSQL *mysql;
-	mysql = mysql_init(NULL);
+//	MYSQL *mysql;
 	MYSQL_STMT *stmt;
-	MYSQL_BIND bind[4];
-	char *value0 = "example";
-	unsigned long length0 = strlen(value0);
+	MYSQL_BIND bind[1];
+	int value0 = 3;
+//	unsigned long length0 = strlen(value0);
 	char *value1 = "example";
 	unsigned long length1 = strlen(value1);
 	long long value2 = 42;
 	char *value3 = "example";
 	unsigned long length3 = strlen(value3);
+	int status;
 
-	stmt = mysql_stmt_init(mysql);
-	char* query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?, ?, ?, ?)";
-	mysql_stmt_prepare(stmt, query, strlen(query));
+	cout << "Running" << endl;
+//       mysql = mysql_init( DatabaseAccessor::conn );
+	stmt = mysql_stmt_init(conn);
+	if ( !stmt ) {
+		cout << "Could not initialize statement." << endl;
+	}
+        cout << "Statement initialized" << endl;
+
+	string query = "INSERT INTO peaks (id) VALUES (?)";
+	unsigned long stmt_length = query.size();
+	cout << stmt_length << endl;
+	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
+  	if (status) {
+	    cout << "Failed on prepare" << endl;
+	    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+	    exit(1);
+	} else {
+		cout << "Statement looks good." << endl;
+	}
 	memset(bind, 0, sizeof(bind));
 
 //	std::auto_ptr< sql::Statement > sqlstmt( session.createStatement() );	
 
 //	mysqlx::PreparedStatement prep = session.sql( "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)").prepare();
 
-	bind[0].buffer_type = MYSQL_TYPE_VARCHAR;
-	bind[1].buffer_type = MYSQL_TYPE_VARCHAR;
-	bind[2].buffer_type = MYSQL_TYPE_LONGLONG;
-	bind[3].buffer_type = MYSQL_TYPE_VARCHAR;
 
 	// Start a transaction
 	string str = "hi";
 	session.startTransaction();
 	try {
 		for ( auto row: rows ) {
-			bind[0].buffer = (char *)value0;
-			bind[0].length = &length0;
+			bind[0].buffer_type = MYSQL_TYPE_LONG;
+			bind[0].buffer = (char *)&value0;
+			bind[0].length = 0;
 			bind[0].is_null = 0;
-
+/*
 			bind[1].buffer = (char *)value1;
 			bind[1].length = &length1;
 			bind[1].is_null = 0;
@@ -70,9 +83,22 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 			bind[3].buffer = (char *)value3;
 			bind[3].length = &length3;
 			bind[3].is_null = 0;
+*/
+			status = mysql_stmt_bind_param(stmt, bind);
+			if (status) {
+			    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+			    exit(1);
+			} else {
+			    cout << "Binding looks good." << endl;
+			}
 
-			mysql_stmt_bind_param(stmt, bind);
-			mysql_stmt_execute(stmt);
+			status = mysql_stmt_execute(stmt);
+			cout << status << endl;
+			if (status) {
+			    fprintf(stderr, "Error: %s (errno: %d)\n",
+			            mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+			    exit(1);
+			}
 			cout << "send" << endl;
 			mysqlx::SqlResult result = runQuery("SELECT COUNT(*) FROM peaks;");
 			mysqlx::Row val;
@@ -96,7 +122,7 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	} 
 	if (mysql_stmt_close(stmt)) {
 	  fprintf(stderr, " failed while closing the statement\n");
-	  fprintf(stderr, " %s\n", mysql_error(mysql));
+	  fprintf(stderr, " %s\n", mysql_error(conn));
 	  exit(0);
 	}
 }
