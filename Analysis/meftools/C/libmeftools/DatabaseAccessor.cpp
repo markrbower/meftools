@@ -80,7 +80,7 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 
 	// Start a transaction
 	string str = "hi";
-	runQuery( "START TRANSACTION;" );
+	runSQL( "START TRANSACTION;" );
 	try {
 		for ( auto element: elements ) {
 			bind[0].buffer_type = MYSQL_TYPE_VARCHAR;
@@ -120,10 +120,10 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 			}
 		}
 		// Commit the transaction if everything went well
-		runQuery( "COMMIT;" );
+		runSQL( "COMMIT;" );
 	} catch (const mysqlx::Error &err) {
 		// Rollback the transaction in case of an error
-		runQuery( "ROLLBACK;" );
+		runSQL( "ROLLBACK;" );
 		cout << "rolled back" << endl;
 	} 
 	if (mysql_stmt_close(stmt)) {
