@@ -18,14 +18,29 @@ mysqlx::SqlResult DatabaseAccessor::createTable( char& tableName, char& tableVal
 
 }
 
-mysqlx::SqlResult DatabaseAccessor::runQuery( string queryString ) {
-	mysqlx::SqlResult result = session.sql( queryString ).execute();
+// runQuery checks for a valid result
+MYSQL_RES* DatabaseAccessor::runQuery( string queryString ) {
+	if (mysql_query(conn, queryString.c_str())) {
+	    fprintf(stderr, "Query failed: %s\n", mysql_error(conn));
+	    return NULL;
+	}
+	result = mysql_store_result(conn);
+	if (result == NULL) {
+	    fprintf(stderr, "Could not retrieve result set: %s\n", mysql_error(conn));
+	    return NULL;
+	}
 	return( result );
+}
+
+// runSQL does not return a result
+void DatabaseAccessor::runSQL( string queryString ) {
+	if (mysql_query(conn, queryString.c_str())) {
+	    fprintf(stderr, "Query failed: %s\n", mysql_error(conn));
+	}
 }
 
 bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 	// Prepare the statement
-//	MYSQL *mysql;
 	MYSQL_STMT *stmt;
 	MYSQL_BIND bind[4];
 	char *value0 = "subject";
@@ -65,7 +80,7 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 
 	// Start a transaction
 	string str = "hi";
-	session.startTransaction();
+	runQuery( "START TRANSACTION;" );
 	try {
 		for ( auto element: elements ) {
 			bind[0].buffer_type = MYSQL_TYPE_VARCHAR;
@@ -98,31 +113,17 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 			}
 
 			status = mysql_stmt_execute(stmt);
-			cout << status << endl;
 			if (status) {
 			    fprintf(stderr, "Error: %s (errno: %d)\n",
 			            mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
 			    exit(1);
 			}
-			cout << "send" << endl;
-			mysqlx::SqlResult result = runQuery("SELECT COUNT(*) FROM peaks;");
-			mysqlx::Row val;
-			while (val = result.fetchOne()) {
-			    std::cout << "Column1: " << val[0] << std::endl;
-			}
 		}
-
 		// Commit the transaction if everything went well
-		session.commit();
-		cout << "committed" << endl;
-		mysqlx::SqlResult result1 = runQuery("SELECT COUNT(*) FROM peaks;");
-		mysqlx::Row val;
-		while (val = result1.fetchOne()) {
-		    std::cout << "Column1: " << val[0] << std::endl;
-		}
+		runQuery( "COMMIT;" );
 	} catch (const mysqlx::Error &err) {
 		// Rollback the transaction in case of an error
-		session.rollback();
+		runQuery( "ROLLBACK;" );
 		cout << "rolled back" << endl;
 	} 
 	if (mysql_stmt_close(stmt)) {

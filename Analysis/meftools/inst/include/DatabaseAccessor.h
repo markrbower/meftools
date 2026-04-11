@@ -18,15 +18,10 @@ using namespace std;
 class DatabaseAccessor {
 
 public:
-    mysqlx::Session session;
     MYSQL *conn;
+    MYSQL_RES *result;
 
-    DatabaseAccessor( char *dbname )
-		: session( mysqlx::SessionOption::HOST, "localhost", 
-		           mysqlx::SessionOption::PORT, 33060, 
-		           mysqlx::SessionOption::USER, "root", 
-		           mysqlx::SessionOption::PWD,  "",
-		           mysqlx::SessionOption::CONNECT_TIMEOUT, 10 ) {
+    DatabaseAccessor( char *dbname ) {
         cout << "In constructor" << endl;
 	conn = mysql_init(NULL);
 	if (conn == NULL) {
@@ -41,12 +36,15 @@ public:
     }
     
     void close() {
-        session.close();
+        mysql_free_result( result );
+        mysql_close( conn );
     }
 
     mysqlx::SqlResult createTable(char& tableName,char& tableValues);
 
-    mysqlx::SqlResult runQuery( string queryString );
+    MYSQL_RES* runQuery( string queryString );
+
+    void runSQL( string queryString );
 
     bool vectorInsert( map<long long,string> rows );
 
