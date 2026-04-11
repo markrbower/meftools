@@ -23,7 +23,7 @@ mysqlx::SqlResult DatabaseAccessor::runQuery( string queryString ) {
 	return( result );
 }
 
-bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
+bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 	// Prepare the statement
 //	MYSQL *mysql;
 	MYSQL_STMT *stmt;
@@ -33,8 +33,7 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	char *value1 = "example";
 	unsigned long length1 = strlen(value1);
 	long long value2 = 42;
-	char *value3 = "wave";
-	unsigned long length3 = strlen(value3);
+	unsigned long length3;
 	int status;
 
 	cout << "Running" << endl;
@@ -68,7 +67,7 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 	string str = "hi";
 	session.startTransaction();
 	try {
-		for ( auto row: rows ) {
+		for ( auto element: elements ) {
 			bind[0].buffer_type = MYSQL_TYPE_VARCHAR;
 			bind[0].buffer = (char *)value0;
 			bind[0].length = &length0;
@@ -80,12 +79,13 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> rows ) {
 			bind[1].is_null = 0;
 
 			bind[2].buffer_type = MYSQL_TYPE_LONG;
-			bind[2].buffer = (char *)&value2;
+			bind[2].buffer = (char *)&element.first;
 			bind[2].length = 0;
 			bind[2].is_null = 0;
 
 			bind[3].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[3].buffer = (char *)value3;
+			bind[3].buffer = (char *)&element.second;
+			length3 = strlen( element.second.c_str() );
 			bind[3].length = &length3;
 			bind[3].is_null = 0;
 
