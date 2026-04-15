@@ -9,7 +9,6 @@ using namespace std;
 int main() {
 //    DatabaseAccessor da("localhost", 33060, "root", "", string database_name);
     DatabaseAccessor da( "peaks" );
-    map<long long,string> peaks;
 
     cout << "Running" << endl;
 
@@ -20,10 +19,14 @@ int main() {
 
     da.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(256));" );
 
+    map<long long,string> peaks;
     peaks[1] = "1,2,3,4,5";
     peaks[2] = "1,2,3,4,6";
 
-    da.vectorInsert( peaks );
+    vector<string> fixed;
+    fixed.push_back( "subject_name" );
+    fixed.push_back( "session_nbr" );
+    da.mapInsert( fixed, peaks );
 
     MYSQL_ROW row;
     MYSQL_RES* result3 = da.runQuery("SELECT * FROM peaks;");

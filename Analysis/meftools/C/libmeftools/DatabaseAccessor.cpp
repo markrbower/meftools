@@ -39,7 +39,7 @@ void DatabaseAccessor::runSQL( string queryString ) {
 	}
 }
 
-bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
+bool DatabaseAccessor::mapInsert( vector<string> fixed_values, map<long long,string> variables ) {
 	// Prepare the statement
 	MYSQL_STMT *stmt;
 	MYSQL_BIND bind[4];
@@ -52,7 +52,6 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 	int status;
 
 	cout << "Running" << endl;
-//       mysql = mysql_init( DatabaseAccessor::conn );
 	stmt = mysql_stmt_init(conn);
 	if ( !stmt ) {
 		cout << "Could not initialize statement." << endl;
@@ -60,7 +59,6 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
         cout << "Statement initialized" << endl;
 
 	string query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?,?,?,?)";
-//	string query = "INSERT INTO peaks (id) VALUES (?)";
 	unsigned long stmt_length = query.size();
 	cout << stmt_length << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
@@ -73,36 +71,33 @@ bool DatabaseAccessor::vectorInsert( map<long long,string> elements ) {
 	}
 	memset(bind, 0, sizeof(bind));
 
-//	std::auto_ptr< sql::Statement > sqlstmt( session.createStatement() );	
-
-//	mysqlx::PreparedStatement prep = session.sql( "INSERT INTO products (name, price, stock) VALUES (?, ?, ?)").prepare();
-
-
 	// Start a transaction
-	string str = "hi";
+	int fixedLength = fixed_values.size();
+	
+	int count = 0;
+	for ( string fixed_value: fixed_values ) {
+		cout << count << "\t" << fixed_value << endl;
+		bind[count].buffer_type = MYSQL_TYPE_VARCHAR;
+		bind[count].buffer = (char *)fixed_values[count].c_str();
+		unsigned long L = strlen(fixed_values[count].c_str()) + 1;
+		bind[count].length = &L;
+		bind[count].is_null = 0;
+		count++;
+	}
+
 	runSQL( "START TRANSACTION;" );
 	try {
-		for ( auto element: elements ) {
-			bind[0].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[0].buffer = (char *)value0;
-			bind[0].length = &length0;
-			bind[0].is_null = 0;
+		for ( auto element: variables ) {
+			bind[fixedLength].buffer_type = MYSQL_TYPE_LONG;
+			bind[fixedLength].buffer = (char *)&element.first;
+			bind[fixedLength].length = 0;
+			bind[fixedLength].is_null = 0;
 
-			bind[1].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[1].buffer = (char *)value1;
-			bind[1].length = &length1;
-			bind[1].is_null = 0;
-
-			bind[2].buffer_type = MYSQL_TYPE_LONG;
-			bind[2].buffer = (char *)&element.first;
-			bind[2].length = 0;
-			bind[2].is_null = 0;
-
-			bind[3].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[3].buffer = (char *)&element.second;
+			bind[fixedLength+1].buffer_type = MYSQL_TYPE_VARCHAR;
+			bind[fixedLength+1].buffer = (char *)&element.second;
 			length3 = strlen( element.second.c_str() );
-			bind[3].length = &length3;
-			bind[3].is_null = 0;
+			bind[fixedLength+1].length = &length3;
+			bind[fixedLength+1].is_null = 0;
 
 			status = mysql_stmt_bind_param(stmt, bind);
 			if (status) {

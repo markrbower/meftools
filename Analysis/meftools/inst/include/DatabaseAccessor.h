@@ -20,6 +20,7 @@ class DatabaseAccessor {
 public:
     MYSQL *conn;
     MYSQL_RES *result;
+    //kb::math::FiltFilt<double> filtfilt;
 
     DatabaseAccessor( char *dbname ) {
         cout << "In constructor" << endl;
@@ -46,7 +47,7 @@ public:
 
     void runSQL( string queryString );
 
-    bool vectorInsert( map<long long,string> rows );
+    bool mapInsert( vector<string> fixed, map<long long,string> variables );
 
 };
 

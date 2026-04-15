@@ -26,6 +26,12 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
         analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
 	dba = DatabaseAccessor("NPI");
 	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
+
+	kb::math::FilterCoefficients<double> fc{ 
+        	m_CoefficientsA:{1.0000,-2.374094743709352,1.929355669091215,-0.532075368312092}, 
+	        m_CoefficientsB:{2.898194633721429e-03,8.694583901164288e-03,8.694583901164288e-03,2.898194633721429e-03}
+	};
+	filtfilt(fc);
 }
 
 void analysisFindPeaks::compute() {
@@ -44,8 +50,8 @@ void analysisFindPeaks::compute() {
 		int stop  = startStop[1];
                 std::vector<int> data = decomp_mef( csv.filename, start, stop, csv.password );
 
-		// Filter
-
+		// Filter: need to convert data[type int] to signal[type double].
+		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
 
                 for ( int i=0; i<data.size(); i++ ) {
                     circbuf.push_back( data[i] );
