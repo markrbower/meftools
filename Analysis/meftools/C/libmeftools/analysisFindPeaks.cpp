@@ -20,8 +20,7 @@ Yale University
 
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFcont cont_, CircularBuffer cb_ ) : cont(cont_), circbuf(cb_) {
-        cont = cont_;
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFcont cont_, CircularBuffer<double> cb_ ) : cont(cont_), circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;
         analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
@@ -47,9 +46,9 @@ void analysisFindPeaks::compute() {
 	};
 	// Select filter coefficients for the desired signal
 	kb::math::FilterCoefficients<double> fc;
-	if ( signalType == "singleUnits" ) { // 0.6 - 6 kHz
+	if ( asv.signalType == "singleUnits" ) { // 0.6 - 6 kHz
 		fc = fc_unit;
-	} else if ( signalType == "IIS" ) {  // 0.5 - 200 Hz
+	} else if ( asv.signalType == "IIS" ) {  // 0.5 - 200 Hz
 		fc = fc_iis;
 	}
 	kb::math::FiltFilt<double> filtfilt(fc);
@@ -63,6 +62,7 @@ void analysisFindPeaks::compute() {
 		int start = startStop[0];
 		int stop  = startStop[1];
                 std::vector<int> data = decomp_mef( csv.filename, start, stop, csv.password );
+                std::vector<double> signal( data.begin(), data.end() );
 
 		// Filter: need to convert data[type int] to signal[type double].
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
@@ -70,7 +70,7 @@ void analysisFindPeaks::compute() {
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     circbuf.push_back( zeroPhaseFiltered[i] );
 	            if ( isPeak() ) {
-			vector<int> values = circbuf.getBuffer();
+			vector<double> values = circbuf.getBuffer();
 			string valueString;
 			for ( auto v: values ) {
 				sprintf( charArray, "%s,", value );
@@ -114,6 +114,6 @@ bool analysisFindPeaks::isPeak() {
     return circbuf.isPeak();
 }
 
-vector<int> analysisFindPeaks::getBuffer() {
+vector<double> analysisFindPeaks::getBuffer() {
     return circbuf.getBuffer();
 }

@@ -7,7 +7,7 @@ int main (int argc, const char * argv[]) {
     string password = "erlichda";
     int bufferSize = 1024;
 
-    processMEFexample( string filename, string password, int bufferSize );
+    processMEFexample( filename, password, bufferSize, type, threshold, duration );
 
 
 }

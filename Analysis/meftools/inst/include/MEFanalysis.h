@@ -22,6 +22,7 @@ struct CaseSpecificVariables {
 };
 
 struct AlgorithmSpecificVariables {
+	string signalType;
 	int threshold;
 	int duration;
 };

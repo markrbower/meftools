@@ -19,7 +19,7 @@ CircularBuffer::CircularBuffer(int _capacity) {
     }
 
     // Function to add an element to the buffer
-void CircularBuffer::push_back(int val) {
+void CircularBuffer::push_back(double val) {
         buffer[back] = val;
         if (full()) {
 	        back  = (back + 1)  % capacity;
@@ -45,21 +45,21 @@ void CircularBuffer::pop_front() {
         front = (front + 1) % capacity;
     }
     
-int CircularBuffer::getFront() {
+double CircularBuffer::getFront() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
         return buffer[front];
     }
     
-int CircularBuffer::getMid() {
+double CircularBuffer::getMid() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
         return buffer[mid];
     }
     
-int CircularBuffer::getBack() {
+double CircularBuffer::getBack() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
@@ -92,7 +92,7 @@ void CircularBuffer::printBuffer() {
         cout << endl;
     }
 
-vector<int> CircularBuffer::getBuffer() {
+vector<double> CircularBuffer::getBuffer() {
         vector<int> buf;
         int idx = front;
         while (idx != back) {

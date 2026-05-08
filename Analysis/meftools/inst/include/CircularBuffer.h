@@ -14,7 +14,7 @@ using namespace std;
 
 class CircularBuffer {
     private:
-    	vector<int> buffer;
+    	vector<double> buffer;
         int front;
         int mid;
         int center;
@@ -22,16 +22,16 @@ class CircularBuffer {
         int capacity;
     public:
         CircularBuffer(int capacity);
-        void push_back(int val);
+        void push_back(double val);
         void pop_front();
-        int getFront();
-        int getMid();
-        int getBack();
+        double getFront();
+        double getMid();
+        double getBack();
         bool empty();
         bool full(); 
         int size();
         void printBuffer();
-        vector<int> getBuffer();
+        vector<double> getBuffer();
         bool isPeak();
 };
 #endif
