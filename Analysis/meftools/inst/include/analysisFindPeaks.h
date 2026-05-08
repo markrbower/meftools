@@ -15,7 +15,7 @@ Yale University
 #include "MEFanalysis.h"
 
 #include "CircularBuffer.h"
-
+#include "FiltFilt.h"
 
 class analysisFindPeaks: private MEFanalysis {
 private:

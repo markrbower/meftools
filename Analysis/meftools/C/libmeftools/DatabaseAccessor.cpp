@@ -14,7 +14,7 @@
 
 using namespace std;
 
-mysqlx::SqlResult DatabaseAccessor::createTable( char& tableName, char& tableValues ) {
+mysqlx::SqlResult DatabaseAccessor::createTable( char* tableName, char* tableValues ) {
 
 }
 
@@ -39,7 +39,7 @@ void DatabaseAccessor::runSQL( string queryString ) {
 	}
 }
 
-bool DatabaseAccessor::mapInsert( vector<string> fixed_values, map<long long,string> variables ) {
+bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,string> variables ) {
 	// Prepare the statement
 	MYSQL_STMT *stmt;
 	MYSQL_BIND bind[4];
@@ -75,11 +75,12 @@ bool DatabaseAccessor::mapInsert( vector<string> fixed_values, map<long long,str
 	int fixedLength = fixed_values.size();
 	
 	int count = 0;
-	for ( string fixed_value: fixed_values ) {
-		cout << count << "\t" << fixed_value << endl;
+	for ( auto element: fixed_values ) {
+		cout << count << "\t" << element.first << endl;
 		bind[count].buffer_type = MYSQL_TYPE_VARCHAR;
-		bind[count].buffer = (char *)fixed_values[count].c_str();
-		unsigned long L = strlen(fixed_values[count].c_str()) + 1;
+		string value = element.second;
+		bind[count].buffer = (char *)value.c_str();
+		unsigned long L = strlen(value.c_str()) + 1;
 		bind[count].length = &L;
 		bind[count].is_null = 0;
 		count++;

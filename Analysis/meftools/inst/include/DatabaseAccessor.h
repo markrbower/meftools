@@ -41,13 +41,13 @@ public:
         mysql_close( conn );
     }
 
-    mysqlx::SqlResult createTable(char& tableName,char& tableValues);
+    mysqlx::SqlResult createTable(char* tableName,char* tableValues);
 
     MYSQL_RES* runQuery( string queryString );
 
     void runSQL( string queryString );
 
-    bool mapInsert( vector<string> fixed, map<long long,string> variables );
+    bool mapInsert( string tableName, map<string,string> fixed, map<long long,string> variables );
 
 };
 

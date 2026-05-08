@@ -12,6 +12,7 @@ TARGET = Ncs2Mef3
 INCLUDE = /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
 INCLUDE_MYSQLX = /opt/homebrew/Cellar/mysql-connector-c++/9.6.0/include
 INCLUDE_MYSQL = /opt/homebrew/opt/mysql-client/include
+INCLUDE_FILTFILT = /Users/markbower/Dropbox/Documents/src/KBaur/FiltFilt/src/include
 
 
 all: #full build
@@ -48,10 +49,10 @@ MEFanalysis: # general purpose function
 	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE)
 
 analysisFindPeaks: # general purpose function 
-	$(CC) -c analysisFindPeaks.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX)
+	$(CC) -c analysisFindPeaks.cpp  -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
 
 analysisNPI: # general purpose function 
-	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) MEFiter.o
+	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) MEFiter.o
 
 da: # general purpose function 
 	$(CC) -c DatabaseAccessor.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0  -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib

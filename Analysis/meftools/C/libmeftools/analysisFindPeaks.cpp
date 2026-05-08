@@ -16,6 +16,7 @@ Yale University
 #include "CircularBuffer.h"
 #include "analysisFindPeaks.h"
 #include "DatabaseAccessor.h"
+#include "FiltFilt.h"
 
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
@@ -27,11 +28,6 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	dba = DatabaseAccessor("NPI");
 	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
 
-	kb::math::FilterCoefficients<double> fc{ 
-        	m_CoefficientsA:{1.0000,-2.374094743709352,1.929355669091215,-0.532075368312092}, 
-	        m_CoefficientsB:{2.898194633721429e-03,8.694583901164288e-03,8.694583901164288e-03,2.898194633721429e-03}
-	};
-	filtfilt(fc);
 }
 
 void analysisFindPeaks::compute() {
@@ -39,6 +35,24 @@ void analysisFindPeaks::compute() {
 	char charArray[20];
 	map<long long, string> peaks;
 	int bufferLimit = 100;
+
+	// Filter coefficients for what frequency band?
+	kb::math::FilterCoefficients<double> fc_unit{ 
+        	.m_CoefficientsA = {1.0000,-2.374094743709352,1.929355669091215,-0.532075368312092}, 
+	        .m_CoefficientsB = {2.898194633721429e-03,8.694583901164288e-03,8.694583901164288e-03,2.898194633721429e-03}
+	};
+	kb::math::FilterCoefficients<double> fc_iis{ 
+        	.m_CoefficientsA = {1.0000,-2.374094743709352,1.929355669091215,-0.532075368312092}, 
+	        .m_CoefficientsB = {2.898194633721429e-03,8.694583901164288e-03,8.694583901164288e-03,2.898194633721429e-03}
+	};
+	// Select filter coefficients for the desired signal
+	kb::math::FilterCoefficients<double> fc;
+	if ( signalType == "singleUnits" ) { // 0.6 - 6 kHz
+		fc = fc_unit;
+	} else if ( signalType == "IIS" ) {  // 0.5 - 200 Hz
+		fc = fc_iis;
+	}
+	kb::math::FiltFilt<double> filtfilt(fc);
 
         // Iterate through the given section, find peaks, blackout, then store.
 	while ( cont.hasNext() ) {
@@ -53,8 +67,8 @@ void analysisFindPeaks::compute() {
 		// Filter: need to convert data[type int] to signal[type double].
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
 
-                for ( int i=0; i<data.size(); i++ ) {
-                    circbuf.push_back( data[i] );
+                for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
+                    circbuf.push_back( zeroPhaseFiltered[i] );
 	            if ( isPeak() ) {
 			vector<int> values = circbuf.getBuffer();
 			string valueString;
@@ -66,16 +80,15 @@ void analysisFindPeaks::compute() {
 			peaks.insert( { circbuf.getTime(), valueString } );
                         // Check whether buffers should be written to MySQL
 			if ( peaks.size() > bufferLimit ) {
-				dba.store( "peaks", buffer );
-				buffer.clear();
-				bufferCount = 0;
+				dba.mapInsert( "peaks", fixed, peaks );
+				peaks.clear();
 			}
                     }
                 }
 	    }
         }
 	if ( peaks.size() > 0 )
-		dba.store( "peaks", peaks );
+		dba.mapInsert( "peaks", fixed, peaks );
 }
 
 void MEFanalysis::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
