@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <time.h>
 #include <vector>
+#include <map>
 #include <string>
 #include <list>
 

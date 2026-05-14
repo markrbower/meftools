@@ -20,19 +20,24 @@ Yale University
 
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFcont cont_, CircularBuffer<double> cb_ ) : cont(cont_), circbuf(cb_) {
+using namespace std;
+
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFcont cont_, CircularBuffer cb_ ) : cont(cont_), circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;
+
         analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
 	dba = DatabaseAccessor("NPI");
 	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
-
 }
 
 void analysisFindPeaks::compute() {
 // Use MEFcont to supply contiguous sequences
 	char charArray[20];
 	map<long long, string> peaks;
+	map<string,string> fixed;
+	fixed["subject"] = csv.subject;
+	fixed["session"] = csv.session;
 	int bufferLimit = 100;
 
 	// Filter coefficients for what frequency band?
@@ -73,7 +78,8 @@ void analysisFindPeaks::compute() {
 			vector<double> values = circbuf.getBuffer();
 			string valueString;
 			for ( auto v: values ) {
-				sprintf( charArray, "%s,", value );
+				sprintf( charArray, "%s,", v );
+
 				valueString.append( charArray );
 			}
 			valueString.resize( valueString.size() - 1 );

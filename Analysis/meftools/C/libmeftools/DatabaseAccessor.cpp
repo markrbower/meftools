@@ -11,6 +11,7 @@
 #include <mysqlx/xdevapi.h>
 #include "DatabaseAccessor.h"
 #include <string>
+#include <map>
 
 using namespace std;
 

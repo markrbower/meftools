@@ -17,7 +17,7 @@ Yale University
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
-void processMEFexample( string filename, string password, int bufferSize, string signalType, int threshold, int duration ) {
+void processMEFexample( string filename, string password, string subject, string session, int bufferSize, string signalType, int threshold, int duration ) {
 	MEFanalysis peaks;
 	MEFanalysis clusters;
 

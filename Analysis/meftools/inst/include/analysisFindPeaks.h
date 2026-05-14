@@ -22,14 +22,14 @@ private:
     MEFcont cont;
     CircularBuffer circbuf;
     vector<long long> peakBuffer;
-    vector<vector<int>> valuesBuffer;
+    vector<vector<double>> valuesBuffer;
 
 public:
     analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFcont cont_, CircularBuffer cb_ );
     void compute();
     void push_back( long long x );
     bool isPeak();
-    vector<int> getBuffer();
+    vector<double> getBuffer();
     long long time();
 };
 

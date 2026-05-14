@@ -18,6 +18,8 @@ using namespace std;
 struct CaseSpecificVariables {
 	string filename;
 	string password;
+	string subject;
+	string session;
 	int bufferSize;
 };
 

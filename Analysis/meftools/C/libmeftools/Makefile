@@ -21,6 +21,9 @@ all: #full build
 CircularBuffer:
 	$(CC) -c CircularBuffer.cpp $(CFLAGS) -I $(INCLUDE)
 
+CircularBufferMEF:
+	$(CC) -c CircularBufferMEF.cpp $(CFLAGS) -I $(INCLUDE)
+
 read_mef_header: # general purpose function
 	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
 
