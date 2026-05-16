@@ -37,7 +37,7 @@ decomp_mef:
 	$(CC) -c decomp_mef.cpp $(CFLAGS) -I $(INCLUDE)
 
 MEFinfo:
-	$(CC) -c MEFinfo.cpp $(CFLAGS) -I $(INCLUDE) table_of_contents.o get_discontinuities.o
+	$(CC) -c MEFinfo.cpp $(CFLAGS) -I $(INCLUDE)
 
 MEFiter: # general purpose function 
 	$(CC) -c MEFiter.cpp $(CFLAGS) -I $(INCLUDE) MEFinfo.o

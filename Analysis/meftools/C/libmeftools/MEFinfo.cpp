@@ -38,14 +38,14 @@ MEFinfo::MEFinfo( string filename, string password ) {
 
 vector<int> MEFinfo::getDiscontinuities() { return( discontinuities ); }  
   
-vector<vector<int>> MEFinfo::findContinuousMefSequences( vector<long long> timeConstraints ) {
+vector<MEFconts> MEFinfo::findContinuousMefSequences( vector<long long> timeConstraints ) {
     long long time0 = timeConstraints[0];
     long long time1 = timeConstraints[1];
     vector<long long> result;
     int microsecPerSample = 1E6/header.sampling_frequency;
 
     int doneFlag = 0;
-    vector<vector<int>> conts;
+    vector<MEFconts> conts;
     vector<int> contiguousStarts;
     vector<int> contiguousStops;
     vector<int> dsamp;
@@ -69,12 +69,12 @@ vector<vector<int>> MEFinfo::findContinuousMefSequences( vector<long long> timeC
     
     N = contiguousStarts.size();
     for ( int i=0; i<N; i++ ) {
-      vector<int> tmp;
-      tmp.push_back( ToC[1][contiguousStarts[i]] );
-      tmp.push_back( ToC[1][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample );
+      MEFconts tmp;
+      tmp.startTime  = ToC[3][contiguousStarts[i]];
+      tmp.startBlock = ToC[1][contiguousStarts[i]];
+      tmp.stopBlock  = ToC[1][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
       conts.push_back( tmp );
     }
-
     return( conts );
 }
 

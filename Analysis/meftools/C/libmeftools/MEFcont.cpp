@@ -18,11 +18,8 @@
 
 using namespace std;
 
-MEFcont::MEFcont( string filename_, string password_, MEFinfo info_, int bufferSize_ ) : info(info_) {
-//    if ( info == NULL ) {
-//      info = MEFinfo( filename, password );
-//    }
-    // Divide the continuous regions. Starts and Stops are inclusive.
+MEFcont::MEFcont( string filename_, string password_, int bufferSize_ ) {
+    info = MEFinfo( filename, password );
     filename = filename_;
     password = password_;
     info = info_;

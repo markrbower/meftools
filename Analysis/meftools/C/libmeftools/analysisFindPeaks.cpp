@@ -14,6 +14,7 @@ Yale University
 #include "MEFcont.h"
 #include "MEFanalysis.h"
 #include "CircularBuffer.h"
+#include "CircularBufferMEF.h"
 #include "analysisFindPeaks.h"
 #include "DatabaseAccessor.h"
 #include "FiltFilt.h"
@@ -26,9 +27,11 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	csv = csv_;
 	asv = asv_;
 
-        analysisFindPeaks::circbuf = CircularBuffer( csv.bufferSize );
+        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
 	dba = DatabaseAccessor("NPI");
 	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
+
+	cont = MEFcont( csv.filename, csv.password, csv.bufferSize );
 }
 
 void analysisFindPeaks::compute() {
@@ -68,6 +71,10 @@ void analysisFindPeaks::compute() {
 		int stop  = startStop[1];
                 std::vector<int> data = decomp_mef( csv.filename, start, stop, csv.password );
                 std::vector<double> signal( data.begin(), data.end() );
+
+		// How do I get timeStart? From the "Table of Contents" and block numbers?
+		// Could ToC be put into "csv"?
+	    	circbuf.reset( timeStart );
 
 		// Filter: need to convert data[type int] to signal[type double].
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
