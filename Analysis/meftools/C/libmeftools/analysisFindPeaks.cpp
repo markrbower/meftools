@@ -66,15 +66,18 @@ void analysisFindPeaks::compute() {
 	    // I only need a ring buffer of size "window".
             MEFiter iter = cont.next();
             while ( iter.hasNext() ) {
-                vector<int> startStop = iter.next();
-		int start = startStop[0];
-		int stop  = startStop[1];
+                vector<MEFconts> mefconts = iter.next();
+		int start = mefconts.startBlock;
+		int stop  = mefconts.stopBlock;
+		long long startTime = mefconts.startTime();
+		long long timeStep = mefconts.timeStep();
+
                 std::vector<int> data = decomp_mef( csv.filename, start, stop, csv.password );
                 std::vector<double> signal( data.begin(), data.end() );
 
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
-	    	circbuf.reset( timeStart );
+	    	circbuf.reset( timeStart, timeStep );
 
 		// Filter: need to convert data[type int] to signal[type double].
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);

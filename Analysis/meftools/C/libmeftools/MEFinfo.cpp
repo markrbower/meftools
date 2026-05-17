@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <list>
+#include <cmath>
 
 #include "meftools_types.h"
 #include "MEFinfo.h"
@@ -71,6 +72,7 @@ vector<MEFconts> MEFinfo::findContinuousMefSequences( vector<long long> timeCons
     for ( int i=0; i<N; i++ ) {
       MEFconts tmp;
       tmp.startTime  = ToC[3][contiguousStarts[i]];
+      tmp.timeStep   = round( 1.0 / header.sampling_frequency );
       tmp.startBlock = ToC[1][contiguousStarts[i]];
       tmp.stopBlock  = ToC[1][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
       conts.push_back( tmp );
