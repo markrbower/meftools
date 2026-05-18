@@ -19,8 +19,9 @@ class CircularBufferMEF : public CircularBuffer {
     public:
 	CircularBufferMEF(int capacity, long long startTime, long long step=1 ) :
 		CircularBuffer{capacity},
-		centerTime{startTime} {
-	};
+		centerTime{startTime - step},
+		timeStep{step}
+	{ };
 
 	long long getTime();
 };
