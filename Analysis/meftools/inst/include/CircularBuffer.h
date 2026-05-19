@@ -22,7 +22,7 @@ class CircularBuffer {
         int capacity;
     public:
         CircularBuffer(int capacity);
-        void push_back(double val);
+        virtual void push_back(double val);
         void pop_front();
         double getFront();
         double getMid();

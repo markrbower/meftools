@@ -17,13 +17,15 @@ class CircularBufferMEF : public CircularBuffer {
 	long long centerTime;
 	long long timeStep;
     public:
-	CircularBufferMEF(int capacity, long long startTime, long long step=1 ) :
-		CircularBuffer{capacity},
-		centerTime{startTime - step},
-		timeStep{step}
-	{ };
+	CircularBufferMEF(int capacity, long long startTime, long long stepTime ) :
+		CircularBuffer{capacity} {
+	    centerTime = startTime - stepTime;
+	    timeStep = stepTime;	
+	};
 
 	long long getTime();
+	void reset( long long startTime, long long timeStep );
+	void push_back( double value );
 };
 #endif
 
