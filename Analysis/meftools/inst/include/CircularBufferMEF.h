@@ -12,11 +12,12 @@
 
 using namespace std;
 
-class CircularBufferMEF : public CircularBuffer {
+class CircularBufferMEF : public virtual CircularBuffer {
     private:
+    public:
 	long long centerTime;
 	long long timeStep;
-    public:
+
 	CircularBufferMEF(int capacity, long long startTime, long long stepTime ) :
 		CircularBuffer{capacity} {
 	    centerTime = startTime - stepTime;
@@ -24,8 +25,12 @@ class CircularBufferMEF : public CircularBuffer {
 	};
 
 	long long getTime();
+
 	void reset( long long startTime, long long timeStep );
+
 	void push_back( double value );
+
+	virtual bool isPeak();
 };
 #endif
 

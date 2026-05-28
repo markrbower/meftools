@@ -24,6 +24,21 @@ CircularBuffer:
 CircularBufferMEF:
 	$(CC) -c CircularBufferMEF.cpp $(CFLAGS) -I $(INCLUDE)
 
+CircularBufferMEF_threshold:
+	$(CC) -c CircularBufferMEF_threshold.cpp $(CFLAGS) -I $(INCLUDE)
+
+CircularBufferMEF_NPI:
+	$(CC) -c CircularBufferMEF_NPI.cpp $(CFLAGS) -I $(INCLUDE)
+
+CircularBufferMEF_P13:
+	$(CC) -c CircularBufferMEF_P13.cpp $(CFLAGS) -I $(INCLUDE)
+
+CircularBufferMEF:
+	$(CC) -c CircularBufferMEF.cpp $(CFLAGS) -I $(INCLUDE)
+
+CircularBufferMEF:
+	$(CC) -c CircularBufferMEF.cpp $(CFLAGS) -I $(INCLUDE)
+
 read_mef_header: # general purpose function
 	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
 
