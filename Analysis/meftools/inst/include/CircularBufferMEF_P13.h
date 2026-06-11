@@ -12,7 +12,7 @@
 
 using namespace std;
 
-class CircularBufferMEF_ : public CircularBufferMEF {
+class CircularBufferMEF_P13 : public virtual CircularBuffer, public virtual CircularBufferMEF {
     private:
     public:
 	isPeak( );

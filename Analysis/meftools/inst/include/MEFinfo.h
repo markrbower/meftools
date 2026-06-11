@@ -15,13 +15,6 @@
 
 using namespace std;
 
-struct MEFconts {
-  long long startTime;
-  long long timeStep;
-  int startBlock;
-  int stopBlock;
-};
-
 class MEFinfo {
 private:
   string filename, password;
@@ -32,7 +25,6 @@ private:
 public:
   MEFinfo( string filename, string password );
   vector<int> getDiscontinuities();
-  vector<MEFconts> findContinuousMefSequences( vector<long long> timeConstraints );
   MEF_HEADER_INFO getHeader();
   long long** getToC();
   string getFilename();

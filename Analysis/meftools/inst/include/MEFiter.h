@@ -1,5 +1,5 @@
-#ifndef MEF_ITER
-#define MEF_ITER
+#ifndef MEF_ITER_H
+#define MEF_ITER_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +9,8 @@
 #include <vector>
 #include <string>
 #include <list>
+
+#include "MEFinfo.h"
 
 using namespace std;
 

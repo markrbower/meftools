@@ -1,5 +1,5 @@
-#ifndef MEF_CONT
-#define MEF_CONT
+#ifndef MEF_CONT_H
+#define MEF_CONT_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,12 +10,16 @@
 #include <string>
 #include <list>
 
+#include "MEFinfo.h"
+#include "MEFiter.h"
+
 using namespace std;
 
 struct MEFconts {
+  long long startTime;
+  long long timeStep;
   int startBlock;
   int stopBlock;
-  long long startTime;
 };
 
 class MEFcont {
@@ -27,9 +31,10 @@ private:
   int counter;
   int counterLimit;
   MEFinfo info;
+  vector<MEFconts> findContinuousSequences( vector<long long> timeConstraints );
 
 public:
-  MEFcont( string filename, string password, int bufferSize );
+  MEFcont( MEFinfo info_, int bufferSize );
   bool hasNext();
   MEFiter next();
 };

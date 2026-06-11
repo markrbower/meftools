@@ -13,7 +13,7 @@ Yale University
 #include "MEFiter.h"
 #include "MEFcont.h"
 #include "MEFanalysis.h"
-#include "analysisFindPeaks.h"
+#include "CircularBufferMEF_threshold.h"
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
@@ -38,9 +38,11 @@ void processMEFexample( string filename, string password, string subject, string
 	algoCompVar.duration = duration;
 
 	// Constructor for analysis
-
+	long long stepSize = info.getStepSize();
+	double threshold = 50.0;
+	CircularBufferMEF_threshold circbuf = CircularBufferMEF_threshold( 100, 0L, stepSize, threshold );
 	MEFcont mefCont = MEFcont( filename, password, info, bufferSize );
-	peaks = analysisFindPeaks( caseSpecVar, peakCompVar, mefCont );
+	peaks = analysisFindPeaks( caseSpecVar, peakCompVar, mefCont, circbuf );
 // Threshold
 	peaks.compute();
 	peaks.store();
