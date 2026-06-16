@@ -60,11 +60,11 @@ MEFiter: # general purpose function
 MEFcont: # general purpose function 
 	$(CC) -c MEFcont.cpp $(CFLAGS) -I $(INCLUDE)
 
-VectorIterator: # general purpose function 
+VectorIterator: # general purpose function
 	$(CC) -c VectorIterator.cpp $(CFLAGS) -I $(INCLUDE)
 
 MEFanalysis: # general purpose function 
-	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE)
+	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_MYSQL)
 
 analysisFindPeaks: # general purpose function 
 	$(CC) -c analysisFindPeaks.cpp  -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
@@ -78,9 +78,7 @@ da: # general purpose function
 
 
 processMEFexample: # application
-	$(CC) -c processMEFexample.cpp $(CFLAGS) -I $(INCLUDE)
-
-
+	$(CC) -c processMEFexample.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_MYSQL) -I $(INCLUDE_FILTFILT)
 
 main: # analysisLookingForPeaks
 	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o

@@ -55,3 +55,9 @@ string MEFinfo::getPassword() {
     return password;
 }
 
+long long MEFinfo::getStepSize() {
+    long long stepSize;
+    stepSize = 1.0 / header.sampling_frequency;
+    return stepSize;
+}
+

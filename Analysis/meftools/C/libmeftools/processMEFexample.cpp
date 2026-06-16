@@ -14,6 +14,7 @@ Yale University
 #include "MEFcont.h"
 #include "MEFanalysis.h"
 #include "CircularBufferMEF_threshold.h"
+#include "analysisFindPeaks.h"
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
@@ -39,13 +40,13 @@ void processMEFexample( string filename, string password, string subject, string
 
 	// Constructor for analysis
 	long long stepSize = info.getStepSize();
-	double threshold = 50.0;
+	threshold = 50.0;
 	CircularBufferMEF_threshold circbuf = CircularBufferMEF_threshold( 100, 0L, stepSize, threshold );
-	MEFcont mefCont = MEFcont( filename, password, info, bufferSize );
-	peaks = analysisFindPeaks( caseSpecVar, peakCompVar, mefCont, circbuf );
+	MEFcont mefCont = MEFcont( info, bufferSize );
+	peaks = analysisFindPeaks( caseSpecVar, algoCompVar, mefCont, circbuf );
 // Threshold
 	peaks.compute();
-	peaks.store();
+	//peaks.store(); doesn't the analysis handle storage?
 	peaks.performance();
 	peaks.graph();
 
@@ -58,8 +59,6 @@ void processMEFexample( string filename, string password, string subject, string
 
 // NPI
 //        peaks <- NPI:::computePeaks( it, caseSpecVar, peakCompVar )
-
-	}
 
 }
 

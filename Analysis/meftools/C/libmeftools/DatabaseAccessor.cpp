@@ -15,7 +15,7 @@
 
 using namespace std;
 
-mysqlx::SqlResult DatabaseAccessor::createTable( char* tableName, char* tableValues ) {
+mysqlx::SqlResult DatabaseAccessor::createTable( string tableName, string tableValues ) {
 
 }
 

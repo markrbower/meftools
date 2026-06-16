@@ -19,19 +19,22 @@ Yale University
 #include "DatabaseAccessor.h"
 #include "FiltFilt.h"
 
+#include "CircularBufferMEF_threshold.h"
+
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 using namespace std;
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFcont cont_, CircularBuffer cb_ ) : cont(cont_), circbuf(cb_) {
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_threshold cb_ ) : info(info_), cont(cont_), circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;
 
-        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
-	dba = DatabaseAccessor("NPI");
+//        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
+	const char* npi = "NPI";
+	dba = DatabaseAccessor( npi );
 	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
 
-	cont = MEFcont( csv.filename, csv.password, csv.bufferSize );
+	cont = MEFcont( info, csv.bufferSize );
 }
 
 void analysisFindPeaks::compute() {
@@ -66,18 +69,12 @@ void analysisFindPeaks::compute() {
 	    // I only need a ring buffer of size "window".
             MEFiter iter = cont.next();
             while ( iter.hasNext() ) {
-                vector<MEFconts> mefconts = iter.next();
-		int start = mefconts.startBlock;
-		int stop  = mefconts.stopBlock;
-		long long startTime = mefconts.startTime();
-		long long timeStep = mefconts.timeStep();
-
-                std::vector<int> data = decomp_mef( csv.filename, start, stop, csv.password );
-                std::vector<double> signal( data.begin(), data.end() );
+		vector<int> data = iter.next();
+		std::vector<double> signal(data.begin(), data.end());
 
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
-	    	circbuf.reset( timeStart, timeStep );
+	    	circbuf.reset( iter.timeStart(), iter.timeStep() );
 
 		// Filter: need to convert data[type int] to signal[type double].
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
