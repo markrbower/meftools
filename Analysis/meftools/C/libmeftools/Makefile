@@ -66,8 +66,11 @@ VectorIterator: # general purpose function
 MEFanalysis: # general purpose function 
 	$(CC) -c MEFanalysis.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_MYSQL)
 
+#analysisFindPeaks: # general purpose function 
+#	$(CC) -c analysisFindPeaks.cpp  -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
+
 analysisFindPeaks: # general purpose function 
-	$(CC) -c analysisFindPeaks.cpp  -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
+	$(CC) -c analysisFindPeaks.cpp  -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT)
 
 analysisNPI: # general purpose function 
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) MEFiter.o

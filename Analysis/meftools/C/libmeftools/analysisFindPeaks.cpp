@@ -85,7 +85,7 @@ void analysisFindPeaks::compute() {
 			vector<double> values = circbuf.getBuffer();
 			string valueString;
 			for ( auto v: values ) {
-				sprintf( charArray, "%s,", v );
+				snprintf( charArray, 10, "%f,", v );
 
 				valueString.append( charArray );
 			}
