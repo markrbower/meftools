@@ -26,8 +26,14 @@ public:
   MEFiter( MEFinfo info_, int block0, int block1, int stepSize );
   bool hasNext();
   vector<int> next();
-  long long getTime() { return time0; };
-
+  long long timeStart() { return time0; };
+  long long timeStop() { return time1; };
+  long long timeStep() {
+    double tmp = 1.0 / info.getHeader().sampling_frequency;
+    long long value = static_cast<long long>( tmp );
+    return value;
+  } 
 
 };
 #endif
+

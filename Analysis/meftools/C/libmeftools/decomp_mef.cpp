@@ -2837,7 +2837,9 @@ std::vector<int> decomp_mef(std::string filename, long long start_idx, long long
 //    unsigned long long int start_idx = (unsigned long long int) atoll( strings(1) );
 //    unsigned long long int end_idx = (unsigned long long int) atoll( strings(2) );
 //    char *password = (si1*)(strings(3));
-    const char *password = pword.c_str();
+    //const char *password = pword.c_str();
+    char * password = new char[ pword.size() ];
+    strcpy(password, pword.c_str() );
     
     // Set the output pointer to the output matrix.
     unsigned long long int long_decomp_data_len = end_idx - start_idx + (unsigned long long int) 1;

@@ -29,6 +29,7 @@ public:
   long long** getToC();
   string getFilename();
   string getPassword();
+  long long getStepSize();
 };
 
 #endif

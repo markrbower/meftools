@@ -10,6 +10,9 @@
 #include <string>
 #include <list>
 
+#include "CircularBuffer.h"
+#include "CircularBufferMEF.h"
+
 using namespace std;
 
 class CircularBufferMEF_threshold : public virtual CircularBuffer, public virtual CircularBufferMEF {

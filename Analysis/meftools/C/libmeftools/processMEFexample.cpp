@@ -18,7 +18,7 @@ Yale University
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
-void processMEFexample( string filename, string password, string subject, string session, int bufferSize, string signalType, int threshold, int duration ) {
+void processMEFexample( string filename, string password, string subject, string session, int bufferSize, string signalType, int duration ) {
 	MEFanalysis peaks;
 	MEFanalysis clusters;
 
@@ -35,13 +35,11 @@ void processMEFexample( string filename, string password, string subject, string
 // algoComputationVariables
 	AlgorithmSpecificVariables algoCompVar;
 	algoCompVar.signalType = signalType;
-	algoCompVar.threshold = threshold;
 	algoCompVar.duration = duration;
 
 	// Constructor for analysis
 	long long stepSize = info.getStepSize();
-	threshold = 50.0;
-	CircularBufferMEF_threshold circbuf = CircularBufferMEF_threshold( 100, 0L, stepSize, threshold );
+	CircularBufferMEF_allPeaks circbuf = CircularBufferMEF_allPeaks( 100, 0L, stepSize );
 	MEFcont mefCont = MEFcont( info, bufferSize );
 	peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
 // Threshold

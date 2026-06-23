@@ -34,11 +34,10 @@ class MEFanalysis {
     public:
 	CaseSpecificVariables csv;
 	AlgorithmSpecificVariables asv;
-        MEFcont cont;
 	DatabaseAccessor dba;
 	
 	MEFanalysis();
-	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFcont cont_ );
+	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ );
         virtual void compute();
         virtual void store( vector<long long> p, vector<vector<int>> v);
         virtual void performance();

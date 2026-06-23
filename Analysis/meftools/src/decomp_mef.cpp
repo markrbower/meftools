@@ -27,8 +27,8 @@
 
 // [[plugins("cpp11")]]
 
-#include <RcppCommon.h>
-#include <Rcpp.h>
+//#include <RcppCommon.h>
+//#include <Rcpp.h>
 
 //RED Codec
 #define TOP_VALUE		(ui4) 0x80000000

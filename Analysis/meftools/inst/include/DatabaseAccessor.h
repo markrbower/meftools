@@ -10,6 +10,7 @@
 #include <map>
 #include <string>
 #include <list>
+#include <iostream>
 
 #include <mysqlx/xdevapi.h>
 #include <mysql/mysql.h>
@@ -23,18 +24,18 @@ public:
     MYSQL_RES *result;
     //kb::math::FiltFilt<double> filtfilt;
 
-    DatabaseAccessor( char *dbname ) {
-        cout << "In constructor" << endl;
+    DatabaseAccessor( string dbname ) {
+        std::cout << "In constructor" << std::endl;
 	conn = mysql_init(NULL);
 	if (conn == NULL) {
 	    fprintf(stderr, "mysql_init() failed\n");
 	}
-        if (mysql_real_connect(conn, "localhost", "root", "", dbname, 33060, NULL, 0) == NULL) {
+        if (mysql_real_connect(conn, "localhost", "root", "", dbname.c_str(), 33060, NULL, 0) == NULL) {
             fprintf(stderr, "mysql_real_connect() failed\n");
             mysql_close(conn);
         }	
 
-        cout << "Exit constructor" << endl;
+        std::cout << "Exit constructor" << std::endl;
     }
     
     void close() {
@@ -42,7 +43,7 @@ public:
         mysql_close( conn );
     }
 
-    mysqlx::SqlResult createTable(char* tableName,char* tableValues);
+    mysqlx::SqlResult createTable(string tableName,string tableValues);
 
     MYSQL_RES* runQuery( string queryString );
 

@@ -1,7 +1,8 @@
 #Makefile for Ncs2Mef project
 CC = g++
 #CFLAGS = -m64 -Wunused-variable -Wuninitialized
-CFLAGS = -m64 -g -w
+#CFLAGS = -m64 -g -std=c++17 
+CFLAGS = -m64 -g -w -std=c++17 
 OPTFLAGS = -O3 
 MAIN = main.c
 #MEFLIB_DIR = ../MEF_3_starter_kit
@@ -13,6 +14,8 @@ INCLUDE = /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftoo
 INCLUDE_MYSQLX = /opt/homebrew/Cellar/mysql-connector-c++/9.6.0/include
 INCLUDE_MYSQL = /opt/homebrew/opt/mysql-client/include
 INCLUDE_FILTFILT = /Users/markbower/Dropbox/Documents/src/KBaur/FiltFilt/src/include
+
+USER_OBJS = $(wildcard /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/libmeftools/*.o)
 
 
 all: #full build
@@ -38,6 +41,12 @@ CircularBufferMEF:
 
 CircularBufferMEF:
 	$(CC) -c CircularBufferMEF.cpp $(CFLAGS) -I $(INCLUDE)
+
+Filt:
+	$(CC) -c kbaur/Filt.cpp $(CFLAGS) -o kbaur/Filt.o
+
+FiltFilt:
+	$(CC) -c kbaur/FiltFilt.cpp $(CFLAGS) -o kbaur/FiltFilt.o
 
 read_mef_header: # general purpose function
 	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
@@ -87,7 +96,7 @@ main: # analysisLookingForPeaks
 	$(CC) -o main.cpp $(CFLAGS) -I $(INCLUDE) processMEFexample.o
 
 main_alfp: # analysisLookingForPeaks
-	$(CC) main_analysisLookingForPeaks.cpp -o main $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 analysisFindPeaks.o processMEFexample.o MEFinfo.o MEFiter.o MEFcont.o read_mef_header.o table_of_contents.o get_discontinuities.o
+	$(CC) main_analysisLookingForPeaks.cpp -o main $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) $(USER_OBJS) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 kbaur/Filt.o kbaur/FiltFilt.o -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
 
 da_test: # test DatabaseAccessor
 	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
