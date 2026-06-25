@@ -24,6 +24,8 @@ public:
     MYSQL_RES *result;
     //kb::math::FiltFilt<double> filtfilt;
 
+    DatabaseAccessor() {};
+
     DatabaseAccessor( string dbname ) {
         std::cout << "In constructor" << std::endl;
 	conn = mysql_init(NULL);

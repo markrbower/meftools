@@ -34,6 +34,7 @@ private:
   vector<MEFconts> findContinuousSequences( vector<long long> timeConstraints );
 
 public:
+  MEFcont() {};
   MEFcont( MEFinfo info_, int bufferSize );
   bool hasNext();
   MEFiter next();
