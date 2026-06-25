@@ -14,7 +14,6 @@ Yale University
 #include "MEFanalysis.h"
 #include "MEFcont.h"
 
-
 MEFanalysis::MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ ) : info(info_), cont(cont_), dba(dba_) {
 }
 

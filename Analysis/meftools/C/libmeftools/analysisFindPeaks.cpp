@@ -19,13 +19,13 @@ Yale University
 #include "DatabaseAccessor.h"
 #include "FiltFilt.h"
 
-#include "CircularBufferMEF_threshold.h"
+#include "CircularBufferMEF_allPeaks.h"
 
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 using namespace std;
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_threshold cb_ ) : info(info_), cont(cont_), circbuf(cb_) {
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ ) : info(info_), cont(cont_), circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;
 

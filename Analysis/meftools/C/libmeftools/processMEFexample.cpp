@@ -13,15 +13,12 @@ Yale University
 #include "MEFiter.h"
 #include "MEFcont.h"
 #include "MEFanalysis.h"
-#include "CircularBufferMEF_threshold.h"
+#include "CircularBufferMEF_allPeaks.h"
 #include "analysisFindPeaks.h"
 
 MEF_HEADER_INFO read_mef_header(std::vector<std::string> strings);
 
 void processMEFexample( string filename, string password, string subject, string session, int bufferSize, string signalType, int duration ) {
-	MEFanalysis peaks;
-	MEFanalysis clusters;
-
 	std::vector<std::string> strings(2);
 	strings[0] = filename;
 	strings[1] = password;
@@ -41,7 +38,7 @@ void processMEFexample( string filename, string password, string subject, string
 	long long stepSize = info.getStepSize();
 	CircularBufferMEF_allPeaks circbuf = CircularBufferMEF_allPeaks( 100, 0L, stepSize );
 	MEFcont mefCont = MEFcont( info, bufferSize );
-	peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
+	MEFanalysis peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
 // Threshold
 	peaks.compute();
 	//peaks.store(); doesn't the analysis handle storage?

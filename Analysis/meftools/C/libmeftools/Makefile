@@ -27,11 +27,8 @@ CircularBuffer:
 CircularBufferMEF:
 	$(CC) -c CircularBufferMEF.cpp $(CFLAGS) -I $(INCLUDE)
 
-CircularBufferMEF_threshold:
-	$(CC) -c CircularBufferMEF_threshold.cpp $(CFLAGS) -I $(INCLUDE)
-
-CircularBufferMEF_NPI:
-	$(CC) -c CircularBufferMEF_NPI.cpp $(CFLAGS) -I $(INCLUDE)
+CircularBufferMEF_allPeaks:
+	$(CC) -c CircularBufferMEF_allPeaks.cpp $(CFLAGS) -I $(INCLUDE)
 
 CircularBufferMEF_P13:
 	$(CC) -c CircularBufferMEF_P13.cpp $(CFLAGS) -I $(INCLUDE)
