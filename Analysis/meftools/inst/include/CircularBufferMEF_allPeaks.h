@@ -15,11 +15,11 @@
 
 using namespace std;
 
-class CircularBufferMEF_allPeaks : public virtual CircularBuffer, public virtual CircularBufferMEF {
+class CircularBufferMEF_allPeaks : public CircularBufferMEF {
     private:
     public:
 	CircularBufferMEF_allPeaks(int capacity, long long startTime, long long stepTime ) :
-			CircularBuffer{capacity}, CircularBufferMEF{capacity, startTime, stepTime} {
+			CircularBufferMEF{capacity, startTime, stepTime} {
 	};
 
 	bool isPeak();

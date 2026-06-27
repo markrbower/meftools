@@ -21,16 +21,16 @@ Yale University
 
 class analysisFindPeaks: public MEFanalysis {
 private:
-    MEFinfo info;
-    MEFcont cont;
-    CircularBufferMEF circbuf;
     vector<long long> peakBuffer;
     vector<vector<double>> valuesBuffer;
 
 public:
+    static CircularBufferMEF circbuf;
+
     analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, CircularBuffer cb_ );
     analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ );
-    void compute();
+
+    virtual void compute();
     void push_back( long long x );
     bool isPeak();
     vector<double> getBuffer();

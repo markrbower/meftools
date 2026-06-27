@@ -9,20 +9,15 @@ using namespace std;
 
 bool CircularBufferMEF_allPeaks::isPeak() {
 	// A peak occurs when the center value:
-	// 1. is greater than threshold
-	// 2. is the max of the buffer
+	// 1. idx is the max of the buffer
 	int result = 1;
 
 	int idx = 0;
-	if ( buffer[mid] >= threshold ) { // Requirement 1
-		while ( idx < capacity & result == 1 ) {
-			if ( buffer[idx] > buffer[mid] ) {
-				result = 0; // Req 2
-			}
-		idx++;
+	while ( idx < capacity & result == 1 ) {
+		if ( buffer[idx] > buffer[mid] ) {
+			result = 0; // Req 1
 		}
-	} else {
-		result = 0;
+		idx++;
 	}
 
 	return result;

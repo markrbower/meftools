@@ -10,9 +10,11 @@
 #include <string>
 #include <list>
 
+#include "CircularBuffer.h"
+
 using namespace std;
 
-class CircularBufferMEF : public virtual CircularBuffer {
+class CircularBufferMEF : public CircularBuffer {
     private:
     public:
 	long long centerTime;

@@ -11,6 +11,7 @@
 #include <list>
 
 #include "MEFcont.h"
+#include "CircularBufferMEF.h"
 #include "DatabaseAccessor.h"
 
 using namespace std;
@@ -34,9 +35,9 @@ class MEFanalysis {
     public:
 	CaseSpecificVariables csv;
 	AlgorithmSpecificVariables asv;
+	DatabaseAccessor dba;
 	MEFinfo info;
 	MEFcont cont;
-	DatabaseAccessor dba;
 	
 	MEFanalysis() {};
 	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ );

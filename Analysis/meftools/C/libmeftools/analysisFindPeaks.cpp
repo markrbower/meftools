@@ -25,7 +25,7 @@ vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 using namespace std;
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ ) : info(info_), cont(cont_), circbuf(cb_) {
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ ) {
 	csv = csv_;
 	asv = asv_;
 
@@ -35,9 +35,10 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
 
 	cont = MEFcont( info, csv.bufferSize );
+	info = info_;
 }
 
-void analysisFindPeaks::compute() {
+void analysisFindPeaks::MEFanalysis::compute() {
 // Use MEFcont to supply contiguous sequences
 	char charArray[20];
 	map<long long, string> peaks;
@@ -74,15 +75,15 @@ void analysisFindPeaks::compute() {
 
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
-	    	circbuf.reset( iter.timeStart(), iter.timeStep() );
+	    	analysisFindPeaks::circbuf.reset( iter.timeStart(), iter.timeStep() );
 
 		// Filter: need to convert data[type int] to signal[type double].
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
 
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
-                    circbuf.push_back( zeroPhaseFiltered[i] );
-	            if ( isPeak() ) {
-			vector<double> values = circbuf.getBuffer();
+                    analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
+	            if ( analysisFindPeaks::circbuf.isPeak() ) {
+			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
 			string valueString;
 			for ( auto v: values ) {
 				snprintf( charArray, 10, "%f,", v );
@@ -90,7 +91,7 @@ void analysisFindPeaks::compute() {
 				valueString.append( charArray );
 			}
 			valueString.resize( valueString.size() - 1 );
-			peaks.insert( { circbuf.getTime(), valueString } );
+			peaks.insert( { analysisFindPeaks::circbuf.getTime(), valueString } );
                         // Check whether buffers should be written to MySQL
 			if ( peaks.size() > bufferLimit ) {
 				dba.mapInsert( "peaks", fixed, peaks );

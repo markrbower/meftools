@@ -17,9 +17,4 @@ Yale University
 MEFanalysis::MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ ) : info(info_), cont(cont_), dba(dba_) {
 }
 
-void MEFanalysis::compute() {};
-void MEFanalysis::performance() {};
-void MEFanalysis::graph() {};
-
-
 
