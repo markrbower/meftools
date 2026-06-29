@@ -38,6 +38,7 @@ class MEFanalysis {
 	DatabaseAccessor dba;
 	MEFinfo info;
 	MEFcont cont;
+        static CircularBufferMEF circbuf;
 	
 	MEFanalysis() {};
 	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ );

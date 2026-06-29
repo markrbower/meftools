@@ -25,7 +25,6 @@ private:
     vector<vector<double>> valuesBuffer;
 
 public:
-    static CircularBufferMEF circbuf;
 
     analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, CircularBuffer cb_ );
     analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ );

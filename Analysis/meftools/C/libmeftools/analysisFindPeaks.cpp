@@ -81,7 +81,7 @@ void analysisFindPeaks::MEFanalysis::compute() {
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
 
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
-                    analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
+                    MEFanalysis::circbuf.push_back( zeroPhaseFiltered[i] );
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
 			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
 			string valueString;
