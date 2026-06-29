@@ -38,14 +38,15 @@ class MEFanalysis {
 	DatabaseAccessor dba;
 	MEFinfo info;
 	MEFcont cont;
-        static CircularBufferMEF circbuf;
 	
 	MEFanalysis() {};
-	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ );
-        virtual void compute();
-        virtual void store( vector<long long> p, vector<vector<int>> v);
-        virtual void performance();
-        virtual void graph();
+
+	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ ) {};
+
+        virtual void compute() {};
+        virtual void store( vector<long long> p, vector<vector<int>> v) {};
+        virtual void performance() {};
+        virtual void graph() {};
 };
 
 

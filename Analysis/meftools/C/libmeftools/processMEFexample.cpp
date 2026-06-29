@@ -38,7 +38,7 @@ void processMEFexample( string filename, string password, string subject, string
 	long long stepSize = info.getStepSize();
 	CircularBufferMEF_allPeaks circbuf = CircularBufferMEF_allPeaks( 100, 0L, stepSize );
 	MEFcont mefCont = MEFcont( info, bufferSize );
-	MEFanalysis peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
+	analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
 // Threshold
 	peaks.compute();
 	//peaks.store(); doesn't the analysis handle storage?

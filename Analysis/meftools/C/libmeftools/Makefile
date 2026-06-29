@@ -2,7 +2,7 @@
 CC = g++
 #CFLAGS = -m64 -Wunused-variable -Wuninitialized
 #CFLAGS = -m64 -g -std=c++17 
-CFLAGS = -m64 -g -w -std=c++17 
+CFLAGS = -m64 -g -w -std=c++17 -Wall
 OPTFLAGS = -O3 
 MAIN = main.c
 #MEFLIB_DIR = ../MEF_3_starter_kit

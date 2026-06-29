@@ -20,6 +20,10 @@ class CircularBufferMEF : public CircularBuffer {
 	long long centerTime;
 	long long timeStep;
 
+	CircularBufferMEF() : CircularBuffer{0} {
+
+	};
+
 	CircularBufferMEF(int capacity, long long startTime, long long stepTime ) :
 		CircularBuffer{capacity} {
 	    centerTime = startTime - stepTime;
@@ -32,7 +36,7 @@ class CircularBufferMEF : public CircularBuffer {
 
 	void push_back( double value );
 
-	virtual bool isPeak();
+	virtual bool isPeak() {};
 };
 #endif
 

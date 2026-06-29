@@ -19,17 +19,20 @@ Yale University
 
 #include "FiltFilt.h"
 
-class analysisFindPeaks: public MEFanalysis {
+class analysisFindPeaks : public MEFanalysis {
 private:
     vector<long long> peakBuffer;
     vector<vector<double>> valuesBuffer;
 
 public:
+    CircularBufferMEF_allPeaks circbuf;
 
-    analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, CircularBuffer cb_ );
     analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ );
 
-    virtual void compute();
+    void compute();
+    void performance();
+    void store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer );
+    void graph();
     void push_back( long long x );
     bool isPeak();
     vector<double> getBuffer();

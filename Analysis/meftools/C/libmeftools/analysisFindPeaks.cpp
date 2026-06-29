@@ -25,7 +25,7 @@ vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 using namespace std;
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ ) {
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ ) : circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;
 
@@ -38,7 +38,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	info = info_;
 }
 
-void analysisFindPeaks::MEFanalysis::compute() {
+void analysisFindPeaks::compute() {
 // Use MEFcont to supply contiguous sequences
 	char charArray[20];
 	map<long long, string> peaks;
@@ -81,7 +81,7 @@ void analysisFindPeaks::MEFanalysis::compute() {
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
 
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
-                    MEFanalysis::circbuf.push_back( zeroPhaseFiltered[i] );
+                    analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
 			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
 			string valueString;
@@ -105,17 +105,17 @@ void analysisFindPeaks::MEFanalysis::compute() {
 		dba.mapInsert( "peaks", fixed, peaks );
 }
 
-void MEFanalysis::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
+void analysisFindPeaks::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
 
 
 }
 
-void MEFanalysis::performance() {
+void analysisFindPeaks::performance() {
         // Implementation of MyFunction
 
 }
 
-void MEFanalysis::graph() {
+void analysisFindPeaks::graph() {
         // Implementation of MyFunction
 
 }
@@ -125,9 +125,9 @@ void analysisFindPeaks::push_back( long long x ) {
 }
 
 bool analysisFindPeaks::isPeak() {
-    return circbuf.isPeak();
+    return analysisFindPeaks::circbuf.isPeak();
 }
 
 vector<double> analysisFindPeaks::getBuffer() {
-    return circbuf.getBuffer();
+    return analysisFindPeaks::circbuf.getBuffer();
 }
