@@ -32,13 +32,14 @@ void processMEFexample( string filename, string password, string subject, string
 // algoComputationVariables
 	AlgorithmSpecificVariables algoCompVar;
 	algoCompVar.signalType = signalType;
-	algoCompVar.duration = duration;
 
 	// Constructor for analysis
 	long long stepSize = info.getStepSize();
 	CircularBufferMEF_allPeaks circbuf = CircularBufferMEF_allPeaks( 100, 0L, stepSize );
 	MEFcont mefCont = MEFcont( info, bufferSize );
+        cout << "Entering analysisFindPeaks" << endl;
 	analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
+        cout << "Exiting analysisFindPeaks" << endl;
 // Threshold
 	peaks.compute();
 	//peaks.store(); doesn't the analysis handle storage?

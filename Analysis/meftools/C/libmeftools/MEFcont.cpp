@@ -19,6 +19,8 @@
 using namespace std;
 
 MEFcont::MEFcont( MEFinfo info_, int bufferSize_ ) : info(info_) {
+    cout << "Creating MEFcont" << endl;
+
     bufferSize = bufferSize_;
 
 // No timeConstraints were given, so read the entire file
@@ -28,36 +30,42 @@ MEFcont::MEFcont( MEFinfo info_, int bufferSize_ ) : info(info_) {
 
     counter = 0;
     counterLimit = this->conts.size();
-  };
+
+    cout << "MEFcont created." << endl;
+};
 
 vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstraints ) {
     long long time0 = timeConstraints[0];
     long long time1 = timeConstraints[1];
     vector<long long> result;
     int microsecPerSample = 1E6/info.getHeader().sampling_frequency;
+    cout << "Sample: " << microsecPerSample << endl;
 
-    int doneFlag = 0;
     vector<MEFconts> conts;
     vector<int> contiguousStarts;
     vector<int> contiguousStops;
     vector<int> dsamp;
-    int N = info.getDiscontinuities().size();
-    for ( int i=0; i<(N-1); i++ ) { // the last block cannot contain a start
+    vector<int> disc = info.getDiscontinuities();
+    int N = disc.size();
+    cout << "nbr discontinuities: " << N << endl;
+
+    int Nb = info.getHeader().number_of_index_entries;
+    cout << "Number of blocks: " << Nb << " " << N << endl;
+
+    for ( int i=0; i<(Nb-1); i++ ) { // the last block cannot contain a start
       dsamp.push_back( info.getToC()[3][(i+1)] - info.getToC()[3][i] );
       if ( info.getToC()[1][i] <= time1 ) {
         if ( info.getToC()[1][i] >= time0 ) {
-          if ( info.getDiscontinuities()[i] == 1 ) {
+          if ( disc[i] == 1 ) {
             contiguousStarts.push_back( i );
 	    contiguousStops.push_back( i-1 );
           } 
         }
       }
-      if ( doneFlag == 0 ) {
-        contiguousStops.push_back( i-1 );
-        doneFlag = 1;
-      }
     }
+    contiguousStops.push_back( Nb-1 );
     contiguousStops.erase( contiguousStops.begin() );
+    cout << "Starts: " << contiguousStarts.size() << "\tStops: " << contiguousStops.size() << endl;
     
     N = contiguousStarts.size();
     for ( int i=0; i<N; i++ ) {

@@ -1,3 +1,17 @@
+/* main_analysisLookingForPeaks.cpp
+Mark Bower
+Yale University
+
+Compilation:
+make main_alfp
+
+Usage:
+main_analysisLookingForPeaks <MEF_filename> subjectIDorName sessionIDorName
+
+Result:
+Stores peaks to MySQL database.
+
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -9,13 +23,12 @@ void processMEFexample( string filename, string password, string subject, string
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    string filename = "";
-    string password = "erlichda";
+    string filename = argv[1];
+    string password = "blah";
+    string subject = argv[2];
+    string session = argv[3];
     int bufferSize = 1024;
-    string subject = argv[1];
-    string session = argv[2];
     string signalType = "IIS";
-    int threshold = 50;
     int duration = 100;
 
     processMEFexample( filename, password, subject, session, bufferSize, signalType, duration );

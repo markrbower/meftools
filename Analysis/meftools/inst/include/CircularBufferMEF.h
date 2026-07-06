@@ -36,7 +36,7 @@ class CircularBufferMEF : public CircularBuffer {
 
 	void push_back( double value );
 
-	virtual bool isPeak() {};
+	virtual bool isPeak() { return 0; };
 };
 #endif
 
