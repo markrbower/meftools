@@ -37,6 +37,7 @@ MEFcont::MEFcont( MEFinfo info_, int bufferSize_ ) : info(info_) {
 vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstraints ) {
     long long time0 = timeConstraints[0];
     long long time1 = timeConstraints[1];
+    long long** toc;
     vector<long long> result;
     int microsecPerSample = 1E6/info.getHeader().sampling_frequency;
     cout << "Sample: " << microsecPerSample << endl;
@@ -44,18 +45,21 @@ vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstra
     vector<MEFconts> conts;
     vector<int> contiguousStarts;
     vector<int> contiguousStops;
-    vector<int> dsamp;
+    vector<long long> dsamp;
     vector<int> disc = info.getDiscontinuities();
     int N = disc.size();
     cout << "nbr discontinuities: " << N << endl;
 
-    int Nb = info.getHeader().number_of_index_entries;
-    cout << "Number of blocks: " << Nb << " " << N << endl;
+    cout << "Number of blocks: " << N << endl;
+    toc = info.getToC();
 
-    for ( int i=0; i<(Nb-1); i++ ) { // the last block cannot contain a start
-      dsamp.push_back( info.getToC()[3][(i+1)] - info.getToC()[3][i] );
-      if ( info.getToC()[1][i] <= time1 ) {
-        if ( info.getToC()[1][i] >= time0 ) {
+    for ( int i=0; i<(N-1); i++ ) { // the last block cannot contain a start
+      cout << i << endl;
+      cout << toc[2][(i+1)];
+      cout << toc[2][(i)];
+      dsamp.push_back( toc[2][(i+1)] - toc[2][i] );
+      if ( toc[0][i] <= time1 ) {
+        if ( toc[0][i] >= time0 ) {
           if ( disc[i] == 1 ) {
             contiguousStarts.push_back( i );
 	    contiguousStops.push_back( i-1 );
@@ -63,17 +67,17 @@ vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstra
         }
       }
     }
-    contiguousStops.push_back( Nb-1 );
+    contiguousStops.push_back( N-1 );
     contiguousStops.erase( contiguousStops.begin() );
     cout << "Starts: " << contiguousStarts.size() << "\tStops: " << contiguousStops.size() << endl;
     
     N = contiguousStarts.size();
     for ( int i=0; i<N; i++ ) {
       MEFconts tmp;
-      tmp.startTime  = info.getToC()[3][contiguousStarts[i]];
+      tmp.startTime  = info.getToC()[2][contiguousStarts[i]];
       tmp.timeStep   = round( 1.0 / info.getHeader().sampling_frequency );
-      tmp.startBlock = info.getToC()[1][contiguousStarts[i]];
-      tmp.stopBlock  = info.getToC()[1][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
+      tmp.startBlock = info.getToC()[0][contiguousStarts[i]];
+      tmp.stopBlock  = info.getToC()[0][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
       conts.push_back( tmp );
     }
     return( conts );

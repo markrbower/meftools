@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <time.h>
 #include <vector>
+#include <iostream>
 
 
 #include "meftools_types.h"
@@ -33,7 +34,7 @@ long long** table_of_contents( vector<string> strings ) {
 //    printf( "%ld\n", index_data_offset );
 //    printf( "%s\n", (char *)strings[2] );
     long number_of_index_entries = stol( strings[2] );
-//    printf( "%ld\n", number_of_index_entries );
+    printf( "number_of_index_entries: %ld\n", number_of_index_entries );
     //	printf( "%d\n", index_data_offset );
     //  printf( "%d\n", number_of_index_entries );
 //    printf( "out of ToC\n" );
@@ -50,6 +51,7 @@ long long** table_of_contents( vector<string> strings ) {
     unsigned long long int l;
     long long **ToC = (long long **)matrix2d_new( sizeof(long long), 3, number_of_index_entries);
     for (int col=0; col<number_of_index_entries; col++ ) {
+	cout << "TOC: " << col << endl;
         l = 0;
         int offset = (col*3 + 0)*sizeof(unsigned long long int);
         for (int i = 0; i < 8; ++i) {
@@ -71,6 +73,7 @@ long long** table_of_contents( vector<string> strings ) {
         }
         ToC[2][col] = l;
     }
+    cout << "TOC: reading complete." << endl;
     return( ToC );
 }
 

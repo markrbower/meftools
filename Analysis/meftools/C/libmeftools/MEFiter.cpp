@@ -61,23 +61,23 @@ vector<int> MEFiter::next() {
 		block1 = stops[counter];
 	}
 	long long** ToC = info.getToC();
-	long long tmp = ToC[ 3 ][ block0 ];
+	long long tmp = ToC[ 2 ][ block0 ];
 	int s0 = static_cast<int>( tmp );
 	int s1;
 	if ( block1 == Nrows ) {
 		s1 = info.getHeader().number_of_samples;
 	} else {
-		s1 = (int) info.getToC()[ 3 ][ (block1+1) ] - 1;
+		s1 = (int) info.getToC()[ 2 ][ (block1+1) ] - 1;
 	}	
 	// dlast is the number of samples in the last block
-	int dlast = s1 - (int) info.getToC()[ 3 ][ block1 ] + 1;
+	int dlast = s1 - (int) info.getToC()[ 2 ][ block1 ] + 1;
 
     	data = decomp_mef( info.getFilename(), s0, s1, info.getPassword() );
 
 	// Trim the data to exact timestamp requests
 	vector<long long> blockTime(2);
-	blockTime.push_back( info.getToC()[1][block0] );
-	blockTime.push_back( info.getToC()[1][block1] + (long long)round(dlast*1E6/info.getHeader().sampling_frequency) );
+	blockTime.push_back( info.getToC()[0][block0] );
+	blockTime.push_back( info.getToC()[0][block1] + (long long)round(dlast*1E6/info.getHeader().sampling_frequency) );
 	if ( blockTime[1]<=time0 & time0<=blockTime[2] ) { // requested start is within decoded data
 		int bad = ceil( (time0 - blockTime[1]) / microsecondsPerSample );
 		data.erase( data.begin(), data.begin() + bad );

@@ -39,6 +39,7 @@ MEFinfo::MEFinfo( string filename, string password ) {
 
     cout << "Trying table_of_contents" << endl;
     ToC = table_of_contents( variables );
+    //table_of_contents( variables );
     cout << "table_of_contents done" << endl;
 
     cout << "Trying get_discontinuities" << endl;

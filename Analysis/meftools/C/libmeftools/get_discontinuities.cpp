@@ -5,6 +5,7 @@
 #include <time.h>
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "meftools_types.h"
         
@@ -23,9 +24,10 @@ vector<int> get_discontinuities( vector<string> strings, long long **ToC ) {
   FILE *fp = fopen( filename, "r" );
   unsigned char* buf = (unsigned char *)malloc( 1 * sizeof(unsigned char) );
   // Convert "buf" into a 3-column matrix.
-  vector<int> discontinuities(number_of_index_entries);
+  vector<int> discontinuities;
   for (int col=0; col<number_of_index_entries; col++ ) {
-    fseek( fp, ToC[1][col]+30, SEEK_SET );
+    //cout << "disc: " << col << endl;
+    fseek( fp, ToC[0][col]+30, SEEK_SET );
     fread( buf, sizeof(unsigned char), 1, fp );
     discontinuities.push_back( (int) buf[0] );
   }
