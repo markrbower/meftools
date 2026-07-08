@@ -32,7 +32,15 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 //        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
 	const char* npi = "NPI";
 	dba = DatabaseAccessor( npi );
-	dba.createTable("peaks","(subject varchar(32),session varchar(32),time bigint,waveform varchar(256))" );
+
+    	dba.runSQL("create database if not exists NPI;");
+    	dba.runSQL("use NPI;");
+
+    	dba.runSQL("drop table if exists peaks;");
+
+    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(256));" );
+
+	cout << "Database table created." << endl;
 
 	cont = MEFcont( info, csv.bufferSize );
 	info = info_;

@@ -55,8 +55,7 @@ vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstra
 
     for ( int i=0; i<(N-1); i++ ) { // the last block cannot contain a start
       cout << i << endl;
-      cout << toc[2][(i+1)];
-      cout << toc[2][(i)];
+      cout << toc[2][(i+1)] << "\t" << toc[2][(i)] << endl;
       dsamp.push_back( toc[2][(i+1)] - toc[2][i] );
       if ( toc[0][i] <= time1 ) {
         if ( toc[0][i] >= time0 ) {
