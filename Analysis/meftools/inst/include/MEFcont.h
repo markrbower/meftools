@@ -18,8 +18,8 @@ using namespace std;
 struct MEFconts {
   long long startTime;
   long long timeStep;
-  int startBlock;
-  int stopBlock;
+  int startSample;
+  int stopSample;
 };
 
 class MEFcont {

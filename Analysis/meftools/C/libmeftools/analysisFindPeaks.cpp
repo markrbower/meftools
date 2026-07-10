@@ -28,6 +28,8 @@ using namespace std;
 analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ ) : circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;
+	cont = cont_;
+	info = info_;
 
 //        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
 	const char* npi = "NPI";
@@ -41,9 +43,6 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
     	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(256));" );
 
 	cout << "Database table created." << endl;
-
-	cont = MEFcont( info, csv.bufferSize );
-	info = info_;
 }
 
 void analysisFindPeaks::compute() {
@@ -74,10 +73,19 @@ void analysisFindPeaks::compute() {
 	kb::math::FiltFilt<double> filtfilt(fc);
 
         // Iterate through the given section, find peaks, blackout, then store.
+        cout << "AFP: starting cont loop" << endl;
 	while ( cont.hasNext() ) {
+            cout << "AFP: in a cont" << endl;
 	    // I only need a ring buffer of size "window".
             MEFiter iter = cont.next();
+
+
+            // What is in this "cont"?
+            // Why isn't the MEFiter running anything?
+
+
             while ( iter.hasNext() ) {
+                cout << "AFP: in an iter" << endl;
 		vector<int> data = iter.next();
 		std::vector<double> signal(data.begin(), data.end());
 

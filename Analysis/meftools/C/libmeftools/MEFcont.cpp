@@ -50,33 +50,42 @@ vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstra
     int N = disc.size();
     cout << "nbr discontinuities: " << N << endl;
 
-    cout << "Number of blocks: " << N << endl;
     toc = info.getToC();
 
+    // Whether the first and last have discontinuity flags or not,
+    // they are still "starts" and "stops".
+    int firstStart = 0;
+    int lastStop = N;
+    cout << "Time Window:\t" << time0 << "\t" << time1 << endl;
     for ( int i=0; i<(N-1); i++ ) { // the last block cannot contain a start
       cout << i << endl;
-      cout << toc[2][(i+1)] << "\t" << toc[2][(i)] << endl;
+      cout << toc[0][(i)] << "\t" << toc[0][(i+1)] << endl;
+      cout << toc[1][(i)] << "\t" << toc[1][(i+1)] << endl;
+      cout << toc[2][(i)] << "\t" << toc[2][(i+1)] << "\t" << disc[i] << endl;
       dsamp.push_back( toc[2][(i+1)] - toc[2][i] );
-      if ( toc[0][i] <= time1 ) {
-        if ( toc[0][i] >= time0 ) {
-          if ( disc[i] == 1 ) {
-            contiguousStarts.push_back( i );
-	    contiguousStops.push_back( i-1 );
-          } 
+      if ( toc[0][i]>=time0 && toc[0][i]<=time1 ) {
+        cout << "In the window." << endl;
+        if ( disc[i]==1 || firstStart==0 ) {
+          cout << "A start occurs at: " << toc[0][i] << endl;
+          contiguousStarts.push_back( i );
+	  contiguousStops.push_back( i-1 );
+          firstStart = 1;
         }
+        lastStop = i;
       }
     }
-    contiguousStops.push_back( N-1 );
+    contiguousStops.push_back( lastStop );
     contiguousStops.erase( contiguousStops.begin() );
     cout << "Starts: " << contiguousStarts.size() << "\tStops: " << contiguousStops.size() << endl;
     
     N = contiguousStarts.size();
     for ( int i=0; i<N; i++ ) {
       MEFconts tmp;
-      tmp.startTime  = info.getToC()[2][contiguousStarts[i]];
+      tmp.startTime  = toc[0][contiguousStarts[i]];
       tmp.timeStep   = round( 1.0 / info.getHeader().sampling_frequency );
-      tmp.startBlock = info.getToC()[0][contiguousStarts[i]];
-      tmp.stopBlock  = info.getToC()[0][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
+      tmp.startSample = toc[2][contiguousStarts[i]];
+      tmp.stopSample  = toc[2][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
+      cout << "findContinuousSequences: StartSample: " << tmp.startSample << "\tStopSample: " << tmp.stopSample << endl;
       conts.push_back( tmp );
     }
     return( conts );
@@ -88,9 +97,10 @@ bool MEFcont::hasNext() {
 
 MEFiter MEFcont::next() {
     MEFconts mefconts = conts[counter];
-    int startBlock = mefconts.startBlock;
-    int stopBlock = mefconts.stopBlock;
-    MEFiter it = MEFiter( info, startBlock, stopBlock, bufferSize );
+    int startSample = mefconts.startSample;
+    int stopSample = mefconts.stopSample;
+    cout << "MEFcont: StartSample: " << startSample << "\tStopSample: " << stopSample << endl;
+    MEFiter it = MEFiter( info, startSample, stopSample, bufferSize );
     counter++;
     return( it ); 
 };

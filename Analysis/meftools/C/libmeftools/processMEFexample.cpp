@@ -39,7 +39,7 @@ void processMEFexample( string filename, string password, string subject, string
 	MEFcont mefCont = MEFcont( info, bufferSize );
         cout << "Entering analysisFindPeaks" << endl;
 	analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
-        cout << "Exiting analysisFindPeaks" << endl;
+        cout << "analysisFindPeaks object constructed" << endl;
 // Threshold
 	peaks.compute();
 	//peaks.store(); doesn't the analysis handle storage?
