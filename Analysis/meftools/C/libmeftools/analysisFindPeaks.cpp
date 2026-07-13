@@ -75,7 +75,7 @@ void analysisFindPeaks::compute() {
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
 	while ( cont.hasNext() ) {
-            cout << "AFP: in a cont" << endl;
+            cout << "AFP: in a cont. Getting MEFiter." << endl;
 	    // I only need a ring buffer of size "window".
             MEFiter iter = cont.next();
 

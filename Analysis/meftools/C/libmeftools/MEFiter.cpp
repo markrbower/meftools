@@ -26,19 +26,19 @@ MEFiter::MEFiter( MEFinfo info_, int block0, int block1, int stepSize ) : info(i
 	this->microsecondsPerSample = 1E6 / this->info.getHeader().sampling_frequency;
 
 	// Compute a stepSize that will distribute points equally among blocks
-	int nBlocks;
-	float fBlocks = (block1 - block0) / this->nBlocksPerStep;
-	if ( fBlocks - floor(fBlocks) > 0.5 ) { // round up
-		nBlocks = ceil( fBlocks );
+	int nSteps;
+	float fSteps = (block1 - block0) / this->nBlocksPerStep;
+	if ( fSteps - floor(fSteps) > 0.5 ) { // round up
+		nSteps = ceil( fSteps );
 	} else {
-		nBlocks = floor( fBlocks );
+		nSteps = floor( fSteps );
 	}
 		
-	this->stepSize = ceil( this->nBlocksPerStep / nBlocks );
+	this->stepSize = ceil( this->nBlocksPerStep / nSteps );
 	int nextStart; 
 	starts.push_back( block0 );
-	for ( int block=0; block<nBlocks; block++ ) {
-		nextStart = starts[block] + stepSize;
+	for ( int step=0; step<nSteps; step++ ) {
+		nextStart = starts[step] + stepSize;
 		stops.push_back( nextStart - 1 );
 		starts.push_back( nextStart );
 	}
@@ -75,15 +75,14 @@ vector<int> MEFiter::next() {
     	data = decomp_mef( info.getFilename(), s0, s1, info.getPassword() );
 
 	// Trim the data to exact timestamp requests
-	vector<long long> blockTime(2);
-	blockTime.push_back( info.getToC()[0][block0] );
-	blockTime.push_back( info.getToC()[0][block1] + (long long)round(dlast*1E6/info.getHeader().sampling_frequency) );
-	if ( blockTime[1]<=time0 & time0<=blockTime[2] ) { // requested start is within decoded data
-		int bad = ceil( (time0 - blockTime[1]) / microsecondsPerSample );
+	long long blockTimeStart = info.getToC()[0][block0];
+	long long blockTimeStop = info.getToC()[0][block1] + (long long)round(dlast*1E6*microsecondsPerSample);
+	if ( blockTimeStart<=time0 & time0<=blockTimeStop ) { // requested start is within decoded data
+		int bad = ceil( (time0 - blockTimeStart) / microsecondsPerSample );
 		data.erase( data.begin(), data.begin() + bad );
 	}
-	if ( blockTime[1]<=time1 & time1<=blockTime[2] ) { // requested stop is within decoded data
-		int bad = ceil( (blockTime[2] - time1) / microsecondsPerSample );
+	if ( blockTimeStart<=time1 & time1<=blockTimeStop ) { // requested stop is within decoded data
+		int bad = ceil( (blockTimeStop - time1) / microsecondsPerSample );
 		data.resize( data.size() - bad ); 
 	}
 

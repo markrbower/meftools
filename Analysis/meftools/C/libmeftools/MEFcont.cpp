@@ -35,6 +35,12 @@ MEFcont::MEFcont( MEFinfo info_, int bufferSize_ ) : info(info_) {
 };
 
 vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstraints ) {
+    // The term "continuous sequences" means "continuous blocks".
+    // This differs from sequential timestamps. MEF files are read in blocks.
+    // Read blocks and then pare samples to the specified time range.
+    // So, the desired input is Time Range, because it is needed at the end to refine.
+
+
     long long time0 = timeConstraints[0];
     long long time1 = timeConstraints[1];
     long long** toc;
