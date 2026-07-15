@@ -12,9 +12,9 @@ Yale University
 #include "MEFinfo.h"
 #include "MEFiter.h"
 #include "MEFanalysis.h"
-#include "MEFcont.h"
+#include "MEFconts.h"
 
-//MEFanalysis::MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ ) : info(info_), cont(cont_), dba(dba_) {
+//MEFanalysis::MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFconts conts_, DatabaseAccessor dba_ ) : info(info_), conts(conts_), dba(dba_) {
 //}
 
 

@@ -11,7 +11,7 @@ Yale University
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
-#include "MEFcont.h"
+#include "MEFconts.h"
 #include "MEFanalysis.h"
 #include "CircularBuffer.h"
 #include "CircularBufferMEF.h"
@@ -25,10 +25,10 @@ vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 using namespace std;
 
-analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ ) : circbuf(cb_) {
+analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFconts conts_, CircularBufferMEF_allPeaks cb_ ) : circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;
-	cont = cont_;
+	conts = conts_;
 	info = info_;
 
 //        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
@@ -46,7 +46,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 }
 
 void analysisFindPeaks::compute() {
-// Use MEFcont to supply contiguous sequences
+// Use MEFconts to supply contiguous sequences
 	char charArray[20];
 	map<long long, string> peaks;
 	map<string,string> fixed;
@@ -74,10 +74,10 @@ void analysisFindPeaks::compute() {
 
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
-	while ( cont.hasNext() ) {
+	while ( conts.hasNext() ) {
             cout << "AFP: in a cont. Getting MEFiter." << endl;
 	    // I only need a ring buffer of size "window".
-            MEFiter iter = cont.next();
+            MEFiter iter = conts.next();
 
 
             // What is in this "cont"?

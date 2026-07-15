@@ -10,7 +10,7 @@
 #include <string>
 #include <list>
 
-#include "MEFcont.h"
+#include "MEFconts.h"
 #include "CircularBufferMEF.h"
 #include "DatabaseAccessor.h"
 
@@ -36,11 +36,11 @@ class MEFanalysis {
 	AlgorithmSpecificVariables asv;
 	DatabaseAccessor dba;
 	MEFinfo info;
-	MEFcont cont;
+	MEFconts conts;
 	
 	MEFanalysis() {};
 
-	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, DatabaseAccessor dba_ ) {};
+	MEFanalysis( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFconts conts_, DatabaseAccessor dba_ ) {};
 
         virtual void compute() {};
         virtual void store( vector<long long> p, vector<vector<int>> v) {};

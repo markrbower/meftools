@@ -11,7 +11,7 @@ Yale University
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
-#include "MEFcont.h"
+#include "MEFconts.h"
 #include "MEFanalysis.h"
 
 #include "CircularBuffer.h"
@@ -27,7 +27,7 @@ private:
 public:
     CircularBufferMEF_allPeaks circbuf;
 
-    analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFcont cont_, CircularBufferMEF_allPeaks cb_ );
+    analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFconts conts_, CircularBufferMEF_allPeaks cb_ );
 
     void compute();
     void performance();

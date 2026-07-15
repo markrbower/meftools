@@ -86,15 +86,13 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     N = contiguousStarts.size();
     for ( int i=0; i<N; i++ ) {
       MEFcont tmp;
+      tmp.startBlock = contiguousStarts[i];
+      tmp.stopBlock = contiguousStops[i];
       tmp.startTime  = toc[0][contiguousStarts[i]];
       tmp.timeStep   = round( 1.0 / info.getHeader().sampling_frequency );
-
-
-// These should be blocks, not samples.
-
-
       tmp.startSample = toc[2][contiguousStarts[i]];
       tmp.stopSample  = toc[2][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
+      cout << "findContinuousSequences: StartBlock: " << tmp.startBlock << "\tStopBlock: " << tmp.stopBlock << endl;
       cout << "findContinuousSequences: StartSample: " << tmp.startSample << "\tStopSample: " << tmp.stopSample << endl;
       conts.push_back( tmp );
     }
@@ -107,10 +105,10 @@ bool MEFconts::hasNext() {
 
 MEFiter MEFconts::next() {
     MEFcont mefcont = conts[counter];
-    int startSample = mefcont.startSample;
-    int stopSample = mefcont.stopSample;
-    cout << "MEFconts: StartSample: " << startSample << "\tStopSample: " << stopSample << endl;
-    MEFiter it = MEFiter( info, startSample, stopSample, bufferSize );
+    int startBlk = mefcont.startBlock;
+    int stopBlk = mefcont.stopBlock;
+    cout << "MEFcont: StartBlock: " << startBlk << "\tStopBlock: " << stopBlk << endl;
+    MEFiter it = MEFiter( info, startBlk, stopBlk, bufferSize );
     counter++;
     return( it ); 
 };

@@ -16,6 +16,8 @@
 using namespace std;
 
 struct MEFcont {
+  int startBlock;
+  int stopBlock;
   long long startTime;
   long long timeStep;
   int startSample;
