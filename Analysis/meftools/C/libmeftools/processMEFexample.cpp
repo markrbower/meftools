@@ -11,7 +11,7 @@ Yale University
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
-#include "MEFcont.h"
+#include "MEFconts.h"
 #include "MEFanalysis.h"
 #include "CircularBufferMEF_allPeaks.h"
 #include "analysisFindPeaks.h"
@@ -36,9 +36,9 @@ void processMEFexample( string filename, string password, string subject, string
 	// Constructor for analysis
 	long long stepSize = info.getStepSize();
 	CircularBufferMEF_allPeaks circbuf = CircularBufferMEF_allPeaks( 100, 0L, stepSize );
-	MEFcont mefCont = MEFcont( info, bufferSize );
+	MEFconts mefConts = MEFconts( info, bufferSize );
         cout << "Entering analysisFindPeaks" << endl;
-	analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefCont, circbuf );
+	analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefConts, circbuf );
         cout << "analysisFindPeaks object constructed" << endl;
 // Threshold
 	peaks.compute();

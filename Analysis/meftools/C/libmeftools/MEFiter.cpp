@@ -43,6 +43,8 @@ MEFiter::MEFiter( MEFinfo info_, int block0, int block1, int stepSize ) : info(i
 	} else {
 		nSteps = floor( fSteps );
 	}
+	if ( nSteps == 0 ) { nSteps = 1; }
+	cout << "MEFiter: nSteps: " << nSteps << endl;
 		
 	this->stepSize = ceil( this->nBlocksPerStep / nSteps );
 	int nextStart; 
@@ -53,6 +55,7 @@ MEFiter::MEFiter( MEFinfo info_, int block0, int block1, int stepSize ) : info(i
 		starts.push_back( nextStart );
 	}
 	starts.pop_back();
+	cout << "MEFiter: nbr or starts: " << starts.size() << endl;
 	counter = 0;
 	counterLimit = starts.size();
 };

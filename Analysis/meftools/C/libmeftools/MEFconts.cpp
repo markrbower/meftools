@@ -107,7 +107,7 @@ MEFiter MEFconts::next() {
     MEFcont mefcont = conts[counter];
     int startBlk = mefcont.startBlock;
     int stopBlk = mefcont.stopBlock;
-    cout << "MEFcont: StartBlock: " << startBlk << "\tStopBlock: " << stopBlk << endl;
+    cout << "MEFconts: StartBlock: " << startBlk << "\tStopBlock: " << stopBlk << endl;
     MEFiter it = MEFiter( info, startBlk, stopBlk, bufferSize );
     counter++;
     return( it ); 

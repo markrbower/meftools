@@ -1,497 +1,500 @@
-    1  vi MEFiter.cpp
-    2  make MEFiter
-    3  vi MEFiter.cpp
-    4  make MEFiter
-    5  vi ../../inst/include/MEFiter.h
-    6  vi MEFiter.cpp
-    7  vi MEFinfo.cpp
-    8  vi ../../inst/include/MEFinfo.h
-    9  vi MEFinfo.cpp
-   10  vi ../../inst/include/MEFinfo.h
-   11  vi MEFinfo.cpp
-   12  vi ../../inst/include/MEFinfo.h
-   13  vi ../../inst/include/MEFinfo.h
-   14  vi ../../inst/include/MEFinfo.h
-   15  vi MEFinfo.cpp
-   16  make MEFinfo
-   17  vi ../../inst/include/MEFinfo.h
-   18  vi MEFinfo.cpp
-   19  make MEFinfo
-   20  make MEFiter
-   21  vi MEFiter.cpp
-   22  make MEFiter
-   23  vi MEFiter.cpp
-   24  make MEFiter
-   25  vi MEFiter.cpp
-   26  make MEFiter
-   27  vi MEFiter.cpp
-   28  make MEFiter
-   29  vi MEFiter.cpp
-   30  make MEFiter
-   31  vi MEFiter.cpp
-   32  make MEFiter
-   33  vi MEFiter.cpp
-   34  make MEFiter
-   35  vi MEFiter.cpp
-   36  make MEFiter
-   37  vi MEFiter.cpp
-   38  make MEFiter
-   39  vi MEFiter.cpp
-   40  make MEFiter
-   41  vi MEFiter.cpp
-   42  make MEFiter
-   43  vi MEFinfo.cpp
-   44  vi MEFinfo.cpp
-   45  vi ../../inst/include/MEFinfo.h
-   46  vi MEFiter.cpp
-   47  make MEFiter
-   48  vi ../../inst/include/MEFiter.h
-   49  make MEFiter
-   50  vi MEFiter.cpp
-   51  make MEFiter
-   52  vi MEFiter.cpp
-   53  make MEFiter
-   54  git add .
-   55  git commit -m "MEFiter just needs to compile with decomp_mef() call"
-   56  git push
-   57  ls
-   58  vi MEFiter.cpp
-   59  pwd
-   60  ls ../../src
-   61  vi ../../src/decomp_mef.cpp
-   62  vi MEFiter.cpp
-   63  vi ../../src/decomp_mef.cpp
-   64  vi MEFiter.cpp
-   65  ls
-   66  cp ../../src/decomp_mef.cpp .
-   67  ls
-   68  vi MEFiter.cpp
-   69  pwd
-   70  ls
-   71  vi decomp_mef.cpp
-   72  cp decomp_mef.cpp decomp_mef.Rcpp
-   73  vi Makefile
-   74  vi decomp_mef.cpp
-   75  pwd
-   76  ls ..
-   77  cd ..
-   78  ls
-   79  cd CSC_convert_v2/
-   80  ls
-   81  vi Makefile
-   82  ls
-   83  cd ../libmeftools/
-   84  ls
-   85  vi Makefile
-   86  pwd
-   87  vi Makefile
-   88  pwd
-   89  cd ..
-   90  ls
-   91  cd ..
-   92  ls
-   93  ls src
-   94  cd C
-   95  cd libmeftools/
-   96  ls
-   97  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-   98  vi decomp_mef.cpp
-   99  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  100  vi decomp_mef.cpp
-  101  ls
-  102  pwd
-  103  ls ../../src
-  104  vi ../../src/decomp_mef.cpp
-  105  vi decomp_mef.cpp
-  106  pwd
-  107  ls
-  108  vi decomp_mef.Rcpp 
-  109  vi decomp_mef.cpp
-  110  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  111  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include -w
-  112  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include -w
-  113  vi decomp_mef.cpp
-  114  vi decomp_mef.cpp
-  115  vi decomp_mef.cpp
-  116  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include -w
-  117  vi decomp_mef.cpp
-  118  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include -w
-  119  vi decomp_mef.cpp
-  120  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include -w
-  121  vi decomp_mef.cpp
-  122  g++ decomp_mef.cpp -o decomp_mef -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include -w
-  123  g++ decomp_mef.cpp -c decomp_mef.o -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  124  vi decomp_mef.cpp
-  125  vi Makefile
-  126  cp decomp_mef.cpp decomp_mef_backup.cpp
-  127  g++ -c decomp_mef.cpp -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  128  ls
-  129  git add 
-  130  git add .
-  131  git commit -m "decomp_mef compileds, but with a LOT of warnings"
-  132  git push
-  133  g++ -c decomp_mef.cpp -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  134  vi decomp_mef.cpp
-  135  g++ -c decomp_mef.cpp -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  136  vi decomp_mef.cpp
-  137  g++ -c decomp_mef.cpp -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  138  vi decomp_mef.cpp
-  139  g++ -c decomp_mef.cpp -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  140  vi decomp_mef.cpp
-  141  g++ -c decomp_mef.cpp -m64 -g -std=c++17 -I/Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/inst/include
-  142  vi MEFiter.cpp
-  143  vi Makefile
-  144  make decomp_mef
-  145  git add .
-  146  git commit -m "make decomp_mef compiles"
-  147  git push
-  148  make MEFiter
-  149  vi MEFiter.cpp
-  150  make MEFiter
-  151  vi decomp_mef.cpp
-  152  make decomp_mef
-  153  vi decomp_mef.cpp
-  154  vi decomp_mef.cpp
-  155  vi decomp_mef.cpp
-  156  make decomp_mef
-  157  vi decomp_mef.cpp
-  158  make decomp_mef
-  159  vi decomp_mef.cpp
-  160  make decomp_mef
-  161  vi decomp_mef.cpp
-  162  make decomp_mef
-  163  vi decomp_mef.cpp
-  164  vi decomp_mef.cpp
-  165  git add .
-  166  git commit -m "Trying to eliminate decomp_mef warnings"
-  167  git push
-  168  make MEFiter
-  169  vi MEFiter.cpp
-  170  ls
-  171  vi Makefile 
-  172  vi main_analysisLookingForPeaks.cpp 
-  173  vi processMEFexample.cpp
-  174  vi processMEFexample.cpp
-  175  vi analysisFindPeaks.cpp 
-  176  vi processMEFexample.cpp
-  177  vi processMEFexample.cpp
-  178  vi Makefile
-  179  make analysisFindPeaks
-  180  vi processMEFexample.cpp
-  181  vi analysisFindPeaks.cpp 
-  182  vi analysisFindPeaks.cpp 
-  183  vi decomp_mef.cpp
-  184  vi analysisFindPeaks.cpp 
-  185  make analysisFindPeaks
-  186  vi analysisFindPeaks.cpp 
-  187  vi ../../inst/include/analysisFindPeaks.h 
-  188  vi ../../inst/include/MEFanalysis.h 
-  189  ls *.o
-  190  make MEFanalysis
-  191  make analysisFindPeaks
-  192  vi analysisFindPeaks.cpp 
-  193  make analysisFindPeaks
-  194  vi ../../inst/include/MEFanalysis.h 
-  195  vi ../../inst/include/MEFanalysis.h 
-  196  make MEFanalysis
-  197  make analysisFindPeaks
-  198  vi analysisFindPeaks.cpp 
-  199  make analysisFindPeaks
-  200  vi analysisFindPeaks.cpp 
-  201  vi ../../inst/include/analysisFindPeaks.h 
-  202  vi ../../inst/include/MEFanalysis.h 
-  203  make MEFanalysis
-  204  make analysisFindPeaks
-  205  vi ../../inst/include/MEFanalysis.h 
-  206  make MEFanalysis
-  207  make analysisFindPeaks.cpp 
-  208  make analysisFindPeaks
-  209  vi analysisFindPeaks.cpp 
-  210  make analysisFindPeaks
-  211  vi MEFiter.cpp
-  212  vi analysisFindPeaks.cpp 
-  213  make analysisFindPeaks
-  214  vi analysisFindPeaks.cpp 
-  215  make analysisFindPeaks
-  216  vi ../../inst/include/MEFiter.h
-  217  make MEFiter
-  218  make analysisFindPeaks
-  219  vi analysisFindPeaks.cpp 
-  220  make analysisFindPeaks
-  221  git add .
-  222  git commit -m "analysisFindPeaks compiles"
-  223  git push
-  224  vi analysisFindPeaks.
-  225  vi analysisFindPeaks.cpp
-  226  vi ../../inst/include/analysisFindPeaks.h 
-  227  vi analysisFindPeaks.cpp
-  228  make analysisFindPeaks
-  229  vi analysisFindPeaks.cpp
-  230  make analysisFindPeaks
-  231  vi ../../inst/include/MEFanalysis.h
-  232  make MEFanalysis
-  233  vi MEFanalysis.cpp 
-  234  make MEFanalysis
-  235  vi analysisFindPeaks.cpp
-  236  make analysisFindPeaks.cpp 
-  237  make analysisFindPeaks
-  238  git status
-  239  git add .
-  240  git commit -m "Overloading functions in analysisFindPeaks.cpp"
-  241  git push
-  242  git status
-  243  pwd
-  244  cd ../..
-  245  git add .
-  246  git commit -m "Not keeping up with changes to header files"
-  247  git push
-  248  git status
-  249  pwd
-  250  ls
-  251  cd C/libmeftools/
+    2  git log --graph --all --oneline
+    3  pwd
+    4  git add .
+    5  git commit -m "DatabaseAccessor now has a fixed and variable-map insert option, which makes it more generally applicable."
+    6  git push
+    7  pwd
+    8  ssh -i ~/.ssh/cs-3/id_rsa markb-cloud@cg3-us27.cg3
+    9  ssh -i ~/.ssh/cs-3/id_rsa markb-cloud@cg3-us27.cg3
+   10  ssh -i ~/.ssh/cs-3/id_rsa markb-cloud@cg3-us27.cg3
+   11  ssh markb-cloud@cg3-us27.cg3
+   12  ls ~/.ssh
+   13  ls ~/.ssh/cs3
+   14  ssh -i ~/.ssh markb-cloud@cg3-us27.cg3
+   15  ls -al ~/.ssh
+   16  ssh -i ~/.ssh/cs-3/id_rsa markb-cloud@cg3-us27.cg3
+   17  nc
+   18  nc
+   19  pwd
+   20  cd ~/Dropbox/Documents
+   21  ls
+   22  cd Concepts/
+   23  ls
+   24  source ~/.bashrc
+   25  cd /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools
+   26  ls -al
+   27  git add .
+   28  git commit -m "Updated DatabaseAccessor mapInsert function."
+   29  git push
+   30  git add .
+   31  git commit -m "Switched CircularBuffer to type double, because the filtering returns double"
+   32  git push
+   33  ls
+   34  make analysisFindPeaks
+   35  vi analysisFindPeaks.cpp 
+   36  make analysisFindPeaks.cpp 
+   37  make analysisFindPeaks
+   38  vi ../../inst/include/DatabaseAccessor.h
+   39  vi DatabaseAccessor.cpp
+   40  make analysisFindPeaks
+   41  vi analysisFindPeaks.cpp 
+   42  make analysisFindPeaks.cpp 
+   43  make analysisFindPeaks
+   44  vi Makefile
+   45  make da
+   46  vi DatabaseAccessor.cpp
+   47  vi DatabaseAccessor.cpp
+   48  vi ../../inst/include/DatabaseAccessor.h
+   49  vi DatabaseAccessor.cpp
+   50  vi analysisFindPeaks.cpp 
+   51  make DatabaseAccessor
+   52  vi Makefile
+   53  make da
+   54  vi DatabaseAccessor.cpp
+   55  make da
+   56  vi DatabaseAccessor.cpp
+   57  pwd
+   58  vi analysisFindPeaks.cpp 
+   59  make analysisFindPeaks
+   60  vi analysisFindPeaks.cpp 
+   61  vi ../../inst/include/MEFanalysis.h 
+   62  vi MEFanalysis.cpp 
+   63  vi analysisFindPeaks.cpp 
+   64  ls
+   65  vi analysisFindPeaks.cpp 
+   66  vi processMEFexample.cpp
+   67  vi main_analysisLookingForPeaks.cpp 
+   68  vi processMEFexample.cpp
+   69  vi main_analysisLookingForPeaks.cpp 
+   70  vi processMEFexample.cpp
+   71  vi analysisFindPeaks.cpp 
+   72  vi ../../inst/include/MEFanalysis.h 
+   73  make analysisFindPeaks.cpp 
+   74  make analysisFindPeaks
+   75  vi analysisFindPeaks.cpp 
+   76  make analysisFindPeaks
+   77  vi analysisFindPeaks.cpp 
+   78  vi ../../inst/include/CircularBuffer.h 
+   79  vi analysisFindPeaks.cpp 
+   80  vi Makefile
+   81  make CircularBuffer
+   82  vi CircularBuffer.cpp 
+   83  make CircularBuffer
+   84  vi CircularBuffer.cpp 
+   85  make CircularBuffer
+   86  vi ../../inst/include/CircularBuffer.h 
+   87  vi CircularBuffer.cpp 
+   88  make CircularBuffer
+   89  vi analysisFindPeaks.cpp 
+   90  make analysisFindPeaks
+   91  vi ../../inst/include/analysisFindPeaks.h 
+   92  make analysisFindPeaks
+   93  vi analysisFindPeaks.cpp 
+   94  vi analysisFindPeaks.cpp 
+   95  make analysisFindPeaks
+   96  vi analysisFindPeaks.cpp 
+   97  vi ../../inst/include/MEFanalysis.h 
+   98  vi MEFanalysis.cpp 
+   99  vi processMEFexample.cpp
+  100  vi main_analysisLookingForPeaks.cpp 
+  101  vi MEFanalysis.cpp 
+  102  vi main_analysisLookingForPeaks.cpp 
+  103  vi processMEFexample.cpp
+  104  make main_analysisLookingForPeaks
+  105  vi main_analysisLookingForPeaks.cpp 
+  106  make main_analysisLookingForPeaks
+  107  vi main_analysisLookingForPeaks.cpp 
+  108  vi main_analysisLookingForPeaks.cpp 
+  109  vi main_analysisLookingForPeaks.cpp 
+  110  make main_analysisLookingForPeaks
+  111  vi Makefile
+  112  make main_aflp
+  113  vi Makefile
+  114  make main_alfp
+  115  make main_analysisLookingForPeaks
+  116  vi main_analysisLookingForPeaks.cpp 
+  117  make analysisFindPeaks
+  118  vi CircularBuffer.cpp
+  119  vi analysisFindPeaks.cpp 
+  120  vi analysisFindPeaks.cpp 
+  121  vi DatabaseAccessor.cpp
+  122  vi ../../inst/include/DatabaseAccessor.h
+  123  vi DatabaseAccessor.cpp
+  124  make da
+  125  make analysisFindPeaks
+  126  vi DatabaseAccessor.cpp
+  127  vi ../../inst/include/DatabaseAccessor.h
+  128  vi analysisFindPeaks.cpp 
+  129  make analysisFindPeaks
+  130  vi analysisFindPeaks.cpp 
+  131  make analysisFindPeaks
+  132  cd ~/Dropbox/Documents/Concepts/
+  133  ls
+  134  cd 2018_07_29_meftools/
+  135  ls
+  136  cd meftools/
+  137  ls
+  138  cd Analysis/
+  139  ls
+  140  cd meftools
+  141  ls
+  142  cd C
+  143  ls
+  144  cd libmeftools/
+  145  ls
+  146  vi CircularBuffer.cpp
+  147  vi CircularBufferMEF.cpp
+  148  cp CircularBuffer.cpp CircularBufferMEF.cpp
+  149  vi CircularBufferMEF.cpp 
+  150  vi CircularBufferMEF.cpp 
+  151  cp ../../inst/include/CircularBuffer.h ../../inst/include/CircularBufferMEF.h
+  152  vi ../../inst/include/CircularBufferMEF.h
+  153  cd /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/libmeftools
+  154  ls
+  155  vi analysisFindPeaks.cpp 
+  156  vi ../../inst/include/MEFinfo.h
+  157  vi ../../inst/include/MEFinfo.h
+  158  vi ../../inst/include/MEFinfo.h
+  159  vi MEFinfo.cpp
+  160  vi analysisFindPeaks.cpp 
+  161  vi MEFconts.cpp
+  162  vi ../../inst/include/MEFinfo.h
+  163  vi MEFinfo.cpp
+  164  vi MEFinfo.cpp
+  165  vi ../../inst/include/MEFinfo.h
+  166  make MEFinfo
+  167  vi ../../inst/include/meftools_types.h 
+  168  vi ../../inst/include/MEFinfo.h
+  169  vi MEFinfo.cpp
+  170  make MEFinfo
+  171  vi MEFinfo.cpp
+  172  make MEFinfo
+  173  vi MEFinfo.cpp
+  174  make MEFinfo
+  175  vi MEFinfo.cpp
+  176  vi MEFinfo.cpp
+  177  make MEFinfo
+  178  vi MEFinfo.cpp
+  179  make MEFinfo
+  180  vi MEFinfo.cpp
+  181  make MEFinfo
+  182  vi MEFinfo.cpp
+  183  make MEFinfo
+  184  vi MEFinfo.cpp
+  185  vi analysisFindPeaks.cpp 
+  186  vi CircularBufferMEF.cpp
+  187  vi ../../inst/include/CircularBufferMEF.h
+  188  vi CircularBufferMEF.cpp
+  189  vi analysisFindPeaks.cpp 
+  190  vi processMEFexample.cpp
+  191  vi analysisFindPeaks.cpp 
+  192  vi processMEFexample.cpp
+  193  vi processMEFexample.cpp
+  194  vi analysisFindPeaks.cpp 
+  195  vi processMEFexample.cpp
+  196  ls
+  197  cp CircularBufferMEF.cpp CircularBufferMEF_.cpp
+  198  cp CircularBufferMEF_.cpp CircularBufferMEF_threshold.cpp
+  199  cp CircularBufferMEF_.cpp CircularBufferMEF_NPI.cpp
+  200  cp CircularBufferMEF_.cpp CircularBufferMEF_P13.cpp
+  201  ls
+  202  rm CircularBufferMEF_.cpp
+  203  ls
+  204  vi CircularBufferMEF_threshold.cpp 
+  205  vi CircularBufferMEF_threshold.cpp
+  206  rm CircularBufferMEF_NPI.cpp 
+  207  rm CircularBufferMEF_P13.cpp 
+  208  cp CircularBufferMEF_threshold.cpp CircularBufferMEF_NPI.cpp
+  209  cp CircularBufferMEF_threshold.cpp CircularBufferMEF_P13.cpp
+  210  ls
+  211  vi CircularBufferMEF_NPI.cpp
+  212  vi CircularBufferMEF_P13.cpp
+  213  vi ../../inst/include/CircularBufferMEF.h
+  214  vi ../../inst/include/CircularBuffer.h
+  215  vi CircularBufferMEF_threshold.cpp
+  216  cp ../../inst/include/CircularBufferMEF.h ../../inst/include/CircularBufferMEF_.h
+  217  vi ../../inst/include/CircularBuffer_.h
+  218  vi ../../inst/include/CircularBufferMEF_.h
+  219  vi ../../inst/include/CircularBufferMEF_.h ../../inst/include/CircularBufferMEF_threshold.h
+  220  vi ../../inst/include/CircularBufferMEF_.h
+  221  cp ../../inst/include/CircularBufferMEF_.h ../../inst/include/CircularBufferMEF_threshold.h
+  222  vi ../../inst/include/CircularBufferMEF_threshold.h
+  223  cp ../../inst/include/CircularBufferMEF_.h ../../inst/include/CircularBufferMEF_NPI.h
+  224  cp ../../inst/include/CircularBufferMEF_.h ../../inst/include/CircularBufferMEF_P13.h
+  225  vi ../../inst/include/CircularBufferMEF_NPI.h
+  226  vi ../../inst/include/CircularBufferMEF_P13.h
+  227  make CircularBuffer
+  228  make CircularBufferMEF
+  229  ls
+  230  vi Makefile
+  231  make CircularBufferMEF_threshold
+  232  vi CircularBufferMEF_threshold.cpp
+  233  vi ../../inst/include/CircularBufferMEF.h
+  234  vi ../../inst/include/CircularBufferMEF_threshold.h
+  235  make CircularBufferMEF_threshold
+  236  vi ../../inst/include/CircularBufferMEF.h
+  237  make CircularBufferMEF_threshold
+  238  vi CircularBufferMEF.cpp
+  239  vi CircularBuffer.cpp
+  240  vi CircularBufferMEF_threshold.cpp
+  241  make CircularBufferMEF_threshold
+  242  vi Makefile
+  243  vi CircularBufferMEF_NPI.cpp
+  244  make CircularBufferMEF_NPI
+  245  vi Makefile
+  246  make CircularBufferMEF_
+  247  vi ../../inst/include/CircularBufferMEF.h
+  248  make CircularBufferMEF_NPI
+  249  make CircularBufferMEF_P13
+  250  vi CircularBufferMEF_P13.cpp
+  251  make CircularBufferMEF_P13
   252  ls
-  253  ls
-  254  ls
-  255  vi MySQL_example.cpp
-  256  vi main_analysisLookingForPeaks.cpp 
-  257  vi processMEFexample.cpp
-  258  vi analysisFindPeaks.cpp
-  259  git add .
-  260  git commit -m "Added createTable to DatabaseAccessor"
-  261  git push
-  262  cd ../..
-  263  git add .
-  264  git commit -m "Updated DatabaseAccessor"
-  265  git push
+  253  vi ../../inst/include/CircularBufferMEF.h
+  254  vi CircularBufferMEF.cpp
+  255  vi Makefile
+  256  vi Makefile
+  257  make CircularBuffer
+  258  make CircularBufferMEF
+  259  vi ../../inst/include/CircularBufferMEF.h
+  260  make CircularBufferMEF
+  261  vi ../../inst/include/CircularBufferMEF.h
+  262  make CircularBufferMEF
+  263  pwd
+  264  vi analysisFindPeaks.cpp 
+  265  vi ../../inst/include/MEFcont.h
   266  ls
-  267  cd C
-  268  cd libmeftools/
-  269  ls
-  270  vi analysisFindPeaks.cpp
-  271  vi Makefile
-  272  make analysisFindPeaks
-  273  vi analysisFindPeaks.cpp
-  274  vi ../../inst/include/DatabaseAccessor.h
-  275  vi ../../inst/include/MEFanalysis.h 
-  276  make analysisFindPeaks
-  277  vi ../../inst/include/MEFanalysis.h 
-  278  vi analysisFindPeaks.cpp
-  279  vi Makefile
-  280  vi Makefile
-  281  make analysisFindPeaks
-  282  vi ../../inst/include/MEFanalysis.h 
-  283  vi ../../inst/include/DatabaseAccessor.h
-  284  vi ../../inst/include/MEFanalysis.h 
-  285  vi ../../inst/include/DatabaseAccessor.h
-  286  make analysisFindPeaks
-  287  vi analysisFindPeaks.cpp 
-  288  vi analysisFindPeaks.cpp 
-  289  vi ../../inst/include/analysisFindPeaks.h 
-  290  vi ../../inst/include/MEFanalysis.h 
-  291  vi ../../inst/include/DatabaseAccessor.h
-  292  make analysisFindPeaks
-  293  vi ../../inst/include/DatabaseAccessor.h
-  294  make analysisFindPeaks
-  295  vi ../../inst/include/DatabaseAccessor.h
-  296  vi DatabaseAccessor.cpp
-  297  make analysisFindPeaks
-  298  vi analysisFindPeaks.cpp 
-  299  vi analysisFindPeaks.cpp 
-  300  make analysisFindPeaks
-  301  vi DatabaseAccessor.cpp
-  302  vi ../../inst/include/DatabaseAccessor.h
-  303  make DatabaseAccessor
-  304  vi Makefile
-  305  make da
-  306  vi DatabaseAccessor.cpp
-  307  make da
-  308  vi ../../inst/include/DatabaseAccessor.h
-  309  vi DatabaseAccessor.cpp
-  310  vi DatabaseAccessor.cpp
-  311  make da
-  312  vi DatabaseAccessor.cpp
-  313  vi ../../inst/include/DatabaseAccessor.h
-  314* 
-  315  vi ../../inst/include/DatabaseAccessor.h
-  316  make da
-  317  vi DatabaseAccessor.cpp
-  318  vi DatabaseAccessor.cpp
-  319  make da
-  320  vi ../../inst/include/DatabaseAccessor.h
-  321  vi DatabaseAccessor.cpp
-  322  make da
-  323  vi DatabaseAccessor.cpp
-  324  make da
-  325  vi DatabaseAccessor.cpp
-  326  vi DatabaseAccessor.cpp
-  327  make da
-  328  vi DatabaseAccessor.cpp
-  329  vi DatabaseAccessor.cpp
-  330  vi DatabaseAccessor.cpp
-  331  make da
-  332  vi DatabaseAccessor.cpp
-  333  make da
-  334  vi DatabaseAccessor.cpp
-  335  make da
-  336  vi DatabaseAccessor.cpp
-  337  vi ../../inst/include/DatabaseAccessor.h
-  338  vi DatabaseAccessor.cpp
-  339  make da
-  340  vi DatabaseAccessor.cpp
-  341  make da
-  342  vi ../../inst/include/DatabaseAccessor.h
-  343  vi DatabaseAccessor.cpp
-  344  make da
-  345  vi ../../inst/include/DatabaseAccessor.h
-  346  vi DatabaseAccessor.cpp
-  347  make da
-  348  vi DatabaseAccessor.cpp
-  349  vi ../../inst/include/DatabaseAccessor.h
-  350  vi DatabaseAccessor.cpp
-  351  vi analysisFindPeaks.cpp 
-  352  vi ../../inst/include/DatabaseAccessor.h
-  353  vi DatabaseAccessor
-  354  vi DatabaseAccessor.cpp
-  355  make da
-  356  vi DatabaseAccessor.cpp
-  357  make da
-  358  vi DatabaseAccessor.cpp
-  359  vi ../../inst/include/DatabaseAccessor.h
-  360  make da
-  361  vi ../../inst/include/DatabaseAccessor.h
-  362  vi DatabaseAccessor.cpp
-  363  make da
-  364  vi ../../inst/include/DatabaseAccessor.h
-  365  vi DatabaseAccessor.cpp
-  366  make da
-  367  vi DatabaseAccessor.cpp
-  368  vi ../../inst/include/DatabaseAccessor.h
-  369  make da
-  370  vi DatabaseAccessor.cpp
-  371  make da
-  372  vi DatabaseAccessor.cpp
-  373  make da
-  374  vi DatabaseAccessor.cpp
-  375  vi DatabaseAccessor.cpp
-  376  vi ../../inst/include/DatabaseAccessor.h
-  377  vi DatabaseAccessor.cpp
-  378  make da
-  379  vi ../../inst/include/DatabaseAccessor.h
-  380  vi ../../inst/include/DatabaseAccessor.h
-  381  vi DatabaseAccessor.cpp
-  382  vi DatabaseAccessor.cpp
-  383  make da
-  384  vi DatabaseAccessor.cpp
-  385  make da
-  386  cd ../..
-  387  git add .
-  388  git commit -m "DatabaseAccessor compiles with new query format"
-  389  git push
-  390  ls
-  391  cd C
-  392  ls
-  393  cd libmeftools/
-  394  ls
-  395  vi DatabaseAccessor.cpp
-  396  vi analysisFindPeaks.cpp 
-  397  cd ..
-  398  cd ..
-  399  pwd
-  400  git add .
-  401  git commit -m "Preparing to branch for PreparedStatements"
-  402  git push
-  403  git checkout -b usePreparedStatement
-  404  cd C/libmeftools/
-  405  ls
-  406  vi analysisFindPeaks.cpp 
-  407  vi Makefile
-  408  make da
-  409  vi DatabaseAccessor.cpp
-  410  ls -al
-  411  vi DatabaseAccessor_test.cpp
-  412  rm .DatabaseAccessor.cpp.swp 
-  413  rm .DatabaseAccessor_test.cpp.swp 
-  414  vi DatabaseAccessor.cpp
-  415  make da
-  416  vi DatabaseAccessor.cpp
-  417  make da
-  418  vi DatabaseAccessor.cpp
-  419  make da
-  420  vi ../../inst/include/DatabaseAccessor.h
-  421  vi DatabaseAccessor.cpp
-  422  make da
-  423  vi DatabaseAccessor.cpp
-  424  make da
-  425  vi DatabaseAccessor.cpp
-  426  make da
-  427  vi DatabaseAccessor.cpp
-  428  make da
-  429  ls /usr/include
-  430  ls /opt/homebrew/Cellar/mysql-client
-  431  ls /opt/homebrew/Cellar/
-  432  mysql -u root
-  433  brew install mysql-client
-  434  pwd
-  435  make da
-  436  ls /opt/homebrew/opt
-  437  ls /opt/homebrew/opt/mysql-client/inc
-  438  ls /opt/homebrew/opt/mysql-client/include/
-  439  mysql -u root
-  440  vi Makefile
-  441  ls /opt/homebrew/opt/mysql-client/include/
-  442  vi Makefile
-  443  vi Makefile
-  444  make da
-  445  vi Makefile
-  446  make da
-  447  vi DatabaseAccessor.cpp
-  448  make da
-  449  vi DatabaseAccessor.cpp
-  450  make da
-  451  vi DatabaseAccessor.cpp
-  452  make da
-  453  vi DatabaseAccessor.cpp
-  454  make da
-  455  vi DatabaseAccessor.cpp
-  456  make da
-  457  vi DatabaseAccessor.cpp
-  458  make da
-  459  vi DatabaseAccessor.cpp
-  460  make da
-  461  vi DatabaseAccessor.cpp
-  462  make da
-  463  vi DatabaseAccessor.cpp
-  464  make da
-  465  vi DatabaseAccessor.cpp
-  466  make da
-  467  vi DatabaseAccessor.cpp
-  468  make da
-  469  vi DatabaseAccessor.cpp
-  470  cd ../..
-  471  git add .
-  472  git commit -m "DatabaseAccessor uses PreparedStatement"
-  473  git push
-  474  git push --set-upstream origin usePreparedStatement
-  475  pwd
-  476  v C/libmeftools/
-  477  cd C/libmeftools/
-  478  vi DatabaseAccessor_test.cpp
-  479  vi Makefile
-  480  make da_test
-  481  vi DatabaseAccessor_test.cpp
-  482  make da_test
-  483  vi DatabaseAccessor_test.cpp
-  484  make da_test
-  485  make da_test
-  486  make da_test
-  487  vi Makefile
-  488  make da_test
-  489  vi DatabaseAccessor_test.cpp
-  490  make da_test
-  491  vi Makefile
-  492  vi DatabaseAccessor_test.cpp
-  493  vi Makefile
-  494  ls /opt/homebrew/
-  495  ls /opt/homebrew/lib
-  496  vi Makefile
-  497  history > tmp
+  267  vi MEFinfo.cpp
+  268  vi ../../inst/include/MEFcont.h
+  269  vi MEFcont.cpp
+  270  vi ../../inst/include/MEFcont.h
+  271  vi MEFcont.cpp
+  272  vi analysisFindPeaks.cpp 
+  273  vi MEFcont.cpp
+  274  vi MEFinfo.cpp
+  275  vi MEFinfo.cpp
+  276  vi ../../inst/include/MEFcont.h
+  277  vi MEFinfo.cpp
+  278  make MEFinfo
+  279  vi MEFinfo.cpp
+  280  make MEFinfo
+  281  vi MEFinfo.cpp
+  282  vi ../../inst/include/MEFinfo.h
+  283  vi MEFinfo.cpp
+  284  vi ../../inst/include/MEFcont.h
+  285  vi MEFinfo.cpp
+  286  vi Makefile
+  287  make MEFinfo
+  288  vi MEFinfo.cpp
+  289  vi ../../inst/include/meftools_types.h 
+  290  vi MEFinfo.cpp
+  291  vi MEFinfo.cpp
+  292  vi ../../inst/include/MEFinfo.h
+  293  make MEFinfo
+  294  vi ../../inst/include/MEFinfo.h
+  295  make MEFinfo
+  296  make MEFinfo
+  297  vi ../../inst/include/MEFinfo.h
+  298  vi CircularBufferMEF.cpp
+  299  vi ../../inst/include/CircularBufferMEF.h
+  300  vi Makefile
+  301  make CircularBufferMEF
+  302  vi ../../inst/include/CircularBufferMEF.h
+  303  make CircularBufferMEF
+  304  vi CircularBufferMEF.cpp
+  305  vi CircularBufferMEF.cpp
+  306  vi ../../inst/include/CircularBufferMEF.h
+  307  vi CircularBufferMEF.cpp
+  308  make CircularBufferMEF
+  309  vi ../../inst/include/CircularBufferMEF.h
+  310  vi ../../inst/include/CircularBuffer.h
+  311  vi CircularBuffer.cpp
+  312  vi ../../inst/include/CircularBufferMEF.h
+  313  vi CircularBuffer.cpp
+  314  vi ../../inst/include/CircularBuffer.h
+  315  vi ../../inst/include/CircularBufferMEF.h
+  316  vi CircularBufferMEF.cpp
+  317  vi ../../inst/include/CircularBuffer.h
+  318  vi CircularBufferMEF.cpp
+  319  vi CircularBuffer.cpp
+  320  vi CircularBufferMEF.cpp
+  321  make CircularBuffer
+  322  make CircularBufferMEF
+  323  vi CircularBuffer.cpp
+  324  vi ../../inst/include/CircularBuffer.h
+  325  vi CircularBuffer.cpp
+  326  make CircularBuffer
+  327  vi CircularBuffer.cpp
+  328  make CircularBuffer
+  329  make CircularBufferMEF
+  330  vi ../../inst/include/CircularBufferMEF.h
+  331  make CircularBufferMEF
+  332  python3 /Users/markbower/Dropbox/Documents/Concepts/2021_12_11_2021_Scraping/Analysis/scraping/Python/scraper/main.py
+  333  cd /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/libmeftools
+  334  cd ../..
+  335  ls -al
+  336  git add .
+  337  git commit -m "Created CircularBufferMEF"
+  338  git push
+  339  git add .
+  340  git commit -m "Created MEFconts in MEFinfo.h to hold three variables"
+  341  git push
+  342  git add .
+  343  git commit -m "Added timeStep to MEFinfo"
+  344  git push
+  345  git add .
+  346  git commit -m "Modified CircularBufferMEF to include the timeStep"
+  347  git push
+  348  git add .
+  349  git commit -m "CircularBufferMEF extends CircularBuffer"
+  350  git push
+  351  cd /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/libmeftools
+  352  cd ../..
+  353  ls -al
+  354  git add .
+  355  git commit -m "Created CircularBufferMEF"
+  356  git push
+  357  git add .
+  358  git commit -m "Created MEFconts in MEFinfo.h to hold three variables"
+  359  git push
+  360  git add .
+  361  git commit -m "Added timeStep to MEFinfo"
+  362  git push
+  363  git add .
+  364  git commit -m "Modified CircularBufferMEF to include the timeStep"
+  365  git push
+  366  git add .
+  367  git commit -m "CircularBufferMEF extends CircularBuffer"
+  368  git push
+  369  git add .
+  370  git commit -m "CircularBufferMEF_X isPeak() compiles"
+  371  git push
+  372  ls -al
+  373  vi MEFiter.cpp
+  374  vi MEFiter.cpp
+  375  vi .MEFiter.cpp.swp
+  376  more .MEFiter.cpp.swp
+  377  more .MEFiter.cpp.swp
+  378  vi .MEFiter.cpp.swp
+  379  rm .MEFiter.cpp.swp
+  380  pwd
+  381  ls
+  382  ls -al
+  383  vi MEFcont.cpp
+  384  vi MEFiter.cpp
+  385  vi MEFcont.cpp
+  386  vi decomp_mef.cpp
+  387  vi MEFcont.cpp
+  388  vi MEFiter.cpp
+  389  vi processMEFexample.cpp
+  390  vi analysisFindPeaks.cpp
+  391  vi processMEFexample.cpp
+  392  vi MEFcont.cpp
+  393  vi MEFiter.cpp
+  394  make MEFiter
+  395  vi MEFiter.cpp
+  396  make MEFiter
+  397  vi MEFiter.cpp
+  398  vi MEFcont.cpp
+  399  make MEFcont
+  400  vi Makefile
+  401  mv ../../inst/include/MEFcont.h ../../inst/include/MEFconts.h
+  402  vi ../../inst/include/MEFconts.h
+  403  mv MEFcont.cpp MEFconts.cpp
+  404  rm MEFcont.o
+  405  vi Makefile
+  406  vi Makefile
+  407  vi MEFconts.cpp
+  408  make MEFconts
+  409  vi MEFconts.cpp
+  410  make MEFconts
+  411  vi MEFconts.cpp
+  412  vi ../../inst/include/MEFconts.h
+  413  make MEFconts
+  414  vi ../../inst/include/MEFiter.h
+  415  vi MEFiter.cpp
+  416  vi MEFconts.cpp
+  417  make MEFconts
+  418  make MEFiter
+  419  make MEFcont
+  420  vi analysisFindPeaks.cpp
+  421  vi ../../inst/include/analysisFindPeaks.h 
+  422  make analysisFindPeaks
+  423  vi ../../inst/include/analysisFindPeaks.h 
+  424  vi ../../inst/include/MEFanalysis.h 
+  425  make analysisFindPeaks
+  426  vi analysisFindPeaks.cpp 
+  427  make analysisFindPeaks
+  428  vi analysisFindPeaks.cpp 
+  429  vi ../../inst/include/analysisFindPeaks.h 
+  430  vi ../../inst/include/analysisFindPeaks.h 
+  431  vi ../../inst/include/MEFanalysis.h 
+  432  make analysisFindPeaks
+  433  make MEFanalysis
+  434  vi MEFanalysis.cpp 
+  435  make MEFanalysis
+  436  ls -al
+  437  vi MEFiter.cpp
+  438  vi MEFiter.cpp
+  439  vi .MEFiter.cpp.swp
+  440  more .MEFiter.cpp.swp
+  441  more .MEFiter.cpp.swp
+  442  vi .MEFiter.cpp.swp
+  443  rm .MEFiter.cpp.swp
+  444  pwd
+  445  ls
+  446  ls -al
+  447  vi MEFcont.cpp
+  448  vi MEFiter.cpp
+  449  vi MEFcont.cpp
+  450  vi decomp_mef.cpp
+  451  vi MEFcont.cpp
+  452  vi MEFiter.cpp
+  453  vi processMEFexample.cpp
+  454  vi analysisFindPeaks.cpp
+  455  vi processMEFexample.cpp
+  456  vi MEFcont.cpp
+  457  vi MEFiter.cpp
+  458  make MEFiter
+  459  vi MEFiter.cpp
+  460  make MEFiter
+  461  vi MEFiter.cpp
+  462  vi MEFcont.cpp
+  463  make MEFcont
+  464  vi Makefile
+  465  mv ../../inst/include/MEFcont.h ../../inst/include/MEFconts.h
+  466  vi ../../inst/include/MEFconts.h
+  467  mv MEFcont.cpp MEFconts.cpp
+  468  rm MEFcont.o
+  469  vi Makefile
+  470  vi Makefile
+  471  vi MEFconts.cpp
+  472  make MEFconts
+  473  vi MEFconts.cpp
+  474  make MEFconts
+  475  vi MEFconts.cpp
+  476  vi ../../inst/include/MEFconts.h
+  477  make MEFconts
+  478  vi ../../inst/include/MEFiter.h
+  479  vi MEFiter.cpp
+  480  vi MEFconts.cpp
+  481  make MEFconts
+  482  make MEFiter
+  483  make MEFcont
+  484  vi analysisFindPeaks.cpp
+  485  vi ../../inst/include/analysisFindPeaks.h 
+  486  make analysisFindPeaks
+  487  vi ../../inst/include/analysisFindPeaks.h 
+  488  vi ../../inst/include/MEFanalysis.h 
+  489  make analysisFindPeaks
+  490  vi analysisFindPeaks.cpp 
+  491  make analysisFindPeaks
+  492  vi analysisFindPeaks.cpp 
+  493  vi ../../inst/include/analysisFindPeaks.h 
+  494  vi ../../inst/include/analysisFindPeaks.h 
+  495  vi ../../inst/include/MEFanalysis.h 
+  496  make analysisFindPeaks
+  497  make MEFanalysis
+  498  vi MEFanalysis.cpp 
+  499  make MEFanalysis
+  500  pwd
+  501  history > tmp
