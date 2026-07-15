@@ -1,3 +1,13 @@
+/* MEFiter.cpp
+   Mark R. Bower
+   Yale University
+
+   This class is intended to be called by MEFcont.cpp,
+   which breaks MEF files into a vector of continuous sequences.
+   This class assumes that the data in [ block0, block1 ] inclusive
+   consists of continuous data.
+
+*/
 #include <string>
 #include <iostream>
 

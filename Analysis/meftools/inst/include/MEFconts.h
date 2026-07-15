@@ -1,5 +1,5 @@
-#ifndef MEF_CONT_H
-#define MEF_CONT_H
+#ifndef MEF_CONTS_H
+#define MEF_CONTS_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,27 +15,27 @@
 
 using namespace std;
 
-struct MEFconts {
+struct MEFcont {
   long long startTime;
   long long timeStep;
   int startSample;
   int stopSample;
 };
 
-class MEFcont {
+class MEFconts {
 private:
   string filename;
   string password;
   int bufferSize;
-  vector<MEFconts> conts;
+  vector<MEFcont> conts;
   int counter;
   int counterLimit;
   MEFinfo info;
-  vector<MEFconts> findContinuousSequences( vector<long long> timeConstraints );
+  vector<MEFcont> findContinuousSequences( vector<long long> timeConstraints );
 
 public:
-  MEFcont() {};
-  MEFcont( MEFinfo info_, int bufferSize );
+  MEFconts() {};
+  MEFconts( MEFinfo info_, int bufferSize );
   bool hasNext();
   MEFiter next();
 };

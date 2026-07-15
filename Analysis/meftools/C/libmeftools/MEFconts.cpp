@@ -1,11 +1,11 @@
-// MEFcont.cpp
-// Mark R. Bower
-// Yale University
-/*
+/* MEFconts.cpp
+   Mark R. Bower
+   Yale University
+
   #' Creates an iterator of contiguous MEF sequences.
   #' 
   #'  timeConstraints <- NPI:::checkTimeConstraints( compArgs_caseSpecific$get('info'), case )
-  #'  iterCont <- meftools::MEFcont( filename, 'erlichda', compArgs_caseSpecific$get('bufferSize'), window=timeConstraints, info=compArgs_caseSpecific$get('info') )
+  #'  iterCont <- meftools::MEFconts( filename, 'erlichda', compArgs_caseSpecific$get('bufferSize'), window=timeConstraints, info=compArgs_caseSpecific$get('info') )
 */
 #include <string>
 #include <iostream>
@@ -14,12 +14,12 @@
 #include "meftools_types.h"
 #include "MEFinfo.h"
 #include "MEFiter.h"
-#include "MEFcont.h"
+#include "MEFconts.h"
 
 using namespace std;
 
-MEFcont::MEFcont( MEFinfo info_, int bufferSize_ ) : info(info_) {
-    cout << "Creating MEFcont" << endl;
+MEFconts::MEFconts( MEFinfo info_, int bufferSize_ ) : info(info_) {
+    cout << "Creating MEFconts" << endl;
 
     bufferSize = bufferSize_;
 
@@ -31,15 +31,14 @@ MEFcont::MEFcont( MEFinfo info_, int bufferSize_ ) : info(info_) {
     counter = 0;
     counterLimit = this->conts.size();
 
-    cout << "MEFcont created." << endl;
+    cout << "MEFconts created." << endl;
 };
 
-vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstraints ) {
+vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstraints ) {
     // The term "continuous sequences" means "continuous blocks".
     // This differs from sequential timestamps. MEF files are read in blocks.
     // Read blocks and then pare samples to the specified time range.
     // So, the desired input is Time Range, because it is needed at the end to refine.
-
 
     long long time0 = timeConstraints[0];
     long long time1 = timeConstraints[1];
@@ -48,7 +47,7 @@ vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstra
     int microsecPerSample = 1E6/info.getHeader().sampling_frequency;
     cout << "Sample: " << microsecPerSample << endl;
 
-    vector<MEFconts> conts;
+    vector<MEFcont> conts;
     vector<int> contiguousStarts;
     vector<int> contiguousStops;
     vector<long long> dsamp;
@@ -86,9 +85,14 @@ vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstra
     
     N = contiguousStarts.size();
     for ( int i=0; i<N; i++ ) {
-      MEFconts tmp;
+      MEFcont tmp;
       tmp.startTime  = toc[0][contiguousStarts[i]];
       tmp.timeStep   = round( 1.0 / info.getHeader().sampling_frequency );
+
+
+// These should be blocks, not samples.
+
+
       tmp.startSample = toc[2][contiguousStarts[i]];
       tmp.stopSample  = toc[2][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
       cout << "findContinuousSequences: StartSample: " << tmp.startSample << "\tStopSample: " << tmp.stopSample << endl;
@@ -97,15 +101,15 @@ vector<MEFconts> MEFcont::findContinuousSequences( vector<long long> timeConstra
     return( conts );
 }
 
-bool MEFcont::hasNext() {
+bool MEFconts::hasNext() {
     return( counter < counterLimit );
 };
 
-MEFiter MEFcont::next() {
-    MEFconts mefconts = conts[counter];
-    int startSample = mefconts.startSample;
-    int stopSample = mefconts.stopSample;
-    cout << "MEFcont: StartSample: " << startSample << "\tStopSample: " << stopSample << endl;
+MEFiter MEFconts::next() {
+    MEFcont mefcont = conts[counter];
+    int startSample = mefcont.startSample;
+    int stopSample = mefcont.stopSample;
+    cout << "MEFconts: StartSample: " << startSample << "\tStopSample: " << stopSample << endl;
     MEFiter it = MEFiter( info, startSample, stopSample, bufferSize );
     counter++;
     return( it ); 
