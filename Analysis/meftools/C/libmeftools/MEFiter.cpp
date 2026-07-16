@@ -30,7 +30,8 @@ MEFiter::MEFiter( MEFinfo info_, int block0, int block1, int stepSize ) : info(i
 	this->block1 = block1;
 	this->info   = info_;
 	this->stepSize = stepSize;
-	this->Nrows = round( sizeof( this->info.getToC() ) / ( 3 * sizeof(int) ) );
+	this->Nrows = info.getHeader().number_of_index_entries;
+	cout << "MEFiter constructor: Nrows: " << this->Nrows << endl;
 
 	this->nBlocksPerStep = round( stepSize / (this->info.getHeader().block_interval * 1E6) );
 	this->microsecondsPerSample = 1E6 / this->info.getHeader().sampling_frequency;
@@ -67,6 +68,7 @@ bool MEFiter::hasNext() { // Are there more data chunks in this continuous stret
 vector<int> MEFiter::next() {
 	vector<int> data;
 
+	cout << "MEFiter: stops[counter]: " << stops[counter] << "\tNrows: " << Nrows << endl;
 	block0 = starts[counter];
 	if ( stops[counter] > Nrows ) {
 		block1 = Nrows-1;
@@ -77,15 +79,17 @@ vector<int> MEFiter::next() {
 	long long tmp = ToC[ 2 ][ block0 ];
 	int s0 = static_cast<int>( tmp );
 	int s1;
-	if ( block1 == Nrows ) {
-		s1 = info.getHeader().number_of_samples;
+	if ( block1 >= (Nrows-1) ) {
+		s1 = info.getHeader().number_of_samples - 1;
 	} else {
 		s1 = (int) info.getToC()[ 2 ][ (block1+1) ] - 1;
 	}	
 	// dlast is the number of samples in the last block
 	int dlast = s1 - (int) info.getToC()[ 2 ][ block1 ] + 1;
 
+	cout << "decomp_mef: " << s0 << "\t" << s1 << endl;
     	data = decomp_mef( info.getFilename(), s0, s1, info.getPassword() );
+	cout << "From decomp_mef, the amount of data read: " << data.size() << endl;
 
 	// Trim the data to exact timestamp requests
 	long long blockTimeStart = info.getToC()[0][block0];

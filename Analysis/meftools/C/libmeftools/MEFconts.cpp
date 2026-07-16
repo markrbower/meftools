@@ -60,9 +60,9 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     // Whether the first and last have discontinuity flags or not,
     // they are still "starts" and "stops".
     int firstStart = 0;
-    int lastStop = N;
+    int lastStop;
     cout << "Time Window:\t" << time0 << "\t" << time1 << endl;
-    for ( int i=0; i<(N-1); i++ ) { // the last block cannot contain a start
+    for ( int i=0; i<N; i++ ) {
       cout << i << endl;
       cout << toc[0][(i)] << "\t" << toc[0][(i+1)] << endl;
       cout << toc[1][(i)] << "\t" << toc[1][(i+1)] << endl;
@@ -82,6 +82,7 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     contiguousStops.push_back( lastStop );
     contiguousStops.erase( contiguousStops.begin() );
     cout << "Starts: " << contiguousStarts.size() << "\tStops: " << contiguousStops.size() << endl;
+    cout << "MEFconts: lastStop: " << lastStop << endl;
     
     N = contiguousStarts.size();
     for ( int i=0; i<N; i++ ) {
