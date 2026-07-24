@@ -25,7 +25,7 @@ vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 MEFiter::MEFiter( MEFinfo info_, int block0, int block1, int stepSize ) : info(info_) {
 	this->time0 = 0;
-	this->time1 = 1E20;
+	this->time1 = LLONG_MAX;
 	this->block0 = block0;
 	this->block1 = block1;
 	this->info   = info_;
@@ -94,6 +94,8 @@ vector<int> MEFiter::next() {
 	// Trim the data to exact timestamp requests
 	long long blockTimeStart = info.getToC()[0][block0];
 	long long blockTimeStop = info.getToC()[0][block1] + (long long)round(dlast*1E6*microsecondsPerSample);
+	cout << "TimeStartStop: " << blockTimeStart << "\t" << blockTimeStop << endl;
+	cout << "window: " << time0 << "\t" << time1 << endl;
 	if ( blockTimeStart<=time0 & time0<=blockTimeStop ) { // requested start is within decoded data
 		int bad = ceil( (time0 - blockTimeStart) / microsecondsPerSample );
 		data.erase( data.begin(), data.begin() + bad );
@@ -102,6 +104,7 @@ vector<int> MEFiter::next() {
 		int bad = ceil( (blockTimeStop - time1) / microsecondsPerSample );
 		data.resize( data.size() - bad ); 
 	}
+	cout << "time trimming done." << endl;
 
 	// Add metadata regarding what you have downloaded
 

@@ -93,6 +93,7 @@ void CircularBuffer::printBuffer() {
     }
 
 vector<double> CircularBuffer::getBuffer() {
+	cout << "CircularBuffer: get()" << endl;
         vector<int> buf;
         int idx = front;
         while (idx != back) {
@@ -116,6 +117,8 @@ bool CircularBuffer::isPeak() {
         }
         return 0;
 }            
+
+void reset( long long timeStart, long long timeStep ) {}
 
 
 /*

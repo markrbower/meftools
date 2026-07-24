@@ -35,7 +35,7 @@ class CircularBuffer {
         vector<double> getBuffer();
         bool isPeak();
         bool isPeak( float parm1, float parm2 );
-	virtual void reset( long long timeStart, long long timeStep );
+//	virtual void reset( long long timeStart, long long timeStep );
 };
 #endif
 

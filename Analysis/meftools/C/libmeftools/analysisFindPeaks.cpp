@@ -15,11 +15,10 @@ Yale University
 #include "MEFanalysis.h"
 #include "CircularBuffer.h"
 #include "CircularBufferMEF.h"
+#include "CircularBufferMEF_allPeaks.h"
 #include "analysisFindPeaks.h"
 #include "DatabaseAccessor.h"
 #include "FiltFilt.h"
-
-#include "CircularBufferMEF_allPeaks.h"
 
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
@@ -79,33 +78,38 @@ void analysisFindPeaks::compute() {
 	    // I only need a ring buffer of size "window".
             MEFiter iter = conts.next();
 
-
-            // What is in this "cont"?
-            // Why isn't the MEFiter running anything?
-
-
             while ( iter.hasNext() ) {
                 cout << "AFP: in an iter" << endl;
 		vector<int> data = iter.next();
+		cout << "Got the data from the iter object." << endl;
 		std::vector<double> signal(data.begin(), data.end());
 
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
+		cout << "circbuf try to reset time" << endl;
 	    	analysisFindPeaks::circbuf.reset( iter.timeStart(), iter.timeStep() );
+		cout << "circbuf time reset" << endl;
 
 		// Filter: need to convert data[type int] to signal[type double].
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
+		cout << "Signal filtered." << endl;
 
+		cout << "The wrong thing is happening here." << endl;
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
+                    cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
+                    cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
+                        cout << "is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
+                        cout << "buffer gotten" << endl;
 			string valueString;
 			for ( auto v: values ) {
 				snprintf( charArray, 10, "%f,", v );
 
 				valueString.append( charArray );
 			}
+                        cout << "resize" << endl;
 			valueString.resize( valueString.size() - 1 );
 			peaks.insert( { analysisFindPeaks::circbuf.getTime(), valueString } );
                         // Check whether buffers should be written to MySQL
