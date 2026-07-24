@@ -94,13 +94,17 @@ void CircularBuffer::printBuffer() {
 
 vector<double> CircularBuffer::getBuffer() {
 	cout << "CircularBuffer: get()" << endl;
-        vector<int> buf;
+        vector<double> buf;
+	cout << front << endl;
+	cout << back << endl;
+	cout << capacity << endl;
         int idx = front;
         while (idx != back) {
             buf.push_back( buffer[idx] );
             idx = (idx + 1) % capacity;
         }
-        cout << endl;
+        cout << "buf size: " << buf.size() << endl;
+	return( buf );
     }
 
 bool CircularBuffer::isPeak() {
