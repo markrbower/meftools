@@ -96,11 +96,11 @@ void analysisFindPeaks::compute() {
 
 		cout << "The wrong thing is happening here." << endl;
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
-                    cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
+                    //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
-                    cout << "pushed back" << endl;
+                    //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
-                        cout << "is a peak" << endl;
+                        cout << i << " is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
                         cout << "buffer gotten" << endl;
 			string valueString;
