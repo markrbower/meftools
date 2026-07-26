@@ -43,93 +43,20 @@ void DatabaseAccessor::runSQL( string queryString ) {
 bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,string> variables ) {
 	// Prepare the statement
 	MYSQL_STMT *stmt;
-	MYSQL_BIND bind[4];
-	char *value0 = "subject";
-	unsigned long length0 = strlen(value0);
-	char *value1 = "example";
-	unsigned long length1 = strlen(value1);
-	long long value2 = 42;
-	unsigned long length3;
-	int status;
-
-	cout << "Running" << endl;
-	stmt = mysql_stmt_init(conn);
-	if ( !stmt ) {
-		cout << "Could not initialize statement." << endl;
-	}
-        cout << "Statement initialized" << endl;
-
-	string query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?,?,?,?)";
-	unsigned long stmt_length = query.size();
-	cout << stmt_length << endl;
-	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
-  	if (status) {
-	    cout << "Failed on prepare" << endl;
-	    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-	    exit(1);
-	} else {
-		cout << "Statement looks good." << endl;
-	}
-	memset(bind, 0, sizeof(bind));
 
 	// Start a transaction
-	int fixedLength = fixed_values.size();
+	if (mysql_query(conn, "START TRANSACTION;")) {
+        	std::cerr << "START TRANSACTION failed. Error: " << mysql_error(conn) << "\n";
+        	mysql_close(conn);
+        	return EXIT_FAILURE;
+    	}
+
+        // Your SQL operations go here
+
+	// Commit the transaction
+	if (mysql_query(conn, "COMMIT;")) {
+        	std::cerr << "COMMIT failed. Error: " << mysql_error(conn) << "\n";
+	}
 	
-	cout << "FIXED VALUES" << endl;
-	int count = 0;
-	for ( auto element: fixed_values ) {
-		cout << count << "\t" << element.first << "\t" << element.second << endl;
-		bind[count].buffer_type = MYSQL_TYPE_VARCHAR;
-		string value = element.second;
-		bind[count].buffer = (char *)value.c_str();
-		unsigned long L = strlen(value.c_str()) + 1;
-		bind[count].length = &L;
-		bind[count].is_null = 0;
-		count++;
-	}
-
-	cout << "VARIABLES" << endl;
-	runSQL( "START TRANSACTION;" );
-	try {
-		for ( auto element: variables ) {
-			cout << count << "\t" << element.first << "\t" << element.second << endl;
-			bind[fixedLength].buffer_type = MYSQL_TYPE_LONG;
-			bind[fixedLength].buffer = (long long*)&element.first;
-			bind[fixedLength].length = 0;
-			bind[fixedLength].is_null = 0;
-
-			bind[fixedLength+1].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[fixedLength+1].buffer = (char *)element.second.c_str();
-			length3 = strlen( element.second.c_str() );
-			bind[fixedLength+1].length = &length3;
-			bind[fixedLength+1].is_null = 0;
-
-			status = mysql_stmt_bind_param(stmt, bind);
-			if (status) {
-			    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-			    exit(1);
-			} else {
-			    cout << "Binding looks good." << endl;
-			}
-
-			status = mysql_stmt_execute(stmt);
-			if (status) {
-			    fprintf(stderr, "Error: %s (errno: %d)\n",
-			            mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-			    exit(1);
-			}
-		}
-		// Commit the transaction if everything went well
-		runSQL( "COMMIT;" );
-	} catch (const mysqlx::Error &err) {
-		// Rollback the transaction in case of an error
-		runSQL( "ROLLBACK;" );
-		cout << "rolled back" << endl;
-	} 
-	if (mysql_stmt_close(stmt)) {
-	  fprintf(stderr, " failed while closing the statement\n");
-	  fprintf(stderr, " %s\n", mysql_error(conn));
-	  exit(0);
-	}
 }
 
