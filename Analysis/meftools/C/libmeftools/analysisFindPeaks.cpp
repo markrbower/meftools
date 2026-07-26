@@ -39,7 +39,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 
     	dba.runSQL("drop table if exists peaks;");
 
-    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(256));" );
+    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(1024));" );
 
 	cout << "Database table created." << endl;
 }
@@ -105,12 +105,13 @@ void analysisFindPeaks::compute() {
                         cout << "buffer gotten" << endl;
 			string valueString;
 			for ( auto v: values ) {
-				snprintf( charArray, 10, "%f,", v );
+				snprintf( charArray, 12, "%f,", v );
 
 				valueString.append( charArray );
 			}
                         cout << "resize" << endl;
 			valueString.resize( valueString.size() - 1 );
+			cout << "valueString: " << valueString << endl;
 			peaks.insert( { analysisFindPeaks::circbuf.getTime(), valueString } );
                         // Check whether buffers should be written to MySQL
 			if ( peaks.size() > bufferLimit ) {

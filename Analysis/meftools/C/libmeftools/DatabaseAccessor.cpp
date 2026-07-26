@@ -75,9 +75,10 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	// Start a transaction
 	int fixedLength = fixed_values.size();
 	
+	cout << "FIXED VALUES" << endl;
 	int count = 0;
 	for ( auto element: fixed_values ) {
-		cout << count << "\t" << element.first << endl;
+		cout << count << "\t" << element.first << "\t" << element.second << endl;
 		bind[count].buffer_type = MYSQL_TYPE_VARCHAR;
 		string value = element.second;
 		bind[count].buffer = (char *)value.c_str();
@@ -87,16 +88,18 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 		count++;
 	}
 
+	cout << "VARIABLES" << endl;
 	runSQL( "START TRANSACTION;" );
 	try {
 		for ( auto element: variables ) {
+			cout << count << "\t" << element.first << "\t" << element.second << endl;
 			bind[fixedLength].buffer_type = MYSQL_TYPE_LONG;
-			bind[fixedLength].buffer = (char *)&element.first;
+			bind[fixedLength].buffer = (long long*)&element.first;
 			bind[fixedLength].length = 0;
 			bind[fixedLength].is_null = 0;
 
 			bind[fixedLength+1].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[fixedLength+1].buffer = (char *)&element.second;
+			bind[fixedLength+1].buffer = (char *)element.second.c_str();
 			length3 = strlen( element.second.c_str() );
 			bind[fixedLength+1].length = &length3;
 			bind[fixedLength+1].is_null = 0;
