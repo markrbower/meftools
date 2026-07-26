@@ -28,6 +28,8 @@ void processMEFexample( string filename, string password, string subject, string
 	CaseSpecificVariables caseSpecVar;
 	caseSpecVar.filename = filename;
 	caseSpecVar.bufferSize = bufferSize;
+	caseSpecVar.subject = subject;
+	caseSpecVar.session = session;
 
 // algoComputationVariables
 	AlgorithmSpecificVariables algoCompVar;

@@ -51,6 +51,8 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	long long value2 = 42;
 	unsigned long length3;
 	int status;
+	char varcharValue[100];
+	unsigned long varcharLength;
 
 	cout << "Running" << endl;
 	stmt = mysql_stmt_init(conn);
@@ -79,11 +81,13 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	int count = 0;
 	for ( auto element: fixed_values ) {
 		cout << count << "\t" << element.first << "\t" << element.second << endl;
-		bind[count].buffer_type = MYSQL_TYPE_VARCHAR;
+		bind[count].buffer_type = MYSQL_TYPE_STRING;
 		string value = element.second;
-		bind[count].buffer = (char *)value.c_str();
-		unsigned long L = strlen(value.c_str()) + 1;
-		bind[count].length = &L;
+		strcpy(varcharValue, value.c_str());
+		varcharLength = strlen(varcharValue);
+		bind[count].buffer = (char *)varcharValue;
+		bind[count].buffer_length = sizeof(varcharValue);
+		bind[count].length = &varcharLength;
 		bind[count].is_null = 0;
 		count++;
 	}
