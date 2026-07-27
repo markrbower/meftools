@@ -29,8 +29,9 @@ public:
   long long timeStart() { return time0; };
   long long timeStop() { return time1; };
   long long timeStep() {
-    double tmp = 1.0 / info.getHeader().sampling_frequency;
+    double tmp = 1E6 / info.getHeader().sampling_frequency;
     long long value = static_cast<long long>( tmp );
+    cout << "MEFiter: tmp: " << tmp << "\tvalue: " << value << endl;
     return value;
   } 
 

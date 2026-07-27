@@ -18,8 +18,8 @@ using namespace std;
 class CircularBufferMEF_allPeaks : public CircularBufferMEF {
     private:
     public:
-	CircularBufferMEF_allPeaks(int capacity, long long startTime, long long stepTime ) :
-			CircularBufferMEF{capacity, startTime, stepTime} {
+	CircularBufferMEF_allPeaks(int capacity_, long long startTime_, long long stepTime_ ) :
+			CircularBufferMEF{capacity_, startTime_, stepTime_} {
 	};
 
 	bool isPeak();

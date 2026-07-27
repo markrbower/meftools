@@ -96,8 +96,8 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	runSQL( "START TRANSACTION;" );
 	try {
 		for ( auto element: variables ) {
-			cout << count << "\t" << element.first << "\t" << element.second << endl;
-			bind[fixedLength].buffer_type = MYSQL_TYPE_LONG;
+			cout << count << ":\t" << element.first << "\t" << element.second << endl;
+			bind[fixedLength].buffer_type = MYSQL_TYPE_LONGLONG;
 			bind[fixedLength].buffer = (long long*)&element.first;
 			bind[fixedLength].length = 0;
 			bind[fixedLength].is_null = 0;

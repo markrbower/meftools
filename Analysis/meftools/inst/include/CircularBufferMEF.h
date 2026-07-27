@@ -26,6 +26,7 @@ class CircularBufferMEF : public CircularBuffer {
 
 	CircularBufferMEF(int capacity, long long startTime, long long stepTime ) :
 		CircularBuffer{capacity} {
+	    cout << "CircularBufferMEF constructor: " << startTime << "\t" << stepTime;
 	    centerTime = startTime - stepTime;
 	    timeStep = stepTime;	
 	};
