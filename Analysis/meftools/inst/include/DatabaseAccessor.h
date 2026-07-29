@@ -51,7 +51,7 @@ public:
 
     void runSQL( string queryString );
 
-    bool mapInsert( string tableName, map<string,string> fixed, map<long long,string> variables );
+    bool mapInsert( string tableName, map<string,string> fixed, map<long long,map<string,string>> variables );
 
 };
 

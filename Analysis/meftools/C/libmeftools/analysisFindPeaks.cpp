@@ -39,7 +39,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 
     	dba.runSQL("drop table if exists peaks;");
 
-    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(2048));" );
+    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue float, waveform varchar(2048));" );
 
 	cout << "Database table created." << endl;
 }
@@ -47,7 +47,8 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 void analysisFindPeaks::compute() {
 // Use MEFconts to supply contiguous sequences
 	char charArray[20];
-	map<long long, string> peaks;
+	map<long long, map<string,string>> outer_map;
+	map<string,string> inner_map;
 	map<string,string> fixed;
 	fixed["subject"] = csv.subject;
 	fixed["session"] = csv.session;
@@ -111,18 +112,30 @@ void analysisFindPeaks::compute() {
                         cout << "resize" << endl;
 			valueString.resize( valueString.size() - 1 );
 			cout << "valueString: " << valueString << endl;
-			peaks.insert( { analysisFindPeaks::circbuf.getTime(), valueString } );
+			inner_map.insert( {"peakValue", std::to_string( analysisFindPeaks::circbuf.getMid() )} );
+			inner_map.insert( {"waveform", valueString} );
+			outer_map.insert( {analysisFindPeaks::circbuf.getTime(), inner_map} ); 
                         // Check whether buffers should be written to MySQL
-			if ( peaks.size() > bufferLimit ) {
-				dba.mapInsert( "peaks", fixed, peaks );
-				peaks.clear();
+			if ( outer_map.size() > bufferLimit ) {
+				cout << "inserting into database" << endl;
+				dba.mapInsert( "peaks", fixed, outer_map );
+				cout << "clear inner map" << endl;
+				inner_map.clear();
+				cout << "clear outer map" << endl;
+				outer_map.clear();
+			} else {
+				cout << "clear inner map" << endl;
+				inner_map.clear();
 			}
                     }
                 }
 	    }
         }
-	if ( peaks.size() > 0 )
-		dba.mapInsert( "peaks", fixed, peaks );
+	if ( outer_map.size() > 0 ) {
+		dba.mapInsert( "peaks", fixed, outer_map );
+		inner_map.clear();
+		outer_map.clear();
+	}
 }
 
 void analysisFindPeaks::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {

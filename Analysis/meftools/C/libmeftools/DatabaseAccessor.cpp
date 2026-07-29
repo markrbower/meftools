@@ -40,7 +40,8 @@ void DatabaseAccessor::runSQL( string queryString ) {
 	}
 }
 
-bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,string> variables ) {
+bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long, map<string,string>> variables ) {
+	// Would like this method to be generalizable across various tables, but have "hard wired" it for now.
 	// Prepare the statement
 	MYSQL_STMT *stmt;
 	MYSQL_BIND bind[4];
@@ -61,7 +62,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	}
         cout << "Statement initialized" << endl;
 
-	string query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?,?,?,?)";
+	string query = "INSERT INTO peaks (subject,session,peakValue,time,waveform) VALUES (?,?,?,?,?);";
 	unsigned long stmt_length = query.size();
 	cout << stmt_length << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
@@ -95,19 +96,29 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	cout << "VARIABLES" << endl;
 	runSQL( "START TRANSACTION;" );
 	try {
-		for ( auto element: variables ) {
-			cout << count << ":\t" << element.first << "\t" << element.second << endl;
-			bind[fixedLength].buffer_type = MYSQL_TYPE_LONGLONG;
-			bind[fixedLength].buffer = (long long*)&element.first;
-			bind[fixedLength].length = 0;
-			bind[fixedLength].is_null = 0;
+		for ( auto const &[outer_key, inner_map] : variables ) {
+			for ( auto const &[inner_key, inner_value] : inner_map ) {
+				cout << count << ":\t" << inner_key << "\t" << inner_value << endl;
+				if ( inner_key == "peakValue" ) {
+					bind[2].buffer_type = MYSQL_TYPE_DOUBLE;
+					double dvalue = std::stod( inner_value );
+					bind[2].buffer = (char*)&dvalue;
+					bind[2].length = 0;
+					bind[2].is_null = 0;
+				} else {
+					cout << count << ":\t" << inner_key << "\t" << inner_value << endl;
+					bind[3].buffer_type = MYSQL_TYPE_LONGLONG;
+					bind[3].buffer = (long long*)&outer_key;
+					bind[3].length = 0;
+					bind[3].is_null = 0;
 
-			bind[fixedLength+1].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[fixedLength+1].buffer = (char *)element.second.c_str();
-			length3 = strlen( element.second.c_str() );
-			bind[fixedLength+1].length = &length3;
-			bind[fixedLength+1].is_null = 0;
-
+					bind[4].buffer_type = MYSQL_TYPE_VARCHAR;
+					bind[4].buffer = (char *)inner_value.c_str();
+					length3 = strlen( inner_value.c_str() );
+					bind[4].length = &length3;
+					bind[4].is_null = 0;
+				}
+			}
 			status = mysql_stmt_bind_param(stmt, bind);
 			if (status) {
 			    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
@@ -124,16 +135,20 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 			}
 		}
 		// Commit the transaction if everything went well
+		cout << "MySQL: committing" << endl;
 		runSQL( "COMMIT;" );
+		cout << "MySQL: committed" << endl;
 	} catch (const mysqlx::Error &err) {
 		// Rollback the transaction in case of an error
 		runSQL( "ROLLBACK;" );
 		cout << "rolled back" << endl;
 	} 
+	cout << "closing stmt" << endl;
 	if (mysql_stmt_close(stmt)) {
 	  fprintf(stderr, " failed while closing the statement\n");
 	  fprintf(stderr, " %s\n", mysql_error(conn));
 	  exit(0);
 	}
+	cout << "Exiting mapInsert" << endl;
 }
 
