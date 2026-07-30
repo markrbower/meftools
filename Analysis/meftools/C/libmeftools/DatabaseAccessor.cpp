@@ -40,7 +40,7 @@ void DatabaseAccessor::runSQL( string queryString ) {
 	}
 }
 
-bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,string> variables ) {
+bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,map<string,string>> variables ) {
 	// Prepare the statement
 	MYSQL_STMT *stmt;
 	MYSQL_BIND bind[4];
@@ -95,19 +95,21 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	cout << "VARIABLES" << endl;
 	runSQL( "START TRANSACTION;" );
 	try {
-		for ( auto element: variables ) {
-			cout << count << ":\t" << element.first << "\t" << element.second << endl;
-			bind[fixedLength].buffer_type = MYSQL_TYPE_LONGLONG;
-			bind[fixedLength].buffer = (long long*)&element.first;
-			bind[fixedLength].length = 0;
-			bind[fixedLength].is_null = 0;
-
-			bind[fixedLength+1].buffer_type = MYSQL_TYPE_VARCHAR;
-			bind[fixedLength+1].buffer = (char *)element.second.c_str();
-			length3 = strlen( element.second.c_str() );
-			bind[fixedLength+1].length = &length3;
-			bind[fixedLength+1].is_null = 0;
-
+//		for ( auto element: variables ) {
+		for ( auto const &[outer_key, inner_map] : variables ) {
+			for ( auto const &[inner_key, inner_value] : inner_map ) {
+				cout << count << ":\t" << outer_key << "\t" << inner_value << endl;
+				bind[fixedLength].buffer_type = MYSQL_TYPE_LONGLONG;
+				bind[fixedLength].buffer = (long long*)&outer_key;
+				bind[fixedLength].length = 0;
+				bind[fixedLength].is_null = 0;
+	
+				bind[fixedLength+1].buffer_type = MYSQL_TYPE_VARCHAR;
+				bind[fixedLength+1].buffer = (char *)inner_value.c_str();
+				length3 = strlen( inner_value.c_str() );
+				bind[fixedLength+1].length = &length3;
+				bind[fixedLength+1].is_null = 0;
+			}
 			status = mysql_stmt_bind_param(stmt, bind);
 			if (status) {
 			    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));

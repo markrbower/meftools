@@ -47,7 +47,8 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 void analysisFindPeaks::compute() {
 // Use MEFconts to supply contiguous sequences
 	char charArray[20];
-	map<long long, string> peaks;
+	map<long long, map<string,string>> peaks;
+	map<string,string> inner_map;
 	map<string,string> fixed;
 	fixed["subject"] = csv.subject;
 	fixed["session"] = csv.session;
@@ -111,7 +112,8 @@ void analysisFindPeaks::compute() {
                         cout << "resize" << endl;
 			valueString.resize( valueString.size() - 1 );
 			cout << "valueString: " << valueString << endl;
-			peaks.insert( { analysisFindPeaks::circbuf.getTime(), valueString } );
+			inner_map[ "waveform" ] = valueString;
+			peaks.insert( { analysisFindPeaks::circbuf.getTime(), inner_map } );
                         // Check whether buffers should be written to MySQL
 			if ( peaks.size() > bufferLimit ) {
 				dba.mapInsert( "peaks", fixed, peaks );
