@@ -2,7 +2,7 @@
 CC = g++
 #CFLAGS = -m64 -Wunused-variable -Wuninitialized
 #CFLAGS = -m64 -g -std=c++17 
-CFLAGS = -m64 -g -w -std=c++17 -Wall
+CFLAGS = -m64 -g -w -std=c++17 -Wall -Wc++17-extensions
 OPTFLAGS = -O3 
 MAIN = main.c
 #MEFLIB_DIR = ../MEF_3_starter_kit
@@ -76,7 +76,7 @@ MEFanalysis: # general purpose function
 #	$(CC) -c analysisFindPeaks.cpp  -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
 
 analysisFindPeaks: # general purpose function 
-	$(CC) -c analysisFindPeaks.cpp  -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT)
+	$(CC) -c analysisFindPeaks.cpp  $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT)
 
 analysisNPI: # general purpose function 
 	$(CC) -c analysisNPI.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) MEFiter.o

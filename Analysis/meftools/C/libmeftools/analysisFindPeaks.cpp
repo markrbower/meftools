@@ -39,7 +39,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 
     	dba.runSQL("drop table if exists peaks;");
 
-    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, waveform varchar(2048));" );
+    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(2048));" );
 
 	cout << "Database table created." << endl;
 }
@@ -95,7 +95,6 @@ void analysisFindPeaks::compute() {
 		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
 		cout << "Signal filtered." << endl;
 
-		cout << "The wrong thing is happening here." << endl;
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
@@ -113,6 +112,7 @@ void analysisFindPeaks::compute() {
 			valueString.resize( valueString.size() - 1 );
 			cout << "valueString: " << valueString << endl;
 			inner_map[ "waveform" ] = valueString;
+			inner_map[ "peakValue" ] = to_string( analysisFindPeaks::circbuf.getMid() );
 			peaks.insert( { analysisFindPeaks::circbuf.getTime(), inner_map } );
                         // Check whether buffers should be written to MySQL
 			if ( peaks.size() > bufferLimit ) {
@@ -123,8 +123,10 @@ void analysisFindPeaks::compute() {
                 }
 	    }
         }
-	if ( peaks.size() > 0 )
+	if ( peaks.size() > 0 ) {
 		dba.mapInsert( "peaks", fixed, peaks );
+		peaks.clear();
+	}
 }
 
 void analysisFindPeaks::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
