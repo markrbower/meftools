@@ -97,7 +97,7 @@ void analysisFindPeaks::compute() {
 
 		cout << "The wrong thing is happening here." << endl;
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
-                    //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
+                    cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
                     //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
@@ -120,22 +120,24 @@ void analysisFindPeaks::compute() {
 				cout << "inserting into database" << endl;
 				dba.mapInsert( "peaks", fixed, outer_map );
 				cout << "clear inner map" << endl;
-				inner_map.clear();
-				cout << "clear outer map" << endl;
+//				inner_map.clear();
+//				cout << "clear outer map" << endl;
 				outer_map.clear();
-			} else {
-				cout << "clear inner map" << endl;
-				inner_map.clear();
+//			} else {
+//				cout << "clear inner map" << endl;
+//				inner_map.clear();
 			}
                     }
                 }
 	    }
         }
+	cout << "afp: checking" << endl;
 	if ( outer_map.size() > 0 ) {
 		dba.mapInsert( "peaks", fixed, outer_map );
 		inner_map.clear();
 		outer_map.clear();
 	}
+	cout << "fp: done" << endl;
 }
 
 void analysisFindPeaks::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {
