@@ -14,7 +14,7 @@ bool CircularBufferMEF_allPeaks::isPeak() {
 
 	int idx = 0;
 	while ( idx < capacity & result == 1 ) {
-		if ( buffer[idx] > buffer[mid] ) {
+		if ( abs(buffer[idx]) > abs(buffer[mid]) ) {
 			result = 0; // Req 1
 		}
 		idx++;
