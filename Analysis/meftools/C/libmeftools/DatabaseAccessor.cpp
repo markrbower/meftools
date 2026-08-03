@@ -106,7 +106,6 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
                                         bind[3].length = 0;
                                         bind[3].is_null = 0;
 				} else {
-					cout << count << ":\t" << outer_key << "\t" << inner_value << endl;
 					bind[2].buffer_type = MYSQL_TYPE_LONGLONG;
 					bind[2].buffer = (long long*)&outer_key;
 					bind[2].length = 0;
@@ -117,6 +116,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 					length3 = strlen( inner_value.c_str() );
 					bind[4].length = &length3;
 					bind[4].is_null = 0;
+					cout << count << ":\t" << outer_key << "\t" << inner_value << endl;
 				}
 			}
 			status = mysql_stmt_bind_param(stmt, bind);
