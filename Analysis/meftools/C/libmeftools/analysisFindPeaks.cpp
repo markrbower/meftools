@@ -30,6 +30,8 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 	conts = conts_;
 	info = info_;
 
+	cout << "Sampling Frequency: " << info.getHeader().sampling_frequency << endl;
+
 //        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
 	const char* npi = "NPI";
 	dba = DatabaseAccessor( npi );
@@ -56,12 +58,12 @@ void analysisFindPeaks::compute() {
 
 	// Filter coefficients for what frequency band?
 	kb::math::FilterCoefficients<double> fc_unit{ 
-        	.m_CoefficientsA = {1.0000,-2.374094743709352,1.929355669091215,-0.532075368312092}, 
-	        .m_CoefficientsB = {2.898194633721429e-03,8.694583901164288e-03,8.694583901164288e-03,2.898194633721429e-03}
+        	.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
+	        .m_CoefficientsB = {0.0875e-04,   0.2625e-04,   0.2625e-04,   0.0875e-04}
 	};
 	kb::math::FilterCoefficients<double> fc_iis{ 
-        	.m_CoefficientsA = {1.0000,-2.374094743709352,1.929355669091215,-0.532075368312092}, 
-	        .m_CoefficientsB = {2.898194633721429e-03,8.694583901164288e-03,8.694583901164288e-03,2.898194633721429e-03}
+        	.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
+	        .m_CoefficientsB = {0.0875E-04,   0.2625E-04,   0.2625E-04,   0.0875E-04}
 	};
 	// Select filter coefficients for the desired signal
 	kb::math::FilterCoefficients<double> fc;

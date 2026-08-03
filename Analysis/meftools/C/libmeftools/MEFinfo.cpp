@@ -68,7 +68,8 @@ string MEFinfo::getPassword() {
 }
 
 long long MEFinfo::getStepSize() {
-    long long stepSize = 1.0 / header.sampling_frequency;
+    long long stepSize = 1E6 / header.sampling_frequency;
+    cout << "sampling frequency: " << header.sampling_frequency;
     cout << "MEFinfo: stepSize: " << stepSize << endl;
     return stepSize;
 }

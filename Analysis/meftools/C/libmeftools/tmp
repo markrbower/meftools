@@ -1,13 +1,3 @@
-    2  git log --graph --all --oneline
-    3  pwd
-    4  git add .
-    5  git commit -m "DatabaseAccessor now has a fixed and variable-map insert option, which makes it more generally applicable."
-    6  git push
-    7  pwd
-    8  ssh -i ~/.ssh/cs-3/id_rsa markb-cloud@cg3-us27.cg3
-    9  ssh -i ~/.ssh/cs-3/id_rsa markb-cloud@cg3-us27.cg3
-   10  ssh -i ~/.ssh/cs-3/id_rsa markb-cloud@cg3-us27.cg3
-   11  ssh markb-cloud@cg3-us27.cg3
    12  ls ~/.ssh
    13  ls ~/.ssh/cs3
    14  ssh -i ~/.ssh markb-cloud@cg3-us27.cg3
@@ -496,5 +486,15 @@
   497  make MEFanalysis
   498  vi MEFanalysis.cpp 
   499  make MEFanalysis
-  500  pwd
-  501  history > tmp
+  500  cd /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/libmeftools
+  501  vi analysisFindPeaks.cpp
+  502  vi processMEFexample.cpp
+  503  vi DatabaseAccessor.cpp
+  504  vi CircularBufferMEF_allPeaks.cpp
+  505  vi CircularBufferMEF.cpp
+  506  vi analysisFindPeaks.cpp
+  507  vi processMEFexample.cpp
+  508  vi MEFinfo.cpp
+  509  make MEFinfo
+  510  make main_alfp
+  511  history > tmp
