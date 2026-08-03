@@ -65,14 +65,28 @@ void analysisFindPeaks::compute() {
         	.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
 	        .m_CoefficientsB = {0.0875E-04,   0.2625E-04,   0.2625E-04,   0.0875E-04}
 	};
+	kb::math::FilterCoefficients<double> fc_iis_highpass_1Hz{ 
+        	.m_CoefficientsA = {1.0000,  -2.9996,   2.9992,  -0.9996},
+	        .m_CoefficientsB = {0.9998,  -2.9994,   2.9994,  -0.9998}
+	};
+	kb::math::FilterCoefficients<double> fc_iis_highpass_5Hz{ 
+        	.m_CoefficientsA = {1.0000,  -2.9979,   2.9958,  -0.9979},
+	        .m_CoefficientsB = {0.9990,  -2.9969,   2.9969,  -0.9990}
+	};
 	// Select filter coefficients for the desired signal
 	kb::math::FilterCoefficients<double> fc;
+	kb::math::FilterCoefficients<double> fc1;
+	kb::math::FilterCoefficients<double> fc2;
 	if ( asv.signalType == "singleUnits" ) { // 0.6 - 6 kHz
 		fc = fc_unit;
 	} else if ( asv.signalType == "IIS" ) {  // 0.5 - 200 Hz
-		fc = fc_iis;
+		//fc = fc_iis;
+		fc1 = fc_iis_highpass_1Hz;
+		fc2 = fc_iis;
 	}
 	kb::math::FiltFilt<double> filtfilt(fc);
+	kb::math::FiltFilt<double> filtfilt1(fc1);
+	kb::math::FiltFilt<double> filtfilt2(fc2);
 
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
@@ -94,7 +108,8 @@ void analysisFindPeaks::compute() {
 		cout << "circbuf time reset" << endl;
 
 		// Filter: need to convert data[type int] to signal[type double].
-		auto zeroPhaseFiltered = filtfilt.ZeroPhaseFiltering(signal);
+		auto zeroPhaseFiltered_tmp = filtfilt1.ZeroPhaseFiltering(signal);
+		auto zeroPhaseFiltered = filtfilt2.ZeroPhaseFiltering(zeroPhaseFiltered_tmp);
 		cout << "Signal filtered." << endl;
 
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
@@ -107,7 +122,7 @@ void analysisFindPeaks::compute() {
                         cout << "buffer gotten" << endl;
 			string valueString;
 			for ( auto v: values ) {
-				snprintf( charArray, 12, "%f,", v );
+				snprintf( charArray, 12, "%.3f,", v );
 				valueString.append( charArray );
 			}
                         cout << "resize" << endl;
