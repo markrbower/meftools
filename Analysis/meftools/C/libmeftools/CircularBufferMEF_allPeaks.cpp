@@ -12,14 +12,17 @@ bool CircularBufferMEF_allPeaks::isPeak() {
 	// 1. idx is the max of the buffer
 	int result = 1;
 
-	int idx = 0;
-	while ( idx < capacity & result == 1 ) {
-		if ( abs(buffer[idx]) > abs(buffer[mid]) ) {
-			result = 0; // Req 1
+	if ( full() ) {
+		int idx = 0;
+		while ( idx < capacity & result == 1 ) {
+			if ( abs(buffer[idx]) > abs(buffer[mid]) ) {
+				result = 0; // Req 1
+			}
+			idx++;
 		}
-		idx++;
+	} else {
+		result = 0;
 	}
-
 	return result;
 }
 
