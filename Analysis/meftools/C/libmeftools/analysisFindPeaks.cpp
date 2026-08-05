@@ -62,16 +62,22 @@ void analysisFindPeaks::compute() {
 	        .m_CoefficientsB = {0.0875e-04,   0.2625e-04,   0.2625e-04,   0.0875e-04}
 	};
 	kb::math::FilterCoefficients<double> fc_iis{ 
+        	//.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
+	        //.m_CoefficientsB = {0.0875E-04,   0.2625E-04,   0.2625E-04,   0.0875E-04}
         	.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
 	        .m_CoefficientsB = {0.0875E-04,   0.2625E-04,   0.2625E-04,   0.0875E-04}
 	};
 	kb::math::FilterCoefficients<double> fc_iis_highpass_1Hz{ 
         	.m_CoefficientsA = {1.0000,  -2.9996,   2.9992,  -0.9996},
 	        .m_CoefficientsB = {0.9998,  -2.9994,   2.9994,  -0.9998}
+        	//.m_CoefficientsA = {1.0000,  -4.9993,   9.9973,  -9.9959,   4.9973,  -0.9993},
+	        //.m_CoefficientsB = {0.9997,  -4.9983,   9.9966,  -9.9966,   4.9983,  -0.9997}
 	};
 	kb::math::FilterCoefficients<double> fc_iis_highpass_5Hz{ 
         	.m_CoefficientsA = {1.0000,  -2.9979,   2.9958,  -0.9979},
 	        .m_CoefficientsB = {0.9990,  -2.9969,   2.9969,  -0.9990}
+        	//.m_CoefficientsA = {1.0000,  -4.9966,   9.9865,  -9.9797,   4.9865,  -0.9966},
+	        //.m_CoefficientsB = {0.9983,  -4.9915,   9.9831,  -9.9831,   4.9915,  -0.9983}
 	};
 	// Select filter coefficients for the desired signal
 	kb::math::FilterCoefficients<double> fc;
@@ -100,6 +106,7 @@ void analysisFindPeaks::compute() {
 		vector<int> data = iter.next();
 		cout << "Got the data from the iter object." << endl;
 		std::vector<double> signal(data.begin(), data.end());
+		cout << "Amount of data read: " << data.size() << endl;
 
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
