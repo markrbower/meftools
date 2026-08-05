@@ -43,7 +43,7 @@ void DatabaseAccessor::runSQL( string queryString ) {
 bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,map<string,string>> variables ) {
 	// Prepare the statement
 	MYSQL_STMT *stmt;
-	MYSQL_BIND bind[5];
+	MYSQL_BIND bind[6];
 	char *value0 = "subject";
 	unsigned long length0 = strlen(value0);
 	char *value1 = "example";
@@ -61,7 +61,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	}
         cout << "Statement initialized" << endl;
 
-	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?)";
+	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform,waveform_raw) VALUES (?,?,?,?,?,?)";
 //	string query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?,?,?,?)";
 	unsigned long stmt_length = query.size();
 	cout << stmt_length << endl;
@@ -105,18 +105,25 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
                                         bind[3].buffer = (char*)&dvalue;
                                         bind[3].length = 0;
                                         bind[3].is_null = 0;
-				} else {
+				} else if ( inner_key == "waveform" ) {
 					bind[2].buffer_type = MYSQL_TYPE_LONGLONG;
 					bind[2].buffer = (long long*)&outer_key;
 					bind[2].length = 0;
 					bind[2].is_null = 0;
 		
-					bind[4].buffer_type = MYSQL_TYPE_VARCHAR;
+					bind[4].buffer_type = MYSQL_TYPE_STRING;
 					bind[4].buffer = (char *)inner_value.c_str();
 					length3 = strlen( inner_value.c_str() );
 					bind[4].length = &length3;
 					bind[4].is_null = 0;
 					cout << count << ":\t" << outer_key << "\t" << inner_value << endl;
+				} else if ( inner_key == "waveform_raw" ) {
+					bind[5].buffer_type = MYSQL_TYPE_STRING;
+					bind[5].buffer = (char *)inner_value.c_str();
+					length3 = strlen( inner_value.c_str() );
+					bind[5].length = &length3;
+					bind[5].is_null = 0;
+					cout << count << " RAW:\t" << outer_key << "\t" << inner_value << endl;
 				}
 			}
 			status = mysql_stmt_bind_param(stmt, bind);

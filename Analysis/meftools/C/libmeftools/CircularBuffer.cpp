@@ -11,7 +11,7 @@ CircularBuffer::CircularBuffer(int _capacity) {
         if (_capacity < 0) {
             throw invalid_argument("Invalid capacity");
         }
-        this->capacity = _capacity + 1;
+        this->capacity = _capacity;
         this->front = 0;
         this->mid = 0;
         this->back = 0;
@@ -65,6 +65,10 @@ double CircularBuffer::getBack() {
         }
         return (back == 0) ? buffer[capacity - 1] : buffer[back - 1];
     }
+
+int CircularBuffer::getCapacity() {
+	return capacity;
+}
 
     // Function to check if the buffer is empty
 bool CircularBuffer::empty() { return front == back; }

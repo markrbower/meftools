@@ -28,6 +28,7 @@ class CircularBuffer {
         double getFront();
         double getMid();
         double getBack();
+	int getCapacity();
         bool empty();
         bool full(); 
         int size();

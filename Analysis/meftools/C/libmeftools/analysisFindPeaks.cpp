@@ -41,7 +41,7 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 
     	dba.runSQL("drop table if exists peaks;");
 
-    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(2048));" );
+    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(2048), waveform_raw varchar(2048));" );
 
 	cout << "Database table created." << endl;
 }
@@ -88,6 +88,8 @@ void analysisFindPeaks::compute() {
 	kb::math::FiltFilt<double> filtfilt1(fc1);
 	kb::math::FiltFilt<double> filtfilt2(fc2);
 
+	CircularBufferMEF_allPeaks circbuf_raw = CircularBufferMEF_allPeaks( circbuf.getCapacity(), 0, 1 );
+
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
 	while ( conts.hasNext() ) {
@@ -115,9 +117,11 @@ void analysisFindPeaks::compute() {
                 for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
+		    circbuf_raw.push_back( signal[i] );
                     //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
                         cout << i << " is a peak" << endl;
+
 			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
                         cout << "buffer gotten" << endl;
 			string valueString;
@@ -129,6 +133,19 @@ void analysisFindPeaks::compute() {
 			valueString.resize( valueString.size() - 1 );
 			cout << "valueString: " << valueString << endl;
 			inner_map[ "waveform" ] = valueString;
+
+			vector<double> values_raw = circbuf_raw.getBuffer();
+                        cout << "buffer gotten" << endl;
+			string valueString_raw;
+			for ( auto v: values_raw ) {
+				snprintf( charArray, 12, "%.3f,", v );
+				valueString_raw.append( charArray );
+			}
+                        cout << "resize" << endl;
+			valueString_raw.resize( valueString_raw.size() - 1 );
+			cout << "valueStringRaw: " << valueString_raw << endl;
+			inner_map[ "waveform_raw" ] = valueString_raw;
+
 			inner_map[ "peakValue" ] = to_string( analysisFindPeaks::circbuf.getMid() );
 			peaks.insert( { analysisFindPeaks::circbuf.getTime(), inner_map } );
                         // Check whether buffers should be written to MySQL
@@ -141,6 +158,7 @@ void analysisFindPeaks::compute() {
 	    }
         }
 	if ( peaks.size() > 0 ) {
+		cout << "Finishing up" << endl;
 		dba.mapInsert( "peaks", fixed, peaks );
 		peaks.clear();
 	}
