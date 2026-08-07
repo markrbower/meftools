@@ -14,6 +14,7 @@ INCLUDE = /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftoo
 INCLUDE_MYSQLX = /opt/homebrew/Cellar/mysql-connector-c++/9.6.0/include
 INCLUDE_MYSQL = /opt/homebrew/opt/mysql-client/include
 INCLUDE_FILTFILT = /Users/markbower/Dropbox/Documents/src/KBaur/FiltFilt/src/include
+INCLUDE_KFR = /Users/markbower/Dropbox/Documents/src/kfr/include
 
 USER_OBJS = $(wildcard /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/C/libmeftools/*.o)
 
@@ -39,11 +40,14 @@ CircularBufferMEF:
 CircularBufferMEF:
 	$(CC) -c CircularBufferMEF.cpp $(CFLAGS) -I $(INCLUDE)
 
-Filt:
+Filt_kbaur:
 	$(CC) -c kbaur/Filt.cpp $(CFLAGS) -o kbaur/Filt.o
 
-FiltFilt:
+FiltFilt_kbaur:
 	$(CC) -c kbaur/FiltFilt.cpp $(CFLAGS) -o kbaur/FiltFilt.o
+
+testKFR:
+	$(CC) testKFR.cpp -o testKFR $(CFLAGS) -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft
 
 read_mef_header: # general purpose function
 	$(CC) -c read_mef_header.cpp $(CFLAGS) -I $(INCLUDE)
