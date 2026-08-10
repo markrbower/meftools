@@ -46,7 +46,7 @@ Filt_kbaur:
 FiltFilt_kbaur:
 	$(CC) -c kbaur/FiltFilt.cpp $(CFLAGS) -o kbaur/FiltFilt.o
 
-testKFR:
+testKFR: testKFR.cpp
 	$(CC) testKFR.cpp -o testKFR $(CFLAGS) -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
 
 read_mef_header: # general purpose function

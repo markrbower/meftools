@@ -31,8 +31,8 @@ int main()
     data = idft(freq) / data.size(); // KFR does not scale automatically
 */
 
-	// Design a 4th-order Butterworth low-pass filter
-	zpk filt = iir_lowpass(butterworth(4), 500, 48000);
+	// Design a 5th-order Butterworth low-pass filter
+	zpk filt = iir_lowpass(butterworth(5), 500, 48000);
 
 	// Convert to second-order sections
 	iir_params<float> params = to_sos<float>(filt);
@@ -42,5 +42,5 @@ int main()
 	data[512] = 1; // Unit impulse
 	filtfilt(data, params); // Apply forward-backward filtering in-place
 
-	plot_save("name", data, "title='name', div_by_N=True");
+	plot_save("name_5th", data, "title='name_5th', div_by_N=True");
 }
