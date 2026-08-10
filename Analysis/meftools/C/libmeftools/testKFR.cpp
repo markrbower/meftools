@@ -13,6 +13,7 @@ Result:
 #include <kfr/base.hpp>
 #include <kfr/dft.hpp>
 #include <kfr/dsp/iir_design.hpp>
+#include <kfr/io/python_plot.hpp>
 
 using namespace kfr;
 
@@ -40,4 +41,6 @@ int main()
 	univector<float> data(1024);
 	data[512] = 1; // Unit impulse
 	filtfilt(data, params); // Apply forward-backward filtering in-place
+
+	plot_save("name", data, "title='name', div_by_N=True");
 }

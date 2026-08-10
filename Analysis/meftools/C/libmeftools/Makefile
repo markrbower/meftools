@@ -103,4 +103,7 @@ da_test: # test DatabaseAccessor
 	$(CC) DatabaseAccessor_test.cpp -o DatabaseAccessor_test $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 DatabaseAccessor.o -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib
 
 
+MWE:
+	$(CC) MWE.cpp -o MWE $(CFLAGS) -I $(INCLUDE) -I/Library/Frameworks/Python.framework/Versions/3.14/include/python3.14 -L/Library/Frameworks/Python.framework/Versions/3.14/lib -I/Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2020_12_01_NeocortexForNPI/NeocortexForNPI/Analysis/NeocortexForNPI/Python/PythonNPI/venv/lib/python3.9/site-packages/numpy/core/include -I/Library/Frameworks/Python.framework/Versions/3.14/include/python3.14/include -L/Library/Frameworks/Python.framework/Versions/3.14/lib -lpython3.14
+
 
