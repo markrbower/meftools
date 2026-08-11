@@ -18,7 +18,10 @@ Yale University
 #include "CircularBufferMEF_allPeaks.h"
 #include "analysisFindPeaks.h"
 #include "DatabaseAccessor.h"
-#include "FiltFilt.h"
+#include <kfr/base.hpp>
+#include <kfr/dft.hpp>
+#include <kfr/dsp/iir_design.hpp>
+#include <kfr/io/python_plot.hpp>
 
 vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
@@ -57,6 +60,7 @@ void analysisFindPeaks::compute() {
 	int bufferLimit = 100;
 
 	// Filter coefficients for what frequency band?
+/*
 	kb::math::FilterCoefficients<double> fc_unit{ 
         	.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
 	        .m_CoefficientsB = {0.0875e-04,   0.2625e-04,   0.2625e-04,   0.0875e-04}
@@ -93,6 +97,12 @@ void analysisFindPeaks::compute() {
 	kb::math::FiltFilt<double> filtfilt(fc);
 	kb::math::FiltFilt<double> filtfilt1(fc1);
 	kb::math::FiltFilt<double> filtfilt2(fc2);
+*/
+
+	// KFR filtering
+	kfr::zpk filt = kfr::iir_lowpass(kfr::butterworth(5), 200, 30000);
+	// Convert to second-order sections
+	kfr::iir_params<float> params = kfr::to_sos<float>(filt);
 
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
@@ -105,8 +115,13 @@ void analysisFindPeaks::compute() {
                 cout << "AFP: in an iter" << endl;
 		vector<int> data = iter.next();
 		cout << "Got the data from the iter object." << endl;
-		std::vector<double> signal(data.begin(), data.end());
-		cout << "Amount of data read: " << data.size() << endl;
+		//std::vector<double> signal(data.begin(), data.end());
+		//cout << "Amount of data read: " << data.size() << endl;
+
+		// KFR filtering
+		kfr::univector<float> uv_signal = kfr::make_univector( data );
+		kfr::filtfilt( uv_signal, params );	
+
 
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
@@ -115,13 +130,14 @@ void analysisFindPeaks::compute() {
 		cout << "circbuf time reset" << endl;
 
 		// Filter: need to convert data[type int] to signal[type double].
-		auto zeroPhaseFiltered_tmp = filtfilt1.ZeroPhaseFiltering(signal);
-		auto zeroPhaseFiltered = filtfilt2.ZeroPhaseFiltering(zeroPhaseFiltered_tmp);
+		//auto zeroPhaseFiltered_tmp = filtfilt1.ZeroPhaseFiltering(signal);
+		//auto zeroPhaseFiltered = filtfilt2.ZeroPhaseFiltering(zeroPhaseFiltered_tmp);
 		cout << "Signal filtered." << endl;
 
-                for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
+                for ( int i=0; i<uv_signal.size(); i++ ) {
+                //for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
-                    analysisFindPeaks::circbuf.push_back( zeroPhaseFiltered[i] );
+                    analysisFindPeaks::circbuf.push_back( uv_signal[i] );
                     //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
                         cout << i << " is a peak" << endl;
