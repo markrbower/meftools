@@ -57,7 +57,7 @@ void analysisFindPeaks::compute() {
 	map<string,string> fixed;
 	fixed["subject"] = csv.subject;
 	fixed["session"] = csv.session;
-	int bufferLimit = 100;
+	int MySQLbufferLimit = 1000;
         long long stepSize = info.getStepSize();
         CircularBufferMEF_allPeaks rawbuf = CircularBufferMEF_allPeaks( 51, 0L, stepSize );
 
@@ -125,7 +125,7 @@ void analysisFindPeaks::compute() {
 			inner_map[ "peakValue" ] = to_string( analysisFindPeaks::circbuf.getMid() );
 			peaks.insert( { analysisFindPeaks::circbuf.getTime(), inner_map } );
                         // Check whether buffers should be written to MySQL
-			if ( peaks.size() > bufferLimit ) {
+			if ( peaks.size() > MySQLbufferLimit ) {
 				dba.mapInsert( "peaks", fixed, peaks );
 				peaks.clear();
 			}
