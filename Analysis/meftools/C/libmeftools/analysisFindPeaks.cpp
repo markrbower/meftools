@@ -58,46 +58,8 @@ void analysisFindPeaks::compute() {
 	fixed["subject"] = csv.subject;
 	fixed["session"] = csv.session;
 	int bufferLimit = 100;
-
-	// Filter coefficients for what frequency band?
-/*
-	kb::math::FilterCoefficients<double> fc_unit{ 
-        	.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
-	        .m_CoefficientsB = {0.0875e-04,   0.2625e-04,   0.2625e-04,   0.0875e-04}
-	};
-	kb::math::FilterCoefficients<double> fc_iis{ 
-        	//.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
-	        //.m_CoefficientsB = {0.0875E-04,   0.2625E-04,   0.2625E-04,   0.0875E-04}
-        	.m_CoefficientsA = {1.0000,  -2.9164,   2.8363,  -0.9198},
-	        .m_CoefficientsB = {0.0875E-04,   0.2625E-04,   0.2625E-04,   0.0875E-04}
-	};
-	kb::math::FilterCoefficients<double> fc_iis_highpass_1Hz{ 
-        	.m_CoefficientsA = {1.0000,  -2.9996,   2.9992,  -0.9996},
-	        .m_CoefficientsB = {0.9998,  -2.9994,   2.9994,  -0.9998}
-        	//.m_CoefficientsA = {1.0000,  -4.9993,   9.9973,  -9.9959,   4.9973,  -0.9993},
-	        //.m_CoefficientsB = {0.9997,  -4.9983,   9.9966,  -9.9966,   4.9983,  -0.9997}
-	};
-	kb::math::FilterCoefficients<double> fc_iis_highpass_5Hz{ 
-        	.m_CoefficientsA = {1.0000,  -2.9979,   2.9958,  -0.9979},
-	        .m_CoefficientsB = {0.9990,  -2.9969,   2.9969,  -0.9990}
-        	//.m_CoefficientsA = {1.0000,  -4.9966,   9.9865,  -9.9797,   4.9865,  -0.9966},
-	        //.m_CoefficientsB = {0.9983,  -4.9915,   9.9831,  -9.9831,   4.9915,  -0.9983}
-	};
-	// Select filter coefficients for the desired signal
-	kb::math::FilterCoefficients<double> fc;
-	kb::math::FilterCoefficients<double> fc1;
-	kb::math::FilterCoefficients<double> fc2;
-	if ( asv.signalType == "singleUnits" ) { // 0.6 - 6 kHz
-		fc = fc_unit;
-	} else if ( asv.signalType == "IIS" ) {  // 0.5 - 200 Hz
-		//fc = fc_iis;
-		fc1 = fc_iis_highpass_1Hz;
-		fc2 = fc_iis;
-	}
-	kb::math::FiltFilt<double> filtfilt(fc);
-	kb::math::FiltFilt<double> filtfilt1(fc1);
-	kb::math::FiltFilt<double> filtfilt2(fc2);
-*/
+        long long stepSize = info.getStepSize();
+        CircularBufferMEF_allPeaks rawbuf = CircularBufferMEF_allPeaks( 51, 0L, stepSize );
 
 	// KFR filtering
 	kfr::zpk filt = kfr::iir_lowpass(kfr::butterworth(5), 200, 30000);
@@ -115,18 +77,17 @@ void analysisFindPeaks::compute() {
                 cout << "AFP: in an iter" << endl;
 		vector<int> data = iter.next();
 		cout << "Got the data from the iter object." << endl;
-		//std::vector<double> signal(data.begin(), data.end());
-		//cout << "Amount of data read: " << data.size() << endl;
+		cout << "Amount of data read: " << data.size() << endl;
 
 		// KFR filtering
 		kfr::univector<float> uv_signal = kfr::make_univector( data );
 		kfr::filtfilt( uv_signal, params );	
 
-
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
 		cout << "circbuf try to reset time" << endl;
 	    	analysisFindPeaks::circbuf.reset( iter.timeStart(), iter.timeStep() );
+		rawbuf.reset( iter.timeStart(), iter.timeStep() );
 		cout << "circbuf time reset" << endl;
 
 		// Filter: need to convert data[type int] to signal[type double].
@@ -138,19 +99,28 @@ void analysisFindPeaks::compute() {
                 //for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf.push_back( uv_signal[i] );
+		    rawbuf.push_back( data[i] );
                     //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
                         cout << i << " is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
+			vector<double> raw_values = rawbuf.getBuffer();
                         cout << "buffer gotten" << endl;
 			string valueString;
 			for ( auto v: values ) {
 				snprintf( charArray, 12, "%.3f,", v );
 				valueString.append( charArray );
 			}
+			string rawValueString;
+			for ( auto v: raw_values ) {
+				snprintf( charArray, 12, "%.3f,", v );
+				rawValueString.append( charArray );
+			}
                         cout << "resize" << endl;
 			valueString.resize( valueString.size() - 1 );
+			rawValueString.resize( rawValueString.size() - 1 );
 			cout << "valueString: " << valueString << endl;
+			cout << "rawValueString: " << rawValueString << endl;
 			inner_map[ "waveform" ] = valueString;
 			inner_map[ "peakValue" ] = to_string( analysisFindPeaks::circbuf.getMid() );
 			peaks.insert( { analysisFindPeaks::circbuf.getTime(), inner_map } );
