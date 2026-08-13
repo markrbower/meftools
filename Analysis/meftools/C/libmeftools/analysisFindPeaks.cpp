@@ -62,9 +62,11 @@ void analysisFindPeaks::compute() {
         CircularBufferMEF_allPeaks rawbuf = CircularBufferMEF_allPeaks( 51, 0L, stepSize );
 
 	// KFR filtering
-	kfr::zpk filt = kfr::iir_lowpass(kfr::butterworth(5), 200, 30000);
+	kfr::zpk filt_lo = kfr::iir_lowpass(kfr::butterworth(5), 6000, 30000 );
+	kfr::zpk filt_hi = kfr::iir_highpass(kfr::butterworth(5), 600, 30000 );
 	// Convert to second-order sections
-	kfr::iir_params<float> params = kfr::to_sos<float>(filt);
+	kfr::iir_params<float> params_lo = kfr::to_sos<float>(filt_lo);
+	kfr::iir_params<float> params_hi = kfr::to_sos<float>(filt_hi);
 
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
@@ -81,7 +83,8 @@ void analysisFindPeaks::compute() {
 
 		// KFR filtering
 		kfr::univector<float> uv_signal = kfr::make_univector( data );
-		kfr::filtfilt( uv_signal, params );	
+		kfr::filtfilt( uv_signal, params_lo );	
+		kfr::filtfilt( uv_signal, params_hi );	
 
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
