@@ -35,7 +35,6 @@ analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpeci
 
 	cout << "Sampling Frequency: " << info.getHeader().sampling_frequency << endl;
 
-//        analysisFindPeaks::circbuf = CircularBufferMEF( csv.bufferSize, 0, 0 );
 	const char* npi = "NPI";
 	dba = DatabaseAccessor( npi );
 
