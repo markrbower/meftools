@@ -102,7 +102,7 @@ main: # analysisLookingForPeaks
 main_alfp: # analysisLookingForPeaks
 	$(CC) main_analysisLookingForPeaks.cpp -o main $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) $(USER_OBJS) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
 
-main_1: # create the database
+main_1: createAnalysisDatabase.cpp # create the database
 	$(CC) main_1_createAnalysisDatabase.cpp -o main_1 $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) $(USER_OBJS) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
 
 

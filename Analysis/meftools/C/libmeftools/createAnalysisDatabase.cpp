@@ -27,20 +27,31 @@ Yale University
 using namespace std;
 
 void createAnalysisDatabase( const char* name ) {
-	char* queryStr;
+	char queryStr[256];
 
-	DatabaseAccessor dba = DatabaseAccessor( name );
+	DatabaseAccessor dba_tmp = DatabaseAccessor( "mysql" ); // Generic db that should exist.
+    	sprintf( queryStr, "create database if not exist %s;", name );
+	dba_tmp.~DatabaseAccessor(); 
 
-    	sprintf( queryStr, "create database if not exists %s;", name );
+	DatabaseAccessor dba = DatabaseAccessor( name ); // Generic db that should exist.
+
+//    	sprintf( queryStr, "use %s;", name );
+//    	dba.runSQL( queryStr );
+
+	cout << "Create Subjects table" << endl;
+	// subject		dbIDsubject,        name, species
+    	sprintf( queryStr, "drop table if exists subjects;" );
     	dba.runSQL( queryStr );
+	cout << "creating subjects table" << endl;
+    	dba.runSQL("create table subjects (dbIDsubject binary(16), name varchar(64), species varchar(64));" );
+	cout << "subjects table created" << endl;
 
-    	sprintf( queryStr, "use %s;", name );
-    	dba.runSQL("use NPI;");
+	cout << "Create Collections table" << endl;
+	// collection	dbIDcollection,    name, dbIDsubject , date, place, task
+    	sprintf( queryStr, "drop table if exists collections;" );
+    	dba.runSQL( queryStr );
+    	dba.runSQL("create table collections (dbIDcolletions binary(16), name varchar(64), dbIDsubject binary(16), date DATE, place varchar(64), task varchar(64) );" );
 
-    	dba.runSQL("drop table if exists peaks;");
-
-    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(2048));" );
-
-	cout << "Database table created." << endl;
+	cout << "Database tables created." << endl;
 }
 
