@@ -49,7 +49,7 @@ public:
 
     MYSQL_RES* runQuery( string queryString );
 
-    void runSQL( string queryString );
+    bool runSQL( string queryString );
 
     bool mapInsert( string tableName, map<string,string> fixed, map<long long,map<string,string>> variables );
 

@@ -34,10 +34,12 @@ MYSQL_RES* DatabaseAccessor::runQuery( string queryString ) {
 }
 
 // runSQL does not return a result
-void DatabaseAccessor::runSQL( string queryString ) {
+bool DatabaseAccessor::runSQL( string queryString ) {
 	if (mysql_query(conn, queryString.c_str())) {
 	    fprintf(stderr, "Query failed: %s\n", mysql_error(conn));
+	    return 0;
 	}
+	return 1;
 }
 
 bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,map<string,string>> variables ) {
