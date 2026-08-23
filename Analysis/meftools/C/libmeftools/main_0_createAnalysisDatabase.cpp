@@ -1,12 +1,12 @@
-/* main_1_createDatabase
+/* main_0_createAnalysisDatabase
 Mark Bower
 Yale University
 
 Compilation:
-make main_1
+make main_0
 
 Usage:
-main_1_createDatabase
+main_0 findPeaks
 
 Result:
 Creates a MySQL database for EEG data analysis
@@ -25,25 +25,51 @@ void createAnalysisDatabase( const char* name );
 int main(int argc, const char * argv[]) {
 	char queryStr[128];
 	const char* name = argv[1];
+
 	createAnalysisDatabase( name );
 
+	cout << "Begin testing" << endl;
+	DatabaseAccessor dba = DatabaseAccessor( name );
 	// Test writing
-	DatabaseAccessor dba = DatabaseAccessor( name ); // Generic db that should exist.
-    	sprintf( queryStr, "insert into subjects values (UUID_TO_BIN(UUID()),\'testSubject\',\'testSpecies\');" );
+	if ( dba.write( {"subjects" "testSubject", "testSpecies"} ) ) {
+                cout << "Failure on \'Test writing subjects\'." << endl;
+                return 0;
+        }
+
+	// Test reading
+	string dbIDsubject = dba.readID( "select dbIDsubject from subjects where name=\'testSubject\';" );
+	cout << "dbIDsubject: " << dbIDsubject << endl;
+
+
+
+
+
+/*
+	// Test linkage across tables
+	//⁃	collection	dbIDcollection,    name, dbIDsubject , date, place, task
+    	sprintf( queryStr, "insert into collections values (UUID_TO_BIN(UUID()),\'testColl\', dbIDsubject, \'2026-08-20\', \'testPlace\', \'Figure-8\');" );
+	UUID dbIDcollection;
 	if ( !dba.runSQL( queryStr ) ) {
-		cout << "Failure on \'Test writing\'." << endl;
+		cout << "Failure on \'Test writing collection\'." << endl;
 		return 0;
 	}
 
-	// Test reading
-	sprintf( queryStr, "select name from subjects;" );
-	MYSQL_RES* result = dba.runQuery( queryStr );
-	MYSQL_ROW row;
-	while ((row = mysql_fetch_row(result)) != NULL) {
-            for (int i = 0; i < mysql_num_fields(result); i++) {
-       	        std::cout << row[i] << " ";
-            }
-            std::cout << std::endl;
+	//⁃	analysis	dbIDanalysis,      name, description
+    	sprintf( queryStr, "insert into analyses values (UUID_TO_BIN(UUID()),\'testName\', \'peak finding\');" );
+	if ( !dba.runSQL( queryStr ) ) {
+		cout << "Failure on \'Test writing collection\'." << endl;
+		return 0;
 	}
-        mysql_free_result(result);
+
+	//⁃	experiment	dbIDexperiment, name, dbIDcollection, dbIDanalysis
+    	sprintf( queryStr, "insert into experiments values (UUID_TO_BIN(UUID()),\'testXp\', dbIDcollection, dbIDanalysis );" );
+	if ( !dba.runSQL( queryStr ) ) {
+		cout << "Failure on \'Test writing collection\'." << endl;
+		return 0;
+	}
+*/
+
+
+
+
 }

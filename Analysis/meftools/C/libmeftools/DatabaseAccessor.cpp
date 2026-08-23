@@ -154,3 +154,54 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	cout << "exiting function" << endl;
 }
 
+bool DatabaseAccessor::write( std::initializer_list<string> args ) {
+
+
+	// Use a PreparedStatement?
+
+
+	string queryStr = "insert into ";
+	int count = 0;
+	for ( auto arg : args ) {
+	    if ( count==0 ) {
+	        queryStr.append( arg );
+		queryStr.append( " values (UUID_TO_BIN(UUID())" );
+	    } else {	
+		queryStr.append( "," );
+		queryStr.append( arg );
+	    }
+	    count++;
+        }
+	queryStr.append( ";\" );" );
+	cout << "DatabaseAccessor::write: " << queryStr << endl;
+	if ( !runSQL( queryStr ) ) {
+		cout << "Failure on \'Test writing subject\'." << endl;
+		return 0;
+	}
+	return 1;
+}
+
+string DatabaseAccessor::readID( string queryStr ) {
+	// A special purpose read query for UUID values.
+	string dbID;
+        MYSQL_RES* result = runQuery( queryStr );
+        if ( result == NULL ) {
+                cout << "Failure on \'DatabaseAccessor reading a UUID\'." << endl;
+                return 0;
+        }
+        MYSQL_ROW row;
+        while ((row = mysql_fetch_row(result)) != NULL) {
+            for (int i = 0; i < mysql_num_fields(result); i++) {
+//                std::cout << row[i] << " ";
+                dbID = row[i];
+            }
+            std::cout << std::endl;
+        }
+        mysql_free_result(result);
+	if ( dbID.empty() ) {
+                cout << "Failure on \'DatabaseAccessor reading a UUID. Nothing found.\'." << endl;
+                return 0;
+        }
+	return dbID;
+}
+

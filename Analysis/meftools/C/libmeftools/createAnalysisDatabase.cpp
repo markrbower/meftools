@@ -30,13 +30,12 @@ void createAnalysisDatabase( const char* name ) {
 	char queryStr[256];
 
 	DatabaseAccessor dba_tmp = DatabaseAccessor( "mysql" ); // Generic db that should exist.
-    	sprintf( queryStr, "create database if not exist %s;", name );
+    	sprintf( queryStr, "create database if not exists %s;", name );
+	cout << queryStr << endl;
+	dba_tmp.runSQL( queryStr );
 	dba_tmp.~DatabaseAccessor(); 
 
 	DatabaseAccessor dba = DatabaseAccessor( name ); // Generic db that should exist.
-
-//    	sprintf( queryStr, "use %s;", name );
-//    	dba.runSQL( queryStr );
 
 	cout << "Create Subjects table" << endl;
 	// subject		dbIDsubject,        name, species
