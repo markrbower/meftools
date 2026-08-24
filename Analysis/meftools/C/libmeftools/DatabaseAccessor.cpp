@@ -98,7 +98,6 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	cout << "VARIABLES" << endl;
 	runSQL( "START TRANSACTION;" );
 	try {
-//		for ( auto element: variables ) {
 		for ( auto const &[outer_key, inner_map] : variables ) {
 			for ( auto const &[inner_key, inner_value] : inner_map ) {
                                 if ( inner_key == "peakValue" ) {
@@ -155,22 +154,66 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 }
 
 bool DatabaseAccessor::write( std::initializer_list<string> args ) {
+	// The first argument is assumed to be the table name
+	MYSQL_RES *res;
+	MYSQL_ROW row;
 
-
-	// Use a PreparedStatement?
-
-
+	vector<string> colDatatypes;
+	int colCount = 0;
+	int argCount = 0;
 	string queryStr = "insert into ";
-	int count = 0;
 	for ( auto arg : args ) {
-	    if ( count==0 ) {
-	        queryStr.append( arg );
+	    if ( argCount==0 ) {
+		string tableName = arg;
+		// Create a Session object
+		string sessionStr = "mysqlx://root:@localhost:33060/";
+		sessionStr.append( dbName );
+        	mysqlx::Session session( sessionStr );
+	        queryStr.append( tableName );
+		// Get column names and datatypes.
+		char colQuery[256];
+		sprintf( colQuery, "SELECT * from %s LIMIT 1;", tableName.c_str() );
+	        if (mysql_query(conn, colQuery) ) {
+        		std::cerr << "SELECT * failed. Error: " << mysql_error(conn) << "\n";
+        		mysql_close(conn);
+        		return EXIT_FAILURE;
+    		}
+    		// Store the result
+    		res = mysql_store_result(conn);
+    		if (res == NULL) {
+		        std::cerr << "mysql_store_result() failed. Error: " << mysql_error(conn) << "\n";
+		        mysql_close(conn);
+		        return EXIT_FAILURE;
+    		}
+		// Iterate
+    		while ((row = mysql_fetch_row(res)) != NULL) {
+		    for (int i = 0; i < mysql_num_fields(res); i++) {
+		        std::cout << (row[i] ? row[i] : "NULL") << " ";
+        	    }
+		}
+        	std::cout << "\n";
+
 		queryStr.append( " values (UUID_TO_BIN(UUID())" );
 	    } else {	
+/*
+		if ( colDatatypes[colCount] == 'string' ) {
+
+		} else if ( colDatatypes[colCount] == 'string' ) {
+
+		} else if ( colDatatypes[colCount] == 'string' ) {
+
+		} else if ( colDatatypes[colCount] == 'string' ) {
+
+		} else {
+			cout << "Unknown column datatype: " << colDatatypes[colCount] << endl;
+			return 0;
+		}
+*/
 		queryStr.append( "," );
 		queryStr.append( arg );
+		colCount++;
 	    }
-	    count++;
+	    argCount++;
         }
 	queryStr.append( ";\" );" );
 	cout << "DatabaseAccessor::write: " << queryStr << endl;

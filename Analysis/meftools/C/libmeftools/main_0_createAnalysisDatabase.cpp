@@ -25,13 +25,14 @@ void createAnalysisDatabase( const char* name );
 int main(int argc, const char * argv[]) {
 	char queryStr[128];
 	const char* name = argv[1];
+	cout << argv[0] << "\t" << argv[1] << endl;
 
 	createAnalysisDatabase( name );
 
 	cout << "Begin testing" << endl;
 	DatabaseAccessor dba = DatabaseAccessor( name );
 	// Test writing
-	if ( dba.write( {"subjects" "testSubject", "testSpecies"} ) ) {
+	if ( dba.write( {"subjects","testSubject","testSpecies"} ) ) {
                 cout << "Failure on \'Test writing subjects\'." << endl;
                 return 0;
         }

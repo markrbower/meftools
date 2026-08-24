@@ -22,6 +22,7 @@ class DatabaseAccessor {
 public:
     MYSQL *conn;
     MYSQL_RES *result;
+    string dbName;
     //kb::math::FiltFilt<double> filtfilt;
 
     DatabaseAccessor() {};
@@ -39,12 +40,12 @@ public:
 
         std::cout << "Exit constructor" << std::endl;
     }
-
+/*
     ~DatabaseAccessor() {
 	mysql_close(conn);
 	cout << "DatabaseAccessor connection closed." << endl;
     }
-    
+*/   
     void close() {
         mysql_free_result( result );
         mysql_close( conn );
