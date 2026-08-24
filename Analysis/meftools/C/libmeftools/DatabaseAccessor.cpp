@@ -1,4 +1,4 @@
-// DatabaseAccessor.cpp
+// iatabaseAccessor.cpp
 // Mark R. Bower
 // Yale University
 /*
@@ -64,7 +64,6 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
         cout << "Statement initialized" << endl;
 
 	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?)";
-//	string query = "INSERT INTO peaks (subject,session,time,waveform) VALUES (?,?,?,?)";
 	unsigned long stmt_length = query.size();
 	cout << stmt_length << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
@@ -153,74 +152,82 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	cout << "exiting function" << endl;
 }
 
-bool DatabaseAccessor::write( std::initializer_list<string> args ) {
-	// The first argument is assumed to be the table name
-	MYSQL_RES *res;
-	MYSQL_ROW row;
+bool DatabaseAccessor::write( string tableName, map<string,string> insertThese ) {
+        // Prepare the statement
+        MYSQL_STMT *stmt;
+	int nbrEntries = insertThese.size();
+        MYSQL_BIND bind[5];
+        char *value0 = "subject";
+        unsigned long length0 = strlen(value0);
+        char *value1 = "example";
+        unsigned long length1 = strlen(value1);
+        long long value2 = 42;
+        unsigned long length3;
+        int status;
+        char varcharValue[100];
+        unsigned long varcharLength;
 
-	vector<string> colDatatypes;
-	int colCount = 0;
-	int argCount = 0;
-	string queryStr = "insert into ";
-	for ( auto arg : args ) {
-	    if ( argCount==0 ) {
-		string tableName = arg;
-		// Create a Session object
-		string sessionStr = "mysqlx://root:@localhost:33060/";
-		sessionStr.append( dbName );
-        	mysqlx::Session session( sessionStr );
-	        queryStr.append( tableName );
-		// Get column names and datatypes.
-		char colQuery[256];
-		sprintf( colQuery, "SELECT * from %s LIMIT 1;", tableName.c_str() );
-	        if (mysql_query(conn, colQuery) ) {
-        		std::cerr << "SELECT * failed. Error: " << mysql_error(conn) << "\n";
-        		mysql_close(conn);
-        		return EXIT_FAILURE;
-    		}
-    		// Store the result
-    		res = mysql_store_result(conn);
-    		if (res == NULL) {
-		        std::cerr << "mysql_store_result() failed. Error: " << mysql_error(conn) << "\n";
-		        mysql_close(conn);
-		        return EXIT_FAILURE;
-    		}
-		// Iterate
-    		while ((row = mysql_fetch_row(res)) != NULL) {
-		    for (int i = 0; i < mysql_num_fields(res); i++) {
-		        std::cout << (row[i] ? row[i] : "NULL") << " ";
-        	    }
-		}
-        	std::cout << "\n";
-
-		queryStr.append( " values (UUID_TO_BIN(UUID())" );
-	    } else {	
-/*
-		if ( colDatatypes[colCount] == 'string' ) {
-
-		} else if ( colDatatypes[colCount] == 'string' ) {
-
-		} else if ( colDatatypes[colCount] == 'string' ) {
-
-		} else if ( colDatatypes[colCount] == 'string' ) {
-
-		} else {
-			cout << "Unknown column datatype: " << colDatatypes[colCount] << endl;
-			return 0;
-		}
-*/
-		queryStr.append( "," );
-		queryStr.append( arg );
-		colCount++;
-	    }
-	    argCount++;
+        cout << "Running" << endl;
+        stmt = mysql_stmt_init(conn);
+        if ( !stmt ) {
+                cout << "Could not initialize statement." << endl;
         }
-	queryStr.append( ";\" );" );
-	cout << "DatabaseAccessor::write: " << queryStr << endl;
-	if ( !runSQL( queryStr ) ) {
-		cout << "Failure on \'Test writing subject\'." << endl;
-		return 0;
-	}
+        cout << "Statement initialized" << endl;
+
+        string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?)";
+        unsigned long stmt_length = query.size();
+        cout << stmt_length << endl;
+        status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
+        if (status) {
+            cout << "Failed on prepare" << endl;
+            fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+            exit(1);
+        } else {
+                cout << "Statement looks good." << endl;
+        }
+        memset(bind, 0, sizeof(bind));
+
+        // Start a transaction
+        int fixedLength = fixed_values.size();
+
+        cout << "FIXED VALUES" << endl;
+        int count = 0;
+        for ( auto element: fixed_values ) {
+                cout << count << "\t" << element.first << "\t" << element.second << endl;
+                bind[count].buffer_type = MYSQL_TYPE_STRING;
+                string value = element.second;
+                strcpy(varcharValue, value.c_str());
+                varcharLength = strlen(varcharValue);
+                bind[count].buffer = (char *)varcharValue;
+                bind[count].buffer_length = sizeof(varcharValue);
+                bind[count].length = &varcharLength;
+                bind[count].is_null = 0;
+                count++;
+        }
+        status = mysql_stmt_bind_param(stmt, bind);
+        if (status) {
+                fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+                exit(1);
+        } else {
+                cout << "Binding looks good." << endl;
+        }
+
+	runSQL( "START TRANSACTION;" );
+	try {
+        	cout << "executing statement" << endl;
+	        status = mysql_stmt_execute(stmt);
+        	if (status) {
+                	fprintf(stderr, "Error: %s (errno: %d)\n",
+                                    mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+                	exit(1);
+        	}
+        	cout << "executed statement" << endl;
+		runSQL( "COMMIT;" );
+	} catch (const mysqlx::Error &err) {
+		// Rollback the transaction in case of an error
+		runSQL( "ROLLBACK;" );
+		cout << "rolled back" << endl;
+	} 
 	return 1;
 }
 

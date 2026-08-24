@@ -32,45 +32,85 @@ int main(int argc, const char * argv[]) {
 	cout << "Begin testing" << endl;
 	DatabaseAccessor dba = DatabaseAccessor( name );
 	// Test writing
-	if ( dba.write( {"subjects","testSubject","testSpecies"} ) ) {
+	map<string,string> insertThese;
+	insertThese["name"] = "testSubject";
+	insertThese["species"] = "testSpecies";
+	if ( dba.write( "subjects", insertThese ) ) {
                 cout << "Failure on \'Test writing subjects\'." << endl;
                 return 0;
         }
-
 	// Test reading
-	string dbIDsubject = dba.readID( "select dbIDsubject from subjects where name=\'testSubject\';" );
+	string dbIDsubject = dba.getPreviousID();
+	if ( dbIDsubject == NULL ) {
+                cout << "Failure on \'Test reading subjects\'." << endl;
+                return 0;
+        }
 	cout << "dbIDsubject: " << dbIDsubject << endl;
 
+	// Test sequential db writing
+	insertThese.clear();
+	insertThese["name"] = "testCollection";
+	insertThese["dbIDsubject"] = dbIDsubject;
+	insertThese["date"] = "2026-08-20";
+	insertThese["place"] = "testPlace";
+	insertThese["task"] = "Figure-8";
+	if ( dba.write( "collections", insertThese ) ) {
+                cout << "Failure on \'Test writing collections\'." << endl;
+                return 0;
+        }
+	string dbIDcollection = dba.getPreviousID();
 
+	insertThese.clear();
+	insertThese["name"] = "testAnalysisName";
+	insertThese["description"] = "peak finding";
+	if ( dba.write( "analyses", insertThese ) ) {
+                cout << "Failure on \'Test writing analyses\'." << endl;
+                return 0;
+        }
+	string dbIDanalysis = dba.getPreviousID();
 
+	insertThese.clear();
+	insertThese["name"] = "testXp";
+	insertThese["dbIDcolletion"] = dbIDcollection;
+	insertThese["dbIDanalysis"] = dbIDanalysis;
+	if ( dba.write( "experiments", insertThese ) ) {
+                cout << "Failure on \'Test writing experiments\'." << endl;
+                return 0;
+        }
+	string dbIDexperiment = dba.getPreviousID();
 
+	insertThese.clear();
+	insertThese["name"] = "testEvent";
+	insertThese["dbIDexperiment"] = dbIDexperiment;
+	insertThese["time"] = "123456789012345";
+	insertThese["data"] = "1.0,5.0,10.0,2.0,-5.0,0.0";
+	insertThese["label"] = "AP";
+	if ( dba.write( "events", insertThese ) ) {
+                cout << "Failure on \'Test writing experiments\'." << endl;
+                return 0;
+        }
+	string dbIDevent1 = dba.getPreviousID();
 
-/*
-	// Test linkage across tables
-	//⁃	collection	dbIDcollection,    name, dbIDsubject , date, place, task
-    	sprintf( queryStr, "insert into collections values (UUID_TO_BIN(UUID()),\'testColl\', dbIDsubject, \'2026-08-20\', \'testPlace\', \'Figure-8\');" );
-	UUID dbIDcollection;
-	if ( !dba.runSQL( queryStr ) ) {
-		cout << "Failure on \'Test writing collection\'." << endl;
-		return 0;
-	}
+	insertThese["time"] = "123456789012346";
+	insertThese["data"] = "1.0,5.0,-10.0,-2.0,-5.0,0.0";
+	insertThese["label"] = "AP";
+	if ( dba.write( "events", insertThese ) ) {
+                cout << "Failure on \'Test writing experiments\'." << endl;
+                return 0;
+        }
+	string dbIDevent2 = dba.getPreviousID();
 
-	//⁃	analysis	dbIDanalysis,      name, description
-    	sprintf( queryStr, "insert into analyses values (UUID_TO_BIN(UUID()),\'testName\', \'peak finding\');" );
-	if ( !dba.runSQL( queryStr ) ) {
-		cout << "Failure on \'Test writing collection\'." << endl;
-		return 0;
-	}
+	insertThese.clear();
+	insertThese["name"] = "testLink";
+	insertThese["dbIDevent1"] = dbIDevent1;
+	insertThese["dbIDevent2"] = dbIDevent2;
+	insertThese["data"] = 0.5;
+	insertThese["label"] = "CC";
+	if ( dba.write( "metrics", insertThese ) ) {
+                cout << "Failure on \'Test writing experiments\'." << endl;
+                return 0;
+        }
+	string dbIDmetric = dba.getPreviousID();
 
-	//⁃	experiment	dbIDexperiment, name, dbIDcollection, dbIDanalysis
-    	sprintf( queryStr, "insert into experiments values (UUID_TO_BIN(UUID()),\'testXp\', dbIDcollection, dbIDanalysis );" );
-	if ( !dba.runSQL( queryStr ) ) {
-		cout << "Failure on \'Test writing collection\'." << endl;
-		return 0;
-	}
-*/
-
-
-
-
+	cout << "Success!" << endl;
 }
