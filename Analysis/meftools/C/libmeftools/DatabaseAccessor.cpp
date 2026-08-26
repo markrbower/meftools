@@ -156,7 +156,7 @@ bool DatabaseAccessor::write( string tableName, map<string,string> insertThese )
         // Prepare the statement
         MYSQL_STMT *stmt;
 	int nbrEntries = insertThese.size();
-        MYSQL_BIND bind[5];
+        MYSQL_BIND bind[nbrEntries];
         char *value0 = "subject";
         unsigned long length0 = strlen(value0);
         char *value1 = "example";
@@ -167,30 +167,55 @@ bool DatabaseAccessor::write( string tableName, map<string,string> insertThese )
         char varcharValue[100];
         unsigned long varcharLength;
 
-        cout << "Running" << endl;
-        stmt = mysql_stmt_init(conn);
-        if ( !stmt ) {
-                cout << "Could not initialize statement." << endl;
-        }
-        cout << "Statement initialized" << endl;
+	int count=0;
+	for ( const auto& [key,value] : insertThese ) {
+		if ( count==0 ) {
+		        cout << "Prepare the query and bind values at the same time." << endl;
+		        memset(bind, 0, sizeof(bind));
+			PreparedStatementBinder binder( bind );
+			string queryPrefix  = "INSERT INTO " + tableName + "(";
+			string queryPostfix = ") VALUES (";
+			for ( const auto& [key,value] : insertThese ) {
+				// Add to prepared statement prefix
+				if ( count>0 ) query.append( "," );
+				queryPrefix.append(key);
 
-        string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?)";
-        unsigned long stmt_length = query.size();
-        cout << stmt_length << endl;
-        status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
-        if (status) {
-            cout << "Failed on prepare" << endl;
-            fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-            exit(1);
-        } else {
-                cout << "Statement looks good." << endl;
-        }
-        memset(bind, 0, sizeof(bind));
+				// Add to prepared statement postfix
+				if ( count>0 ) query.append( "," );
+				queryPostfix.append("?");
 
-        // Start a transaction
-        int fixedLength = fixed_values.size();
+				// Bind values
+				binder.bind( count, value );
 
-        cout << "FIXED VALUES" << endl;
+				count++;
+			}
+			queryPostfix.append( ");" );
+			string query = queryPrefix + queryPostfix;
+        		unsigned long stmt_length = query.size();
+
+			// Build the statement
+        		cout << stmt_length << endl;
+        		stmt = mysql_stmt_init(conn);
+        		if ( !stmt ) {
+                		cout << "Could not initialize statement." << endl;
+        		}
+        		cout << "Statement initialized" << endl;
+
+        		status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
+        		if (status) {
+            			cout << "Failed on prepare" << endl;
+            			fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+            			exit(1);
+        		} else {
+                		cout << "Statement looks good." << endl;
+        		}
+        		cout << "Bind values into statement" << endl;
+			binder.toStatement( stmt );
+		} else { // if count==0
+
+
+
+
         int count = 0;
         for ( auto element: fixed_values ) {
                 cout << count << "\t" << element.first << "\t" << element.second << endl;

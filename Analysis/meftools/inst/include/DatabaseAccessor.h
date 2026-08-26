@@ -59,7 +59,7 @@ public:
 
     bool mapInsert( string tableName, map<string,string> fixed, map<long long,map<string,string>> variables );
 
-    bool write( std::initializer_list<string> args );
+    bool write( string tableName, map<string,string> insertThese );
 
     string readID( string queryStr );    
 
