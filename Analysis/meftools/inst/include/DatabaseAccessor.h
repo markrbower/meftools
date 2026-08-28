@@ -15,20 +15,26 @@
 #include <mysqlx/xdevapi.h>
 #include <mysql/mysql.h>
 
+#include "PreparedStatementBuilder.h"
+
 using namespace std;
 
 class DatabaseAccessor {
+private:
+    PreparedStatementBuilder psb;
 
 public:
     MYSQL *conn;
     MYSQL_RES *result;
     string dbName;
-    //kb::math::FiltFilt<double> filtfilt;
 
-    DatabaseAccessor() {};
+    DatabaseAccessor() {
+	psb = PreparedStatementBuilder();
+    };
 
     DatabaseAccessor( string dbname ) {
         std::cout << "In constructor" << std::endl;
+	psb = PreparedStatementBuilder();
 	conn = mysql_init(NULL);
 	if (conn == NULL) {
 	    fprintf(stderr, "mysql_init() failed\n");
@@ -62,6 +68,10 @@ public:
     bool write( string tableName, map<string,string> insertThese );
 
     string readID( string queryStr );    
+
+    int getInitialized() {
+	return initialized;
+    }
 
 };
 

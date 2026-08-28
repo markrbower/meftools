@@ -29,6 +29,7 @@ int main(int argc, const char * argv[]) {
 
 	createAnalysisDatabase( name );
 
+
 	cout << "Begin testing" << endl;
 	DatabaseAccessor dba = DatabaseAccessor( name );
 	// Test writing

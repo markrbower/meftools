@@ -7,7 +7,7 @@ B::B() {
 
 B::B( int x ) {
 	b = x;
-	initialized = x;
+	initialized = 1;
 }
 
 B::~B() {}

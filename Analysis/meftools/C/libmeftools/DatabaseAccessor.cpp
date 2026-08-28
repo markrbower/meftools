@@ -167,6 +167,10 @@ bool DatabaseAccessor::write( string tableName, map<string,string> insertThese )
         char varcharValue[100];
         unsigned long varcharLength;
 
+	if ( psb.getInitialized() ) {
+
+	}
+
 	int count=0;
 	for ( const auto& [key,value] : insertThese ) {
 		if ( count==0 ) {
