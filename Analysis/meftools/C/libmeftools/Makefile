@@ -22,6 +22,9 @@ USER_OBJS = $(wildcard /Users/markbower/Dropbox/Documents/Concepts/2018_07_29_me
 all: #full build
 	$(CC) -o $(TARGET) $(CFLAGS) $(MAIN) $(SRCFILES) -I $(INCLUDE)
 
+PreparedStatementBuilder:
+	$(CC) -c PreparedStatementBuilder.cpp $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX)
+
 CircularBuffer:
 	$(CC) -c CircularBuffer.cpp $(CFLAGS) -I $(INCLUDE)
 

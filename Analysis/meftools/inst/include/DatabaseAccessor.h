@@ -70,7 +70,7 @@ public:
     string readID( string queryStr );    
 
     int getInitialized() {
-	return initialized;
+	return psb.getInitialized();
     }
 
 };

@@ -15,7 +15,7 @@ using namespace std;
 class PreparedStatementBuilder {
     private:
 	MYSQL_STMT *stmt;
-        MYSQL_BIND bind[5];
+        MYSQL_BIND *bind_;
 	int initialized;
 
     public:
@@ -25,9 +25,9 @@ class PreparedStatementBuilder {
 
 	PreparedStatementBuilder( string tableName, list< map<string,string> > insertThese );
 
+	int getInitialized();
 
-
-
+	void clear();
 
 };
 #endif
