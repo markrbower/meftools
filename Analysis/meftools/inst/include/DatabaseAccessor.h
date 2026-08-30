@@ -18,10 +18,11 @@
 #include "PreparedStatementBuilder.h"
 
 using namespace std;
+using namespace psb;
 
 class DatabaseAccessor {
 private:
-    PreparedStatementBuilder psb;
+    PreparedStatementBuilder builder;
 
 public:
     MYSQL *conn;
@@ -29,12 +30,12 @@ public:
     string dbName;
 
     DatabaseAccessor() {
-	psb = PreparedStatementBuilder();
+	builder = PreparedStatementBuilder();
     };
 
     DatabaseAccessor( string dbname ) {
         std::cout << "In constructor" << std::endl;
-	psb = PreparedStatementBuilder();
+	builder = PreparedStatementBuilder();
 	conn = mysql_init(NULL);
 	if (conn == NULL) {
 	    fprintf(stderr, "mysql_init() failed\n");
@@ -70,8 +71,10 @@ public:
     string readID( string queryStr );    
 
     int getInitialized() {
-	return psb.getInitialized();
+	return builder.getInitialized();
     }
+
+    map<string,string> getColumnTypes( string tableName );
 
 };
 

@@ -13,7 +13,10 @@
 #include <string>
 #include <map>
 
+#include "PreparedStatementBuilder.h"
+
 using namespace std;
+using namespace psb;
 
 mysqlx::SqlResult DatabaseAccessor::createTable( string tableName, string tableValues ) {
 
@@ -153,48 +156,23 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 }
 
 bool DatabaseAccessor::write( string tableName, map<string,string> insertThese ) {
-        // Prepare the statement
-        MYSQL_STMT *stmt;
-	int nbrEntries = insertThese.size();
-        MYSQL_BIND bind[nbrEntries];
-        char *value0 = "subject";
-        unsigned long length0 = strlen(value0);
-        char *value1 = "example";
-        unsigned long length1 = strlen(value1);
-        long long value2 = 42;
-        unsigned long length3;
-        int status;
-        char varcharValue[100];
-        unsigned long varcharLength;
-
-	if ( psb.getInitialized() ) {
-
+	if ( !psb.getInitialized() ) {
+	        cout << "Prepare the query and bind values at the same time." << endl;
+		map<string,string> typeMap = getColumnTypes( tableName );
+		psb = PreparedStatementBuilder( tableName, insertThese );
 	}
 
 	int count=0;
 	for ( const auto& [key,value] : insertThese ) {
-		if ( count==0 ) {
-		        cout << "Prepare the query and bind values at the same time." << endl;
-		        memset(bind, 0, sizeof(bind));
-			PreparedStatementBinder binder( bind );
-			string queryPrefix  = "INSERT INTO " + tableName + "(";
-			string queryPostfix = ") VALUES (";
-			for ( const auto& [key,value] : insertThese ) {
-				// Add to prepared statement prefix
-				if ( count>0 ) query.append( "," );
-				queryPrefix.append(key);
+		for ( const auto& [key,value] : insertThese ) {
+			psb.addEntry( key, value );
+		}
 
-				// Add to prepared statement postfix
-				if ( count>0 ) query.append( "," );
-				queryPostfix.append("?");
 
-				// Bind values
-				binder.bind( count, value );
 
-				count++;
-			}
-			queryPostfix.append( ");" );
-			string query = queryPrefix + queryPostfix;
+
+
+			string query = binder.getQuery();
         		unsigned long stmt_length = query.size();
 
 			// Build the statement
@@ -283,4 +261,23 @@ string DatabaseAccessor::readID( string queryStr ) {
         }
 	return dbID;
 }
+
+map<string,string> getColumnsTypes( string tableName ) {
+        char queryStr1[128];
+        sprintf( queryStr1,"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\';", tableName.c_str() );
+        MYSQL_RES* result1 = dba.runQuery( queryStr1 );
+        MYSQL_ROW row1;
+        while ((row1 = mysql_fetch_row(result1)) != NULL) {
+                cout << row1[0] << endl;
+                char queryStr2[128];
+                sprintf( queryStr2,"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\' AND COLUMN_NAME = \'%s\';", tableName.c_str(), row1[0] );
+                MYSQL_RES* result2 = dba.runQuery( queryStr2 );
+                MYSQL_ROW row2;
+                while ((row2 = mysql_fetch_row(result2)) != NULL ) {
+                        typeMap[ row1[0] ] = row2[0];
+                }
+        }
+}
+
+
 

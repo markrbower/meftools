@@ -12,23 +12,27 @@
 
 using namespace std;
 
+namespace psb {
 class PreparedStatementBuilder {
     private:
 	MYSQL_STMT *stmt;
         MYSQL_BIND *bind_;
 	int initialized;
+	map<string,string> typeMap;
+	string queryPrefix, queryPostfix, query;
 
     public:
 	PreparedStatementBuilder();
 
-	PreparedStatementBuilder( string tableName, map<string,string> insertThis );
+	PreparedStatementBuilder( string tableName, map<string,string> insertThis, map<string,string> typeMap );
 
-	PreparedStatementBuilder( string tableName, list< map<string,string> > insertThese );
+	PreparedStatementBuilder( string tableName, list< map<string,string> > insertThese, map<string,string> typeMap );
 
 	int getInitialized();
 
 	void clear();
 
 };
+}
 #endif
 
