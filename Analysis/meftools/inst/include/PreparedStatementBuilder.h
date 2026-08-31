@@ -20,6 +20,7 @@ class PreparedStatementBuilder {
 	int initialized;
 	map<string,string> typeMap;
 	string queryPrefix, queryPostfix, query;
+	int counter;
 
     public:
 	PreparedStatementBuilder();
@@ -31,6 +32,10 @@ class PreparedStatementBuilder {
 	int getInitialized();
 
 	void clear();
+
+	void addEntry( string name, string value );
+
+	void persist();
 
 };
 }

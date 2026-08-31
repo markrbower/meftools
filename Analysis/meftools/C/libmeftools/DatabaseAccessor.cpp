@@ -155,18 +155,23 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	cout << "exiting function" << endl;
 }
 
-bool DatabaseAccessor::write( string tableName, map<string,string> insertThese ) {
+bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertThese ) {
 	if ( !psb.getInitialized() ) {
 	        cout << "Prepare the query and bind values at the same time." << endl;
 		map<string,string> typeMap = getColumnTypes( tableName );
-		psb = PreparedStatementBuilder( tableName, insertThese );
+		psb = PreparedStatementBuilder( tableName, insertThese, typeMap );
 	}
 
 	int count=0;
-	for ( const auto& [key,value] : insertThese ) {
-		for ( const auto& [key,value] : insertThese ) {
+	std::list< string<map,map> >::iterator it = insertThese.begin();
+        // Iterate through the list
+        while (it != insertThese.end()) {
+		psb.clear();
+		for ( const auto& [key,value] : *it ) {
 			psb.addEntry( key, value );
 		}
+		psb.persist();
+	}
 
 
 
