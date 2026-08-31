@@ -19,8 +19,7 @@ PreparedStatementBuilder::PreparedStatementBuilder(string tableName, map<string,
 
 	typeMap = typeMap_;
 
-        queryPrefix = "INSERT INTO " + tableName + " \(";
-        queryPostfix = "\) VALUES \(";
+	generateQuery( insertThis );
 }
 
 PreparedStatementBuilder::PreparedStatementBuilder(string tableName, list< map<string,string> > insertThese, map<string,string> typeMap_ ) {
@@ -29,8 +28,25 @@ PreparedStatementBuilder::PreparedStatementBuilder(string tableName, list< map<s
         
 	typeMap = typeMap_;
 
+	generateQuery( insertThese.front() );
+}
+
+void PreparedStatementBuilder::generateQuery( map<string,string> tmp ) {
         queryPrefix = "INSERT INTO " + tableName + " \(";
         queryPostfix = "\) VALUES \(";
+
+	int firstTimeFlag = 1;
+	for ( auto const&[key,value] : insertThese.front() ) {
+		if ( firstTimeFlag == 0 ) {
+			queryPrefix.append( "," );
+			queryPostfix.append( "," );
+		}
+		firstTimeFlag = 0;
+		queryPrefix.append( key );
+		queryPostfix.append( "?" );
+	}
+	query = queryPrefix + queryPostfix + ");";
+	cout << query << endl;
 }
 
 int PreparedStatementBuilder::getInitialized() {

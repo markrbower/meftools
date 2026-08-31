@@ -278,8 +278,10 @@ map<string,string> getColumnsTypes( string tableName ) {
                 sprintf( queryStr2,"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\' AND COLUMN_NAME = \'%s\';", tableName.c_str(), row1[0] );
                 MYSQL_RES* result2 = dba.runQuery( queryStr2 );
                 MYSQL_ROW row2;
+		cout << "DATATYPES" << endl;
                 while ((row2 = mysql_fetch_row(result2)) != NULL ) {
                         typeMap[ row1[0] ] = row2[0];
+			cout << row1[0] << "\t" << row2[0] << endl;
                 }
         }
 }
