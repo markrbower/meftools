@@ -15,28 +15,28 @@ PreparedStatementBuilder::PreparedStatementBuilder() {
 
 PreparedStatementBuilder::PreparedStatementBuilder(string tableName, map<string,string> insertThis, map<string,string> typeMap_ ) {
 	initialized = 1;
-	bind_ = (MYSQL_BIND*)malloc( insertThis.size() * sizeof(MYSQL_BIND) );
+	binding = (MYSQL_BIND*)malloc( insertThis.size() * sizeof(MYSQL_BIND) );
 
 	typeMap = typeMap_;
 
-	generateQuery( insertThis );
+	generateQuery( tableName, insertThis );
 }
 
 PreparedStatementBuilder::PreparedStatementBuilder(string tableName, list< map<string,string> > insertThese, map<string,string> typeMap_ ) {
 	initialized = 1;
-	bind_ = (MYSQL_BIND*)malloc( insertThese.front().size() * sizeof(MYSQL_BIND) );
+	binding = (MYSQL_BIND*)malloc( insertThese.front().size() * sizeof(MYSQL_BIND) );
         
 	typeMap = typeMap_;
 
-	generateQuery( insertThese.front() );
+	generateQuery( tableName, insertThese.front() );
 }
 
-void PreparedStatementBuilder::generateQuery( map<string,string> tmp ) {
+void PreparedStatementBuilder::generateQuery( string tableName, map<string,string> thisMap ) {
         queryPrefix = "INSERT INTO " + tableName + " \(";
         queryPostfix = "\) VALUES \(";
 
 	int firstTimeFlag = 1;
-	for ( auto const&[key,value] : insertThese.front() ) {
+	for ( auto const&[key,value] : thisMap ) {
 		if ( firstTimeFlag == 0 ) {
 			queryPrefix.append( "," );
 			queryPostfix.append( "," );
@@ -53,42 +53,51 @@ int PreparedStatementBuilder::getInitialized() {
 	return PreparedStatementBuilder::initialized;
 }
 
+string PreparedStatementBuilder::getType( string colName ) {
+	if( typeMap.find(colName) != typeMap.end() ) { // key found in map
+		return typeMap[colName];
+	} else {
+		cout << "PreparedStatementBuilder::getType :: type not found for " << colName << endl;
+		return "";
+	}
+}
+
 void PreparedStatementBuilder::clear() {
 	counter = 0;
 }
 
-void addEntry( string name, string value ) {
+void PreparedStatementBuilder::addEntry( string key, string value ) {
 	// Find the data type
-	string datatype = typeMap[ name ];
+	string datatype = getType( key );
 
 	// Call the appropriate add function
-	if ( datatype == "MYSQL_TYPE_VARCHAR" ) {
-                bind[4].buffer_type = MYSQL_TYPE_VARCHAR;
-                bind[4].buffer = (char *)inner_value.c_str();
-                length3 = strlen( inner_value.c_str() );
-                bind[4].length = &length3;
-                bind[4].is_null = 0;
-	} else if ( datatype == "MYSQL_LONGLONG" ) {
-                bind[2].buffer_type = MYSQL_TYPE_LONGLONG;
-                bind[2].buffer = (long long*)&outer_key;
-                bind[2].length = 0;
-                bind[2].is_null = 0;
-	} else if ( datatype == "MYSQL_TYPE_DOUBLE" ) {
-        	bind[3].buffer_type = MYSQL_TYPE_DOUBLE;
-                double dvalue = std::stod( inner_value );
-                bind[3].buffer = (char*)&dvalue;
-                bind[3].length = 0;
-                bind[3].is_null = 0;
-	} else if ( datatype == "MYSQL_TYPE_STRING" ) {
+	if ( datatype == "varchar" ) {
+                binding[counter].buffer_type = MYSQL_TYPE_VARCHAR;
+                binding[counter].buffer = (char *)value.c_str();
+                length3 = strlen( value.c_str() );
+                binding[counter].length = &length3;
+                binding[counter].is_null = 0;
+	} else if ( datatype == "bigint" ) {
+                binding[counter].buffer_type = MYSQL_TYPE_LONGLONG;
+                binding[counter].buffer = (long long*)&value;
+                binding[counter].length = 0;
+                binding[counter].is_null = 0;
+	} else if ( datatype == "double" ) {
+        	binding[counter].buffer_type = MYSQL_TYPE_DOUBLE;
+                double dvalue = std::stod( value );
+                binding[counter].buffer = (char*)&value;
+                binding[counter].length = 0;
+                binding[counter].is_null = 0;
+	} else if ( datatype == "string" ) {
                 cout << count << "\t" << element.first << "\t" << element.second << endl;
-                bind[count].buffer_type = MYSQL_TYPE_STRING;
-                string value = element.second;
+                binding[counter].buffer_type = MYSQL_TYPE_STRING;
+                string value = value;
                 strcpy(varcharValue, value.c_str());
                 varcharLength = strlen(varcharValue);
-                bind[count].buffer = (char *)varcharValue;
-                bind[count].buffer_length = sizeof(varcharValue);
-                bind[count].length = &varcharLength;
-                bind[count].is_null = 0;
+                binding[counter].buffer = (char *)varcharValue;
+                binding[counter].buffer_length = sizeof(varcharValue);
+                binding[counter].length = &varcharLength;
+                binding[counter].is_null = 0;
                 count++;
 	} else {
 		cout << "PreparedStatementBuilder: addEntry: unknown datatype" << endl;

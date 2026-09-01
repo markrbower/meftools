@@ -16,7 +16,7 @@ namespace psb {
 class PreparedStatementBuilder {
     private:
 	MYSQL_STMT *stmt;
-        MYSQL_BIND *bind_;
+        MYSQL_BIND *binding;
 	int initialized;
 	map<string,string> typeMap;
 	string queryPrefix, queryPostfix, query;
@@ -31,7 +31,11 @@ class PreparedStatementBuilder {
 
 	int getInitialized();
 
+	string getType( string colName ); 
+
 	void clear();
+
+	void generateQuery( string tableName, map<string,string> tmp );
 
 	void addEntry( string name, string value );
 
