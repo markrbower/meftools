@@ -67,6 +67,9 @@ void PreparedStatementBuilder::clear() {
 }
 
 void PreparedStatementBuilder::addEntry( string key, string value ) {
+	unsigned long lenStr;
+	char varcharValue[2048];
+	unsigned long varcharLength;
 	// Find the data type
 	string datatype = getType( key );
 
@@ -74,8 +77,8 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
 	if ( datatype == "varchar" ) {
                 binding[counter].buffer_type = MYSQL_TYPE_VARCHAR;
                 binding[counter].buffer = (char *)value.c_str();
-                length3 = strlen( value.c_str() );
-                binding[counter].length = &length3;
+                lenStr = strlen( value.c_str() );
+                binding[counter].length = &lenStr;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "bigint" ) {
                 binding[counter].buffer_type = MYSQL_TYPE_LONGLONG;
@@ -89,7 +92,6 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "string" ) {
-                cout << count << "\t" << element.first << "\t" << element.second << endl;
                 binding[counter].buffer_type = MYSQL_TYPE_STRING;
                 string value = value;
                 strcpy(varcharValue, value.c_str());
@@ -98,7 +100,7 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
                 binding[counter].buffer_length = sizeof(varcharValue);
                 binding[counter].length = &varcharLength;
                 binding[counter].is_null = 0;
-                count++;
+                counter++;
 	} else {
 		cout << "PreparedStatementBuilder: addEntry: unknown datatype" << endl;
 	}
