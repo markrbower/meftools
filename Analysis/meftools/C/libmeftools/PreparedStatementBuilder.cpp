@@ -106,8 +106,15 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
 	}
 }
 
-void persist() {
-
+MYSQL_STMT* PreparedStatementBuilder::generateStatement() {
+        int status = mysql_stmt_bind_param(stmt, binding);
+        if (status) {
+                fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+                exit(1);
+        } else {
+                cout << "Binding looks good." << endl;
+        }       
+	return stmt;
 }
 
 /*

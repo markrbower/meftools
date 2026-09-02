@@ -22,6 +22,7 @@ using namespace psb;
 
 class DatabaseAccessor {
 private:
+    MYSQL_STMT *stmt;
     PreparedStatementBuilder builder;
 
 public:
@@ -68,6 +69,8 @@ public:
 
     bool write( string tableName, map<string,string> insertThese );
 
+    bool write( string tableName, list<map<string,string>> insertThese );
+
     string readID( string queryStr );    
 
     int getInitialized() {
@@ -75,6 +78,8 @@ public:
     }
 
     map<string,string> getColumnTypes( string tableName );
+
+    void persist( PreparedStatementBuilder builder );
 
 };
 

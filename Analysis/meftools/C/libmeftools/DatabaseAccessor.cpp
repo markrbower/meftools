@@ -9,11 +9,11 @@
 #include <iostream>
 #include <mysql/mysql.h>
 #include <mysqlx/xdevapi.h>
-#include "DatabaseAccessor.h"
 #include <string>
 #include <map>
 
 #include "PreparedStatementBuilder.h"
+#include "DatabaseAccessor.h"
 
 using namespace std;
 using namespace psb;
@@ -156,90 +156,22 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 }
 
 bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertThese ) {
-	if ( !psb.getInitialized() ) {
+	if ( !builder.getInitialized() ) {
 	        cout << "Prepare the query and bind values at the same time." << endl;
 		map<string,string> typeMap = getColumnTypes( tableName );
-		psb = PreparedStatementBuilder( tableName, insertThese, typeMap );
+		builder = PreparedStatementBuilder( tableName, insertThese, typeMap );
 	}
 
 	int count=0;
-	std::list< string<map,map> >::iterator it = insertThese.begin();
+	list<map<string,string>>::iterator it = insertThese.begin();
         // Iterate through the list
         while (it != insertThese.end()) {
-		psb.clear();
+		builder.clear();
 		for ( const auto& [key,value] : *it ) {
-			psb.addEntry( key, value );
+			builder.addEntry( key, value );
 		}
-		psb.persist();
+		persist( builder );
 	}
-
-
-
-
-
-			string query = binder.getQuery();
-        		unsigned long stmt_length = query.size();
-
-			// Build the statement
-        		cout << stmt_length << endl;
-        		stmt = mysql_stmt_init(conn);
-        		if ( !stmt ) {
-                		cout << "Could not initialize statement." << endl;
-        		}
-        		cout << "Statement initialized" << endl;
-
-        		status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
-        		if (status) {
-            			cout << "Failed on prepare" << endl;
-            			fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-            			exit(1);
-        		} else {
-                		cout << "Statement looks good." << endl;
-        		}
-        		cout << "Bind values into statement" << endl;
-			binder.toStatement( stmt );
-		} else { // if count==0
-
-
-
-
-        int count = 0;
-        for ( auto element: fixed_values ) {
-                cout << count << "\t" << element.first << "\t" << element.second << endl;
-                bind[count].buffer_type = MYSQL_TYPE_STRING;
-                string value = element.second;
-                strcpy(varcharValue, value.c_str());
-                varcharLength = strlen(varcharValue);
-                bind[count].buffer = (char *)varcharValue;
-                bind[count].buffer_length = sizeof(varcharValue);
-                bind[count].length = &varcharLength;
-                bind[count].is_null = 0;
-                count++;
-        }
-        status = mysql_stmt_bind_param(stmt, bind);
-        if (status) {
-                fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-                exit(1);
-        } else {
-                cout << "Binding looks good." << endl;
-        }
-
-	runSQL( "START TRANSACTION;" );
-	try {
-        	cout << "executing statement" << endl;
-	        status = mysql_stmt_execute(stmt);
-        	if (status) {
-                	fprintf(stderr, "Error: %s (errno: %d)\n",
-                                    mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-                	exit(1);
-        	}
-        	cout << "executed statement" << endl;
-		runSQL( "COMMIT;" );
-	} catch (const mysqlx::Error &err) {
-		// Rollback the transaction in case of an error
-		runSQL( "ROLLBACK;" );
-		cout << "rolled back" << endl;
-	} 
 	return 1;
 }
 
@@ -267,16 +199,17 @@ string DatabaseAccessor::readID( string queryStr ) {
 	return dbID;
 }
 
-map<string,string> getColumnsTypes( string tableName ) {
+map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
+	map<string,string> typeMap; // Make the typeMap here to return for the PSB constructor.
         char queryStr1[128];
         sprintf( queryStr1,"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\';", tableName.c_str() );
-        MYSQL_RES* result1 = dba.runQuery( queryStr1 );
+        MYSQL_RES* result1 = runQuery( queryStr1 );
         MYSQL_ROW row1;
         while ((row1 = mysql_fetch_row(result1)) != NULL) {
                 cout << row1[0] << endl;
                 char queryStr2[128];
                 sprintf( queryStr2,"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\' AND COLUMN_NAME = \'%s\';", tableName.c_str(), row1[0] );
-                MYSQL_RES* result2 = dba.runQuery( queryStr2 );
+                MYSQL_RES* result2 = runQuery( queryStr2 );
                 MYSQL_ROW row2;
 		cout << "DATATYPES" << endl;
                 while ((row2 = mysql_fetch_row(result2)) != NULL ) {
@@ -286,5 +219,25 @@ map<string,string> getColumnsTypes( string tableName ) {
         }
 }
 
+void DatabaseAccessor::persist( PreparedStatementBuilder builder ) {
+	stmt = builder.generateStatement();
 
+        runSQL( "START TRANSACTION;" );
+        try {
+                cout << "executing statement" << endl;
+                int status = mysql_stmt_execute(stmt);
+                if (status) {
+                        fprintf(stderr, "Error: %s (errno: %d)\n",
+                                    mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+                        exit(1);
+                }
+                cout << "executed statement" << endl;
+                runSQL( "COMMIT;" );
+        } catch (const mysqlx::Error &err) {
+                // Rollback the transaction in case of an error
+                runSQL( "ROLLBACK;" );
+                cout << "rolled back" << endl;
+        }
+
+}
 

@@ -39,7 +39,7 @@ class PreparedStatementBuilder {
 
 	void addEntry( string name, string value );
 
-	void persist();
+	MYSQL_STMT* generateStatement();
 
 };
 }
