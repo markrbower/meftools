@@ -208,6 +208,7 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
         MYSQL_RES* result1 = runQuery( queryStr1 );
         MYSQL_ROW row1;
         while ((row1 = mysql_fetch_row(result1)) != NULL) {
+		cout << "Fetched a row." << endl;
                 cout << row1[0] << endl;
                 char queryStr2[128];
                 sprintf( queryStr2,"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\' AND COLUMN_NAME = \'%s\';", tableName.c_str(), row1[0] );
@@ -219,8 +220,10 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
                         typeMap[ row1[0] ] = row2[0];
 			cout << row1[0] << "\t" << row2[0] << endl;
                 }
+		cout << "Done with row." << endl;
         }
 	cout << "Done with getColumnTypes" << endl;
+	return typeMap;
 }
 
 void DatabaseAccessor::persist( PreparedStatementBuilder builder ) {

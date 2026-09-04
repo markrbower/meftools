@@ -23,12 +23,14 @@ PreparedStatementBuilder::PreparedStatementBuilder(string tableName, map<string,
 }
 
 PreparedStatementBuilder::PreparedStatementBuilder(string tableName, list< map<string,string> > insertThese, map<string,string> typeMap_ ) {
+	cout << "Entering PreparedStatementBuilder constructor." << endl;
 	initialized = 1;
 	binding = (MYSQL_BIND*)malloc( insertThese.front().size() * sizeof(MYSQL_BIND) );
         
 	typeMap = typeMap_;
 
 	generateQuery( tableName, insertThese.front() );
+	cout << "Leaving PreparedStatementBuilder constructor." << endl;
 }
 
 void PreparedStatementBuilder::generateQuery( string tableName, map<string,string> thisMap ) {
