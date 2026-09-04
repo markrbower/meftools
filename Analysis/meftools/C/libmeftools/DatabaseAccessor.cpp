@@ -66,12 +66,13 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	}
         cout << "Statement initialized" << endl;
 
-	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?)";
+	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?);";
 	unsigned long stmt_length = query.size();
-	cout << stmt_length << endl;
+	cout << query << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
   	if (status) {
 	    cout << "Failed on prepare" << endl;
+	    cout << query << endl;
 	    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
 	    exit(1);
 	} else {
@@ -203,12 +204,14 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
 	map<string,string> typeMap; // Make the typeMap here to return for the PSB constructor.
         char queryStr1[128];
         sprintf( queryStr1,"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\';", tableName.c_str() );
+	cout << "Query #1: " << queryStr1 << endl;
         MYSQL_RES* result1 = runQuery( queryStr1 );
         MYSQL_ROW row1;
         while ((row1 = mysql_fetch_row(result1)) != NULL) {
                 cout << row1[0] << endl;
                 char queryStr2[128];
                 sprintf( queryStr2,"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\' AND COLUMN_NAME = \'%s\';", tableName.c_str(), row1[0] );
+		cout << "Query #2: " << queryStr2 << endl;
                 MYSQL_RES* result2 = runQuery( queryStr2 );
                 MYSQL_ROW row2;
 		cout << "DATATYPES" << endl;
@@ -217,6 +220,7 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
 			cout << row1[0] << "\t" << row2[0] << endl;
                 }
         }
+	cout << "Done with getColumnTypes" << endl;
 }
 
 void DatabaseAccessor::persist( PreparedStatementBuilder builder ) {
