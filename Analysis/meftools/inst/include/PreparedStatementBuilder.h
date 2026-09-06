@@ -25,9 +25,9 @@ class PreparedStatementBuilder {
     public:
 	PreparedStatementBuilder();
 
-	PreparedStatementBuilder( string tableName, map<string,string> insertThis, map<string,string> typeMap );
+	PreparedStatementBuilder( MYSQL* conn, string tableName, map<string,string> insertThis, map<string,string> typeMap );
 
-	PreparedStatementBuilder( string tableName, list< map<string,string> > insertThese, map<string,string> typeMap );
+	PreparedStatementBuilder( MYSQL* conn, string tableName, list< map<string,string> > insertThese, map<string,string> typeMap );
 
 	int getInitialized();
 

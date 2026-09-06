@@ -166,6 +166,7 @@ bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertT
 	int count=0;
 	list<map<string,string>>::iterator it = insertThese.begin();
         // Iterate through the list
+	cout << "Starting iteration." << endl;
         while (it != insertThese.end()) {
 		builder.clear();
 		for ( const auto& [key,value] : *it ) {
@@ -227,6 +228,7 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
 }
 
 void DatabaseAccessor::persist( PreparedStatementBuilder builder ) {
+	cout << "Starting persist." << endl;
 	stmt = builder.generateStatement();
 
         runSQL( "START TRANSACTION;" );

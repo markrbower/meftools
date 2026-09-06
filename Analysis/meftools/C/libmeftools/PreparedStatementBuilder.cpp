@@ -13,19 +13,21 @@ PreparedStatementBuilder::PreparedStatementBuilder() {
 	initialized = 0;
 }
 
-PreparedStatementBuilder::PreparedStatementBuilder(string tableName, map<string,string> insertThis, map<string,string> typeMap_ ) {
+PreparedStatementBuilder::PreparedStatementBuilder(MYSQL* conn, string tableName, map<string,string> insertThis, map<string,string> typeMap_ ) {
 	initialized = 1;
 	binding = (MYSQL_BIND*)malloc( insertThis.size() * sizeof(MYSQL_BIND) );
+	stmt = mysql_stmt_init(conn);
 
 	typeMap = typeMap_;
 
 	generateQuery( tableName, insertThis );
 }
 
-PreparedStatementBuilder::PreparedStatementBuilder(string tableName, list< map<string,string> > insertThese, map<string,string> typeMap_ ) {
+PreparedStatementBuilder::PreparedStatementBuilder(MYSQL* conn, string tableName, list< map<string,string> > insertThese, map<string,string> typeMap_ ) {
 	cout << "Entering PreparedStatementBuilder constructor." << endl;
 	initialized = 1;
 	binding = (MYSQL_BIND*)malloc( insertThese.front().size() * sizeof(MYSQL_BIND) );
+	stmt = mysql_stmt_init(conn);
         
 	typeMap = typeMap_;
 
@@ -74,6 +76,7 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
 	unsigned long varcharLength;
 	// Find the data type
 	string datatype = getType( key );
+	cout << "addEntry " << counter << "\t" << key << "\t" << value << endl;
 
 	// Call the appropriate add function
 	if ( datatype == "varchar" ) {
@@ -102,19 +105,32 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
                 binding[counter].buffer_length = sizeof(varcharValue);
                 binding[counter].length = &varcharLength;
                 binding[counter].is_null = 0;
-                counter++;
 	} else {
 		cout << "PreparedStatementBuilder: addEntry: unknown datatype" << endl;
 	}
+        counter++;
 }
 
 MYSQL_STMT* PreparedStatementBuilder::generateStatement() {
-        int status = mysql_stmt_bind_param(stmt, binding);
-        if (status) {
-                fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
-                exit(1);
+	cout << "Into PSB::generateStatement" << endl;
+        int status;
+
+	// How can I check that "stmt" exists and "binding" exists and has values?
+
+	try {
+		cout << "Query: " << query << endl;
+		mysql_stmt_prepare( stmt, query.c_str(), -1 );
+        	status = mysql_stmt_bind_param(stmt, binding);
+		mysql_stmt_execute( stmt );
+	} catch ( const char* msg ) {
+		cout << "Error: " << msg;
+	}
+	cout << "Completed binding." << endl;
+	if (status) {
+              	fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+               	exit(1);
         } else {
-                cout << "Binding looks good." << endl;
+               	cout << "Binding looks good." << endl;
         }       
 	return stmt;
 }
