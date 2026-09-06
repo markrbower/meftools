@@ -160,7 +160,7 @@ bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertT
 	if ( !builder.getInitialized() ) {
 	        cout << "Prepare the query and bind values at the same time." << endl;
 		map<string,string> typeMap = getColumnTypes( tableName );
-		builder = PreparedStatementBuilder( tableName, insertThese, typeMap );
+		builder = PreparedStatementBuilder( conn, tableName, insertThese, typeMap );
 	}
 
 	int count=0;
