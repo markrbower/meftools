@@ -51,6 +51,19 @@ void PreparedStatementBuilder::generateQuery( string tableName, map<string,strin
 	}
 	query = queryPrefix + queryPostfix + ");";
 	cout << query << endl;
+
+        unsigned long stmt_length = query.size();
+        cout << query << endl;
+        int status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
+        if (status) {
+            cout << "Failed on prepare" << endl;
+            cout << query << endl;
+            fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+            exit(1);
+        } else {
+                cout << "Statement looks good." << endl;
+        }   
+        memset(binding, 0, sizeof(binding));
 }
 
 int PreparedStatementBuilder::getInitialized() {
@@ -118,14 +131,11 @@ MYSQL_STMT* PreparedStatementBuilder::generateStatement() {
 	// How can I check that "stmt" exists and "binding" exists and has values?
 
 	try {
-		cout << "Query: " << query << endl;
-		mysql_stmt_prepare( stmt, query.c_str(), -1 );
         	status = mysql_stmt_bind_param(stmt, binding);
-		mysql_stmt_execute( stmt );
 	} catch ( const char* msg ) {
 		cout << "Error: " << msg;
 	}
-	cout << "Completed binding." << endl;
+	cout << "Binding completed." << endl;
 	if (status) {
               	fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
                	exit(1);
