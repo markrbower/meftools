@@ -93,10 +93,9 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
 
 	// Call the appropriate add function
 	if ( datatype == "varchar" ) {
-                binding[counter].buffer_type = MYSQL_TYPE_VARCHAR;
+                binding[counter].buffer_type = MYSQL_TYPE_STRING;
                 binding[counter].buffer = (char *)value.c_str();
-                lenStr = strlen( value.c_str() );
-                binding[counter].length = &lenStr;
+                binding[counter].buffer_length = value.length();
                 binding[counter].is_null = 0;
 	} else if ( datatype == "bigint" ) {
                 binding[counter].buffer_type = MYSQL_TYPE_LONGLONG;

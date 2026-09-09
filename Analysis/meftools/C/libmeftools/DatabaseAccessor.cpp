@@ -48,7 +48,8 @@ bool DatabaseAccessor::runSQL( string queryString ) {
 bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_values, map<long long,map<string,string>> variables ) {
 	// Prepare the statement
 	MYSQL_STMT *stmt;
-	MYSQL_BIND bind[5];
+//	MYSQL_BIND bind[5];
+	MYSQL_BIND bind[1];
 	char *value0 = "subject";
 	unsigned long length0 = strlen(value0);
 	char *value1 = "example";
@@ -66,7 +67,8 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	}
         cout << "Statement initialized" << endl;
 
-	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?);";
+//	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?);";
+	string query = "INSERT INTO peaks (subject) VALUES (?);";
 	unsigned long stmt_length = query.size();
 	cout << query << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
