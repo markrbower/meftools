@@ -158,7 +158,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 
 bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertThese ) {
 	if ( !builder.getInitialized() ) {
-	        cout << "Prepare the query and bind values at the same time." << endl;
+	        cout << "DatabaseAccessor initializes the PreparedStatementBuilder." << endl;
 		map<string,string> typeMap = getColumnTypes( tableName );
 		builder = PreparedStatementBuilder( conn, tableName, insertThese, typeMap );
 	}
@@ -173,6 +173,7 @@ bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertT
 			builder.addEntry( key, value );
 		}
 		persist( builder );
+		it++;
 	}
 	return 1;
 }
@@ -209,6 +210,7 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
         MYSQL_RES* result1 = runQuery( queryStr1 );
         MYSQL_ROW row1;
         while ((row1 = mysql_fetch_row(result1)) != NULL) {
+        row1 = mysql_fetch_row(result1); // Just do one.
 		cout << "Fetched a row." << endl;
                 cout << row1[0] << endl;
                 char queryStr2[128];
@@ -217,10 +219,11 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
                 MYSQL_RES* result2 = runQuery( queryStr2 );
                 MYSQL_ROW row2;
 		cout << "DATATYPES" << endl;
-                while ((row2 = mysql_fetch_row(result2)) != NULL ) {
+//                while ((row2 = mysql_fetch_row(result2)) != NULL ) {
+                	row2 = mysql_fetch_row(result2);
                         typeMap[ row1[0] ] = row2[0];
 			cout << row1[0] << "\t" << row2[0] << endl;
-                }
+//               }
 		cout << "Done with row." << endl;
         }
 	cout << "Done with getColumnTypes" << endl;

@@ -53,7 +53,6 @@ void PreparedStatementBuilder::generateQuery( string tableName, map<string,strin
 	cout << query << endl;
 
         unsigned long stmt_length = query.size();
-        cout << query << endl;
         int status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
         if (status) {
             cout << "Failed on prepare" << endl;
@@ -63,7 +62,6 @@ void PreparedStatementBuilder::generateQuery( string tableName, map<string,strin
         } else {
                 cout << "Statement looks good." << endl;
         }   
-        memset(binding, 0, sizeof(binding));
 }
 
 int PreparedStatementBuilder::getInitialized() {
@@ -72,6 +70,7 @@ int PreparedStatementBuilder::getInitialized() {
 
 string PreparedStatementBuilder::getType( string colName ) {
 	if( typeMap.find(colName) != typeMap.end() ) { // key found in map
+		cout << "Column: " << colName << "\t" << typeMap[colName] << endl;
 		return typeMap[colName];
 	} else {
 		cout << "PreparedStatementBuilder::getType :: type not found for " << colName << endl;
@@ -81,6 +80,7 @@ string PreparedStatementBuilder::getType( string colName ) {
 
 void PreparedStatementBuilder::clear() {
 	counter = 0;
+        memset(binding, 0, sizeof(binding));
 }
 
 void PreparedStatementBuilder::addEntry( string key, string value ) {
@@ -89,7 +89,7 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
 	unsigned long varcharLength;
 	// Find the data type
 	string datatype = getType( key );
-	cout << "addEntry " << counter << "\t" << key << "\t" << value << endl;
+	cout << "addEntry " << counter << "\t" << key << "\t" << value << "\t" << datatype << endl;
 
 	// Call the appropriate add function
 	if ( datatype == "varchar" ) {
@@ -100,22 +100,22 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
                 binding[counter].is_null = 0;
 	} else if ( datatype == "bigint" ) {
                 binding[counter].buffer_type = MYSQL_TYPE_LONGLONG;
-                binding[counter].buffer = (long long*)&value;
+		long long llvalue = std::stoll( value );
+                binding[counter].buffer = &llvalue;
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "double" ) {
         	binding[counter].buffer_type = MYSQL_TYPE_DOUBLE;
                 double dvalue = std::stod( value );
-                binding[counter].buffer = (char*)&value;
+                binding[counter].buffer = (char*)&dvalue;
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "string" ) {
                 binding[counter].buffer_type = MYSQL_TYPE_STRING;
-                string value = value;
                 strcpy(varcharValue, value.c_str());
                 varcharLength = strlen(varcharValue);
                 binding[counter].buffer = (char *)varcharValue;
-                binding[counter].buffer_length = sizeof(varcharValue);
+                binding[counter].buffer_length = varcharLength;
                 binding[counter].length = &varcharLength;
                 binding[counter].is_null = 0;
 	} else {
