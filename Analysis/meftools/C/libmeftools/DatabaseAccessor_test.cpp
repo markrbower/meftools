@@ -24,11 +24,11 @@ int main() {
     map<string,string> map1;
 //    map1["waveform"] = "1,2,3,4,5";
     map1["peakValue"] = "5";
-//    peaks[10] = map1;
+    peaks[10] = map1;
     map<string,string> map2;
 //    map2["waveform"] = "1,2,3,4,6";
     map2["peakValue"] = "6";
-//    peaks[12] = map2;
+    peaks[12] = map2;
 
     map<string,string> fixed;
     fixed["subject"] = "subject_name";

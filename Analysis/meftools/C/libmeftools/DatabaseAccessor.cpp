@@ -89,14 +89,11 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	int count = 0;
 	for ( auto element: fixed_values ) {
 		cout << count << "\t" << element.first << "\t" << element.second << endl;
-		bind[count].buffer_type = MYSQL_TYPE_STRING;
+		bind[1].buffer_type = MYSQL_TYPE_STRING;
 		string value = element.second;
-		strcpy(varcharValue, value.c_str());
-		varcharLength = strlen(varcharValue);
-		bind[count].buffer = (char *)varcharValue;
-		bind[count].buffer_length = sizeof(varcharValue);
-		bind[count].length = &varcharLength;
-		bind[count].is_null = 0;
+		bind[1].buffer = (char *)value.c_str();
+		bind[1].buffer_length = value.length();
+		bind[1].is_null = 0;
 		count++;
 	}
 
@@ -106,6 +103,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 		for ( auto const &[outer_key, inner_map] : variables ) {
 			for ( auto const &[inner_key, inner_value] : inner_map ) {
                                 if ( inner_key == "peakValue" ) {
+					cout << count << "\t" << inner_key << "\t" << inner_value << endl;
                                         bind[0].buffer_type = MYSQL_TYPE_DOUBLE;
                                         double dvalue = std::stod( inner_value );
                                         bind[0].buffer = (char*)&dvalue;
@@ -125,6 +123,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 					cout << count << ":\t" << outer_key << "\t" << inner_value << endl;
 				}
 			}
+			cout << "binding" << endl;
 			status = mysql_stmt_bind_param(stmt, bind);
 			if (status) {
 			    fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
@@ -143,6 +142,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 			cout << "executed statement" << endl;
 		}
 		// Commit the transaction if everything went well
+		cout << "committing" << endl;
 		runSQL( "COMMIT;" );
 	} catch (const mysqlx::Error &err) {
 		// Rollback the transaction in case of an error
