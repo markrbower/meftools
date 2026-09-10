@@ -93,25 +93,29 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
 
 	// Call the appropriate add function
 	if ( datatype == "varchar" ) {
+		string tmp = value;
                 binding[counter].buffer_type = MYSQL_TYPE_STRING;
-                binding[counter].buffer = (char *)value.c_str();
-                binding[counter].buffer_length = value.length();
+                binding[counter].buffer = (char *)tmp.c_str();
+                binding[counter].buffer_length = tmp.length();
                 binding[counter].is_null = 0;
 	} else if ( datatype == "bigint" ) {
+		string tmp = value;
                 binding[counter].buffer_type = MYSQL_TYPE_LONGLONG;
-		long long llvalue = std::stoll( value );
+		long long llvalue = std::stoll( tmp );
                 binding[counter].buffer = &llvalue;
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "double" ) {
+		string tmp = value;
         	binding[counter].buffer_type = MYSQL_TYPE_DOUBLE;
-                double dvalue = std::stod( value );
+                double dvalue = std::stod( tmp );
                 binding[counter].buffer = (char*)&dvalue;
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "string" ) {
+		string tmp = value;
                 binding[counter].buffer_type = MYSQL_TYPE_STRING;
-                strcpy(varcharValue, value.c_str());
+                strcpy(varcharValue, tmp.c_str());
                 varcharLength = strlen(varcharValue);
                 binding[counter].buffer = (char *)varcharValue;
                 binding[counter].buffer_length = varcharLength;
