@@ -18,16 +18,16 @@ int main() {
     da.runSQL("drop table if exists peaks;");
 
 //    da.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(256));" );
-    da.runSQL("create table peaks (subject varchar(64) );" );
+    da.runSQL("create table peaks ( subject varchar(64), peakValue double );" );
 
     map<long long,map<string,string>> peaks;
-//    map<string,string> map1;
+    map<string,string> map1;
 //    map1["waveform"] = "1,2,3,4,5";
-//    map1["peakValue"] = "5";
+    map1["peakValue"] = "5";
 //    peaks[10] = map1;
-//    map<string,string> map2;
+    map<string,string> map2;
 //    map2["waveform"] = "1,2,3,4,6";
-//    map2["peakValue"] = "6";
+    map2["peakValue"] = "6";
 //    peaks[12] = map2;
 
     map<string,string> fixed;
@@ -40,13 +40,13 @@ int main() {
     oneEntry["subject"] = "subject_name_2"; 
 //    oneEntry["session"] = "sesion_nbr_2"; 
 //    oneEntry["time"] = "3";
-//    oneEntry["peakValue"] = "6";
+    oneEntry["peakValue"] = "6";
 //    oneEntry["waveform"] = "2,3,4,5,6";
     map<string,string> anotherEntry;
     anotherEntry["subject"] = "subject_name_2"; 
 //    anotherEntry["session"] = "sesion_nbr_2"; 
 //    anotherEntry["time"] = "4";
-//    anotherEntry["peakValue"] = "7";
+    anotherEntry["peakValue"] = "7";
 //    anotherEntry["waveform"] = "2,3,4,5,7";
 
     list<map<string,string>> oneList;
@@ -61,7 +61,7 @@ int main() {
     cout << "---------------------------------------------------------------" << endl;
     while ((row = mysql_fetch_row(result3))) {
         cout << row[0] << "\t";
-//        cout << row[1] << "\t";
+        cout << row[1] << "\t";
 //        cout << row[2] << "\t";
 //        cout << row[3] << "\t";
 	  cout << endl;

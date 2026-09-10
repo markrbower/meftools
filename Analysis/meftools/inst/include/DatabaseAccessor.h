@@ -37,6 +37,7 @@ public:
     DatabaseAccessor( string dbname ) {
         std::cout << "In constructor" << std::endl;
 	builder = PreparedStatementBuilder();
+	dbName = dbname;
 	conn = mysql_init(NULL);
 	if (conn == NULL) {
 	    fprintf(stderr, "mysql_init() failed\n");

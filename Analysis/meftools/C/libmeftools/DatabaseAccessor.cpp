@@ -49,7 +49,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	// Prepare the statement
 	MYSQL_STMT *stmt;
 //	MYSQL_BIND bind[5];
-	MYSQL_BIND bind[1];
+	MYSQL_BIND bind[2];
 	char *value0 = "subject";
 	unsigned long length0 = strlen(value0);
 	char *value1 = "example";
@@ -68,7 +68,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
         cout << "Statement initialized" << endl;
 
 //	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?);";
-	string query = "INSERT INTO peaks (subject) VALUES (?);";
+	string query = "INSERT INTO peaks (peakValue,subject) VALUES (?,?);";
 	unsigned long stmt_length = query.size();
 	cout << query << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
@@ -106,11 +106,11 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 		for ( auto const &[outer_key, inner_map] : variables ) {
 			for ( auto const &[inner_key, inner_value] : inner_map ) {
                                 if ( inner_key == "peakValue" ) {
-                                        bind[3].buffer_type = MYSQL_TYPE_DOUBLE;
+                                        bind[0].buffer_type = MYSQL_TYPE_DOUBLE;
                                         double dvalue = std::stod( inner_value );
-                                        bind[3].buffer = (char*)&dvalue;
-                                        bind[3].length = 0;
-                                        bind[3].is_null = 0;
+                                        bind[0].buffer = (char*)&dvalue;
+                                        bind[0].length = 0;
+                                        bind[0].is_null = 0;
 				} else {
 					bind[2].buffer_type = MYSQL_TYPE_LONGLONG;
 					bind[2].buffer = (long long*)&outer_key;
@@ -206,27 +206,16 @@ string DatabaseAccessor::readID( string queryStr ) {
 
 map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
 	map<string,string> typeMap; // Make the typeMap here to return for the PSB constructor.
-        char queryStr1[128];
-        sprintf( queryStr1,"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\';", tableName.c_str() );
-	cout << "Query #1: " << queryStr1 << endl;
-        MYSQL_RES* result1 = runQuery( queryStr1 );
-        MYSQL_ROW row1;
-        while ((row1 = mysql_fetch_row(result1)) != NULL) {
-        row1 = mysql_fetch_row(result1); // Just do one.
-		cout << "Fetched a row." << endl;
-                cout << row1[0] << endl;
-                char queryStr2[128];
-                sprintf( queryStr2,"SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name=\'%s\' AND COLUMN_NAME = \'%s\';", tableName.c_str(), row1[0] );
-		cout << "Query #2: " << queryStr2 << endl;
-                MYSQL_RES* result2 = runQuery( queryStr2 );
-                MYSQL_ROW row2;
-		cout << "DATATYPES" << endl;
-//                while ((row2 = mysql_fetch_row(result2)) != NULL ) {
-                	row2 = mysql_fetch_row(result2);
-                        typeMap[ row1[0] ] = row2[0];
-			cout << row1[0] << "\t" << row2[0] << endl;
-//               }
-		cout << "Done with row." << endl;
+        char queryStr[128];
+        sprintf( queryStr,"SHOW FIELDS FROM %s;", tableName.c_str() );
+	cout << "Query: " << queryStr << endl;
+        MYSQL_RES* result = runQuery( queryStr );
+        MYSQL_ROW row;
+        while ((row = mysql_fetch_row(result)) != NULL) {
+		string name = row[ 0 ];
+		string tmp = row[ 1 ];
+		string type = tmp.substr( 0, tmp.find("\(") );
+		typeMap[ name ] = type;
         }
 	cout << "Done with getColumnTypes" << endl;
 	return typeMap;
