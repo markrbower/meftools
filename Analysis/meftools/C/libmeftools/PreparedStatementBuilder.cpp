@@ -103,26 +103,17 @@ void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {
 		up = malloc(sizeof(long long));
 		long long* llp = static_cast<long long*>(up);
 		*llp = std::stoll( value );
-
                 binding[counter].buffer_type = MYSQL_TYPE_LONGLONG;
                 binding[counter].buffer = llp;
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "double" ) {
-		string tmp = value;
+		up = malloc(sizeof(double));
+		double* dp = static_cast<double*>(up);
+		*dp = std::stod( value );
         	binding[counter].buffer_type = MYSQL_TYPE_DOUBLE;
-                double dvalue = std::stod( tmp );
-                binding[counter].buffer = (char*)&dvalue;
+                binding[counter].buffer = dp;
                 binding[counter].length = 0;
-                binding[counter].is_null = 0;
-	} else if ( datatype == "string" ) {
-		string tmp = value;
-                binding[counter].buffer_type = MYSQL_TYPE_STRING;
-                strcpy(varcharValue, tmp.c_str());
-                varcharLength = strlen(varcharValue);
-                binding[counter].buffer = (char *)varcharValue;
-                binding[counter].buffer_length = varcharLength;
-                binding[counter].length = &varcharLength;
                 binding[counter].is_null = 0;
 	} else {
 		cout << "PreparedStatementBuilder: addEntry: unknown datatype" << endl;
