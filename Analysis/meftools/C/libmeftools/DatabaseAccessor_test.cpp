@@ -18,7 +18,7 @@ int main() {
     da.runSQL("drop table if exists peaks;");
 
 //    da.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(256));" );
-    da.runSQL("create table peaks ( subject varchar(64), session varchar(64), time bigint, peakValue double );" );
+    da.runSQL("create table peaks ( subject varchar(64), session varchar(64), peakValue double );" );
 /*
     map<long long,map<string,string>> peaks;
     map<string,string> map1;
@@ -39,13 +39,13 @@ int main() {
     map<string,string> oneEntry;
     oneEntry["subject"] = "subject_name_2"; 
     oneEntry["session"] = "sesion_nbr_2"; 
-    oneEntry["time"] = "3";
+//    oneEntry["time"] = "3";
     oneEntry["peakValue"] = "6";
 //    oneEntry["waveform"] = "2,3,4,5,6";
     map<string,string> anotherEntry;
     anotherEntry["subject"] = "subject_name_2"; 
     anotherEntry["session"] = "sesion_nbr_2"; 
-    anotherEntry["time"] = "4";
+//    anotherEntry["time"] = "4";
     anotherEntry["peakValue"] = "7";
 //    anotherEntry["waveform"] = "2,3,4,5,7";
 
@@ -60,10 +60,15 @@ int main() {
     cout << "id\t  Name\t\t    email\t\tage" << endl;
     cout << "---------------------------------------------------------------" << endl;
     while ((row = mysql_fetch_row(result3))) {
+	for ( int i=0; i<mysql_num_fields(result3); i++ ) {
+		cout << row[i] << "\t";
+	}
+/*
         cout << row[0] << "\t";
         cout << row[1] << "\t";
 //        cout << row[2] << "\t";
 //        cout << row[3] << "\t";
+*/
 	  cout << endl;
     }
 

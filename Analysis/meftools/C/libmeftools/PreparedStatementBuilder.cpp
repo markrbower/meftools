@@ -83,7 +83,7 @@ void PreparedStatementBuilder::clear() {
         memset(binding, 0, sizeof(binding));
 }
 
-void PreparedStatementBuilder::addEntry( string key, string value ) {
+void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {
 	unsigned long lenStr;
 	char varcharValue[2048];
 	unsigned long varcharLength;
@@ -93,16 +93,19 @@ void PreparedStatementBuilder::addEntry( string key, string value ) {
 
 	// Call the appropriate add function
 	if ( datatype == "varchar" ) {
-		string tmp = value;
+		up = new char[ value.length() + 1 ];
+		std::strcpy( (char*)up, value.c_str() );
                 binding[counter].buffer_type = MYSQL_TYPE_STRING;
-                binding[counter].buffer = (char *)tmp.c_str();
-                binding[counter].buffer_length = tmp.length();
+                binding[counter].buffer = (char *)up;
+                binding[counter].buffer_length = strlen((const char*)up);
                 binding[counter].is_null = 0;
 	} else if ( datatype == "bigint" ) {
-		string tmp = value;
+		up = malloc(sizeof(long long));
+		long long* llp = static_cast<long long*>(up);
+		*llp = std::stoll( value );
+
                 binding[counter].buffer_type = MYSQL_TYPE_LONGLONG;
-		long long llvalue = std::stoll( tmp );
-                binding[counter].buffer = &llvalue;
+                binding[counter].buffer = llp;
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
 	} else if ( datatype == "double" ) {

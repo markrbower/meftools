@@ -37,7 +37,7 @@ class PreparedStatementBuilder {
 
 	void generateQuery( string tableName, map<string,string> tmp );
 
-	void addEntry( string name, string value );
+	void addEntry( string name, string value, void* up );
 
 	MYSQL_STMT* generateStatement();
 
