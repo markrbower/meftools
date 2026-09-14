@@ -160,13 +160,30 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 }
 
 bool DatabaseAccessor::write( string tableName, map<string,string> insertThis ) {
-	cout << "DatabaseAccessor::write not implemented." << endl;
-	return(0);
+        vector<void*> uniquePtr;
+        uniquePtr.reserve( insertThis.size() );
+
+        if ( !builder.getInitialized() ) {
+                cout << "DatabaseAccessor initializes the PreparedStatementBuilder." << endl;
+                map<string,string> typeMap = getColumnTypes( tableName );
+                builder = PreparedStatementBuilder( conn, tableName, insertThis, typeMap );
+        }
+
+        int count=0;
+        // Iterate through the list
+        cout << "Starting iteration." << endl;
+        builder.clear();
+        for ( const auto& [key,value] : insertThis ) {
+                void* tmp = static_cast<void*>(uniquePtr[count]);
+                builder.addEntry( key, value, tmp );
+        }
+                persist( builder );
+        return 1;
 }
 
 bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertThese ) {
 	vector<void*> uniquePtr;
-	uniquePtr.reserve( insertThese.size() );
+	uniquePtr.reserve( insertThese.front().size() );
 
 	if ( !builder.getInitialized() ) {
 	        cout << "DatabaseAccessor initializes the PreparedStatementBuilder." << endl;

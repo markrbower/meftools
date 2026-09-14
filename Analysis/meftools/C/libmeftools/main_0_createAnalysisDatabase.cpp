@@ -35,7 +35,7 @@ int main(int argc, const char * argv[]) {
 	map<string,string> insertThese;
 	insertThese["name"] = "testSubject";
 	insertThese["species"] = "testSpecies";
-	if ( dba.write( "subjects", insertThese ) ) {
+	if ( !dba.write( "subjects", insertThese ) ) {
                 cout << "Failure on \'Test writing subjects\'." << endl;
                 return 0;
         }

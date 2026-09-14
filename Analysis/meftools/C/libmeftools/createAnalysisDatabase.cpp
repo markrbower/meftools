@@ -42,7 +42,7 @@ void createAnalysisDatabase( const char* name ) {
     	sprintf( queryStr, "drop table if exists subjects;" );
     	dba.runSQL( queryStr );
 	cout << "creating subjects table" << endl;
-    	dba.runSQL("create table subjects (uuid VARCHAR(36) PRIMARY KEY, name varchar(64), species varchar(64), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);" );
+    	dba.runSQL("create table subjects (uuid VARCHAR(36) DEFAULT (UUID()) PRIMARY KEY, name varchar(64), species varchar(64), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);" );
 	cout << "subjects table created" << endl;
 
 	cout << "Create Collections table" << endl;
