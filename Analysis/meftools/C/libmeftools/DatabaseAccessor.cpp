@@ -12,6 +12,7 @@
 #include <string>
 #include <map>
 
+
 #include "PreparedStatementBuilder.h"
 #include "DatabaseAccessor.h"
 
@@ -158,6 +159,11 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 	cout << "exiting function" << endl;
 }
 
+bool DatabaseAccessor::write( string tableName, map<string,string> insertThis ) {
+	cout << "DatabaseAccessor::write not implemented." << endl;
+	return(0);
+}
+
 bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertThese ) {
 	vector<void*> uniquePtr;
 	uniquePtr.reserve( insertThese.size() );
@@ -247,4 +253,27 @@ void DatabaseAccessor::persist( PreparedStatementBuilder builder ) {
         }
 
 }
+
+string DatabaseAccessor::getPreviousID( string tableName ) {
+	string queryStr = "SELECT uuid FROM " + tableName + " ORDER BY created_at DESC LIMIT 1";
+	cout << queryStr << endl;
+
+        MYSQL_RES* result = runQuery( queryStr );
+        if ( result == NULL ) {
+                cout << "Failure on \'DatabaseAccessor reading a UUID\'." << endl;
+                return 0;
+        }   
+	string dbID;
+        MYSQL_ROW row;
+        while ((row = mysql_fetch_row(result)) != NULL) {
+	    cout << "Got a row." << endl;
+            for (int i = 0; i < mysql_num_fields(result); i++) {
+                dbID = row[i];
+		cout << "dbID: " << dbID << endl;
+            }
+        }
+        mysql_free_result(result);
+	return( dbID );
+}
+
 

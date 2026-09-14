@@ -6,7 +6,7 @@ Compilation:
 make main_0
 
 Usage:
-main_0 findPeaks
+main_0 test
 
 Result:
 Creates a MySQL database for EEG data analysis
@@ -29,7 +29,6 @@ int main(int argc, const char * argv[]) {
 
 	createAnalysisDatabase( name );
 
-
 	cout << "Begin testing" << endl;
 	DatabaseAccessor dba = DatabaseAccessor( name );
 	// Test writing
@@ -41,8 +40,8 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	// Test reading
-	string dbIDsubject = dba.getPreviousID();
-	if ( dbIDsubject == NULL ) {
+	string dbIDsubject = dba.getPreviousID( "subjects" );
+	if ( dbIDsubject.empty() ) {
                 cout << "Failure on \'Test reading subjects\'." << endl;
                 return 0;
         }
@@ -59,7 +58,7 @@ int main(int argc, const char * argv[]) {
                 cout << "Failure on \'Test writing collections\'." << endl;
                 return 0;
         }
-	string dbIDcollection = dba.getPreviousID();
+	string dbIDcollection = dba.getPreviousID( "collections" );
 
 	insertThese.clear();
 	insertThese["name"] = "testAnalysisName";
@@ -68,7 +67,7 @@ int main(int argc, const char * argv[]) {
                 cout << "Failure on \'Test writing analyses\'." << endl;
                 return 0;
         }
-	string dbIDanalysis = dba.getPreviousID();
+	string dbIDanalysis = dba.getPreviousID( "analyses" );
 
 	insertThese.clear();
 	insertThese["name"] = "testXp";
@@ -78,7 +77,7 @@ int main(int argc, const char * argv[]) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
-	string dbIDexperiment = dba.getPreviousID();
+	string dbIDexperiment = dba.getPreviousID( "experiments" );
 
 	insertThese.clear();
 	insertThese["name"] = "testEvent";
@@ -90,7 +89,7 @@ int main(int argc, const char * argv[]) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
-	string dbIDevent1 = dba.getPreviousID();
+	string dbIDevent1 = dba.getPreviousID( "events" );
 
 	insertThese["time"] = "123456789012346";
 	insertThese["data"] = "1.0,5.0,-10.0,-2.0,-5.0,0.0";
@@ -99,7 +98,7 @@ int main(int argc, const char * argv[]) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
-	string dbIDevent2 = dba.getPreviousID();
+	string dbIDevent2 = dba.getPreviousID( "events" );
 
 	insertThese.clear();
 	insertThese["name"] = "testLink";
@@ -111,7 +110,7 @@ int main(int argc, const char * argv[]) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
-	string dbIDmetric = dba.getPreviousID();
+	string dbIDmetric = dba.getPreviousID( "metrics" );
 
 	cout << "Success!" << endl;
 }

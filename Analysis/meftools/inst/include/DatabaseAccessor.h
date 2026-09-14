@@ -82,6 +82,7 @@ public:
 
     void persist( PreparedStatementBuilder builder );
 
+    string getPreviousID( string tableName );
 };
 
 
