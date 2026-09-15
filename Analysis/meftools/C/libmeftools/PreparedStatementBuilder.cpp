@@ -107,6 +107,28 @@ void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {
                 binding[counter].buffer = llp;
                 binding[counter].length = 0;
                 binding[counter].is_null = 0;
+	} else if ( datatype == "date" ) {
+		up = malloc( sizeof(MYSQL_TIME) );
+		MYSQL_TIME* ts = static_cast<MYSQL_TIME*>(up);
+
+		string delimiter = "-";
+		std::vector<std::string> tokens;
+                size_t pos = 0;
+                std::string token;
+                while ((pos = value.find(delimiter)) != std::string::npos) {
+                	token = value.substr(0, pos);
+                	tokens.push_back(token);
+                	value.erase(0, pos + delimiter.length());
+    		}
+    		tokens.push_back(value);
+		ts->day = std::stoul( tokens[2] );
+		ts->month = std::stoul( tokens[1] );
+		ts->year = std::stoul( tokens[0] );
+
+		binding[counter].buffer_type = MYSQL_TYPE_DATE;
+		binding[counter].buffer = (char *)&ts;
+		binding[counter].is_null = 0;
+		binding[counter].length = 0;
 	} else if ( datatype == "double" ) {
 		up = malloc(sizeof(double));
 		double* dp = static_cast<double*>(up);
