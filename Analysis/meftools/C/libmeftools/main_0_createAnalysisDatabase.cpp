@@ -46,6 +46,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	cout << "dbIDsubject: " << dbIDsubject << endl;
+	dba.reset();
 
 	// Test sequential db writing
 	insertThese.clear();
@@ -59,6 +60,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	string dbIDcollection = dba.getPreviousID( "collections" );
+	dba.reset();
 
 	insertThese.clear();
 	insertThese["name"] = "testAnalysisName";
@@ -68,6 +70,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	string dbIDanalysis = dba.getPreviousID( "analyses" );
+	dba.reset();
 
 	insertThese.clear();
 	insertThese["name"] = "testXp";
@@ -78,7 +81,9 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	string dbIDexperiment = dba.getPreviousID( "experiments" );
+	dba.reset();
 
+	// Persist several events.
 	insertThese.clear();
 	insertThese["name"] = "testEvent";
 	insertThese["dbIDexperiment"] = dbIDexperiment;
@@ -99,6 +104,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	string dbIDevent2 = dba.getPreviousID( "events" );
+	dba.reset();
 
 	insertThese.clear();
 	insertThese["name"] = "testLink";
@@ -111,6 +117,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	string dbIDmetric = dba.getPreviousID( "metrics" );
+	dba.reset();
 
 	cout << "Success!" << endl;
 }

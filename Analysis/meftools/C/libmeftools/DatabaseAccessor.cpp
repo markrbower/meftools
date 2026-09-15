@@ -177,7 +177,7 @@ bool DatabaseAccessor::write( string tableName, map<string,string> insertThis ) 
                 void* tmp = static_cast<void*>(uniquePtr[count]);
                 builder.addEntry( key, value, tmp );
         }
-                persist( builder );
+        persist( builder );
         return 1;
 }
 
@@ -243,6 +243,7 @@ map<string,string> DatabaseAccessor::getColumnTypes( string tableName ) {
 		string tmp = row[ 1 ];
 		string type = tmp.substr( 0, tmp.find("\(") );
 		typeMap[ name ] = type;
+		cout << "TYPE:: " << name << "\t" << type << endl;
         }
 	cout << "Done with getColumnTypes" << endl;
 	return typeMap;
@@ -292,5 +293,10 @@ string DatabaseAccessor::getPreviousID( string tableName ) {
         mysql_free_result(result);
 	return( dbID );
 }
+
+void DatabaseAccessor::reset() {
+	builder.clear();
+}
+
 
 

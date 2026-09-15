@@ -16,6 +16,7 @@ PreparedStatementBuilder::PreparedStatementBuilder() {
 PreparedStatementBuilder::PreparedStatementBuilder(MYSQL* conn, string tableName, map<string,string> insertThis, map<string,string> typeMap_ ) {
 	initialized = 1;
 	binding = (MYSQL_BIND*)malloc( insertThis.size() * sizeof(MYSQL_BIND) );
+        memset(binding, 0, sizeof(binding));
 	stmt = mysql_stmt_init(conn);
 
 	typeMap = typeMap_;
@@ -27,6 +28,7 @@ PreparedStatementBuilder::PreparedStatementBuilder(MYSQL* conn, string tableName
 	cout << "Entering PreparedStatementBuilder constructor." << endl;
 	initialized = 1;
 	binding = (MYSQL_BIND*)malloc( insertThese.front().size() * sizeof(MYSQL_BIND) );
+        memset(binding, 0, sizeof(binding));
 	stmt = mysql_stmt_init(conn);
         
 	typeMap = typeMap_;
@@ -80,7 +82,7 @@ string PreparedStatementBuilder::getType( string colName ) {
 
 void PreparedStatementBuilder::clear() {
 	counter = 0;
-        memset(binding, 0, sizeof(binding));
+	initialized = 0;
 }
 
 void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {

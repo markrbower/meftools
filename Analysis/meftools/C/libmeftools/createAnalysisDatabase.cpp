@@ -49,7 +49,7 @@ void createAnalysisDatabase( const char* name ) {
 	// collection	dbIDcollection,    name, dbIDsubject , date, place, task
     	sprintf( queryStr, "drop table if exists collections;" );
     	dba.runSQL( queryStr );
-    	dba.runSQL("create table collections (uuid VARCHAR(36) PRIMARY KEY, name varchar(64), dbIDcollection binary(16), date DATE, place varchar(64), task varchar(64), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
+    	dba.runSQL("create table collections (uuid VARCHAR(36) PRIMARY KEY, name varchar(64), dbIDsubject binary(16), date DATE, place varchar(64), task varchar(64), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
 
 	cout << "Create Analyses table" << endl;
 	// analysis	dbIDanalysis,      name, description
