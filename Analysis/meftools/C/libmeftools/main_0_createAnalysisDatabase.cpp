@@ -74,7 +74,7 @@ int main(int argc, const char * argv[]) {
 
 	insertThese.clear();
 	insertThese["name"] = "testXp";
-	insertThese["dbIDcolletion"] = dbIDcollection;
+	insertThese["dbIDcollection"] = dbIDcollection;
 	insertThese["dbIDanalysis"] = dbIDanalysis;
 	if ( !dba.write( "experiments", insertThese ) ) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
@@ -110,7 +110,7 @@ int main(int argc, const char * argv[]) {
 	insertThese["name"] = "testLink";
 	insertThese["dbIDevent1"] = dbIDevent1;
 	insertThese["dbIDevent2"] = dbIDevent2;
-	insertThese["data"] = 0.5;
+	insertThese["value"] = 0.5;
 	insertThese["label"] = "CC";
 	if ( !dba.write( "metrics", insertThese ) ) {
                 cout << "Failure on \'Test writing experiments\'." << endl;

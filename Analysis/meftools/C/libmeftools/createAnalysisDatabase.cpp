@@ -49,31 +49,31 @@ void createAnalysisDatabase( const char* name ) {
 	// collection	dbIDcollection,    name, dbIDsubject , date, place, task
     	sprintf( queryStr, "drop table if exists collections;" );
     	dba.runSQL( queryStr );
-    	dba.runSQL("create table collections (uuid BINARY(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDsubject binary(16), date DATE, place varchar(64), task varchar(64), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
+    	dba.runSQL("create table collections (uuid binary(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDsubject binary(16), date DATE, place varchar(64), task varchar(64), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
 
 	cout << "Create Analyses table" << endl;
 	// analysis	dbIDanalysis,      name, description
     	sprintf( queryStr, "drop table if exists analyses;" );
     	dba.runSQL( queryStr );
-    	dba.runSQL("create table analyses (uuid VARCHAR(36) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), description varchar(128), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
+    	dba.runSQL("create table analyses (uuid binary(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), description varchar(128), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
 
 	cout << "Create Experiments table" << endl;
 	// experiment	dbIDexperiment, name, dbIDcollection, dbIDanalysis
     	sprintf( queryStr, "drop table if exists experiments;" );
     	dba.runSQL( queryStr );
-    	dba.runSQL("create table experiments (uuid VARCHAR(36) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDcollection binary(16), dbIDanalysis binary(16), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
+    	dba.runSQL("create table experiments (uuid binary(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDcollection binary(16), dbIDanalysis binary(16), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
 
 	cout << "Create Events table" << endl;
 	// events		dbIDevents,        name, dbIDexperiment, time, data, label
     	sprintf( queryStr, "drop table if exists events;" );
     	dba.runSQL( queryStr );
-    	dba.runSQL("create table events (uuid VARCHAR(36) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDexperiment binary(16), time BIGINT, data varchar(256), label varchar(32), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
+    	dba.runSQL("create table events (uuid binary(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDexperiment binary(16), time BIGINT, data varchar(256), label varchar(32), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
 
 	cout << "Create metrics table" << endl;
 	// metrics		dbIDmetrics,       name, dbIDevents, value
     	sprintf( queryStr, "drop table if exists metrics;" );
     	dba.runSQL( queryStr );
-    	dba.runSQL("create table metrics (uuid VARCHAR(36) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDevent binary(16), value varchar(64), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
+    	dba.runSQL("create table metrics (uuid binary(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDevent1 binary(16), dbIDevent2 binary(16), value varchar(64), label varchar(128), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );" );
 
 	cout << "Database tables created." << endl;
 }
