@@ -273,7 +273,7 @@ void DatabaseAccessor::persist( PreparedStatementBuilder builder ) {
 }
 
 string DatabaseAccessor::getPreviousID( string tableName ) {
-	string queryStr = "SELECT uuid FROM " + tableName + " ORDER BY created_at DESC LIMIT 1";
+	string queryStr = "SELECT bin_to_uuid(uuid) AS uuid FROM " + tableName + " ORDER BY created_at DESC LIMIT 1";
 	cout << queryStr << endl;
 
         MYSQL_RES* result = runQuery( queryStr );

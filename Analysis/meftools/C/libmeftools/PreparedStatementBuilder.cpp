@@ -49,7 +49,12 @@ void PreparedStatementBuilder::generateQuery( string tableName, map<string,strin
 		}
 		firstTimeFlag = 0;
 		queryPrefix.append( key );
-		queryPostfix.append( "?" );
+// If the name starts with "dbID", then you need to convert uuid_to_bin()
+		if ( key.starts_with("dbID") ) {
+			queryPostfix.append( "uuid_to_bin(?,1)" );
+		} else {
+			queryPostfix.append( "?" );
+		}
 	}
 	query = queryPrefix + queryPostfix + ");";
 	cout << query << endl;
@@ -94,7 +99,14 @@ void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {
 	cout << "addEntry " << counter << "\t" << key << "\t" << value << "\t" << datatype << endl;
 
 	// Call the appropriate add function
-	if ( datatype == "varchar" ) {
+	if ( datatype.starts_with("varchar") ) {
+		up = new char[ value.length() + 1 ];
+		std::strcpy( (char*)up, value.c_str() );
+                binding[counter].buffer_type = MYSQL_TYPE_STRING;
+                binding[counter].buffer = (char *)up;
+                binding[counter].buffer_length = strlen((const char*)up);
+                binding[counter].is_null = 0;
+	} else if ( datatype.starts_with("binary") ) {
 		up = new char[ value.length() + 1 ];
 		std::strcpy( (char*)up, value.c_str() );
                 binding[counter].buffer_type = MYSQL_TYPE_STRING;
@@ -123,12 +135,13 @@ void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {
                 	value.erase(0, pos + delimiter.length());
     		}
     		tokens.push_back(value);
+		cout << "DATE values in order: " << tokens[0] << "\t" << tokens[1] << "\t" << tokens[2] << endl;
 		ts->day = std::stoul( tokens[2] );
 		ts->month = std::stoul( tokens[1] );
 		ts->year = std::stoul( tokens[0] );
 
 		binding[counter].buffer_type = MYSQL_TYPE_DATE;
-		binding[counter].buffer = (char *)&ts;
+		binding[counter].buffer = (char *)ts;
 		binding[counter].is_null = 0;
 		binding[counter].length = 0;
 	} else if ( datatype == "double" ) {

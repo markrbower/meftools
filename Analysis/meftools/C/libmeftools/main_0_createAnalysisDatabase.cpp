@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
 	insertThese["date"] = "2026-08-20";
 	insertThese["place"] = "testPlace";
 	insertThese["task"] = "Figure-8";
-	if ( dba.write( "collections", insertThese ) ) {
+	if ( !dba.write( "collections", insertThese ) ) {
                 cout << "Failure on \'Test writing collections\'." << endl;
                 return 0;
         }
@@ -65,7 +65,7 @@ int main(int argc, const char * argv[]) {
 	insertThese.clear();
 	insertThese["name"] = "testAnalysisName";
 	insertThese["description"] = "peak finding";
-	if ( dba.write( "analyses", insertThese ) ) {
+	if ( !dba.write( "analyses", insertThese ) ) {
                 cout << "Failure on \'Test writing analyses\'." << endl;
                 return 0;
         }
@@ -76,7 +76,7 @@ int main(int argc, const char * argv[]) {
 	insertThese["name"] = "testXp";
 	insertThese["dbIDcolletion"] = dbIDcollection;
 	insertThese["dbIDanalysis"] = dbIDanalysis;
-	if ( dba.write( "experiments", insertThese ) ) {
+	if ( !dba.write( "experiments", insertThese ) ) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
@@ -90,7 +90,7 @@ int main(int argc, const char * argv[]) {
 	insertThese["time"] = "123456789012345";
 	insertThese["data"] = "1.0,5.0,10.0,2.0,-5.0,0.0";
 	insertThese["label"] = "AP";
-	if ( dba.write( "events", insertThese ) ) {
+	if ( !dba.write( "events", insertThese ) ) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
@@ -99,7 +99,7 @@ int main(int argc, const char * argv[]) {
 	insertThese["time"] = "123456789012346";
 	insertThese["data"] = "1.0,5.0,-10.0,-2.0,-5.0,0.0";
 	insertThese["label"] = "AP";
-	if ( dba.write( "events", insertThese ) ) {
+	if ( !dba.write( "events", insertThese ) ) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
@@ -112,7 +112,7 @@ int main(int argc, const char * argv[]) {
 	insertThese["dbIDevent2"] = dbIDevent2;
 	insertThese["data"] = 0.5;
 	insertThese["label"] = "CC";
-	if ( dba.write( "metrics", insertThese ) ) {
+	if ( !dba.write( "metrics", insertThese ) ) {
                 cout << "Failure on \'Test writing experiments\'." << endl;
                 return 0;
         }
