@@ -176,6 +176,7 @@ bool DatabaseAccessor::write( string tableName, map<string,string> insertThis ) 
         for ( const auto& [key,value] : insertThis ) {
                 void* tmp = static_cast<void*>(uniquePtr[count]);
                 builder.addEntry( key, value, tmp );
+		count++;
         }
         persist( builder );
         return 1;

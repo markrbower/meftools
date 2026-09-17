@@ -51,7 +51,7 @@ void PreparedStatementBuilder::generateQuery( string tableName, map<string,strin
 		queryPrefix.append( key );
 // If the name starts with "dbID", then you need to convert uuid_to_bin()
 		if ( key.starts_with("dbID") ) {
-			queryPostfix.append( "uuid_to_bin(?,1)" );
+			queryPostfix.append( "uuid_to_bin(?)" );
 		} else {
 			queryPostfix.append( "?" );
 		}
