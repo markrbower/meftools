@@ -95,6 +95,7 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	string dbIDevent1 = dba.getPreviousID( "events" );
+	cout << "getPreviousID 1: " << dbIDevent1 << endl;
 
 	insertThese["time"] = "123456789012346";
 	insertThese["data"] = "1.0,5.0,-10.0,-2.0,-5.0,0.0";
@@ -104,13 +105,14 @@ int main(int argc, const char * argv[]) {
                 return 0;
         }
 	string dbIDevent2 = dba.getPreviousID( "events" );
+	cout << "getPreviousID 2: " << dbIDevent2 << endl;
 	dba.reset();
 
 	insertThese.clear();
 	insertThese["name"] = "testLink";
 	insertThese["dbIDevent1"] = dbIDevent1;
 	insertThese["dbIDevent2"] = dbIDevent2;
-	insertThese["value"] = 0.5;
+	insertThese["value"] = "0.5";
 	insertThese["label"] = "CC";
 	if ( !dba.write( "metrics", insertThese ) ) {
                 cout << "Failure on \'Test writing experiments\'." << endl;

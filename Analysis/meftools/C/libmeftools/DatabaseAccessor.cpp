@@ -160,8 +160,7 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 }
 
 bool DatabaseAccessor::write( string tableName, map<string,string> insertThis ) {
-        vector<void*> uniquePtr;
-        uniquePtr.reserve( insertThis.size() );
+        void** uniquePtr = new void*[ insertThis.size() ];
 
         if ( !builder.getInitialized() ) {
                 cout << "DatabaseAccessor initializes the PreparedStatementBuilder." << endl;
@@ -174,11 +173,13 @@ bool DatabaseAccessor::write( string tableName, map<string,string> insertThis ) 
         cout << "Starting iteration." << endl;
         builder.clear();
         for ( const auto& [key,value] : insertThis ) {
-                void* tmp = static_cast<void*>(uniquePtr[count]);
+                void* tmp = static_cast<void*>(&uniquePtr[count]);
+		cout << count << "\t" << key << "\t" << value << "\t" << tmp << endl;
                 builder.addEntry( key, value, tmp );
 		count++;
         }
         persist( builder );
+
         return 1;
 }
 
