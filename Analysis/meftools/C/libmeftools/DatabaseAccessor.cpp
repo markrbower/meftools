@@ -179,6 +179,7 @@ bool DatabaseAccessor::write( string tableName, map<string,string> insertThis ) 
 		count++;
         }
         persist( builder );
+	delete[] uniquePtr;
 
         return 1;
 }
