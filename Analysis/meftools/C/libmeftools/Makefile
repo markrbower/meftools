@@ -85,6 +85,9 @@ MEFanalysis: # general purpose function
 createAnalysisDatabase: # general purpose function 
 	$(CC) -c createAnalysisDatabase.cpp  $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
 
+findEvents: # general purpose function 
+	$(CC) -c findEvents.cpp  $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
+
 analysisFindPeaks: # general purpose function 
 	$(CC) -c analysisFindPeaks.cpp  $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
 
@@ -107,6 +110,9 @@ main_alfp: # analysisLookingForPeaks
 
 main_0: createAnalysisDatabase # create the database
 	$(CC) main_0_createAnalysisDatabase.cpp -o main_0 $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) $(USER_OBJS) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
+
+main_1: findEvents # create the database
+	$(CC) main_0_findEvents.cpp -o main_1 $(CFLAGS) -I $(INCLUDE) -I $(INCLUDE_MYSQL) -I $(INCLUDE_MYSQLX) -I $(INCLUDE_FILTFILT) $(USER_OBJS) -L/opt/homebrew/Cellar/mysql-connector-c++/9.6.0/lib -lmysqlcppconnx.2.9.6.0 -L/usr/local/mysql-9.6.0-macos15-arm64/lib -lmysqlclient -Wl,-rpath,/usr/local/mysql/lib -I $(INCLUDE_KFR) -L/Users/markbower/Dropbox/Documents/src/kfr/build-release/lib -lkfr_dft -lkfr_dsp
 
 
 da_test: # test DatabaseAccessor
