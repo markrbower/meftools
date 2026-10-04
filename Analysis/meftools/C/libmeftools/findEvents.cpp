@@ -23,15 +23,14 @@ Yale University
 #include <kfr/dsp/iir_design.hpp>
 #include <kfr/io/python_plot.hpp>
 
-
 using namespace std;
 
-void findEvents( const char* name ) {
+void findEvents( string filename, string password, string subject, string session, int bufferSize, string signalType, int duration ) {
 	char queryStr[256];
 
-	DatabaseAccessor dba = DatabaseAccessor( name ); // Generic db that should exist.
+	DatabaseAccessor dba = DatabaseAccessor( name );
 
-
+	probably just "processMEFexample(...)";
 
 }
 
