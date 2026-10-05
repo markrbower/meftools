@@ -1,46 +1,56 @@
 #include <iostream>
-#include <stdexcept>
-
 using namespace std;
 
-class S {
+class Singleton {
+
+private:
+
+    Singleton( int v ) {
+	value = v;
+    }
+
+    int value;
+    static int i_;
+    static bool initialized_;
+
 public:
-    static void Init(int i)
-    {
+    static void Init(int i) {
         i_ = i;
         initialized_ = true;
     }
 
-    static S& getInstance()
-    {
-        if (!initialized_) {
-            throw invalid_argument("not initialized.");
-        }
-        static S instance(i_);
+
+    Singleton(const Singleton&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
+
+    static Singleton& getInstance() {
+	if ( !initialized_ ) {
+		throw invalid_argument( "Error" );
+	}
+        static Singleton instance(i_);
         return instance;
     }
 
-    void display() {
-	cout << i_ << endl;
+    void display()
+    {
+        cout << "Singleton Instance: " << value << endl;
     }
-
-private:
-    S(int) { }
-
-    static int i_;
-    static bool initialized_;
 };
 
-int S::i_ = 0;
-bool S::initialized_ = false;
+int Singleton::i_ = 0;
+bool Singleton::initialized_ = false;
 
 int main() {
-	S::Init( 1 );
+    Singleton::Init( 2 );
+    Singleton& s1 = Singleton::getInstance();
+    Singleton& s2 = Singleton::getInstance();
 
-	S s = S::getInstance();
+    s1.display();
 
-	s.display();
+    cout << "Address of s1: " << &s1 << endl;
+    cout << "Address of s2: " << &s2 << endl;
 
-	return 0;
+    return 0;
 }
+
 
