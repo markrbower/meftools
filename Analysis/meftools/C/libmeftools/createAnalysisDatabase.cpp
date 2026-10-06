@@ -35,7 +35,7 @@ void createAnalysisDatabase( const char* name ) {
 	dba_tmp.runSQL( queryStr );
 	dba_tmp.~DatabaseAccessor(); 
 
-	DatabaseAccessor dba = DatabaseAccessor( name ); // Generic db that should exist.
+	DatabaseAccessor dba = DatabaseAccessor( name );
 
 	cout << "Create Subjects table" << endl;
 	// subject		dbIDsubject,        name, species

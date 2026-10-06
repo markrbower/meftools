@@ -19,7 +19,6 @@ public:
         initialized_ = true;
     }
 
-
     Singleton(const Singleton&) = delete;
     Singleton& operator=(const Singleton&) = delete;
 
@@ -43,14 +42,18 @@ bool Singleton::initialized_ = false;
 int main() {
     Singleton::Init( 2 );
     Singleton& s1 = Singleton::getInstance();
+
+    Singleton::Init( 5 );
     Singleton& s2 = Singleton::getInstance();
 
+    cout << "These should be the same, showing the second assignment was ignored." << endl;
     s1.display();
+    s2.display();
 
+    cout << "These should be the same, showing that a second request returned the first instance." << endl;
     cout << "Address of s1: " << &s1 << endl;
     cout << "Address of s2: " << &s2 << endl;
 
     return 0;
 }
-
 
