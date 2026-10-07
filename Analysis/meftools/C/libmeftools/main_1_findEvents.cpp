@@ -24,15 +24,19 @@ using namespace std;
 void createAnalysisDatabase( const char* name );
 
 int main(int argc, const char * argv[]) {
-    	string filename = argv[1];
-    	string password = "blah";
-    	string subject = argv[2];
-    	string session = argv[3];
-    	int bufferSize = 1024;
-    	string signalType = "IIS";
-    	int duration = 100;
 
-	findEvents( filename, password, subject, session, bufferSize, signalType, duration );
+	AlgorithmSpecificFactory asf = AlgorithmSpecificFactory();
+	asf.set( "filename", argv[1] );
+	asf.set( "password", "blah" );
+	asf.set( "subject", argv[2] );
+	asf.set( "session", argv[3] );
+	asf.set( "bufferSize", 1024 );
+	asf.set( "signalType", "IIS" );
+	asf.set( "duration", 100 );
+	asf.set( "databaseName", "test" );
+
+	//findEvents( filename, password, subject, session, bufferSize, signalType, duration );
+	findEvents( asf );
 
 	// Begin testing
 	// Check that events have been persisted in the "events" table

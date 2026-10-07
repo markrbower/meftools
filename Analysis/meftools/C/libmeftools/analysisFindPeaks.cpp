@@ -27,6 +27,13 @@ vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 using namespace std;
 
+analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf ) {
+	circbuf = asf.getCircularBuffer();
+	conts = asf.getMEFconts();
+	info  = asf.getMEFinfo();
+	dba   = asf.getDatabaseAccessor();
+}
+
 analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFconts conts_, CircularBufferMEF_allPeaks cb_ ) : circbuf(cb_) {
 	csv = csv_;
 	asv = asv_;

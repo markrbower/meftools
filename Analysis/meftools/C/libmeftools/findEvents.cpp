@@ -25,12 +25,17 @@ Yale University
 
 using namespace std;
 
-void findEvents( string filename, string password, string subject, string session, int bufferSize, string signalType, int duration ) {
+void findEvents( AlgoithmSpecificFactory asf ) {
 	char queryStr[256];
 
-	DatabaseAccessor dba = DatabaseAccessor( name );
+	DatabaseAccessor dba = asf.getDatabaseAccessor();
+        MEFinfo info = asf.getMEFinfo();
+        CircularBufferMEF_allPeaks circbuf = asf.getCircularBuffer( 51, 0L );
+        MEFconts mefConts = asf.getMEFconts();
 
-	probably just "processMEFexample(...)";
+        analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefConts, circbuf );
+        cout << "analysisFindPeaks object constructed" << endl;
+        peaks.compute();
 
 }
 
