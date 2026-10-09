@@ -34,6 +34,7 @@ class MEFanalysis {
     public:
 	CaseSpecificVariables csv;
 	AlgorithmSpecificVariables asv;
+	CircularBufferMEF_allPeaks circbuf;
 	DatabaseAccessor dba;
 	MEFinfo info;
 	MEFconts conts;

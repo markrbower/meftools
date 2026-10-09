@@ -27,7 +27,8 @@ vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 
 using namespace std;
 
-analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf ) {
+analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
+	asf = asf_;
 	circbuf = asf.getCircularBuffer();
 	conts = asf.getMEFconts();
 	info  = asf.getMEFinfo();
@@ -65,7 +66,12 @@ void analysisFindPeaks::compute() {
 	fixed["session"] = csv.session;
 	int MySQLbufferLimit = 1000;
         long long stepSize = info.getStepSize();
-        CircularBufferMEF_allPeaks rawbuf = CircularBufferMEF_allPeaks( 51, 0L, stepSize );
+	CircularBufferMEF_allPeaks rawbuf;
+	if ( asf != null ) {
+		rawbuf = asf.getCircularBuffer();
+	} else {
+	        rawbuf = CircularBufferMEF_allPeaks( 51, 0L, stepSize );
+	}
 
 	// KFR filtering
 	kfr::zpk filt_lo = kfr::iir_lowpass(kfr::butterworth(5), 6000, 30000 );

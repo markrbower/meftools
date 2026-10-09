@@ -21,8 +21,6 @@ Finds sovereign peaks and persists them.
 
 using namespace std;
 
-void createAnalysisDatabase( const char* name );
-
 int main(int argc, const char * argv[]) {
 
 	AlgorithmSpecificFactory asf = AlgorithmSpecificFactory();
@@ -30,13 +28,15 @@ int main(int argc, const char * argv[]) {
 	asf.set( "password", "blah" );
 	asf.set( "subject", argv[2] );
 	asf.set( "session", argv[3] );
-	asf.set( "bufferSize", 1024 );
+	asf.set( "bufferCapacity", 1024 );
 	asf.set( "signalType", "IIS" );
-	asf.set( "duration", 100 );
-	asf.set( "databaseName", "test" );
+	asf.set( "bufferStartTime", 0 );
+	asf.set( "bufferStepTime", 0 );
 
 	//findEvents( filename, password, subject, session, bufferSize, signalType, duration );
-	findEvents( asf );
+	//findEvents( asf );
+	analysisFindPeaks peaks = analysisFindPeaks( asf );
+	peaks.compute();
 
 	// Begin testing
 	// Check that events have been persisted in the "events" table

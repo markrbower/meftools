@@ -25,7 +25,7 @@ Yale University
 
 using namespace std;
 
-void findEvents( AlgoithmSpecificFactory asf ) {
+void findEvents( AlgorithmSpecificFactory asf ) {
 	char queryStr[256];
 
 	DatabaseAccessor dba = asf.getDatabaseAccessor();
