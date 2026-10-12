@@ -1,34 +1,44 @@
 #ifndef ALGORITHM_SPECIFIC_FACTORY
 #define ALGORITHM_SPECIFIC_FACTORY
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <time.h>
-#include <vector>
-#include <string>
-#include <list>
+/* AlgorithmSpecificFactory.h
 
-using namespace std;
+Implements factory for constructing analysis objects.
+
+Mark R. Bower
+Yale University
+*/
+#include <string>
+#include <iostream>
+
+#include "meftools_types.h"
+#include "MEFinfo.h"
+#include "MEFiter.h"
+#include "MEFconts.h"
+#include "MEFanalysis.h"
+
+#include "CircularBuffer.h"
+#include "CircularBufferMEF_allPeaks.h"
+
+#include "FiltFilt.h"
 
 class AlgorithmSpecificFactory {
-    private:
-	map<string,string> S;
-	map<string,double> D;
-	map<string,int> I;
-	map<string,long long> LL;
-    public:
-	void set( string, string );
-	void set( string, double );
-	void set( string, int );
-	void set( string, long long );
-	MEFinfo getMEFinfo();
-        CircularBuffer getCircularBuffer();
-        MEFcont getMEFconts();
-        MEFinfo getMEFinfo();
-        DatabaseAccessor getDatabaseAccessor();
+private:
+	MEFinfo info;
+	MEFcont mefConts;
+	CircularBuffer circbuf;
+	DatabaseAccessor dba;
 
+public:
+	void set( string key, string value );
+	void set( string key, double value )
+	void set( string key, int value );
+	void set( string key, long long value );
+	void setAnalysisName( string name );
+	CircularBuffer getCircularBuffer();
+	MEFcont getMEFcont();
+	MEFinfo getMEFinfo();	
+	DatabaseAccessor getDatabaseAccessor();
 };
-#endif
 
+#endif

@@ -29,10 +29,14 @@ using namespace std;
 
 analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	asf = asf_;
+	asf.setAnalysisName( "findPeaks" );
+	// The circular buffer should be returned as a CircularBuffer,
+	// even though the Factory created a CircularBufferMEF_findPeaks.
+	// Does this mean that EVERY analysis will share this exact code?!
 	circbuf = asf.getCircularBuffer();
-	conts = asf.getMEFconts();
-	info  = asf.getMEFinfo();
-	dba   = asf.getDatabaseAccessor();
+	conts   = asf.getMEFconts();
+	info    = asf.getMEFinfo();
+	dba     = asf.getDatabaseAccessor();
 }
 
 analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFconts conts_, CircularBufferMEF_allPeaks cb_ ) : circbuf(cb_) {
