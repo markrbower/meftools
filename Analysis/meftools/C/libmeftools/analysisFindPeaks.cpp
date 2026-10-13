@@ -29,6 +29,15 @@ using namespace std;
 
 analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	asf = asf_;
+	// Defaults (Put test file names and values here)
+        asf.set( "filename", argv[1] );
+        asf.set( "password", "blah" );
+        asf.set( "subject", argv[2] );
+        asf.set( "session", argv[3] );
+        asf.set( "bufferCapacity", 1024 );
+        asf.set( "signalType", "IIS" );
+        asf.set( "bufferStartTime", 0 );
+        asf.set( "bufferStepTime", 0 );
 	asf.setAnalysisName( "findPeaks" );
 	// The circular buffer should be returned as a CircularBuffer,
 	// even though the Factory created a CircularBufferMEF_findPeaks.
