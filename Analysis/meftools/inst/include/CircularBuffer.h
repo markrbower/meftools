@@ -22,6 +22,7 @@ class CircularBuffer {
         int back;
         int capacity;
 
+        CircularBuffer();
         CircularBuffer(int capacity);
         virtual void push_back(double val);
         void pop_front();

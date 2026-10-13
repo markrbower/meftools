@@ -24,14 +24,12 @@ using namespace std;
 int main(int argc, const char * argv[]) {
 
 	AlgorithmSpecificFactory asf = AlgorithmSpecificFactory();
+	// Set any case- or run-specific variables here.
+	// If set here, they will not be over-written in the Analysis constructor.
 	asf.set( "filename", argv[1] );
 	asf.set( "password", "blah" );
 	asf.set( "subject", argv[2] );
 	asf.set( "session", argv[3] );
-	asf.set( "bufferCapacity", 1024 );
-	asf.set( "signalType", "IIS" );
-	asf.set( "bufferStartTime", 0 );
-	asf.set( "bufferStepTime", 0 );
 
 	//findEvents( filename, password, subject, session, bufferSize, signalType, duration );
 	//findEvents( asf );

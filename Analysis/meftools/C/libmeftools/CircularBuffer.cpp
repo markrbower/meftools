@@ -5,6 +5,10 @@
 
 using namespace std;
 
+CircularBuffer::CircularBuffer() {
+	capacity = 0;
+}
+
 CircularBuffer::CircularBuffer(int _capacity) {
         
         // If the capacity is invalid

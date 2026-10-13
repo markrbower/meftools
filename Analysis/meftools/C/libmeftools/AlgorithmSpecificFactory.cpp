@@ -2,6 +2,7 @@
 #include <vector>
 #include <mysql/mysql.h>
 #include <mysqlx/xdevapi.h>
+#include "MEFconts.h"
 #include "DatabaseAccessor.h"
 
 #include "AlgorithmSpecificFactory.h"
@@ -12,30 +13,39 @@ AlgorithmSpecificFactory::AlgorithmSpecificFactory() {
 	
 }
 
+// For all "set" methods, only set the value if the key is not already in the map.
 void AlgorithmSpecificFactory::set( string key, string value ) {
-	S[ key ] = value;
+	if (S.find(key) == S.end()) {
+		S[ key ] = value;
+	}
 }
 
 void AlgorithmSpecificFactory::set( string key, double value ) {
-	D[ key ] = value;
+	if (D.find(key) == D.end()) {
+		D[ key ] = value;
+	}
 }
 
 void AlgorithmSpecificFactory::set( string key, int value ) {
-	I[ key ] = value;
+	if (I.find(key) == I.end()) {
+		I[ key ] = value;
+	}
 }
 
 void AlgorithmSpecificFactory::set( string key, long long value ) {
-	LL[ key ] = value;
+	if (LL.find(key) == LL.end()) {
+		LL[ key ] = value;
+	}
 }
 
-void setAnalysisName( string n ) {
+void AlgorithmSpecificFactory::setAnalysisName( string n ) {
 	analysisName = "findPeaks";
 }
 
-CircularBuffer AlgorithmSpecificFactory::getCircularBuffer() {
-	if ( circbuf == null ) {
-		if ( analysisName == "findPeaks" )	
-			circbuf = CircularBufferMEF_allPeaks( I["bufferCapacity"], LL["startTime"], LL["stepTime"] );
+CircularBuffer* AlgorithmSpecificFactory::getCircularBuffer() {
+	if ( &circbuf == NULL ) {
+		if ( analysisName == "findPeaks" ) {
+			*circbuf = (CircularBuffer)CircularBufferMEF_allPeaks( I["bufferCapacity"], LL["startTime"], LL["stepTime"] );
 			return circbuf;
 		}
 	} else {
@@ -43,10 +53,10 @@ CircularBuffer AlgorithmSpecificFactory::getCircularBuffer() {
 	}
 }
 
-MEFcont AlgorithmSpecificFactory::getMEFcont() {
-	if ( mefConts == null ) {
+MEFconts* AlgorithmSpecificFactory::getMEFconts() {
+	if ( &mefConts == NULL ) {
 		if ( analysisName == "findPeaks" ) {
-			mefConts = mefConts( getMEFinfo(), I["bufferCapacity"] ); 
+			*mefConts = (MEFconts)MEFconts( *getMEFinfo(), I["bufferCapacity"] ); 
 			return mefConts;
 		}
 	} else {
@@ -54,10 +64,10 @@ MEFcont AlgorithmSpecificFactory::getMEFcont() {
 	}
 }
 
-MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
-	if ( info == null ) {
+MEFinfo* AlgorithmSpecificFactory::getMEFinfo() {
+	if ( &info == NULL ) {
 		if ( analysisName == "findPeaks" ) {
-			info = MEFinfo( S["filename"], S["password"] );
+			*info = MEFinfo( S["filename"], S["password"] );
 			return( info );
 		}
 	} else {
@@ -65,10 +75,10 @@ MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
 	}
 }
 
-DatabaseAccessor AlgorithmSpecificFactory::getDatabaseAccessor() {
-	if ( dba == null ) {
-		if ( analysisName = "findPeaks" ) {
-			dba = DatabaseAccessor( S["databaseName"] );
+DatabaseAccessor* AlgorithmSpecificFactory::getDatabaseAccessor() {
+	if ( &dba == NULL ) {
+		if ( analysisName == "findPeaks" ) {
+			*dba = DatabaseAccessor( S["databaseName"] );
 			return dba;
 		}
 	} else {
