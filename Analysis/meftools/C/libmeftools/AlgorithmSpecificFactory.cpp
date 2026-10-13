@@ -42,47 +42,47 @@ void AlgorithmSpecificFactory::setAnalysisName( string n ) {
 	analysisName = "findPeaks";
 }
 
-CircularBuffer* AlgorithmSpecificFactory::getCircularBuffer() {
+CircularBuffer AlgorithmSpecificFactory::getCircularBuffer() {
 	if ( &circbuf == NULL ) {
 		if ( analysisName == "findPeaks" ) {
 			*circbuf = (CircularBuffer)CircularBufferMEF_allPeaks( I["bufferCapacity"], LL["startTime"], LL["stepTime"] );
-			return circbuf;
+			return *circbuf;
 		}
 	} else {
-		return circbuf;
+		return *circbuf;
 	}
 }
 
-MEFconts* AlgorithmSpecificFactory::getMEFconts() {
+MEFconts AlgorithmSpecificFactory::getMEFconts() {
 	if ( &mefConts == NULL ) {
 		if ( analysisName == "findPeaks" ) {
-			*mefConts = (MEFconts)MEFconts( *getMEFinfo(), I["bufferCapacity"] ); 
-			return mefConts;
+			*mefConts = (MEFconts)MEFconts( getMEFinfo(), I["bufferCapacity"] ); 
+			return *mefConts;
 		}
 	} else {
-		return mefConts;
+		return *mefConts;
 	}
 }
 
-MEFinfo* AlgorithmSpecificFactory::getMEFinfo() {
+MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
 	if ( &info == NULL ) {
 		if ( analysisName == "findPeaks" ) {
 			*info = MEFinfo( S["filename"], S["password"] );
-			return( info );
+			return *info;
 		}
 	} else {
-		return info;
+		return *info;
 	}
 }
 
-DatabaseAccessor* AlgorithmSpecificFactory::getDatabaseAccessor() {
+DatabaseAccessor AlgorithmSpecificFactory::getDatabaseAccessor() {
 	if ( &dba == NULL ) {
 		if ( analysisName == "findPeaks" ) {
 			*dba = DatabaseAccessor( S["databaseName"] );
-			return dba;
+			return *dba;
 		}
 	} else {
-		return dba;
+		return *dba;
 	}
 }
 

@@ -42,10 +42,10 @@ public:
 	void set( string key, int value );
 	void set( string key, long long value );
 	void setAnalysisName( string name );
-	CircularBuffer* getCircularBuffer();
-	MEFconts* getMEFconts();
-	MEFinfo* getMEFinfo();	
-	DatabaseAccessor* getDatabaseAccessor();
+	CircularBuffer getCircularBuffer();
+	MEFconts getMEFconts();
+	MEFinfo getMEFinfo();	
+	DatabaseAccessor getDatabaseAccessor();
 };
 
 #endif
