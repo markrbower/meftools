@@ -126,7 +126,7 @@ bool CircularBuffer::isPeak() {
         return 0;
 }            
 
-void reset( long long timeStart, long long timeStep ) {}
+void CircularBuffer::reset( long long timeStart, long long timeStep ) {}
 
 
 /*

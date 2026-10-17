@@ -18,6 +18,7 @@ Yale University
 #include "CircularBufferMEF_allPeaks.h"
 #include "analysisFindPeaks.h"
 #include "DatabaseAccessor.h"
+#include "AlgorithmSpecificFactory.h"
 #include <kfr/base.hpp>
 #include <kfr/dft.hpp>
 #include <kfr/dsp/iir_design.hpp>
@@ -25,15 +26,15 @@ Yale University
 
 using namespace std;
 
-void findEvents( AlgorithmSpecificFactory asf ) {
+void findEvents( CaseSpecificVariables caseSpecVar, AlgorithmSpecificVariables algoSpecVar, AlgorithmSpecificFactory asf ) {
 	char queryStr[256];
 
 	DatabaseAccessor dba = asf.getDatabaseAccessor();
         MEFinfo info = asf.getMEFinfo();
-        CircularBufferMEF_allPeaks circbuf = asf.getCircularBuffer( 51, 0L );
+        CircularBuffer circbuf = asf.getCircularBuffer();
         MEFconts mefConts = asf.getMEFconts();
 
-        analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefConts, circbuf );
+        analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoSpecVar, info, mefConts, circbuf );
         cout << "analysisFindPeaks object constructed" << endl;
         peaks.compute();
 

@@ -10,6 +10,7 @@ Yale University
 */
 #include <string>
 #include <iostream>
+#include <map>
 
 #include "meftools_types.h"
 #include "MEFinfo.h"
@@ -20,6 +21,7 @@ Yale University
 
 #include "CircularBuffer.h"
 #include "CircularBufferMEF_allPeaks.h"
+#include "DatabaseAccessor.h"
 
 class AlgorithmSpecificFactory {
 private:

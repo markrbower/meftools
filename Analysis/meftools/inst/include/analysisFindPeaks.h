@@ -16,6 +16,7 @@ Yale University
 
 #include "CircularBuffer.h"
 #include "CircularBufferMEF_allPeaks.h"
+#include "AlgorithmSpecificFactory.h"
 
 #include "FiltFilt.h"
 
@@ -25,7 +26,8 @@ private:
     vector<vector<double>> valuesBuffer;
 
 public:
-    analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFconts conts_, CircularBufferMEF_allPeaks cb_ );
+    analysisFindPeaks( AlgorithmSpecificFactory asf );
+    analysisFindPeaks( CaseSpecificVariables csv, AlgorithmSpecificVariables asv, MEFinfo info_, MEFconts conts_, CircularBuffer cb_ );
 
     void compute();
     void performance();

@@ -10,6 +10,7 @@
 #include <string>
 #include <list>
 
+#include "AlgorithmSpecificFactory.h"
 #include "MEFconts.h"
 #include "CircularBuffer.h"
 #include "DatabaseAccessor.h"
@@ -34,6 +35,7 @@ class MEFanalysis {
     public:
 	CaseSpecificVariables csv;
 	AlgorithmSpecificVariables asv;
+	AlgorithmSpecificFactory asf;
 	CircularBuffer circbuf;
 	DatabaseAccessor dba;
 	MEFinfo info;

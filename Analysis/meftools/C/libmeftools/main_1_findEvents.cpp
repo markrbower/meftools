@@ -17,7 +17,8 @@ Finds sovereign peaks and persists them.
 #include <stdlib.h>
 #include <string>
 
-#include "DatabaseAccessor.h"
+#include "AlgorithmSpecificFactory.h";
+#include "analysisFindPeaks.h";
 
 using namespace std;
 
@@ -31,8 +32,6 @@ int main(int argc, const char * argv[]) {
 	asf.set( "subject", argv[2] );
 	asf.set( "session", argv[3] );
 
-	//findEvents( filename, password, subject, session, bufferSize, signalType, duration );
-	//findEvents( asf );
 	analysisFindPeaks peaks = analysisFindPeaks( asf );
 	peaks.compute();
 
