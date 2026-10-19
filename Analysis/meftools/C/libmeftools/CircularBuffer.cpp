@@ -128,6 +128,10 @@ bool CircularBuffer::isPeak() {
 
 void CircularBuffer::reset( long long timeStart, long long timeStep ) {}
 
+long long CircularBuffer::getTime() {
+	cout << "CircularBuffer::getTime() should not be called." << endl;
+	return 0L;
+};
 
 /*
 int main() {

@@ -17,7 +17,7 @@ Yale University
 #include "MEFiter.h"
 #include "MEFconts.h"
 #include "MEFinfo.h"
-#include "MEFanalysis.h"
+//#include "MEFanalysis.h"
 
 #include "CircularBuffer.h"
 #include "CircularBufferMEF_allPeaks.h"
