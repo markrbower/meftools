@@ -23,16 +23,20 @@ Finds sovereign peaks and persists them.
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+	cout << "Starting" << endl;
 
 	AlgorithmSpecificFactory asf = AlgorithmSpecificFactory();
+	cout << "ASF made." << endl;
 	// Set any case- or run-specific variables here.
 	// If set here, they will not be over-written in the Analysis constructor.
 	asf.set( "filename", argv[1] );
 	asf.set( "password", "blah" );
 	asf.set( "subject", argv[2] );
 	asf.set( "session", argv[3] );
+	cout << "Variables set." << endl;
 
 	analysisFindPeaks peaks = analysisFindPeaks( asf );
+	cout << "Analysis created." << endl;
 	peaks.compute();
 
 	// Begin testing

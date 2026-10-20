@@ -7,6 +7,14 @@
 
 using namespace std;
 
+CircularBufferMEF_allPeaks::CircularBufferMEF_allPeaks(int capacity_, long long startTime_, long long stepTime_ ) {
+        cout << "CircularBufferMEF_allPeaks constructor." << endl;
+        this->CircularBufferMEF::capacity = capacity_;
+        this->CircularBufferMEF::centerTime = startTime_ - stepTime_;
+        this->CircularBufferMEF::timeStep = stepTime_;
+        cout << "CircularBufferMEF_allPeaks constructed." << endl;
+};
+
 bool CircularBufferMEF_allPeaks::isPeak() {
 	// A peak occurs when the center value:
 	// 1. idx is the max of the buffer

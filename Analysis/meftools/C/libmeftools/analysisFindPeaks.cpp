@@ -28,6 +28,7 @@ vector<int> decomp_mef( string f, long long s0, long long s1, string p );
 using namespace std;
 
 analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
+	cout << "analysisFindPeaks constructor." << endl;
 	asf = asf_;
 	// Defaults (Put test file names and values here)
 	// Anything passed in via "asf_" will be not be changed here.
@@ -36,15 +37,18 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
         asf.set( "password", "blah" );
         asf.set( "subject", "testSubject" );
         asf.set( "session", "testSession" );
+	cout << "Testing defaults set." << endl;
 	// These are more universal defaults, that still can be pre-written causing any of these to be ignored.
         asf.set( "bufferCapacity", 1024 );
         asf.set( "signalType", "IIS" );
         asf.set( "bufferStartTime", 0 );
         asf.set( "bufferStepTime", 0 );
+	cout << "Variable values set." << endl;
 	asf.setAnalysisName( "findPeaks" );
 	// The circular buffer should be returned as a CircularBuffer,
 	// even though the Factory created a CircularBufferMEF_findPeaks.
 	// Does this mean that EVERY analysis will share this exact code?!
+	cout << "getting" << endl;
 	circbuf = asf.getCircularBuffer();
 	conts   = asf.getMEFconts();
 	info    = asf.getMEFinfo();

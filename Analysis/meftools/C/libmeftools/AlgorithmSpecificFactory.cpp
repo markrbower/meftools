@@ -43,18 +43,27 @@ void AlgorithmSpecificFactory::setAnalysisName( string n ) {
 }
 
 CircularBuffer AlgorithmSpecificFactory::getCircularBuffer() {
-	if ( &circbuf == NULL ) {
+	cout << "Getting CircularBuffer." << endl;
+	if ( circbuf == NULL ) {
+		cout << "analysisName=" << analysisName << endl;
 		if ( analysisName == "findPeaks" ) {
-			*circbuf = (CircularBuffer)CircularBufferMEF_allPeaks( I["bufferCapacity"], LL["startTime"], LL["stepTime"] );
+			cout << I["bufferCapacity"] << endl;
+			cout << LL["startTime"] << endl;
+			cout << LL["stepTime"] << endl;
+			CircularBufferMEF_allPeaks tmp = CircularBufferMEF_allPeaks( I["bufferCapacity"], LL["startTime"], LL["stepTime"] );
+			cout << "Made and returned." << endl;
+			AlgorithmSpecificFactory::circbuf = &tmp;
+			cout << "Returning new value." << endl;
 			return *circbuf;
 		}
 	} else {
+		cout << "Returning prior value." << endl;
 		return *circbuf;
 	}
 }
 
 MEFconts AlgorithmSpecificFactory::getMEFconts() {
-	if ( &mefConts == NULL ) {
+	if ( mefConts == NULL ) {
 		if ( analysisName == "findPeaks" ) {
 			*mefConts = (MEFconts)MEFconts( getMEFinfo(), I["bufferCapacity"] ); 
 			return *mefConts;
@@ -65,7 +74,7 @@ MEFconts AlgorithmSpecificFactory::getMEFconts() {
 }
 
 MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
-	if ( &info == NULL ) {
+	if ( info == NULL ) {
 		if ( analysisName == "findPeaks" ) {
 			*info = MEFinfo( S["filename"], S["password"] );
 			return *info;
@@ -76,7 +85,7 @@ MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
 }
 
 DatabaseAccessor AlgorithmSpecificFactory::getDatabaseAccessor() {
-	if ( &dba == NULL ) {
+	if ( dba == NULL ) {
 		if ( analysisName == "findPeaks" ) {
 			*dba = DatabaseAccessor( S["databaseName"] );
 			return *dba;
