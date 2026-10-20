@@ -87,14 +87,7 @@ void analysisFindPeaks::compute() {
 	fixed["session"] = csv.session;
 	int MySQLbufferLimit = 1000;
         long long stepSize = info.getStepSize();
-	CircularBuffer* rawbuf;
-	if ( &asf != NULL ) {
-		CircularBuffer tmp = asf.getCircularBuffer();
-		rawbuf = &tmp;
-	} else {
-		CircularBuffer tmp = (CircularBuffer)CircularBufferMEF_allPeaks( 51, 0L, stepSize );
-		rawbuf = &tmp;
-	}
+	CircularBuffer rawbuf = (CircularBuffer)CircularBufferMEF_allPeaks( 51, 0L, stepSize );
 
 	// KFR filtering
 	kfr::zpk filt_lo = kfr::iir_lowpass(kfr::butterworth(5), 6000, 30000 );
@@ -125,7 +118,7 @@ void analysisFindPeaks::compute() {
 		// Could ToC be put into "csv"?
 		cout << "circbuf try to reset time" << endl;
 	    	analysisFindPeaks::circbuf.reset( iter.timeStart(), iter.timeStep() );
-		rawbuf->reset( iter.timeStart(), iter.timeStep() );
+		rawbuf.reset( iter.timeStart(), iter.timeStep() );
 		cout << "circbuf time reset" << endl;
 
 		// Filter: need to convert data[type int] to signal[type double].
@@ -137,12 +130,12 @@ void analysisFindPeaks::compute() {
                 //for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf.push_back( uv_signal[i] );
-		    rawbuf->push_back( data[i] );
+		    rawbuf.push_back( data[i] );
                     //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf.isPeak() ) {
                         cout << i << " is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
-			vector<double> raw_values = rawbuf->getBuffer();
+			vector<double> raw_values = rawbuf.getBuffer();
                         cout << "buffer gotten" << endl;
 			string valueString;
 			for ( auto v: values ) {
