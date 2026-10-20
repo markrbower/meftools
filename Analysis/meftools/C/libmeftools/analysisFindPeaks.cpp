@@ -50,8 +50,9 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	// Does this mean that EVERY analysis will share this exact code?!
 	cout << "getting" << endl;
 	circbuf = asf.getCircularBuffer();
-	conts   = asf.getMEFconts();
 	info    = asf.getMEFinfo();
+	cout << "analysisFindPeaks: MEFinfo returned." << endl;
+	conts   = asf.getMEFconts();
 	dba     = asf.getDatabaseAccessor();
 }
 
