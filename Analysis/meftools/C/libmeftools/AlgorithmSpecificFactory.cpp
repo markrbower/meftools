@@ -65,30 +65,38 @@ CircularBuffer AlgorithmSpecificFactory::getCircularBuffer() {
 MEFconts AlgorithmSpecificFactory::getMEFconts() {
 	cout << "Getting MEFconts." << endl;
 	if ( mefConts == NULL ) {
+		cout << "Creating a new MEFconts." << endl;
 		if ( analysisName == "findPeaks" ) {
 			cout << I["bufferCapacity"] << endl;
-			MEFinfo tmpInfo = getMEFinfo();
+			const MEFinfo tmpInfo = getMEFinfo();
 			cout << "Got MEFinfo." << endl;
+			cout << "MEFconts: discontinuities size: " << tmpInfo.getDiscontinuities().size() << endl;
 			MEFconts tmp = (MEFconts)MEFconts( tmpInfo, I["bufferCapacity"] ); 
 			mefConts = &tmp;
 			return *mefConts;
 		}
 	} else {
+		cout << "Returning an existing MEFconts." << endl;
 		return *mefConts;
 	}
 }
 
 MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
+	cout << "Getting MEFinfo." << endl;
 	if ( info == NULL ) {
+		cout << "Creating a new MEFinfo." << endl;
 		if ( analysisName == "findPeaks" ) {
-			MEFinfo tmp = MEFinfo( S["filename"], S["password"] );
+			cout << "Assigning MEFinfo." << endl;
+			*(this->info) = MEFinfo( S["filename"], S["password"] );
 			cout << "MEFinfo assigned." << endl;
-			info = &tmp;
 			cout << "MEFinfo pointer assigned." << endl;
-			return *info;
+			cout << "discontinuities size: " << info->getDiscontinuities().size() << endl;
+			return *(this->info);
 		}
 	} else {
-		return *info;
+		cout << "Returning an existing MEFinfo." << endl;
+		cout << "discontinuities size: " << info->getDiscontinuities().size() << endl;
+		return *(this->info);
 	}
 }
 

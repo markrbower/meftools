@@ -44,12 +44,12 @@ MEFinfo::MEFinfo( string filename, string password ) {
 
     cout << "Trying get_discontinuities" << endl;
     discontinuities = get_discontinuities( variables, ToC );
-    cout << "get_discontinuities done" << endl;
+    cout << "discontinuities size: " << discontinuities.size() << endl;
 
     cout << "MEFinfo created." << endl;
 }
 
-vector<int> MEFinfo::getDiscontinuities() { return( discontinuities ); }  
+const vector<int> MEFinfo::getDiscontinuities() { return( discontinuities ); }  
   
 MEF_HEADER_INFO MEFinfo::getHeader() {
     return header;

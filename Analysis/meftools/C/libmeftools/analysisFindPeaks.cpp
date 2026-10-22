@@ -52,6 +52,7 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	circbuf = asf.getCircularBuffer();
 	info    = asf.getMEFinfo();
 	cout << "analysisFindPeaks: MEFinfo returned." << endl;
+	cout << "analysisFindPeaks: discontinuity size: " << info.getDiscontinuities().size() << endl;
 	conts   = asf.getMEFconts();
 	dba     = asf.getDatabaseAccessor();
 }

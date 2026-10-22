@@ -28,8 +28,11 @@ MEFconts::MEFconts( MEFinfo info_, int bufferSize_ ) : info(info_) {
 
     this->conts = findContinuousSequences( timeConstraints );
 
-    counter = 0;
-    counterLimit = this->conts.size();
+    this->counter = 0;
+    this->counterLimit = this->conts.size();
+    cout << "MEFconts counterLimit::" << endl;
+    cout << counterLimit << endl;
+    cout << this->counterLimit << endl;
 
     cout << "MEFconts created." << endl;
 };
@@ -53,7 +56,7 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     vector<long long> dsamp;
     vector<int> disc = info.getDiscontinuities();
     int N = disc.size();
-    cout << "nbr discontinuities: " << N << endl;
+    cout << "nbr discontinuity entries: " << N << endl;
 
     toc = info.getToC();
 
@@ -85,6 +88,7 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     cout << "MEFconts: lastStop: " << lastStop << endl;
     
     N = contiguousStarts.size();
+    cout << "MEFconts:: contiguousStarts size: " << N << endl;
     for ( int i=0; i<N; i++ ) {
       MEFcont tmp;
       tmp.startBlock = contiguousStarts[i];
@@ -97,10 +101,12 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
       cout << "findContinuousSequences: StartSample: " << tmp.startSample << "\tStopSample: " << tmp.stopSample << endl;
       conts.push_back( tmp );
     }
+    counterLimit = conts.size();
     return( conts );
 }
 
 bool MEFconts::hasNext() {
+    cout << "MEFconts:: counter: " << counter << "\tcounterLimit: " << counterLimit << endl;
     return( counter < counterLimit );
 };
 
