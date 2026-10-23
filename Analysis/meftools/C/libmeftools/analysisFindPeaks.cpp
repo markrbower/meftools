@@ -29,51 +29,51 @@ using namespace std;
 
 analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	cout << "analysisFindPeaks constructor." << endl;
-	asf = asf_;
+	asf = &asf_;
 	// Defaults (Put test file names and values here)
-	// Anything passed in via "asf_" will be not be changed here.
+	// Anything passed in via "asf->" will be not be changed here.
 	// These are defaults for testing that users should always specify prior to this.
-        asf.set( "filename", "/Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef" );
-        asf.set( "password", "blah" );
-        asf.set( "subject", "testSubject" );
-        asf.set( "session", "testSession" );
+        asf->set( "filename", "/Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef" );
+        asf->set( "password", "blah" );
+        asf->set( "subject", "testSubject" );
+        asf->set( "session", "testSession" );
 	cout << "Testing defaults set." << endl;
 	// These are more universal defaults, that still can be pre-written causing any of these to be ignored.
-        asf.set( "bufferCapacity", 1024 );
-        asf.set( "signalType", "IIS" );
-        asf.set( "bufferStartTime", 0 );
-        asf.set( "bufferStepTime", 0 );
+        asf->set( "bufferCapacity", 1024 );
+        asf->set( "signalType", "IIS" );
+        asf->set( "bufferStartTime", 0 );
+        asf->set( "bufferStepTime", 0 );
 	cout << "Variable values set." << endl;
-	asf.setAnalysisName( "findPeaks" );
+	asf->setAnalysisName( "findPeaks" );
 	// The circular buffer should be returned as a CircularBuffer,
 	// even though the Factory created a CircularBufferMEF_findPeaks.
 	// Does this mean that EVERY analysis will share this exact code?!
 	cout << "getting" << endl;
-	circbuf = asf.getCircularBuffer();
-	info    = asf.getMEFinfo();
+	circbuf = asf->getCircularBuffer();
+	info    = asf->getMEFinfo();
 	cout << "analysisFindPeaks: MEFinfo returned." << endl;
-	cout << "analysisFindPeaks: discontinuity size: " << info.getDiscontinuities().size() << endl;
-	conts   = asf.getMEFconts();
-	dba     = asf.getDatabaseAccessor();
+	cout << "analysisFindPeaks: discontinuity size: " << info->getDiscontinuities().size() << endl;
+	conts   = asf->getMEFconts();
+	dba     = asf->getDatabaseAccessor();
 }
 
 analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFconts conts_, CircularBuffer cb_ ) {
 	csv = csv_;
 	asv = asv_;
-	conts = conts_;
-	info = info_;
+	conts = &conts_;
+	info = &info_;
 
-	cout << "Sampling Frequency: " << info.getHeader().sampling_frequency << endl;
+	cout << "Sampling Frequency: " << info->getHeader().sampling_frequency << endl;
 
 	const char* npi = "NPI";
-	dba = DatabaseAccessor( npi );
+	DatabaseAccessor dba_ = DatabaseAccessor( npi );
 
-    	dba.runSQL("create database if not exists NPI;");
-    	dba.runSQL("use NPI;");
+    	dba_.runSQL("create database if not exists NPI;");
+    	dba_.runSQL("use NPI;");
 
-    	dba.runSQL("drop table if exists peaks;");
+    	dba_.runSQL("drop table if exists peaks;");
 
-    	dba.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(2048));" );
+    	dba_.runSQL("create table peaks (subject varchar(64), session varchar(64), time bigint, peakValue double, waveform varchar(2048));" );
 
 	cout << "Database table created." << endl;
 }
@@ -87,7 +87,7 @@ void analysisFindPeaks::compute() {
 	fixed["subject"] = csv.subject;
 	fixed["session"] = csv.session;
 	int MySQLbufferLimit = 1000;
-        long long stepSize = info.getStepSize();
+        long long stepSize = info->getStepSize();
 	CircularBuffer rawbuf = (CircularBuffer)CircularBufferMEF_allPeaks( 51, 0L, stepSize );
 
 	// KFR filtering
@@ -99,10 +99,10 @@ void analysisFindPeaks::compute() {
 
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
-	while ( conts.hasNext() ) {
+	while ( conts->hasNext() ) {
             cout << "AFP: in a cont. Getting MEFiter." << endl;
 	    // I only need a ring buffer of size "window".
-            MEFiter iter = conts.next();
+            MEFiter iter = conts->next();
 
             while ( iter.hasNext() ) {
                 cout << "AFP: in an iter" << endl;
@@ -118,7 +118,7 @@ void analysisFindPeaks::compute() {
 		// How do I get timeStart? From the "Table of Contents" and block numbers?
 		// Could ToC be put into "csv"?
 		cout << "circbuf try to reset time" << endl;
-	    	analysisFindPeaks::circbuf.reset( iter.timeStart(), iter.timeStep() );
+	    	analysisFindPeaks::circbuf->reset( iter.timeStart(), iter.timeStep() );
 		rawbuf.reset( iter.timeStart(), iter.timeStep() );
 		cout << "circbuf time reset" << endl;
 
@@ -130,12 +130,12 @@ void analysisFindPeaks::compute() {
                 for ( int i=0; i<uv_signal.size(); i++ ) {
                 //for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
-                    analysisFindPeaks::circbuf.push_back( uv_signal[i] );
+                    analysisFindPeaks::circbuf->push_back( uv_signal[i] );
 		    rawbuf.push_back( data[i] );
                     //cout << "pushed back" << endl;
-	            if ( analysisFindPeaks::circbuf.isPeak() ) {
+	            if ( analysisFindPeaks::circbuf->isPeak() ) {
                         cout << i << " is a peak" << endl;
-			vector<double> values = analysisFindPeaks::circbuf.getBuffer();
+			vector<double> values = analysisFindPeaks::circbuf->getBuffer();
 			vector<double> raw_values = rawbuf.getBuffer();
                         cout << "buffer gotten" << endl;
 			string valueString;
@@ -154,11 +154,11 @@ void analysisFindPeaks::compute() {
 			cout << "valueString: " << valueString << endl;
 			cout << "rawValueString: " << rawValueString << endl;
 			inner_map[ "waveform" ] = valueString;
-			inner_map[ "peakValue" ] = to_string( analysisFindPeaks::circbuf.getMid() );
-			peaks.insert( { analysisFindPeaks::circbuf.getTime(), inner_map } );
+			inner_map[ "peakValue" ] = to_string( analysisFindPeaks::circbuf->getMid() );
+			peaks.insert( { analysisFindPeaks::circbuf->getTime(), inner_map } );
                         // Check whether buffers should be written to MySQL
 			if ( peaks.size() > MySQLbufferLimit ) {
-				dba.mapInsert( "peaks", fixed, peaks );
+				dba->mapInsert( "peaks", fixed, peaks );
 				peaks.clear();
 			}
                     }
@@ -166,7 +166,7 @@ void analysisFindPeaks::compute() {
 	    }
         }
 	if ( peaks.size() > 0 ) {
-		dba.mapInsert( "peaks", fixed, peaks );
+		dba->mapInsert( "peaks", fixed, peaks );
 		peaks.clear();
 	}
 }
@@ -187,13 +187,13 @@ void analysisFindPeaks::graph() {
 }
 
 void analysisFindPeaks::push_back( long long x ) {
-    circbuf.push_back( x );
+    circbuf->push_back( x );
 }
 
 bool analysisFindPeaks::isPeak() {
-    return analysisFindPeaks::circbuf.isPeak();
+    return analysisFindPeaks::circbuf->isPeak();
 }
 
 vector<double> analysisFindPeaks::getBuffer() {
-    return analysisFindPeaks::circbuf.getBuffer();
+    return analysisFindPeaks::circbuf->getBuffer();
 }

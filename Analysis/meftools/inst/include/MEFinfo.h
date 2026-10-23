@@ -23,9 +23,8 @@ private:
   vector<int> discontinuities;
   vector<string> variables;
 public:
-  MEFinfo() {};
   MEFinfo( string filename, string password );
-  vector<int> getDiscontinuities() const;
+  vector<int> getDiscontinuities();
   MEF_HEADER_INFO getHeader();
   long long** getToC();
   string getFilename();

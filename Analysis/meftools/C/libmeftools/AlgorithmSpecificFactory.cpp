@@ -42,7 +42,7 @@ void AlgorithmSpecificFactory::setAnalysisName( string n ) {
 	analysisName = "findPeaks";
 }
 
-CircularBuffer AlgorithmSpecificFactory::getCircularBuffer() {
+CircularBuffer* AlgorithmSpecificFactory::getCircularBuffer() {
 	cout << "Getting CircularBuffer." << endl;
 	if ( circbuf == NULL ) {
 		cout << "analysisName=" << analysisName << endl;
@@ -54,34 +54,34 @@ CircularBuffer AlgorithmSpecificFactory::getCircularBuffer() {
 			cout << "Made and returned." << endl;
 			circbuf = &tmp;
 			cout << "Returning new value." << endl;
-			return *circbuf;
+			return circbuf;
 		}
 	} else {
 		cout << "Returning prior value." << endl;
-		return *circbuf;
+		return circbuf;
 	}
 }
 
-MEFconts AlgorithmSpecificFactory::getMEFconts() {
+MEFconts* AlgorithmSpecificFactory::getMEFconts() {
 	cout << "Getting MEFconts." << endl;
 	if ( mefConts == NULL ) {
 		cout << "Creating a new MEFconts." << endl;
 		if ( analysisName == "findPeaks" ) {
 			cout << I["bufferCapacity"] << endl;
-			const MEFinfo tmpInfo = getMEFinfo();
+			const MEFinfo* tmpInfo = getMEFinfo();
 			cout << "Got MEFinfo." << endl;
-			cout << "MEFconts: discontinuities size: " << tmpInfo.getDiscontinuities().size() << endl;
-			MEFconts tmp = (MEFconts)MEFconts( tmpInfo, I["bufferCapacity"] ); 
+//			cout << "MEFconts: discontinuities size: " << tmpInfo->getDiscontinuities().size() << endl;
+			MEFconts tmp = (MEFconts)MEFconts( *tmpInfo, I["bufferCapacity"] ); 
 			mefConts = &tmp;
-			return *mefConts;
+			return mefConts;
 		}
 	} else {
 		cout << "Returning an existing MEFconts." << endl;
-		return *mefConts;
+		return mefConts;
 	}
 }
 
-MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
+MEFinfo* AlgorithmSpecificFactory::getMEFinfo() {
 	cout << "Getting MEFinfo." << endl;
 	if ( info == NULL ) {
 		cout << "Creating a new MEFinfo." << endl;
@@ -91,24 +91,24 @@ MEFinfo AlgorithmSpecificFactory::getMEFinfo() {
 			cout << "MEFinfo assigned." << endl;
 			cout << "MEFinfo pointer assigned." << endl;
 			cout << "discontinuities size: " << info->getDiscontinuities().size() << endl;
-			return *(this->info);
+			return (this->info);
 		}
 	} else {
 		cout << "Returning an existing MEFinfo." << endl;
 		cout << "discontinuities size: " << info->getDiscontinuities().size() << endl;
-		return *(this->info);
+		return (this->info);
 	}
 }
 
-DatabaseAccessor AlgorithmSpecificFactory::getDatabaseAccessor() {
+DatabaseAccessor* AlgorithmSpecificFactory::getDatabaseAccessor() {
 	if ( dba == NULL ) {
 		if ( analysisName == "findPeaks" ) {
 			DatabaseAccessor tmp = DatabaseAccessor( S["databaseName"] );
 			dba = &tmp;
-			return *dba;
+			return dba;
 		}
 	} else {
-		return *dba;
+		return dba;
 	}
 }
 

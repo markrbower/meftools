@@ -18,7 +18,7 @@
 
 using namespace std;
 
-MEFconts::MEFconts( MEFinfo info_, int bufferSize_ ) : info(info_) {
+MEFconts::MEFconts( MEFinfo info_, int bufferSize_ ) : info(&info_) {
     cout << "Creating MEFconts" << endl;
 
     bufferSize = bufferSize_;
@@ -47,18 +47,18 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     long long time1 = timeConstraints[1];
     long long** toc;
     vector<long long> result;
-    int microsecPerSample = 1E6/info.getHeader().sampling_frequency;
+    int microsecPerSample = 1E6/info->getHeader().sampling_frequency;
     cout << "Sample: " << microsecPerSample << endl;
 
     vector<MEFcont> conts;
     vector<int> contiguousStarts;
     vector<int> contiguousStops;
     vector<long long> dsamp;
-    vector<int> disc = info.getDiscontinuities();
+    vector<int> disc = info->getDiscontinuities();
     int N = disc.size();
     cout << "nbr discontinuity entries: " << N << endl;
 
-    toc = info.getToC();
+    toc = info->getToC();
 
     // Whether the first and last have discontinuity flags or not,
     // they are still "starts" and "stops".
@@ -94,7 +94,7 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
       tmp.startBlock = contiguousStarts[i];
       tmp.stopBlock = contiguousStops[i];
       tmp.startTime  = toc[0][contiguousStarts[i]];
-      tmp.timeStep   = round( 1.0 / info.getHeader().sampling_frequency );
+      tmp.timeStep   = round( 1.0 / info->getHeader().sampling_frequency );
       tmp.startSample = toc[2][contiguousStarts[i]];
       tmp.stopSample  = toc[2][contiguousStops[i]] + dsamp[contiguousStops[i]]*microsecPerSample;
       cout << "findContinuousSequences: StartBlock: " << tmp.startBlock << "\tStopBlock: " << tmp.stopBlock << endl;
@@ -115,7 +115,7 @@ MEFiter MEFconts::next() {
     int startBlk = mefcont.startBlock;
     int stopBlk = mefcont.stopBlock;
     cout << "MEFconts: StartBlock: " << startBlk << "\tStopBlock: " << stopBlk << endl;
-    MEFiter it = MEFiter( info, startBlk, stopBlk, bufferSize );
+    MEFiter it = MEFiter( *info, startBlk, stopBlk, bufferSize );
     counter++;
     return( it ); 
 };

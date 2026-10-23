@@ -49,7 +49,7 @@ MEFinfo::MEFinfo( string filename, string password ) {
     cout << "MEFinfo created." << endl;
 }
 
-const vector<int> MEFinfo::getDiscontinuities() { return( discontinuities ); }  
+vector<int> MEFinfo::getDiscontinuities() { return( discontinuities ); }  
   
 MEF_HEADER_INFO MEFinfo::getHeader() {
     return header;

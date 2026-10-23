@@ -35,11 +35,11 @@ class MEFanalysis {
     public:
 	CaseSpecificVariables csv;
 	AlgorithmSpecificVariables asv;
-	AlgorithmSpecificFactory asf;
-	CircularBuffer circbuf;
-	DatabaseAccessor dba;
-	MEFinfo info;
-	MEFconts conts;
+	AlgorithmSpecificFactory* asf;
+	CircularBuffer* circbuf;
+	DatabaseAccessor* dba;
+	MEFinfo* info;
+	MEFconts* conts;
 	
 	MEFanalysis() {};
 

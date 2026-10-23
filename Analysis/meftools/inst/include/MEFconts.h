@@ -32,7 +32,7 @@ private:
   vector<MEFcont> conts;
   int counter;
   int counterLimit;
-  MEFinfo info;
+  MEFinfo* info;
   vector<MEFcont> findContinuousSequences( vector<long long> timeConstraints );
 
 public:
