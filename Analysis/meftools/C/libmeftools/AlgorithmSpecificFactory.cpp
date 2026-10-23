@@ -50,7 +50,7 @@ CircularBuffer* AlgorithmSpecificFactory::getCircularBuffer() {
 			cout << I["bufferCapacity"] << endl;
 			cout << LL["startTime"] << endl;
 			cout << LL["stepTime"] << endl;
-			CircularBufferMEF_allPeaks tmp = CircularBufferMEF_allPeaks( I["bufferCapacity"], LL["startTime"], LL["stepTime"] );
+			static CircularBufferMEF_allPeaks tmp = CircularBufferMEF_allPeaks( I["bufferCapacity"], LL["startTime"], LL["stepTime"] );
 			cout << "Made and returned." << endl;
 			circbuf = &tmp;
 			cout << "Returning new value." << endl;
@@ -68,10 +68,10 @@ MEFconts* AlgorithmSpecificFactory::getMEFconts() {
 		cout << "Creating a new MEFconts." << endl;
 		if ( analysisName == "findPeaks" ) {
 			cout << I["bufferCapacity"] << endl;
-			const MEFinfo* tmpInfo = getMEFinfo();
+			MEFinfo* tmpInfo = getMEFinfo();
 			cout << "Got MEFinfo." << endl;
 //			cout << "MEFconts: discontinuities size: " << tmpInfo->getDiscontinuities().size() << endl;
-			MEFconts tmp = (MEFconts)MEFconts( *tmpInfo, I["bufferCapacity"] ); 
+			static MEFconts tmp = (MEFconts)MEFconts( *tmpInfo, I["bufferCapacity"] ); 
 			mefConts = &tmp;
 			return mefConts;
 		}
@@ -87,12 +87,12 @@ MEFinfo* AlgorithmSpecificFactory::getMEFinfo() {
 		cout << "Creating a new MEFinfo." << endl;
 		if ( analysisName == "findPeaks" ) {
 			cout << "Assigning MEFinfo." << endl;
-			MEFinfo tmp = MEFinfo( S["filename"], S["password"] );
-			this->info = &tmp;
+			static MEFinfo tmp = MEFinfo( S["filename"], S["password"] );
+			info = &tmp;
 			cout << "MEFinfo assigned." << endl;
 			cout << "MEFinfo pointer assigned." << endl;
 			cout << "discontinuities size: " << info->getDiscontinuities().size() << endl;
-			return (this->info);
+			return (info);
 		}
 	} else {
 		cout << "Returning an existing MEFinfo." << endl;
@@ -104,7 +104,7 @@ MEFinfo* AlgorithmSpecificFactory::getMEFinfo() {
 DatabaseAccessor* AlgorithmSpecificFactory::getDatabaseAccessor() {
 	if ( dba == NULL ) {
 		if ( analysisName == "findPeaks" ) {
-			DatabaseAccessor tmp = DatabaseAccessor( S["databaseName"] );
+			static DatabaseAccessor tmp = DatabaseAccessor( S["databaseName"] );
 			dba = &tmp;
 			return dba;
 		}
