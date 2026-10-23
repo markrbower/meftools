@@ -87,7 +87,8 @@ MEFinfo* AlgorithmSpecificFactory::getMEFinfo() {
 		cout << "Creating a new MEFinfo." << endl;
 		if ( analysisName == "findPeaks" ) {
 			cout << "Assigning MEFinfo." << endl;
-			*(this->info) = MEFinfo( S["filename"], S["password"] );
+			MEFinfo tmp = MEFinfo( S["filename"], S["password"] );
+			this->info = &tmp;
 			cout << "MEFinfo assigned." << endl;
 			cout << "MEFinfo pointer assigned." << endl;
 			cout << "discontinuities size: " << info->getDiscontinuities().size() << endl;
