@@ -104,6 +104,7 @@ vector<double> CircularBuffer::getBuffer() {
 	cout << capacity << endl;
         int idx = front;
         while (idx != back) {
+	    cout << idx << ": " << buffer[idx] << endl;
             buf.push_back( buffer[idx] );
             idx = (idx + 1) % capacity;
         }
@@ -132,6 +133,11 @@ long long CircularBuffer::getTime() {
 	cout << "CircularBuffer::getTime() should not be called." << endl;
 	return 0L;
 };
+
+CircularBuffer* CircularBuffer::duplicate() {
+	static CircularBuffer newbuf( capacity );
+	return &newbuf;	
+}
 
 /*
 int main() {

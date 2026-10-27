@@ -19,3 +19,9 @@ void CircularBufferMEF::push_back( double value ) {
 	centerTime += timeStep;
 }
 
+CircularBuffer* CircularBufferMEF::duplicate() {
+        static CircularBuffer newbuf = CircularBufferMEF( capacity, CircularBufferMEF::centerTime, CircularBufferMEF::timeStep );
+        return &newbuf;  
+}       
+        
+

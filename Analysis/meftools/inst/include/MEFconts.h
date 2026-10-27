@@ -37,7 +37,7 @@ private:
 
 public:
   MEFconts() {};
-  MEFconts( MEFinfo info_, int bufferSize );
+  MEFconts( MEFinfo* infoPtr, int bufferSize );
   bool hasNext();
   MEFiter next();
 };

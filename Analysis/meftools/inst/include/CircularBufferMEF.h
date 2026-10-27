@@ -38,6 +38,8 @@ class CircularBufferMEF : public CircularBuffer {
 	void push_back( double value );
 
 	virtual bool isPeak() { return 0; };
+
+	CircularBuffer* duplicate();
 };
 #endif
 

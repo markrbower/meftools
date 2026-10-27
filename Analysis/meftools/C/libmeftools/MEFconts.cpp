@@ -18,12 +18,14 @@
 
 using namespace std;
 
-MEFconts::MEFconts( MEFinfo info_, int bufferSize_ ) : info(&info_) {
+MEFconts::MEFconts( MEFinfo* infoPtr, int bufferSize_ ) {
     cout << "Creating MEFconts" << endl;
 
     bufferSize = bufferSize_;
 
 // No timeConstraints were given, so read the entire file
+    this->info = infoPtr;
+    cout << "MEFconts constructor: " << info->getDiscontinuities().size() << endl;
     vector<long long> timeConstraints = { 0, LLONG_MAX };
 
     this->conts = findContinuousSequences( timeConstraints );
@@ -65,6 +67,9 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     int firstStart = 0;
     int lastStop;
     cout << "Time Window:\t" << time0 << "\t" << time1 << endl;
+
+    // This is just wrong. I'm using "i+1" and going off the vector.
+    // How do I want to change this?
     for ( int i=0; i<N; i++ ) {
       cout << i << endl;
       cout << toc[0][(i)] << "\t" << toc[0][(i+1)] << endl;
@@ -115,7 +120,11 @@ MEFiter MEFconts::next() {
     int startBlk = mefcont.startBlock;
     int stopBlk = mefcont.stopBlock;
     cout << "MEFconts: StartBlock: " << startBlk << "\tStopBlock: " << stopBlk << endl;
-    MEFiter it = MEFiter( *info, startBlk, stopBlk, bufferSize );
+    cout << info->getDiscontinuities().size() << endl;
+    cout << startBlk << endl;
+    cout << stopBlk << endl;
+    cout << bufferSize << endl;
+    static MEFiter it = MEFiter( *info, startBlk, stopBlk, bufferSize );
     counter++;
     return( it ); 
 };

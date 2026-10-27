@@ -21,6 +21,9 @@ class CircularBufferMEF_allPeaks : public CircularBufferMEF {
 	CircularBufferMEF_allPeaks(int capacity_, long long startTime_, long long stepTime_ );
 
 	bool isPeak();
+
+        CircularBuffer* duplicate();
+
 };
 #endif
 

@@ -38,6 +38,7 @@ class CircularBuffer {
         bool isPeak( float parm1, float parm2 );
 	virtual void reset( long long timeStart, long long timeStep );
 	virtual long long getTime();
+	virtual CircularBuffer* duplicate();
 };
 #endif
 

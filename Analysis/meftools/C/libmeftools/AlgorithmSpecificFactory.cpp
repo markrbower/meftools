@@ -71,7 +71,7 @@ MEFconts* AlgorithmSpecificFactory::getMEFconts() {
 			MEFinfo* tmpInfo = getMEFinfo();
 			cout << "Got MEFinfo." << endl;
 //			cout << "MEFconts: discontinuities size: " << tmpInfo->getDiscontinuities().size() << endl;
-			static MEFconts tmp = (MEFconts)MEFconts( *tmpInfo, I["bufferCapacity"] ); 
+			static MEFconts tmp = (MEFconts)MEFconts( tmpInfo, I["bufferCapacity"] ); 
 			mefConts = &tmp;
 			return mefConts;
 		}

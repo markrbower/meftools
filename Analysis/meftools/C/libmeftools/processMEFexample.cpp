@@ -38,7 +38,7 @@ void processMEFexample( string filename, string password, string subject, string
 	// Constructor for analysis
 	long long stepSize = info.getStepSize();
 	CircularBufferMEF_allPeaks circbuf = CircularBufferMEF_allPeaks( 51, 0L, stepSize );
-	MEFconts mefConts = MEFconts( info, bufferSize );
+	MEFconts mefConts = MEFconts( &info, bufferSize );
         cout << "Entering analysisFindPeaks" << endl;
 	analysisFindPeaks peaks = analysisFindPeaks( caseSpecVar, algoCompVar, info, mefConts, circbuf );
         cout << "analysisFindPeaks object constructed" << endl;

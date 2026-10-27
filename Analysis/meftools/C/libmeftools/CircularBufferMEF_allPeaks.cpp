@@ -34,3 +34,9 @@ bool CircularBufferMEF_allPeaks::isPeak() {
 	return result;
 }
 
+CircularBuffer* CircularBufferMEF_allPeaks::duplicate() {
+        static CircularBuffer newbuf = CircularBufferMEF_allPeaks( capacity, CircularBufferMEF::centerTime, CircularBufferMEF::timeStep );
+        return &newbuf;
+}
+
+

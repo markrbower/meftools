@@ -37,12 +37,12 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
         asf->set( "password", "blah" );
         asf->set( "subject", "testSubject" );
         asf->set( "session", "testSession" );
-	cout << "Testing defaults set." << endl;
-	// These are more universal defaults, that still can be pre-written causing any of these to be ignored.
         asf->set( "bufferCapacity", 1024 );
         asf->set( "signalType", "IIS" );
+	cout << "Testing defaults set." << endl;
+	// These are more universal defaults, that still can be pre-written causing any of these to be ignored.
         asf->set( "bufferStartTime", 0 );
-        asf->set( "bufferStepTime", 0 );
+        asf->set( "bufferStepTime", 33 );
 	cout << "Variable values set." << endl;
 	asf->setAnalysisName( "findPeaks" );
 	// The circular buffer should be returned as a CircularBuffer,
@@ -89,7 +89,8 @@ void analysisFindPeaks::compute() {
 	fixed["session"] = csv.session;
 	int MySQLbufferLimit = 1000;
         long long stepSize = info->getStepSize();
-	CircularBuffer rawbuf = (CircularBuffer)CircularBufferMEF_allPeaks( 51, 0L, stepSize );
+//	CircularBuffer rawbuf = (CircularBuffer)CircularBufferMEF_allPeaks( 51, 0L, stepSize );
+	CircularBuffer* rawbuf = circbuf->duplicate();
 
 	// KFR filtering
 	kfr::zpk filt_lo = kfr::iir_lowpass(kfr::butterworth(5), 6000, 30000 );
@@ -120,7 +121,7 @@ void analysisFindPeaks::compute() {
 		// Could ToC be put into "csv"?
 		cout << "circbuf try to reset time" << endl;
 	    	analysisFindPeaks::circbuf->reset( iter.timeStart(), iter.timeStep() );
-		rawbuf.reset( iter.timeStart(), iter.timeStep() );
+		rawbuf->reset( iter.timeStart(), iter.timeStep() );
 		cout << "circbuf time reset" << endl;
 
 		// Filter: need to convert data[type int] to signal[type double].
@@ -132,12 +133,12 @@ void analysisFindPeaks::compute() {
                 //for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
                     analysisFindPeaks::circbuf->push_back( uv_signal[i] );
-		    rawbuf.push_back( data[i] );
+		    rawbuf->push_back( data[i] );
                     //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf->isPeak() ) {
                         cout << i << " is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf->getBuffer();
-			vector<double> raw_values = rawbuf.getBuffer();
+			vector<double> raw_values = rawbuf->getBuffer();
                         cout << "buffer gotten" << endl;
 			string valueString;
 			for ( auto v: values ) {
