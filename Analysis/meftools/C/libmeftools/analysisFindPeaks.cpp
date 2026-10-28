@@ -142,11 +142,13 @@ void analysisFindPeaks::compute() {
                         cout << "buffer gotten" << endl;
 			string valueString;
 			for ( auto v: values ) {
+				cout << v << endl;
 				snprintf( charArray, 12, "%.3f,", v );
 				valueString.append( charArray );
 			}
 			string rawValueString;
 			for ( auto v: raw_values ) {
+				cout << v << endl;
 				snprintf( charArray, 12, "%.3f,", v );
 				rawValueString.append( charArray );
 			}

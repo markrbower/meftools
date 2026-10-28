@@ -99,6 +99,7 @@ void CircularBuffer::printBuffer() {
 vector<double> CircularBuffer::getBuffer() {
 	cout << "CircularBuffer: get()" << endl;
         vector<double> buf;
+	buf.reserve( capacity );
 	cout << front << endl;
 	cout << back << endl;
 	cout << capacity << endl;
@@ -106,6 +107,7 @@ vector<double> CircularBuffer::getBuffer() {
         while (idx != back) {
 	    cout << idx << ": " << buffer[idx] << endl;
             buf.push_back( buffer[idx] );
+	    cout << idx << " : " << capacity << endl;
             idx = (idx + 1) % capacity;
         }
         cout << "buf size: " << buf.size() << endl;
