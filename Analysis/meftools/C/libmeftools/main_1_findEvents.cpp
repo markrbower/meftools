@@ -35,6 +35,7 @@ int main(int argc, const char * argv[]) {
 	asf.set( "session", argv[3] );
         asf.set( "bufferCapacity", 1024 );
         asf.set( "signalType", "IIS" );
+	asf.set( "databaseName", "peaks" );
 	cout << "Variables set." << endl;
 
 	analysisFindPeaks peaks = analysisFindPeaks( asf );

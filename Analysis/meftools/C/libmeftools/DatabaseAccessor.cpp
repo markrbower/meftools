@@ -70,7 +70,8 @@ bool DatabaseAccessor::mapInsert( string tableName, map<string,string> fixed_val
 
 //	string query = "INSERT INTO peaks (subject,session,time,peakValue,waveform) VALUES (?,?,?,?,?);";
 	string query = "INSERT INTO peaks (peakValue,subject) VALUES (?,?);";
-	unsigned long stmt_length = query.size();
+	int stmt_lengthi = query.length();
+	unsigned long stmt_length = (unsigned long)stmt_lengthi;
 	cout << query << endl;
 	status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
   	if (status) {

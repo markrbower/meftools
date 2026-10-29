@@ -49,7 +49,7 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	// even though the Factory created a CircularBufferMEF_findPeaks.
 	// Does this mean that EVERY analysis will share this exact code?!
 	cout << "getting" << endl;
-	circbuf = asf->getCircularBuffer();
+	circbuf = (CircularBufferMEF_allPeaks*)(asf->getCircularBuffer());
 	info    = asf->getMEFinfo();
 	cout << "analysisFindPeaks: MEFinfo returned." << endl;
 	vector<int> tmpvec = (*info).getDiscontinuities();
@@ -89,8 +89,7 @@ void analysisFindPeaks::compute() {
 	fixed["session"] = csv.session;
 	int MySQLbufferLimit = 1000;
         long long stepSize = info->getStepSize();
-//	CircularBuffer rawbuf = (CircularBuffer)CircularBufferMEF_allPeaks( 51, 0L, stepSize );
-	CircularBuffer* rawbuf = circbuf->duplicate();
+	CircularBufferMEF_allPeaks* rawbuf = (CircularBufferMEF_allPeaks*)(circbuf->duplicate());
 
 	// KFR filtering
 	kfr::zpk filt_lo = kfr::iir_lowpass(kfr::butterworth(5), 6000, 30000 );
@@ -138,8 +137,9 @@ void analysisFindPeaks::compute() {
 	            if ( analysisFindPeaks::circbuf->isPeak() ) {
                         cout << i << " is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf->getBuffer();
+			cout << "Got values." << endl;
 			vector<double> raw_values = rawbuf->getBuffer();
-                        cout << "buffer gotten" << endl;
+                        cout << "Got raw values." << endl;
 			string valueString;
 			for ( auto v: values ) {
 				cout << v << endl;
