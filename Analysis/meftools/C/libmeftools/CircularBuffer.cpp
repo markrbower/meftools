@@ -103,8 +103,11 @@ vector<double> CircularBuffer::getBuffer() {
 	cout << front << endl;
 	cout << back << endl;
 	cout << capacity << endl;
+	// Prime the loop so that a simple, fast check allows 'back'.
         int idx = front;
-        while (idx != back) {
+        buf.push_back( buffer[idx] );
+        idx = (idx + 1) % capacity;
+        while (idx != front) {
 //	    cout << idx << ": " << buffer[idx] << endl;
             buf.push_back( buffer[idx] );
 //	    cout << idx << " : " << capacity << endl;

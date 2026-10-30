@@ -138,4 +138,20 @@ int main(int argc, const char * argv[]) {
 	dba.reset();
 
 	cout << "Success!" << endl;
+        sprintf( queryStr, "truncate subjects;" );
+        dba.runSQL( queryStr );
+        sprintf( queryStr, "truncate experiments;" );
+        dba.runSQL( queryStr );
+        sprintf( queryStr, "truncate sources;" );
+        dba.runSQL( queryStr );
+        sprintf( queryStr, "truncate collections;" );
+        dba.runSQL( queryStr );
+        sprintf( queryStr, "truncate events;" );
+        dba.runSQL( queryStr );
+        sprintf( queryStr, "truncate analyses;" );
+        dba.runSQL( queryStr );
+        sprintf( queryStr, "truncate metrics;" );
+        dba.runSQL( queryStr );
+
+	cout << "Tables cleared of test data and ready for use." << endl;
 }

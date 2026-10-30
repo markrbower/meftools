@@ -75,7 +75,7 @@ void createAnalysisDatabase( const char* name ) {
 	// events		dbIDevents,        name, dbIDexperiment, time, data, label
     	sprintf( queryStr, "drop table if exists events;" );
     	dba.runSQL( queryStr );
-    	dba.runSQL("create table events (uuid binary(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDsource binary(16), dbIDcollection binary(16), time BIGINT, data varchar(256), label varchar(32), created_at TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) );" );
+    	dba.runSQL("create table events (uuid binary(16) DEFAULT (UUID_TO_BIN(UUID())) PRIMARY KEY, name varchar(64), dbIDsource binary(16), dbIDcollection binary(16), time BIGINT, data varchar(2048), label varchar(32), created_at TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) );" );
 
 	cout << "Create metrics table" << endl;
 	// metrics		dbIDmetrics,       name, dbIDevents, value

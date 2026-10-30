@@ -1,385 +1,3 @@
-  116  make PreparedStatementBuilder
-  117  vi PreparedStatementBuilder.cpp
-  118  make PreparedStatementBuilder
-  119  vi PreparedStatementBuilder.cpp
-  120  make PreparedStatementBuilder
-  121  vi PreparedStatementBuilder.cpp
-  122  make da
-  123  make da
-  124  make da
-  125  make da
-  126  make da
-  127  make da
-  128  make da
-  129  make da
-  130  make da
-  131  make PreparedStatementBuilder
-  132  make da
-  133  make da_test
-  134  ./DatabaseAccessor_test
-  135  vi PreparedStatementBuilder.cpp
-  136  make PreparedStatementBuilder
-  137  vi PreparedStatementBuilder.cpp
-  138  make PreparedStatementBuilder
-  139  vi PreparedStatementBuilder.cpp
-  140  make PreparedStatementBuilder
-  141  vi PreparedStatementBuilder.cpp
-  142  make PreparedStatementBuilder
-  143  vi PreparedStatementBuilder.cpp
-  144  make PreparedStatementBuilder
-  145  vi PreparedStatementBuilder.cpp
-  146  make PreparedStatementBuilder
-  147  vi PreparedStatementBuilder.cpp
-  148  make PreparedStatementBuilder
-  149  make da
-  150  make da_test
-  151  ./DatabaseAccessor_test
-  152  make da_test
-  153  ./DatabaseAccessor_test
-  154  make da_test
-  155  ./DatabaseAccessor_test
-  156  vi PreparedStatementBuilder.cpp
-  157  make PreparedStatementBuilder
-  158  make da
-  159  make da_test
-  160  ./DatabaseAccessor_test
-  161  vi PreparedStatementBuilder.cpp
-  162  make PreparedStatementBuilder
-  163  make da
-  164  make da_test
-  165  ./DatabaseAccessor_test
-  166  make da_test
-  167  ./DatabaseAccessor_test
-  168  vi PreparedStatementBuilder
-  169  vi PreparedStatementBuilder.cpp
-  170  make PreparedStatementBuilder
-  171  make da
-  172  make da_test
-  173  ./DatabaseAccessor_test
-  174  ls
-  175  ls MWE
-  176  cd MWE
-  177  vi MWE.cpp
-  178  vi main_0_createAnalysisDatabase.cpp 
-  179  ci createAnalysisDatabase.cpp
-  180  vi createAnalysisDatabase.cpp
-  181  vi Makefile
-  182  make createAnalysisDatabase
-  183  ./createAnalysisDatabse( "test" )
-  184  vi createAnalysisDatabase.cpp
-  185  vi main_0_createAnalysisDatabase.cpp
-  186  vi Makefile
-  187  make main_0
-  188  vi main_0_createAnalysisDatabase.cpp 
-  189  make da
-  190  make da
-  191  make da
-  192  make da
-  193  vi main_0_createAnalysisDatabase.cpp 
-  194  make main_0
-  195  vi main_0_createAnalysisDatabase.cpp 
-  196  make main_0
-  197  make da
-  198  vi main_0_createAnalysisDatabase.cpp 
-  199  make main_0
-  200  ./main_0
-  201  vi main_0_createAnalysisDatabase.cpp m
-  202  ./main_0 test
-  203  make da
-  204  make da
-  205  make da
-  206  make da
-  207  make main_0
-  208  ./main_0 test
-  209  make da
-  210  make main_0
-  211  ./main_0 test
-  212  make da
-  213  make main_0
-  214  ./main_0 test
-  215  vi main_0_createAnalysisDatabase.cpp 
-  216  make createAnalysisDatabase
-  217  make main_0
-  218  ./main_0 test
-  219  make createAnalysisDatabase
-  220  make main_0
-  221  ./main_0 test
-  222  make createAnalysisDatabase
-  223  make main_0
-  224  ./main_0 test
-  225  make createAnalysisDatabase
-  226  make main_0
-  227  ./main_0 test
-  228  make da
-  229  make da
-  230  make da
-  231  make da
-  232  make da
-  233  make da
-  234  make da
-  235  make da
-  236  make da
-  237  make da_test
-  238  ./DatabaseAccessor_test
-  239  make da_test
-  240  ./DatabaseAccessor_test
-  241  make da
-  242  make da_test
-  243  ./DatabaseAccessor_test
-  244  make da
-  245  make da_test
-  246  ./DatabaseAccessor_test
-  247  make main_0
-  248  ./main_0 test
-  249  make da
-  250  make da
-  251  make da
-  252  make da
-  253  make main_0
-  254  ./main_0 test
-  255  make createAnalysisDatabase
-  256  make main_0
-  257  ./main_0 test
-  258  make createAnalysisDatabase
-  259  make main_0
-  260  ./main_0 test
-  261  make main_0
-  262  ./main_0 test
-  263  vi PreparedStatementBuilder.cpp
-  264  make PreparedStatementBuilder
-  265  vi PreparedStatementBuilder.cpp
-  266  vi PreparedStatementBuilder.cpp
-  267  make PreparedStatementBuilder
-  268  vi PreparedStatementBuilder.cpp
-  269  make PreparedStatementBuilder
-  270  vi PreparedStatementBuilder.cpp
-  271  vi PreparedStatementBuilder.cpp
-  272  make PreparedStatementBuilder
-  273  vi PreparedStatementBuilder.cpp
-  274  make PreparedStatementBuilder
-  275  vi PreparedStatementBuilder.cpp
-  276  make PreparedStatementBuilder
-  277  vi PreparedStatementBuilder.cpp
-  278  make PreparedStatementBuilder
-  279  vi PreparedStatementBuilder.cpp
-  280  make PreparedStatementBuilder
-  281  vi PreparedStatementBuilder.cpp
-  282  make PreparedStatementBuilder
-  283  vi PreparedStatementBuilder.cpp
-  284  make PreparedStatementBuilder
-  285  ./main_0 test
-  286  make PreparedStatementBuilder
-  287  make da
-  288  make da_test
-  289  make main_0
-  290  ./main_0 test
-  291  vi PreparedStatementBuilder.cpp
-  292  make main_0
-  293  make da
-  294  make da_test
-  295  make main_0
-  296  make main_0
-  297  make main_0
-  298  ./main_0 test
-  299  make PreparedStatementBuilder
-  300  make da
-  301  make da_test
-  302  make main_0
-  303  ./main_0 test
-  304  make createAnalysisDatabase
-  305  make main_0
-  306  ./main_0 test
-  307  vi PreparedStatementBuilder.cpp
-  308  make PreparedStatementBuilder
-  309  make da
-  310  make da_test
-  311  make main_0
-  312  ./main_0 test
-  313  vi PreparedStatementBuilder.cpp
-  314  make PreparedStatementBuilder
-  315  make da
-  316  make da_test
-  317  make main_0
-  318  ./main_0 test
-  319  vi PreparedStatementBuilder.cpp
-  320  make PreparedStatementBuilder
-  321  make da
-  322  make da_test
-  323  make main_0
-  324  vi PreparedStatementBuilder.cpp
-  325  ./main_0 test
-  326  vi PreparedStatementBuilder.cpp
-  327  make PreparedStatementBuilder
-  328  make da
-  329  make da_test
-  330  make main_0
-  331  ./main_0 test
-  332  vi PreparedStatementBuilder.cpp
-  333  make PreparedStatementBuilder
-  334  make da
-  335  make da_test
-  336  make main_0
-  337  ./main_0 test
-  338  vi PreparedStatementBuilder.cpp
-  339  make PreparedStatementBuilder
-  340  make da
-  341  make da_test
-  342  make main_0
-  343  ./main_0 test
-  344  make PreparedStatementBuilder
-  345  make da
-  346  make da_test
-  347  make main_0
-  348  ./main_0 test
-  349  make createAnalysisDatabase
-  350  make main_0
-  351  ./main_0 test
-  352  make createAnalysisDatabase
-  353  make main_0
-  354  ./main_0 test
-  355  vi createAnalysisDatabase.cpp
-  356  make createAnalysisDatabase
-  357  make da
-  358  make da_test
-  359  make main_0
-  360  ./main_0 test
-  361  make PreparedStatementBuilder
-  362  make PreparedStatementBuilder
-  363  make da
-  364  make da_test
-  365  make main_0
-  366  ./main_0 test
-  367  make PreparedStatementBuilder
-  368  make da
-  369  make da_test
-  370  make main_0
-  371  ./main_0 test
-  372  make main_0
-  373  ./main_0 test
-  374  make createAnalysisDatabase
-  375  make dat
-  376  make da
-  377  make da_test
-  378  make main_0
-  379  ./main_0 test
-  380  make main_0
-  381  ./main_0 test
-  382  ls -al *
-  383  make createAnalysisDatabase
-  384  make da
-  385  make da_test
-  386  make main_0
-  387  ./main_0 test
-  388  make main_0
-  389  ./main_0 test
-  390  make main_0
-  391  ./main_0 test
-  392  ./main_0 test
-  393  ./main_0 test
-  394  make PreparedStatementBuilder
-  395  make createAnalysisDatabase
-  396  make da
-  397  make da_test
-  398  make main_0
-  399  ./main_0 test
-  400  :q
-  401  make da
-  402  make da_test
-  403  make main_0
-  404  ./main_0 test
-  405  make da
-  406  make da_test
-  407  make main_0
-  408  ./main_0 test
-  409  make main_0
-  410  ./main_0 test
-  411  make da
-  412  make da_test
-  413  make main_0
-  414  ./main_0 test
-  415  make da
-  416  make da_test
-  417  make main_0
-  418  ./main_0 test
-  419  make da
-  420  make da
-  421  make da
-  422  make da_test
-  423  make main_0
-  424  ./main_0 test
-  425  make da
-  426  make da_test
-  427  make main_0
-  428  ./main_0 test
-  429  make da
-  430  make da_test
-  431  make main_0
-  432  ./main_0 test
-  433  make createAnalysisDatabase
-  434  make main_0
-  435  ./main_0 test
-  436  make da
-  437  make da_test
-  438  make main_0
-  439  ./main_0 test
-  440  make da
-  441  make da_test
-  442  make main_0
-  443  ./main_0 test
-  444  ls
-  445  vi main_analysisLookingForPeaks.cpp 
-  446  vi processMEFexample.cpp
-  447  vi analysisFindPeaks.cpp
-  448  vi analysisFindPeaks.cpp
-  449  vi processMEFexample.cpp
-  450  vi main_analysisLookingForPeaks.cpp 
-  451  vi processMEFexample.cpp
-  452  vi main_0_createAnalysisDatabase.cpp 
-  453  ls
-  454  cp main_0_createAnalysisDatabase.cpp main_1_findEvents.cpp
-  455  vi main_1_findEvents.cpp 
-  456  vi Makefile
-  457  !
-  458  !
-  459  vi Makefile
-  460  cp createAnalysisDatabase.cpp findEvents.cpp
-  461  vi findEvents.cpp 
-  462  vi main_1_findEvents.cpp 
-  463  vi findEvents.cpp 
-  464  vi main_1_findEvents.cpp 
-  465  vi findEvents.cpp 
-  466  vi main_0_createAnalysisDatabase.cpp
-  467  vi createAnalysisDatabase.cpp
-  468  vi main_0_createAnalysisDatabase.cpp
-  469  make main_0
-  470  make createAnalysisDatabase
-  471  make main_0
-  472  vi main_0_createAnalysisDatabase.cpp
-  473  make main_0
-  474  ./main_0 test
-  475  make createAnalysisDatabase
-  476  make main_0
-  477  ./main_0 test
-  478  vi main_1_findEvents.cpp 
-  479  ls
-  480  vi findEvents.cpp 
-  481  vi main_1_findEvents.cpp 
-  482  vi main_analysisLookingForPeaks.cpp 
-  483  vi main_1_findEvents.cpp 
-  484  vi main_analysisLookingForPeaks.cpp 
-  485  vi main_1_findEvents.cpp 
-  486  vi main_analysisLookingForPeaks.cpp 
-  487  vi main_analysisLookingForPeaks.cpp 
-  488  history > tmp
-  489  vi tmp
-  490  rm tmp
-  491  vi main_1_findEvents.cpp 
-  492  vi findEvents.cpp 
-  493  vi main_1_findEvents.cpp 
-  494  vi processMEFexample.cpp
-  495  vi findEvents.cpp 
-  496  vi processMEFexample.cpp
-  497  vi findEvents.cpp 
   498  vi processMEFexample.cpp
   499  ls /usr/local/mysql
   500  ls /usr/local/mysql/include
@@ -498,3 +116,385 @@
   613  vi ../../inst/include/MEFanalysis.h 
   614  make main_1
   615  history > tmp
+  616  vi tmp
+  617  make main_1
+  618  make main_1
+  619  make main_1
+  620  make main_1
+  621  make main_1
+  622  make main_1
+  623  make main_1
+  624  make main_1
+  625  make main_1
+  626  make main_1
+  627  make main_1
+  628  make main_1
+  629  make main_1
+  630  make main_1
+  631  make main_1
+  632  make main_1
+  633  make analysisFindPeaks
+  634  make main_1
+  635  vi Makefile
+  636  ls
+  637  vi Makefile
+  638  make analysisFindPeaks
+  639  make main_1
+  640  ls ../../inst/include
+  641  make main_1
+  642  vi main_1_findEvents.cpp 
+  643  make main_1
+  644  make analysisFindPeaks
+  645  make main_1
+  646  make main_1
+  647  make main_1
+  648  make main_1
+  649  vi main_1_findEvents.cpp 
+  650  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  651  vi main_1_findEvents.cpp 
+  652  make main_1
+  653  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  654  vi main_1_findEvents.cpp 
+  655  make analysisFindPeaks
+  656  make main_1
+  657  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  658  make AlgorithmSpecificFactory
+  659  make main_1
+  660  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  661  make AlgorithmSpecificFactory
+  662  make main_1
+  663  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  664  make CircularBufferMEF
+  665  make CircularBuffer
+  666  make CircularBufferMEF
+  667  make CircularBufferMEF_allPeaks
+  668  make main_1
+  669  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  670  make AlgorithmSpecificFactory
+  671  make main_1
+  672  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  673  make CircularBuffer
+  674  make CircularBufferMEF
+  675  make CircularBufferMEF_allPeaks
+  676* make CircularBufferM
+  677  make CircularBuffer
+  678  make CircularBufferMEF
+  679  make CircularBufferMEF_allPeaks
+  680  make main_1
+  681  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  682  make CircularBufferMEF_allPeaks
+  683  make main_1
+  684  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  685  make CircularBufferMEF_allPeaks
+  686  make main_1
+  687  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  688  make CircularBufferMEF_allPeaks
+  689  make main_1
+  690  make CircularBufferMEF_allPeaks
+  691  make main_1
+  692  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  693  make AlgorithmSpecificFactory
+  694  make main_1
+  695  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  696  make AlgorithmSpecificFactory
+  697  make AlgorithmSpecificFactory
+  698  make AlgorithmSpecificFactory
+  699  make AlgorithmSpecificFactory
+  700  make main_1
+  701  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  702  make AlgorithmSpecificFactory
+  703  make main_1
+  704  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  705  make AlgorithmSpecificFactory
+  706  make main_1
+  707  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  708  make AlgorithmSpecificFactory
+  709  make main_1
+  710  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  711  make AlgorithmSpecificFactory
+  712  make main_1
+  713  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  714* 
+  715  make main_1
+  716  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  717  make AlgorithmSpecificFactory
+  718  make main_1
+  719  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  720  make AlgorithmSpecificFactory
+  721  make AlgorithmSpecificFactory
+  722  make main_1
+  723  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  724  make analysisFindPeaks
+  725  make main_1
+  726  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  727  make analysisFindPeaks
+  728  make AlgorithmSpecificFactory
+  729  make main_1
+  730  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  731  make AlgorithmSpecificFactory
+  732  make main_1
+  733  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  734  make analysisFindPeaks
+  735  make main_1
+  736  make analysisFindPeaks
+  737  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  738  make main_1
+  739  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  740  make MEFconts
+  741  make main_1
+  742  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  743  make MEFconts
+  744  make main_1
+  745  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  746  make MEFconts
+  747  make main_1
+  748  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  749  make MEFconts
+  750  make main_1
+  751  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  752  make MEFinfo
+  753  make MEFconts
+  754  make main_1
+  755  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  756  make analysisFindPeaks
+  757  make AlgorithmSpecificFactory
+  758  make main_1
+  759  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  760  make AlgorithmSpecificFactory
+  761  make main_1
+  762  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  763  make AlgorithmSpecificFactory
+  764  make main_1
+  765  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  766  make AlgorithmSpecificFactory
+  767  make main_1
+  768  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  769  make AlgorithmSpecificFactory
+  770  make AlgorithmSpecificFactory
+  771  make main_1
+  772  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  773  make AlgorithmSpecificFactory
+  774  make main_1
+  775  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  776  make analysisFindPeaks
+  777  make main_1
+  778  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  779  vi Makefile
+  780  make analysisFindPeaks
+  781  make main_1
+  782  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  783  vi Makefile
+  784  make analysisFindPeaks
+  785  make analysisFindPeaks
+  786  make main_1
+  787  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  788  make AlgorithmSpecificFactory
+  789  make main_1
+  790  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  791  make AlgorithmSpecificFactory
+  792  make main_1
+  793  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  794  make AlgorithmSpecificFactory
+  795  make AlgorithmSpecificFactory
+  796  make main_1
+  797  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  798  make AlgorithmSpecificFactory
+  799  make main_1
+  800  make AlgorithmSpecificFactory
+  801  make AlgorithmSpecificFactory
+  802  make main_1
+  803  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  804  make AlgorithmSpecificFactory
+  805  make main_1
+  806  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  807  make AlgorithmSpecificFactory
+  808  make main_1
+  809  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  810  make AlgorithmSpecificFactory
+  811  make AlgorithmSpecificFactory
+  812  make MEFinfo
+  813  make MEFinfo
+  814  make main_1
+  815  make AlgorithmSpecificFactory
+  816  make AlgorithmSpecificFactory
+  817  make AlgorithmSpecificFactory
+  818  make main_1
+  819  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  820  make AlgorithmSpecificFactory
+  821  make AlgorithmSpecificFactory
+  822  make main_1
+  823  make analysisFindPeaks
+  824  make main_1
+  825  make MEFinfo
+  826  make MEFinfo
+  827  make analysisFindPeaks
+  828  make MEFconts
+  829  make MEFconts
+  830  make main_1
+  831  vi analysisFindPeaks.cpp 
+  832  make MEFanalysis
+  833  make analysisFindPeaks
+  834  vi analysisFindPeaks.cpp 
+  835  make MEFanalysis
+  836  vi analysisFindPeaks.cpp 
+  837  make analysisFindPeaks
+  838  make MEFanalysis
+  839  make MEFanalysis
+  840  make analysisFindPeaks
+  841  make analysisFindPeaks
+  842  make analysisFindPeaks
+  843  make AlgorithmSpecificFactory
+  844  make AlgorithmSpecificFactory
+  845  make MEFinfo
+  846  make AlgorithmSpecificFactory
+  847  make AlgorithmSpecificFactory
+  848  make AlgorithmSpecificFactory
+  849  make MEFinfo
+  850  make AlgorithmSpecificFactory
+  851  make analysisFindPeaks
+  852  make analysisFindPeaks
+  853  make analysisFindPeaks
+  854  make analysisFindPeaks
+  855  make analysisFindPeaks
+  856  make analysisFindPeaks
+  857  make analysisFindPeaks
+  858  make analysisFindPeaks
+  859  make analysisFindPeaks
+  860  make analysisFindPeaks
+  861  make main_1
+  862  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  863  make AlgorithmSpecificFactory
+  864  make AlgorithmSpecificFactory
+  865  make main_1
+  866  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  867  make analysisFindPeaks
+  868  make main_1
+  869  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  870  make analysisFindPeaks
+  871  make main_1
+  872  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  873  make AlgorithmSpecificFactory
+  874  make AlgorithmSpecificFactory
+  875  make main_1
+  876  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  877  make AlgorithmSpecificFactory
+  878  make main_1
+  879  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  880  make MEFconts
+  881  make main_1
+  882  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  883  make MEFiter
+  884  make main_1
+  885  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  886  make MEFconts
+  887  make MEFinfo
+  888  make MEFconts
+  889  make main_1
+  890  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  891  make MEFconts
+  892  make main_1
+  893  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  894  make MEFconts
+  895  make MEFconts
+  896  make MEFconts
+  897  make MEFconts
+  898  make main_1
+  899  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  900  make MEFconts
+  901  make analysisFindPeaks
+  902  make main_1
+  903  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  904  make MEFconts
+  905  make main_1
+  906  make AlgorithmSpecificFactory
+  907  make main_1
+  908  vi processMEFexample.cpp
+  909  make processMEFexample
+  910  make main_1
+  911  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  912  make MEFconts
+  913  make main_1
+  914  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  915  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  916  make CircularBuffer
+  917  make CircularBufferMEF
+  918  make CircularBufferMEF_allPeaks
+  919  make main_1
+  920  make
+  921  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  922  make CircularBuffer
+  923  make CircularBufferMEF
+  924  make CircularBufferMEF_allPeaks
+  925  make main_1
+  926  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  927  make CircularBuffer
+  928  make CircularBufferMEF
+  929  make CircularBuffer
+  930  make CircularBufferMEF
+  931  make CircularBufferMEF
+  932  make CircularBufferMEF
+  933  make CircularBufferMEF
+  934  make CircularBufferMEF
+  935  make CircularBufferMEF
+  936  make CircularBufferMEF
+  937  make CircularBufferMEF_allPeaks
+  938  make CircularBufferMEF_allPeaks
+  939  make main_1
+  940  make main_1
+  941  make main_1
+  942  make main_1
+  943  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  944  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  945  make CircularBuffer
+  946  make CircularBufferMEF
+  947  make CircularBufferMEF_allPeaks
+  948  make main_1
+  949  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  950  make CircularBuffer
+  951  make CircularBufferMEF
+  952  make CircularBufferMEF_allPeaks
+  953  make main_1
+  954  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  955  make analysisFindPeaks
+  956  make main_1
+  957  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  958  make analysisFindPeaks
+  959  make main_1
+  960  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  961  make da
+  962  make main_1
+  963  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  964  make AlgorithmSpecificFactory
+  965  make main_1
+  966  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  967  make main_1
+  968  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  969  make analysisFindPeaks
+  970  make main_1
+  971  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  972  make analysisFindPeaks
+  973  make main_1
+  974  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  975  make analysisFindPeaks
+  976  make main_1
+  977  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  978  make analysisFindPeaks
+  979  make main_1
+  980  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  981  make CircularBuffer
+  982  make CircularBufferMEF
+  983  make CircularBufferMEF_allPeaks
+  984  make main_1
+  985  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  986  make analysisFindPeaks
+  987  make main-1
+  988  make main_1
+  989  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  990  make analysisFindPeaks
+  991  make analysisFindPeaks
+  992  make analysisFindPeaks
+  993  make analysisFindPeaks
+  994  make main_1
+  995  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+  996  make main_0
+  997  history > tmp

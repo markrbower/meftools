@@ -83,10 +83,10 @@ void analysisFindPeaks::compute() {
 // Use MEFconts to supply contiguous sequences
 	char charArray[20];
 	map<long long, map<string,string>> peaks;
-	map<string,string> inner_map;
-	map<string,string> fixed;
-	fixed["subject"] = csv.subject;
-	fixed["session"] = csv.session;
+	list<map<string,string>> insertThese;
+	map<string,string> entry;
+	entry.insert( {"subject", csv.subject} );
+	entry.insert( {"session", csv.session} );
 	int MySQLbufferLimit = 1000;
         long long stepSize = info->getStepSize();
 	CircularBufferMEF_allPeaks* rawbuf = (CircularBufferMEF_allPeaks*)(circbuf->duplicate());
@@ -157,20 +157,21 @@ void analysisFindPeaks::compute() {
 			rawValueString.resize( rawValueString.size() - 1 );
 			cout << "valueString: " << valueString << endl;
 			cout << "rawValueString: " << rawValueString << endl;
-			inner_map[ "waveform" ] = valueString;
-			inner_map[ "peakValue" ] = to_string( analysisFindPeaks::circbuf->getMid() );
-			peaks.insert( { analysisFindPeaks::circbuf->getTime(), inner_map } );
+			entry.insert( {"waveform", valueString} );
+			entry.insert( {"peakValue", to_string( analysisFindPeaks::circbuf->getMid() )} );
+			entry.insert( {"time", to_string(analysisFindPeaks::circbuf->getTime())} );
+			insertThese.push_back( entry );
                         // Check whether buffers should be written to MySQL
-			if ( peaks.size() > MySQLbufferLimit ) {
-				dba->mapInsert( "peaks", fixed, peaks );
+			if ( insertThese.size() > MySQLbufferLimit ) {
+				dba->write( "peaks", insertThese );
 				peaks.clear();
 			}
                     }
                 }
 	    }
         }
-	if ( peaks.size() > 0 ) {
-		dba->mapInsert( "peaks", fixed, peaks );
+	if ( insertThese.size() > 0 ) {
+		dba->write( "peaks", insertThese );
 		peaks.clear();
 	}
 }
