@@ -42,6 +42,58 @@ void AlgorithmSpecificFactory::setAnalysisName( string n ) {
 	analysisName = "findPeaks";
 }
 
+string get( string key ) {
+	if ( S.find(key) ) {
+		return S[ key ];
+	} else if ( D.find(key) ) {
+		return to_string( D[ key ] );
+	} else if ( I.find(key) ) {
+		return to_string( I[ key ] );
+	} else if ( LL.find(key) ) {
+		return to_string( LL[key] );
+	} else {
+		cout << "AlgorithmSpecificFactory failed to find key: " << key << endl;
+		return "";
+	}
+}
+
+map<string,string> prepareFor( string tablename, map<string,string> inputs ) {
+	static map<string,string> ids;
+	DatabaseAccessor dba = getDatabaseAccessor();
+	map<string,string> values;
+	// subjects
+	values.insert( "name", inputs["subject"] );
+	values.insert( "species", inputs["species"] );
+	dba.write( "subjects", values );
+	string dbIDsubject = dba.getPreviousID();
+	ids.insert( "dbIDsubject" ) = dbIDsubject;
+	values.clear();
+	// experiments
+	values.insert( "name", inputs["experiment"] );
+	dba.write( "experiments", values );
+	string dbIDexperiments = dba.getPreviousID();
+	ids.insert( "dbIDexperiment" ) = dbIDexperiment;
+	values.clear();
+	// sources
+	values.insert( "name", inputs["source"] );
+	values.insert( "dbIDsubject", dbIDsubject );
+	dba.write( "sources", values );
+	string dbIDsource = dba.getPreviousID();
+	ids.insert( "dbIDsource" ) = dbIDsource;
+	values.clear();
+	// collections
+	values.insert( "name", inputs["collection"] );
+	values.insert( "dbIDsubject", dbIDsubject );	
+	values.insert( "dbIDexperiment", dbIDexperiment );
+	values.insert( "date", inputs["date"] );
+	values.insert( "place", inputs["place"] );
+	dba.write( "collections", values );
+	string dbIDcollection = dba.getPreviousID();
+	ids.insert( "dbIDcollection" ) = dbIDcollection;
+	values.clear();
+	return ids;
+}
+
 CircularBuffer* AlgorithmSpecificFactory::getCircularBuffer() {
 	cout << "Getting CircularBuffer." << endl;
 	if ( circbuf == NULL ) {
@@ -111,5 +163,13 @@ DatabaseAccessor* AlgorithmSpecificFactory::getDatabaseAccessor() {
 	} else {
 		return dba;
 	}
+}
+
+void AlgorithmSpecificFactory::prepareForEvents( map<string,string> entries ) {
+
+}
+
+void AlgorithmSpecificFactory::prepareForMetrics( map<string,string> entries ) {
+
 }
 

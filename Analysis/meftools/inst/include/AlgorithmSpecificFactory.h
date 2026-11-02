@@ -3,7 +3,9 @@
 
 /* AlgorithmSpecificFactory.h
 
-Implements factory for constructing analysis objects.
+Implements factory for constructing objects related to a specific analysis.
+This "Factory" design pattern merges information specific to an algorithm,
+its inputs and its outputs (i.e., normally to a database).
 
 Mark R. Bower
 Yale University

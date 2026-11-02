@@ -37,6 +37,8 @@ public:
     bool isPeak();
     vector<double> getBuffer();
     long long time();
+
+    map<string,string> eventsIDs;
 };
 
 
