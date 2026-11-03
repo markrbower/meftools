@@ -47,9 +47,12 @@ public:
 	void set( string key, long long value );
 	void setAnalysisName( string name );
 	CircularBuffer* getCircularBuffer();
+	string get( string key );
 	MEFconts* getMEFconts();
 	MEFinfo* getMEFinfo();	
 	DatabaseAccessor* getDatabaseAccessor();
+	map<string,string> prepareForEvents( map<string,string> reqs );
+	map<string,string> prepareForMetrics( map<string,string> reqs );
 };
 
 #endif

@@ -42,14 +42,14 @@ void AlgorithmSpecificFactory::setAnalysisName( string n ) {
 	analysisName = "findPeaks";
 }
 
-string get( string key ) {
-	if ( S.find(key) ) {
+string AlgorithmSpecificFactory::get( string key ) {
+	if ( S.find(key) != S.end() ) {
 		return S[ key ];
-	} else if ( D.find(key) ) {
+	} else if ( D.find(key) != D.end() ) {
 		return to_string( D[ key ] );
-	} else if ( I.find(key) ) {
+	} else if ( I.find(key) != I.end() ) {
 		return to_string( I[ key ] );
-	} else if ( LL.find(key) ) {
+	} else if ( LL.find(key) != LL.end() ) {
 		return to_string( LL[key] );
 	} else {
 		cout << "AlgorithmSpecificFactory failed to find key: " << key << endl;
@@ -57,39 +57,39 @@ string get( string key ) {
 	}
 }
 
-map<string,string> prepareFor( string tablename, map<string,string> inputs ) {
+map<string,string> AlgorithmSpecificFactory::prepareForEvents( map<string,string> inputs ) {
 	static map<string,string> ids;
-	DatabaseAccessor dba = getDatabaseAccessor();
+	DatabaseAccessor* dbacc = getDatabaseAccessor();
 	map<string,string> values;
 	// subjects
-	values.insert( "name", inputs["subject"] );
-	values.insert( "species", inputs["species"] );
-	dba.write( "subjects", values );
-	string dbIDsubject = dba.getPreviousID();
-	ids.insert( "dbIDsubject" ) = dbIDsubject;
+	values["name"] = inputs["subjects_subject"];
+	values[ "species"] = inputs["subjects_species"];
+	dba->write( "subjects", values );
+	string dbIDsubject = dba->getPreviousID( "subjects" );
+	ids[ "dbIDsubject" ] = dbIDsubject;
 	values.clear();
 	// experiments
-	values.insert( "name", inputs["experiment"] );
-	dba.write( "experiments", values );
-	string dbIDexperiments = dba.getPreviousID();
-	ids.insert( "dbIDexperiment" ) = dbIDexperiment;
+	values[ "name" ] = inputs["experiment_name"];
+	dba->write( "experiments", values );
+	string dbIDexperiment = dba->getPreviousID( "experiments" );
+	ids[ "dbIDexperiment" ] = dbIDexperiment;
 	values.clear();
 	// sources
-	values.insert( "name", inputs["source"] );
-	values.insert( "dbIDsubject", dbIDsubject );
-	dba.write( "sources", values );
-	string dbIDsource = dba.getPreviousID();
-	ids.insert( "dbIDsource" ) = dbIDsource;
+	values[ "name" ] = inputs["sources_name"];
+	values[ "dbIDsubject" ] = dbIDsubject;
+	dba->write( "sources", values );
+	string dbIDsource = dba->getPreviousID( "sources" );
+	ids[ "dbIDsource"  ] = dbIDsource;
 	values.clear();
 	// collections
-	values.insert( "name", inputs["collection"] );
-	values.insert( "dbIDsubject", dbIDsubject );	
-	values.insert( "dbIDexperiment", dbIDexperiment );
-	values.insert( "date", inputs["date"] );
-	values.insert( "place", inputs["place"] );
-	dba.write( "collections", values );
-	string dbIDcollection = dba.getPreviousID();
-	ids.insert( "dbIDcollection" ) = dbIDcollection;
+	values[ "name" ] = inputs["collections_name"];
+	values[ "dbIDsubject" ] = dbIDsubject;	
+	values[ "dbIDexperiment" ] = dbIDexperiment;
+	values[ "date" ] = inputs["collections_date"];
+	values[ "place" ] = inputs["collections_place"];
+	dba->write( "collections", values );
+	string dbIDcollection = dba->getPreviousID( "collections" );
+	ids[ "dbIDcollection" ] = dbIDcollection;
 	values.clear();
 	return ids;
 }
@@ -165,11 +165,7 @@ DatabaseAccessor* AlgorithmSpecificFactory::getDatabaseAccessor() {
 	}
 }
 
-void AlgorithmSpecificFactory::prepareForEvents( map<string,string> entries ) {
-
-}
-
-void AlgorithmSpecificFactory::prepareForMetrics( map<string,string> entries ) {
-
+map<string,string> AlgorithmSpecificFactory::prepareForMetrics( map<string,string> entries ) {
+	return map<string,string>();
 }
 

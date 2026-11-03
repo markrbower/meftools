@@ -24,6 +24,7 @@ class analysisFindPeaks : public MEFanalysis {
 private:
     vector<long long> peakBuffer;
     vector<vector<double>> valuesBuffer;
+    map<string,string> eventsIDs;
 
 public:
     analysisFindPeaks( AlgorithmSpecificFactory asf );
@@ -38,7 +39,6 @@ public:
     vector<double> getBuffer();
     long long time();
 
-    map<string,string> eventsIDs;
 };
 
 
