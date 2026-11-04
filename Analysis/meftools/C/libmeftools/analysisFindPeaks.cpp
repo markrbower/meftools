@@ -36,7 +36,7 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
         asf->set( "filename", "/Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef" );
         asf->set( "password", "blah" );
         asf->set( "subject", "testSubject" );
-        asf->set( "session", "testSession" );
+        asf->set( "experiment", "testSession" );
         asf->set( "bufferCapacity", 1024 );
         asf->set( "signalType", "IIS" );
 	cout << "Testing defaults set." << endl;
@@ -56,6 +56,21 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	cout << "analysisFindPeaks: discontinuity size: " << tmpvec.size() << endl;
 	conts   = asf->getMEFconts();
 	dba     = asf->getDatabaseAccessor();
+	cout << "analysisFindPeaks: done with creating objects." << endl;
+	// Prepare the database to receive events. Store the required IDs for later use.
+	map<string,string> reqs = {  	{"subjects_name", asf->get("subject") },
+					{"subjects_species", asf->get("species")},
+					{"experiments_name", asf->get("experiment")},
+					{"collections_name", asf->get("collectionName")},
+					{"collections_date", asf->get("collectionDate")},
+					{"collections_place", asf->get("collectionPlace")},
+					{"sources_name", asf->get("source")}
+				  };
+	cout << "analysisFindPeaks: collections_place: " << reqs["collections_place"] << endl;
+	// eventsIDs is currently defined in the .h file, but should be more general.
+	cout << "Preparing for events." << endl;
+	eventsIDs = asf->prepareForEvents( reqs );
+	cout << "Done." << endl;
 }
 
 analysisFindPeaks::analysisFindPeaks( CaseSpecificVariables csv_, AlgorithmSpecificVariables asv_, MEFinfo info_, MEFconts conts_, CircularBuffer cb_ ) {

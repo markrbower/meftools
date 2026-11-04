@@ -62,14 +62,14 @@ map<string,string> AlgorithmSpecificFactory::prepareForEvents( map<string,string
 	DatabaseAccessor* dbacc = getDatabaseAccessor();
 	map<string,string> values;
 	// subjects
-	values["name"] = inputs["subjects_subject"];
+	values["name"] = inputs["subjects_name"];
 	values[ "species"] = inputs["subjects_species"];
 	dba->write( "subjects", values );
 	string dbIDsubject = dba->getPreviousID( "subjects" );
 	ids[ "dbIDsubject" ] = dbIDsubject;
 	values.clear();
 	// experiments
-	values[ "name" ] = inputs["experiment_name"];
+	values[ "name" ] = inputs["experiments_name"];
 	dba->write( "experiments", values );
 	string dbIDexperiment = dba->getPreviousID( "experiments" );
 	ids[ "dbIDexperiment" ] = dbIDexperiment;

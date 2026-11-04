@@ -72,9 +72,9 @@ vector<MEFcont> MEFconts::findContinuousSequences( vector<long long> timeConstra
     // How do I want to change this?
     for ( int i=0; i<N; i++ ) {
       cout << i << endl;
-      cout << toc[0][(i)] << "\t" << toc[0][(i+1)] << endl;
-      cout << toc[1][(i)] << "\t" << toc[1][(i+1)] << endl;
-      cout << toc[2][(i)] << "\t" << toc[2][(i+1)] << "\t" << disc[i] << endl;
+//      cout << toc[0][(i)] << "\t" << toc[0][(i+1)] << endl;
+//      cout << toc[1][(i)] << "\t" << toc[1][(i+1)] << endl;
+//      cout << toc[2][(i)] << "\t" << toc[2][(i+1)] << "\t" << disc[i] << endl;
       dsamp.push_back( toc[2][(i+1)] - toc[2][i] );
       if ( toc[0][i]>=time0 && toc[0][i]<=time1 ) {
         cout << "In the window." << endl;

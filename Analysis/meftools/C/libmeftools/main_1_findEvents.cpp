@@ -32,7 +32,12 @@ int main(int argc, const char * argv[]) {
 	asf.set( "filename", argv[1] );
 	asf.set( "password", "blah" );
 	asf.set( "subject", argv[2] );
-	asf.set( "session", argv[3] );
+	asf.set( "species", "rat" );
+	asf.set( "experiment", argv[3] );
+	asf.set( "collectionName", "testCollection" );
+	asf.set( "collectionDate", "1970-01-01" );
+	asf.set( "collectionPlace", "Yale" );
+	asf.set( "source", "CSC1" );
         asf.set( "bufferCapacity", 1024 );
         asf.set( "signalType", "IIS" );
 	asf.set( "databaseName", "findPeaks" );
