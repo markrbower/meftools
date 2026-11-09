@@ -73,7 +73,7 @@ void PreparedStatementBuilder::generateQuery( string tableName, map<string,strin
 	}
 
 	// Postfix "WHERE"
-	int firstTimeFlag = 1;
+	firstTimeFlag = 1;
 	for ( auto const&[key,value] : uniqueMap ) {
 		if ( firstTimeFlag == 0 ) {
 			queryPostfix.append( "," );

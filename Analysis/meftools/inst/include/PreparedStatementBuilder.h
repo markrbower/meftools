@@ -19,7 +19,7 @@ class PreparedStatementBuilder {
         MYSQL_BIND *binding;
 	int initialized;
 	map<string,string> typeMap;
-	string queryPrefix, queryPostfix, query;
+	string queryPrefix, queryMid, queryPostfix, query;
 	int counter;
 
     public:
