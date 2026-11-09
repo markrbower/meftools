@@ -37,6 +37,69 @@ PreparedStatementBuilder::PreparedStatementBuilder(MYSQL* conn, string tableName
 	cout << "Leaving PreparedStatementBuilder constructor." << endl;
 }
 
+PreparedStatementBuilder::PreparedStatementBuilder(MYSQL* conn, string tableName, list< map<string,string> > insertThese, map<string,string> typeMap_, list< map<string,string> > uniqueThese ) {
+	cout << "Entering PreparedStatementBuilder constructor." << endl;
+	initialized = 1;
+	binding = (MYSQL_BIND*)malloc( insertThese.front().size() * sizeof(MYSQL_BIND) );
+        memset(binding, 0, sizeof(binding));
+	stmt = mysql_stmt_init(conn);
+        
+	typeMap = typeMap_;
+
+	generateQuery( tableName, insertThese.front(), uniqueThese.front() );
+	cout << "Leaving PreparedStatementBuilder constructor." << endl;
+}
+
+void PreparedStatementBuilder::generateQuery( string tableName, map<string,string> thisMap, map<string,string> uniqueMap ) {
+        queryPrefix  = "INSERT INTO " + tableName + " \(";
+	queryMid     = "SELECT ";
+        queryPostfix = "FROM dual WHERE NOT EXISTS (SELECT * FROM <table> WHERE ";
+
+	// Prefix "INSERT" and Mid "SELECT"
+	int firstTimeFlag = 1;
+	for ( auto const&[key,value] : thisMap ) {
+		if ( firstTimeFlag == 0 ) {
+			queryPrefix.append( "," );
+			queryMid.append( "," );
+		}
+		firstTimeFlag = 0;
+		queryPrefix.append( key );
+// If the name starts with "dbID", then you need to convert uuid_to_bin()
+		if ( key.starts_with("dbID") ) {
+			queryMid.append( "uuid_to_bin(?)" );
+		} else {
+			queryMid.append( "?" );
+		}
+	}
+
+	// Postfix "WHERE"
+	int firstTimeFlag = 1;
+	for ( auto const&[key,value] : uniqueMap ) {
+		if ( firstTimeFlag == 0 ) {
+			queryPostfix.append( "," );
+		}
+		firstTimeFlag = 0;
+		queryPostfix.append( key );
+		queryPostfix.append( " = " );
+		queryPostfix.append( value );
+	}
+	queryPostfix.append( " );" );
+
+	query = queryPrefix + queryMid + queryPostfix;
+	cout << query << endl;
+
+        unsigned long stmt_length = query.size();
+        int status = mysql_stmt_prepare(stmt, query.c_str(), stmt_length );
+        if (status) {
+            cout << "Failed on prepare" << endl;
+            cout << query << endl;
+            fprintf(stderr, "Error: %s (errno: %d)\n", mysql_stmt_error(stmt), mysql_stmt_errno(stmt));
+            exit(1);
+        } else {
+                cout << "Statement with uique constraints looks good." << endl;
+        }   
+}
+
 void PreparedStatementBuilder::generateQuery( string tableName, map<string,string> thisMap ) {
         queryPrefix = "INSERT INTO " + tableName + " \(";
         queryPostfix = "\) VALUES \(";

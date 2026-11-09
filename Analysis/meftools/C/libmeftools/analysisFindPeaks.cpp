@@ -152,33 +152,35 @@ void analysisFindPeaks::compute() {
 	            if ( analysisFindPeaks::circbuf->isPeak() ) {
                         cout << i << " is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf->getBuffer();
-			cout << "Got values." << endl;
+//			cout << "Got values." << endl;
 			vector<double> raw_values = rawbuf->getBuffer();
-                        cout << "Got raw values." << endl;
+//                        cout << "Got raw values." << endl;
 			string valueString;
 			for ( auto v: values ) {
-				cout << v << endl;
+//				cout << v << endl;
 				snprintf( charArray, 12, "%.3f,", v );
 				valueString.append( charArray );
 			}
 			string rawValueString;
 			for ( auto v: raw_values ) {
-				cout << v << endl;
+//				cout << v << endl;
 				snprintf( charArray, 12, "%.3f,", v );
 				rawValueString.append( charArray );
 			}
-                        cout << "resize" << endl;
+//                        cout << "resize" << endl;
 			valueString.resize( valueString.size() - 1 );
 			rawValueString.resize( rawValueString.size() - 1 );
-			cout << "valueString: " << valueString << endl;
-			cout << "rawValueString: " << rawValueString << endl;
+//			cout << "valueString: " << valueString << endl;
+//			cout << "rawValueString: " << rawValueString << endl;
 			entry.insert( {"waveform", valueString} );
 			entry.insert( {"peakValue", to_string( analysisFindPeaks::circbuf->getMid() )} );
 			entry.insert( {"time", to_string(analysisFindPeaks::circbuf->getTime())} );
 			insertThese.push_back( entry );
                         // Check whether buffers should be written to MySQL
 			if ( insertThese.size() > MySQLbufferLimit ) {
-				dba->write( "peaks", insertThese );
+				cout << "Writing." << endl;
+				dba->write( "events", insertThese );
+				cout << "Wrote." << endl;
 				peaks.clear();
 			}
                     }
@@ -189,6 +191,7 @@ void analysisFindPeaks::compute() {
 		dba->write( "peaks", insertThese );
 		peaks.clear();
 	}
+	cout << "Done." << endl;
 }
 
 void analysisFindPeaks::store( vector<long long> peakBuffer, vector<vector<int>> valuesBuffer ) {

@@ -72,6 +72,8 @@ public:
 
     bool write( string tableName, list<map<string,string>> insertThese );
 
+    bool write( string tableName, list<map<string,string>> insertThese, list<map<string,string>> uniqueValues );
+
     string readID( string queryStr );    
 
     int getInitialized() {

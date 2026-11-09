@@ -211,6 +211,38 @@ bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertT
 	return 1;
 }
 
+bool DatabaseAccessor::write( string tableName, list<map<string,string>> insertThese, list<map<string,string>> uniqueValues ) {
+	vector<void*> uniquePtr;
+	int totalValues = insertThese.front().size() + uniqueValues.front().size();
+	uniquePtr.reserve( totalValues );
+
+	if ( !builder.getInitialized() ) {
+	        cout << "DatabaseAccessor initializes the PreparedStatementBuilder." << endl;
+		map<string,string> typeMap = getColumnTypes( tableName );
+		builder = PreparedStatementBuilder( conn, tableName, insertThese, typeMap, uniqueValues );
+	}
+
+	int count=0;
+	list<map<string,string>>::iterator it = insertThese.begin();
+	list<map<string,string>>::iterator itu = uniqueValues.begin();
+        // Iterate through the list
+	cout << "Starting iteration." << endl;
+        while (it != insertThese.end()) {
+		builder.clear();
+		for ( const auto& [key,value] : *it ) {
+			void* tmp = static_cast<void*>(uniquePtr[count]);
+			builder.addEntry( key, value, tmp );
+		}
+		for ( const auto& [key,value] : *itu ) {
+			void* tmp = static_cast<void*>(uniquePtr[count]);
+			builder.addUnique( key, value, tmp );
+		}
+		persist( builder );
+		it++;
+	}
+	return 1;
+}
+
 string DatabaseAccessor::readID( string queryStr ) {
 	// A special purpose read query for UUID values.
 	string dbID;

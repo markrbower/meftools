@@ -28,6 +28,7 @@ class PreparedStatementBuilder {
 	PreparedStatementBuilder( MYSQL* conn, string tableName, map<string,string> insertThis, map<string,string> typeMap );
 
 	PreparedStatementBuilder( MYSQL* conn, string tableName, list< map<string,string> > insertThese, map<string,string> typeMap );
+	PreparedStatementBuilder( MYSQL* conn, string tableName, list< map<string,string> > insertThese, map<string,string> typeMap, list< map<string,string> > uniqueThese );
 
 	int getInitialized();
 
@@ -36,6 +37,8 @@ class PreparedStatementBuilder {
 	void clear();
 
 	void generateQuery( string tableName, map<string,string> tmp );
+
+	void generateQuery( string tableName, map<string,string> tmp, map<string,string> unique );
 
 	void addEntry( string name, string value, void* up );
 
