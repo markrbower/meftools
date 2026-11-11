@@ -99,7 +99,9 @@ void analysisFindPeaks::compute() {
 	char charArray[20];
 	map<long long, map<string,string>> peaks;
 	list<map<string,string>> insertThese;
+	list<map<string,string>> constraints;
 	map<string,string> entry;
+	map<string,string> constraint;
 	entry.insert( {"subject", csv.subject} );
 	entry.insert( {"session", csv.session} );
 	int MySQLbufferLimit = 1000;
@@ -175,11 +177,18 @@ void analysisFindPeaks::compute() {
 			entry.insert( {"waveform", valueString} );
 			entry.insert( {"peakValue", to_string( analysisFindPeaks::circbuf->getMid() )} );
 			entry.insert( {"time", to_string(analysisFindPeaks::circbuf->getTime())} );
+			// Comupte KB
+			int KB = rawbuf->computeKB();
+			entry.insert( {"KB", to_string(KB)} );
 			insertThese.push_back( entry );
+			// Set the unique constraints: dbIDsource and KB.
+			constraint.insert( {"KB", to_string(KB)} );
+			constraint.insert( {"dbIDsource", eventsIDs["dbIDsource"]} ); 
+			constraints.push_back( constraint );	
                         // Check whether buffers should be written to MySQL
 			if ( insertThese.size() > MySQLbufferLimit ) {
 				cout << "Writing." << endl;
-				dba->write( "events", insertThese );
+				dba->write( "events", insertThese, constraints );
 				cout << "Wrote." << endl;
 				peaks.clear();
 			}
@@ -188,7 +197,7 @@ void analysisFindPeaks::compute() {
 	    }
         }
 	if ( insertThese.size() > 0 ) {
-		dba->write( "peaks", insertThese );
+		dba->write( "peaks", insertThese, constraints );
 		peaks.clear();
 	}
 	cout << "Done." << endl;
