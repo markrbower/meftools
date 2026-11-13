@@ -21,6 +21,7 @@ class CircularBuffer {
         int center;
         int back;
         int capacity;
+	int midSample;
 
         CircularBuffer();
         CircularBuffer(int capacity);
@@ -39,6 +40,7 @@ class CircularBuffer {
 	virtual void reset( long long timeStart, long long timeStep );
 	virtual long long getTime();
 	virtual CircularBuffer* duplicate();
+	int computeKB();
 };
 #endif
 

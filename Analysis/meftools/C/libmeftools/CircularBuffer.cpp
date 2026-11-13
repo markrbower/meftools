@@ -19,10 +19,11 @@ CircularBuffer::CircularBuffer(int _capacity) {
         this->front = 0;
         this->mid = 0;
         this->back = 0;
+	this->midSample = -1; // The first sample will be #0.
         buffer.resize(capacity);
-    }
+}
 
-    // Function to add an element to the buffer
+// Function to add an element to the buffer
 void CircularBuffer::push_back(double val) {
         buffer[back] = val;
         if (full()) {
@@ -36,57 +37,59 @@ void CircularBuffer::push_back(double val) {
 			mid = (mid + 1) % capacity;
 		}	
 	}
-    }
+	midSample++;
+}
 
-    // Function to remove an element from the buffer
+// Function to remove an element from the buffer
 void CircularBuffer::pop_front() {
         if (empty()) {
             throw underflow_error("CircularBuffer is empty");
         }
         if ( (size() % 2)==0 ) { // Currently has even length
 		mid = (mid+1) % capacity;
+		midSample++;
 	}
         front = (front + 1) % capacity;
-    }
+}
     
 double CircularBuffer::getFront() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
         return buffer[front];
-    }
+}
     
 double CircularBuffer::getMid() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
         return buffer[mid];
-    }
+}
     
 double CircularBuffer::getBack() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
         return (back == 0) ? buffer[capacity - 1] : buffer[back - 1];
-    }
+}
 
-    // Function to check if the buffer is empty
+// Function to check if the buffer is empty
 bool CircularBuffer::empty() { return front == back; }
 
-    // Function to check if the buffer is full
+// Function to check if the buffer is full
 bool CircularBuffer::full() {
         return (back + 1) % capacity == front;
-    }
+}
 
-    // Function to get the size of the buffer
+// Function to get the size of the buffer
 int CircularBuffer::size() {
         if (back >= front) {
             return back - front;
         }
         return capacity - (front - back);
-    }
+}
 
-    // Function to print the elements of the buffer
+// Function to print the elements of the buffer
 void CircularBuffer::printBuffer() {
         int idx = front;
         while (idx != back) {
@@ -94,7 +97,7 @@ void CircularBuffer::printBuffer() {
             idx = (idx + 1) % capacity;
         }
         cout << endl;
-    }
+}
 
 vector<double> CircularBuffer::getBuffer() {
 	cout << "CircularBuffer: get()" << endl;
@@ -115,7 +118,7 @@ vector<double> CircularBuffer::getBuffer() {
         }
         cout << "buf size: " << buf.size() << endl;
 	return( buf );
-    }
+}
 
 bool CircularBuffer::isPeak() {
         if (full()) {
@@ -142,6 +145,33 @@ long long CircularBuffer::getTime() {
 CircularBuffer* CircularBuffer::duplicate() {
 	static CircularBuffer newbuf( capacity );
 	return &newbuf;	
+}
+
+int CircularBuffer::computeKB() {
+	if ( buffer.size() == 0 ) {
+		return 0;
+	}
+	// Compute the square (i.e., energy) at each point, keeping track of the max and its index.
+	int maxIdx = 0;
+	double maxValue = buffer[0];
+	for ( size_t i=1; i<buffer.size(); i++ ) {
+		double sqv = buf * buf;
+		if ( sqv > maxValue ) {
+			maxIdx = i;
+			maxValue = sqv;
+		}
+	}
+
+	// Compute the relative distance from "mid" to "max".
+	// What if the maxIdx is beyond the wrap-around; i.e., capacity=32, mid=30, max=2?
+	// Compute forward and backward, take the smaller absolute diff, then add.
+	int idxDiff = maxIdx - mid;	
+
+	// Compute the absolute index.
+	int absIdx = midSample + idxDiff;
+
+	// Return the absolute index.
+	return absIdx;
 }
 
 /*
