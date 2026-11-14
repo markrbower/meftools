@@ -40,6 +40,7 @@ class CircularBuffer {
 	virtual void reset( long long timeStart, long long timeStep );
 	virtual long long getTime();
 	virtual CircularBuffer* duplicate();
+	int circularDistance( int from, int to );
 	int computeKB();
 };
 #endif

@@ -155,23 +155,45 @@ int CircularBuffer::computeKB() {
 	int maxIdx = 0;
 	double maxValue = buffer[0];
 	for ( size_t i=1; i<buffer.size(); i++ ) {
-		double sqv = buf * buf;
+		double sqv = buffer[i] * buffer[i];
 		if ( sqv > maxValue ) {
 			maxIdx = i;
 			maxValue = sqv;
 		}
 	}
 
+	int idxDiff = circularDistance( maxIdx, mid );
+/*
 	// Compute the relative distance from "mid" to "max".
 	// What if the maxIdx is beyond the wrap-around; i.e., capacity=32, mid=30, max=2?
 	// Compute forward and backward, take the smaller absolute diff, then add.
-	int idxDiff = maxIdx - mid;	
-
+	int d1 = (maxIdx - mid) % capacity;	
+	int d2 = (mid - maxIdx) % capacity;	
+	int idxDiff;
+	if ( d1 < d2 ) {
+		idxDiff = d1;
+	} else {
+		idxDiff = -d2;
+	}
+*/
 	// Compute the absolute index.
 	int absIdx = midSample + idxDiff;
 
 	// Return the absolute index.
 	return absIdx;
+}
+
+int CircularBuffer::circularDistance( int fromIdx, int toIdx ) {
+	// Compute forward and backward, take the smaller absolute diff, then add.
+	int idxDiff;
+	int d1 = (fromIdx - toIdx) % capacity;	
+	int d2 = (toIdx - fromIdx) % capacity;	
+	if ( d1 < d2 ) {
+		idxDiff = d1;
+	} else {
+		idxDiff = -d2;
+	}
+	return idxDiff;
 }
 
 /*
