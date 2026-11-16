@@ -16,23 +16,19 @@ class CircularBuffer {
     private:
     public:
     	vector<double> buffer;
-        int front;
+        int head;
         int mid;
-        int center;
-        int back;
+        int tail;
         int capacity;
+	int count;
 	int midSample;
 
         CircularBuffer();
         CircularBuffer(int capacity);
-        virtual void push_back(double val);
-        void pop_front();
-        double getFront();
+        virtual void push_tail(double val);
+        double getHead();
         double getMid();
-        double getBack();
-        bool empty();
-        bool full(); 
-        int size();
+        double getTail();
         void printBuffer();
         vector<double> getBuffer();
         bool isPeak();

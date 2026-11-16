@@ -5,9 +5,10 @@
 
 using namespace std;
 
-CircularBuffer::CircularBuffer() {
-	capacity = 0;
-}
+//CircularBuffer::CircularBuffer() {
+//	capacity = 0;
+//	midSample = -1;
+//}
 
 CircularBuffer::CircularBuffer(int _capacity) {
         
@@ -15,8 +16,8 @@ CircularBuffer::CircularBuffer(int _capacity) {
         if (_capacity < 0) {
             throw invalid_argument("Invalid capacity");
         }
-        this->capacity = _capacity + 1;
-        this->front = 0;
+        this->capacity = _capacity;
+        this->head = 0;
         this->mid = 0;
         this->back = 0;
 	this->midSample = -1; // The first sample will be #0.
@@ -25,38 +26,26 @@ CircularBuffer::CircularBuffer(int _capacity) {
 
 // Function to add an element to the buffer
 void CircularBuffer::push_back(double val) {
-        buffer[back] = val;
+        buffer[head] = val;
         if (full()) {
-	        back  = (back + 1)  % capacity;
-	        front = (front + 1) % capacity;
+	        tail  = (tail + 1)  % capacity;
+	        head = (head + 1) % capacity;
 		mid   = (mid + 1)   % capacity;
-//            throw overflow_error("CircularBuffer is full");
+		midSample++;
         } else {
-	        back  = (back + 1);
+	        head  = (head + 1);
 		if ( size() % 2 && size() > 2 ) { // size() is odd
 			mid = (mid + 1) % capacity;
+			midSample++;
 		}	
 	}
-	midSample++;
 }
 
-// Function to remove an element from the buffer
-void CircularBuffer::pop_front() {
-        if (empty()) {
-            throw underflow_error("CircularBuffer is empty");
-        }
-        if ( (size() % 2)==0 ) { // Currently has even length
-		mid = (mid+1) % capacity;
-		midSample++;
-	}
-        front = (front + 1) % capacity;
-}
-    
-double CircularBuffer::getFront() {
+double CircularBuffer::getHead() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
-        return buffer[front];
+        return buffer[head];
 }
     
 double CircularBuffer::getMid() {
@@ -66,25 +55,25 @@ double CircularBuffer::getMid() {
         return buffer[mid];
 }
     
-double CircularBuffer::getBack() {
+double CircularBuffer::getTail() {
         if (empty()) {
             throw out_of_range("CircularBuffer is empty");
         }
-        return (back == 0) ? buffer[capacity - 1] : buffer[back - 1];
+        return buffer[tail];
 }
 
 // Function to check if the buffer is empty
-bool CircularBuffer::empty() { return front == back; }
+bool CircularBuffer::empty() { return head == tail; }
 
 // Function to check if the buffer is full
 bool CircularBuffer::full() {
-        return (back + 1) % capacity == front;
+        return (tail + 1) % capacity == head;
 }
 
 // Function to get the size of the buffer
 int CircularBuffer::size() {
-        if (back >= front) {
-            return back - front;
+        if (tail >= head) {
+            return (back+capacity) - front;
         }
         return capacity - (front - back);
 }
