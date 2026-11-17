@@ -14,8 +14,8 @@ void CircularBufferMEF::reset( long long timeStart, long long stepSize ) {
 	cout << "CircularBufferMEF.reset(): " << centerTime << "\t" << timeStep << endl;
 };
 
-void CircularBufferMEF::push_back( double value ) {
-	CircularBuffer::push_back( value );
+void CircularBufferMEF::push( double value ) {
+	CircularBuffer::push( value );
 	centerTime += timeStep;
 }
 

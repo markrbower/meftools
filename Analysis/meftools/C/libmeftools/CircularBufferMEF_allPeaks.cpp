@@ -15,6 +15,7 @@ CircularBufferMEF_allPeaks::CircularBufferMEF_allPeaks(int capacity_, long long 
         cout << "CircularBufferMEF_allPeaks constructed." << endl;
 };
 
+/*
 bool CircularBufferMEF_allPeaks::isPeak() {
 	// A peak occurs when the center value:
 	// 1. idx is the max of the buffer
@@ -33,6 +34,7 @@ bool CircularBufferMEF_allPeaks::isPeak() {
 	}
 	return result;
 }
+*/
 
 CircularBuffer* CircularBufferMEF_allPeaks::duplicate() {
         static CircularBuffer newbuf = CircularBufferMEF_allPeaks( capacity, CircularBufferMEF::centerTime, CircularBufferMEF::timeStep );
