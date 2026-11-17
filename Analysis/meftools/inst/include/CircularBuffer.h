@@ -25,10 +25,11 @@ class CircularBuffer {
 
         CircularBuffer();
         CircularBuffer(int capacity);
-        virtual void push_tail(double val);
+        virtual void push(double val);
         double getHead();
         double getMid();
         double getTail();
+	int size();
         void printBuffer();
         vector<double> getBuffer();
         bool isPeak();
