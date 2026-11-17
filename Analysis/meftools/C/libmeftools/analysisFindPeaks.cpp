@@ -148,8 +148,8 @@ void analysisFindPeaks::compute() {
                 for ( int i=0; i<uv_signal.size(); i++ ) {
                 //for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
                     //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
-                    analysisFindPeaks::circbuf->push_back( uv_signal[i] );
-		    rawbuf->push_back( data[i] );
+                    analysisFindPeaks::circbuf->push( uv_signal[i] );
+		    rawbuf->push( data[i] );
                     //cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf->isPeak() ) {
                         cout << i << " is a peak" << endl;
@@ -219,7 +219,7 @@ void analysisFindPeaks::graph() {
 }
 
 void analysisFindPeaks::push_back( long long x ) {
-    circbuf->push_back( x );
+    circbuf->push( x );
 }
 
 bool analysisFindPeaks::isPeak() {
