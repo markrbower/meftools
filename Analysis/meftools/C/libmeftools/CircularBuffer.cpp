@@ -17,10 +17,10 @@ Yale University
 
 using namespace std;
 
-//CircularBuffer::CircularBuffer() {
-//	capacity = 0;
-//	midSample = -1;
-//}
+CircularBuffer::CircularBuffer() {
+	capacity = 0;
+	midSample = -1;
+}
 
 CircularBuffer::CircularBuffer(int _capacity) {
         

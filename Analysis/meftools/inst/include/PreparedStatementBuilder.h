@@ -42,6 +42,10 @@ class PreparedStatementBuilder {
 
 	void addEntry( string name, string value, void* up );
 
+	void addUnique( string name, string value, void* up );
+
+	void bind( void* up, string key, string value );
+
 	MYSQL_STMT* generateStatement();
 
 };

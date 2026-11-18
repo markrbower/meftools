@@ -153,13 +153,30 @@ void PreparedStatementBuilder::clear() {
 	initialized = 0;
 }
 
+// Does this store its value for "entries" outside the function?
+// Must the "unique" entries do likewise?
+//
+// Looking at "analysisFindPeaks.cpp", the answer is "yes": entries and uniques will be stored outside of this.
+//
 void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {
+	cout << "addEntry " << counter << "\t" << key << "\t" << value << endl;
+	bind( up, key, value );
+        counter++;
+}
+
+void PreparedStatementBuilder::addUnique( string key, string value, void* up ) {
+	cout << "addUnique " << counter << "\t" << key << "\t" << value << endl;
+	bind( up, key, value );
+        counter++;
+}
+
+void PreparedStatementBuilder::bind( void* up, string key, string value ) {
 	unsigned long lenStr;
 	char varcharValue[2048];
 	unsigned long varcharLength;
 	// Find the data type
 	string datatype = getType( key );
-	cout << "addEntry " << counter << "\t" << key << "\t" << value << "\t" << datatype << endl;
+	cout << "bind " << counter << "\t" << key << "\t" << value << "\t" << datatype << endl;
 
 	// Call the appropriate add function
 	if ( datatype.starts_with("varchar") ) {
@@ -218,7 +235,6 @@ void PreparedStatementBuilder::addEntry( string key, string value, void* up ) {
 	} else {
 		cout << "PreparedStatementBuilder: addEntry: unknown datatype" << endl;
 	}
-        counter++;
 }
 
 MYSQL_STMT* PreparedStatementBuilder::generateStatement() {
