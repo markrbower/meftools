@@ -1,132 +1,3 @@
-  498  vi processMEFexample.cpp
-  499  ls /usr/local/mysql
-  500  ls /usr/local/mysql/include
-  501  pwd
-  502  vi createAnalysisDatabase.cpp
-  503  vi DatabaseAccessor_test.cpp
-  504  vi ../../inst/include/PreparedStatementBuilder.h 
-  505  vi createAnalysisDatabase.cpp
-  506  vi PreparedStatementBuilder.cpp
-  507  ls
-  508  vi main_analysisLookingForPeaks.cpp 
-  509  vi processMEFexample.cpp
-  510  vi analysisFindPeaks.cpp
-  511  vi processMEFexample.cpp
-  512  vi analysisFindPeaks.cpp
-  513  vi processMEFexample.cpp
-  514  vi analysisFindPeaks.cpp
-  515  vi processMEFexample.cpp
-  516  vi main_analysisLookingForPeaks.cpp 
-  517  vi processMEFexample.cpp
-  518  vi analysisFindPeaks.cpp
-  519  vi processMEFexample.cpp
-  520  vi main_1_findEvents.cpp 
-  521  vi Makefile
-  522  make main_1
-  523* 
-  524  make main_1
-  525  ls
-  526  vi CircularBuffer.cpp
-  527  vi ../../inst/include/CircularBuffer.h
-  528  cp ../../inst/include/CircularBuffer.h ../../inst/include/AlgorithmSpecificFactory.h
-  529  vi ../../inst/include/AlgorithmSpecificFactory.h
-  530  vi ../../inst/include/AlgorithmSpecificFactory.h
-  531  vi processMEFexample.cpp
-  532  vi Makefile
-  533  make AlgorithmSpecificFactory
-  534  make AlgorithmSpecificFactory
-  535  make AlgorithmSpecificFactory
-  536  make AlgorithmSpecificFactory
-  537  make AlgorithmSpecificFactory
-  538  vi MEFanalysis.cpp
-  539  make AlgorithmSpecificFactory
-  540  make AlgorithmSpecificFactory
-  541  make AlgorithmSpecificFactory
-  542  make AlgorithmSpecificFactory
-  543  make AlgorithmSpecificFactory
-  544  make AlgorithmSpecificFactory
-  545  make AlgorithmSpecificFactory
-  546  make AlgorithmSpecificFactory
-  547  make AlgorithmSpecificFactory
-  548  make AlgorithmSpecificFactory
-  549  make AlgorithmSpecificFactory
-  550  make AlgorithmSpecificFactory
-  551  make AlgorithmSpecificFactory
-  552  make AlgorithmSpecificFactory
-  553  make AlgorithmSpecificFactory
-  554  make AlgorithmSpecificFactory
-  555  make AlgorithmSpecificFactory
-  556  make AlgorithmSpecificFactory
-  557  make AlgorithmSpecificFactory
-  558  make AlgorithmSpecificFactory
-  559  make AlgorithmSpecificFactory
-  560  make AlgorithmSpecificFactory
-  561  make AlgorithmSpecificFactory
-  562  make AlgorithmSpecificFactory
-  563  make AlgorithmSpecificFactory
-  564  make AlgorithmSpecificFactory
-  565  make AlgorithmSpecificFactory
-  566  make AlgorithmSpecificFactory
-  567  vi main_1_findEvents.cpp 
-  568  vi Makefile
-  569  make main_1
-  570  make main_1
-  571  make main_1
-  572  make main_1
-  573  make main_1
-  574  make main_1
-  575  make main_1
-  576  make main_1
-  577  vi findEvents.cpp 
-  578  make main_1
-  579  vi ../../inst/include/analysisFindPeaks.h 
-  580  make main_1
-  581  vi findEvents.cpp 
-  582  vi main_1_findEvents.cpp 
-  583  make main_1
-  584  vi main_1_findEvents.cpp 
-  585  make main_1
-  586  make main_1
-  587  vi findEvents.cpp
-  588  ls findEvents.*
-  589  rm findEvents.o
-  590  mv findEvents.cpp findEvents.cpp_old
-  591  make main_1
-  592  vi Makefile
-  593  vi Makefile
-  594  make main_1
-  595  vi Makefile
-  596  make main_1
-  597  vi Makefile
-  598  make main_1
-  599  vi Makefile
-  600  vi main_1_findEvents.cpp 
-  601  vi Makefile
-  602  make main_1
-  603  vi ../../inst/include/MEFanalysis.h 
-  604  make main_1
-  605  vi ../../inst/include/MEFanalysis.h 
-  606  make main_1
-  607  vi ../../inst/include/MEFanalysis.h 
-  608  make main_1
-  609  vi ../../inst/include/AlgorithmSpecificFactory.h 
-  610  make main_1
-  611  make main_1
-  612  vi ../../inst/include/MEFanalysis.h 
-  613  vi ../../inst/include/MEFanalysis.h 
-  614  make main_1
-  615  history > tmp
-  616  vi tmp
-  617  make main_1
-  618  make main_1
-  619  make main_1
-  620  make main_1
-  621  make main_1
-  622  make main_1
-  623  make main_1
-  624  make main_1
-  625  make main_1
-  626  make main_1
   627  make main_1
   628  make main_1
   629  make main_1
@@ -498,3 +369,132 @@
   995  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
   996  make main_0
   997  history > tmp
+  998  vi tmp
+  999  pwd
+ 1000  ./main_0 findPeaks
+ 1001  make createAnalysisDatabase
+ 1002  make createAnalysisDatabase
+ 1003  make main_0
+ 1004  ./main_0 findPeaks
+ 1005  make AlgorithmSpecificFactory
+ 1006  make AlgorithmSpecificFactory
+ 1007  make AlgorithmSpecificFactory
+ 1008  make AlgorithmSpecificFactory
+ 1009  make AlgorithmSpecificFactory
+ 1010  make AlgorithmSpecificFactory
+ 1011  make AlgorithmSpecificFactory
+ 1012  make AlgorithmSpecificFactory
+ 1013  make AlgorithmSpecificFactory
+ 1014  make AlgorithmSpecificFactory
+ 1015  make AlgorithmSpecificFactory
+ 1016  make AlgorithmSpecificFactory
+ 1017  make AlgorithmSpecificFactory
+ 1018  make AlgorithmSpecificFactory
+ 1019  make AlgorithmSpecificFactory
+ 1020  make analysisFindPeaks
+ 1021  make main_1
+ 1022  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1023  make analysisFindPeaks
+ 1024  make main_1
+ 1025  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1026  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1027  make MEFconts
+ 1028  make main_1
+ 1029  make analysisFindPeaks
+ 1030  make analysisFindPeaks
+ 1031  make analysisFindPeaks
+ 1032  make analysisFindPeaks
+ 1033  make analysisFindPeaks
+ 1034  make main_1
+ 1035  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1036  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1037  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1038  ./main_0 findPeaks
+ 1039  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1040  make ana
+ 1041  make analysisFindPeaks
+ 1042  make main_1
+ 1043  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1044  make AlgorithmSpecificFactory
+ 1045  make analysisFindPeaks
+ 1046  make main_1
+ 1047  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1048  make analysisFindPeaks
+ 1049  make main_1
+ 1050  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1051  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1052  make AlgorithmSpecificFactory
+ 1053  make analysisFindPeaks
+ 1054  make main_1
+ 1055  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1056  make analysisFindPeaks
+ 1057  make main_1
+ 1058  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1059  vi Makefile
+ 1060  make analysisFindPeaks
+ 1061  make main_1
+ 1062  vi Makefile
+ 1063  make main_1
+ 1064  vi Makefile
+ 1065  make main_1
+ 1066  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1067  make analysisFindPeaks
+ 1068  make main_1
+ 1069  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1070  make analysisFindPeaks
+ 1071  make main_1
+ 1072  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1073  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1074  make analysisFindPeaks
+ 1075  make main_1
+ 1076  ./main_1 /Users/markbower/Library/CloudStorage/Dropbox/Documents/Concepts/2018_07_29_meftools/meftools/Analysis/meftools/tests/Data/CSC1.mef test_subject test_session
+ 1077  make AlgorithmSpecificFactory
+ 1078  make PreparedStatementBuilder
+ 1079  make PreparedStatementBuilder
+ 1080  make PreparedStatementBuilder
+ 1081  make analysisFindPeaks
+ 1082  make analysisFindPeaks
+ 1083  make CircularBuffer
+ 1084  make CircularBuffer
+ 1085  make CircularBuffer
+ 1086  make CircularBufferMEF
+ 1087  make CircularBufferMEF_allPeaks
+ 1088  make CircularBuffer
+ 1089  make CircularBuffer
+ 1090  make CircularBuffer
+ 1091  make CircularBuffer
+ 1092  make CircularBufferMEF
+ 1093  make CircularBufferMEF_allPeaks
+ 1094  make CircularBuffer
+ 1095  make CircularBuffer
+ 1096  make CircularBuffer
+ 1097  make CircularBuffer
+ 1098  make CircularBuffer
+ 1099  make CircularBuffer
+ 1100  make CircularBuffer
+ 1101  git add .
+ 1102  git commit -m "CircularBuffer compiles."
+ 1103  git push
+ 1104  make CircularBuffer
+ 1105  make CircularBufferMEF
+ 1106  make CircularBufferMEF
+ 1107  make CircularBufferMEF_allPeaks
+ 1108  make main_1
+ 1109  make main_1
+ 1110  make CircularBuffer
+ 1111  make CircularBufferMEF
+ 1112  make CircularBufferMEF_allPeaks
+ 1113  make main_1
+ 1114  make da
+ 1115  make da
+ 1116  make CircularBuffer
+ 1117  make CircularBufferMEF
+ 1118  make CircularBufferMEF_allPeaks
+ 1119  make PreparedStatementBuilder
+ 1120  make PreparedStatementBuilder
+ 1121  make PreparedStatementBuilder
+ 1122  make PreparedStatementBuilder
+ 1123  make analysisFindPeaks
+ 1124  make main_1
+ 1125  ./main_0 test
+ 1126  history > tmp

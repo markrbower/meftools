@@ -55,6 +55,7 @@ analysisFindPeaks::analysisFindPeaks( AlgorithmSpecificFactory asf_ ) {
 	vector<int> tmpvec = (*info).getDiscontinuities();
 	cout << "analysisFindPeaks: discontinuity size: " << tmpvec.size() << endl;
 	conts   = asf->getMEFconts();
+	cout << "analysisFindPeaks: getting the DatabaseAccessor." << endl;
 	dba     = asf->getDatabaseAccessor();
 	cout << "analysisFindPeaks: done with creating objects." << endl;
 	// Prepare the database to receive events. Store the required IDs for later use.

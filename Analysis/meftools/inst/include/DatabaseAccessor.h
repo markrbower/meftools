@@ -31,6 +31,7 @@ public:
     string dbName;
 
     DatabaseAccessor() {
+	cout << "DatabaseAccessor: Running no-arg constructor." << endl;
 	builder = PreparedStatementBuilder();
     };
 

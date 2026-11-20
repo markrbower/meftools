@@ -59,7 +59,7 @@ string AlgorithmSpecificFactory::get( string key ) {
 
 map<string,string> AlgorithmSpecificFactory::prepareForEvents( map<string,string> inputs ) {
 	static map<string,string> ids;
-	DatabaseAccessor* dbacc = getDatabaseAccessor();
+//	DatabaseAccessor* dbacc = getDatabaseAccessor();
 	map<string,string> values;
 	// subjects
 	values["name"] = inputs["subjects_name"];
@@ -155,12 +155,15 @@ MEFinfo* AlgorithmSpecificFactory::getMEFinfo() {
 
 DatabaseAccessor* AlgorithmSpecificFactory::getDatabaseAccessor() {
 	if ( dba == NULL ) {
+		cout << "ASF: creating a new dba." << endl;
 		if ( analysisName == "findPeaks" ) {
+			cout << "Attempting to connect to database: " << S["databaseName"] << endl;
 			static DatabaseAccessor tmp = DatabaseAccessor( S["databaseName"] );
 			dba = &tmp;
 			return dba;
 		}
 	} else {
+		cout << "ASF: returning existing dba." << endl;
 		return dba;
 	}
 }
