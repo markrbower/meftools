@@ -145,13 +145,14 @@ void analysisFindPeaks::compute() {
 		//auto zeroPhaseFiltered_tmp = filtfilt1.ZeroPhaseFiltering(signal);
 		//auto zeroPhaseFiltered = filtfilt2.ZeroPhaseFiltering(zeroPhaseFiltered_tmp);
 		cout << "Signal filtered." << endl;
+		cout << "signal size: " << uv_signal.size() << endl;
 
                 for ( int i=0; i<uv_signal.size(); i++ ) {
                 //for ( int i=0; i<zeroPhaseFiltered.size(); i++ ) {
-                    //cout << "i: " << i << "\t" << zeroPhaseFiltered[i] << endl;
+                    cout << "i: " << i << "\t" << uv_signal[i] << endl;
                     analysisFindPeaks::circbuf->push( uv_signal[i] );
 		    rawbuf->push( data[i] );
-                    //cout << "pushed back" << endl;
+                    cout << "pushed back" << endl;
 	            if ( analysisFindPeaks::circbuf->isPeak() ) {
                         cout << i << " is a peak" << endl;
 			vector<double> values = analysisFindPeaks::circbuf->getBuffer();
