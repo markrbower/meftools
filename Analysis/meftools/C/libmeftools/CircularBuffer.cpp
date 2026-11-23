@@ -39,13 +39,14 @@ CircularBuffer::CircularBuffer(int _capacity) {
 
 // Function to add an element to the buffer
 void CircularBuffer::push(double val) {
-        buffer[head] = val;
         if ( count == capacity ) {
+        	buffer[head] = val;
 	        head = (head + 1) % capacity;
 	        tail  = (tail + 1)  % capacity;
 		mid   = (mid + 1)   % capacity;
 		midSample++;
         } else {
+		buffer.push_back(val);
 		count++;
 	        head  = (head + 1) % capacity;
 		if ( count % 2 ) { // size() is odd

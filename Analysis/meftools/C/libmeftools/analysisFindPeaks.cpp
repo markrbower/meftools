@@ -113,8 +113,8 @@ void analysisFindPeaks::compute() {
 	kfr::zpk filt_lo = kfr::iir_lowpass(kfr::butterworth(5), 6000, 30000 );
 	kfr::zpk filt_hi = kfr::iir_highpass(kfr::butterworth(5), 600, 30000 );
 	// Convert to second-order sections
-	kfr::iir_params<float> params_lo = kfr::to_sos<float>(filt_lo);
-	kfr::iir_params<float> params_hi = kfr::to_sos<float>(filt_hi);
+	kfr::iir_params<double> params_lo = kfr::to_sos<double>(filt_lo);
+	kfr::iir_params<double> params_hi = kfr::to_sos<double>(filt_hi);
 
         // Iterate through the given section, find peaks, blackout, then store.
         cout << "AFP: starting cont loop" << endl;
@@ -130,7 +130,7 @@ void analysisFindPeaks::compute() {
 		cout << "Amount of data read: " << data.size() << endl;
 
 		// KFR filtering
-		kfr::univector<float> uv_signal = kfr::make_univector( data );
+		kfr::univector<double> uv_signal = kfr::make_univector( data );
 		kfr::filtfilt( uv_signal, params_lo );	
 		kfr::filtfilt( uv_signal, params_hi );	
 
