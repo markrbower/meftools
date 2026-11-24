@@ -52,8 +52,8 @@ PreparedStatementBuilder::PreparedStatementBuilder(MYSQL* conn, string tableName
 
 void PreparedStatementBuilder::generateQuery( string tableName, map<string,string> thisMap, map<string,string> uniqueMap ) {
         queryPrefix  = "INSERT INTO " + tableName + " \(";
-	queryMid     = "SELECT ";
-        queryPostfix = "FROM dual WHERE NOT EXISTS (SELECT * FROM <table> WHERE ";
+	queryMid     = " SELECT ";
+        queryPostfix = " FROM dual WHERE NOT EXISTS (SELECT * FROM " + tableName + " WHERE ";
 
 	// Prefix "INSERT" and Mid "SELECT"
 	int firstTimeFlag = 1;
@@ -71,17 +71,24 @@ void PreparedStatementBuilder::generateQuery( string tableName, map<string,strin
 			queryMid.append( "?" );
 		}
 	}
+	queryPrefix.append( "\)" );
 
 	// Postfix "WHERE"
 	firstTimeFlag = 1;
 	for ( auto const&[key,value] : uniqueMap ) {
 		if ( firstTimeFlag == 0 ) {
-			queryPostfix.append( "," );
+			queryPostfix.append( " AND " );
 		}
 		firstTimeFlag = 0;
 		queryPostfix.append( key );
 		queryPostfix.append( " = " );
-		queryPostfix.append( value );
+		if ( key.starts_with("dbID") ) {
+			queryPostfix.append( "'" );
+			queryPostfix.append( value );
+			queryPostfix.append( "'" );
+		} else {
+			queryPostfix.append( value );
+		}
 	}
 	queryPostfix.append( " );" );
 
